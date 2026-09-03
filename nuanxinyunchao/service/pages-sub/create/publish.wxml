@@ -8,24 +8,23 @@
     </view>
   </view>
   <view style="height: {{safeAreaTop + 44}}px;"></view>
-
   <view class="main-content">
     <view class="form-card coupon-spec">
-
       <!-- 优惠券专用布局 -->
       <block wx:if="{{isCoupon}}">
         <view class="form-section-v2">
           <!-- 头图展示 -->
-            <view style="display: flex; align-items: center;">
-              <text class="row-label required">头图展示：</text>
-              <text class="hint-text" style="font-size: 26rpx; color: #9ca3af; margin-left: 12rpx;">在优惠券列表页展示</text>
-            </view>
-            <view class="cover-uploader mt-16" bindtap="chooseCover" style="width: 200rpx; height: 200rpx; background: #f3f4f6; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
-              <image wx:if="{{formData.cover}}" src="{{formData.cover}}" class="cover-img" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;" />
-              <view wx:else class="icon-add-large" style="font-size: 60rpx; color: #9ca3af;"></view>
-            </view>
+          <view style="display: flex; align-items: center;">
+            <text class="row-label required">头图展示：</text>
+            <text class="hint-text" style="font-size: 26rpx; color: #9ca3af; margin-left: 12rpx;">
+              在优惠券列表页展示
+            </text>
+          </view>
+          <view class="cover-uploader mt-16" bindtap="chooseCover" style="width: 200rpx; height: 200rpx; background: #f3f4f6; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
+            <image wx:if="{{formData.cover}}" src="{{formData.cover}}" class="cover-img" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;" />
+            <view wx:else class="icon-add-large" style="font-size: 60rpx; color: #9ca3af;"></view>
+          </view>
           <view class="divider"></view>
-          
           <view class="required-title mt-32">适用范围：</view>
           <view class="scope-container">
             <view class="scope-card {{formData.scope === 'all' ? 'active' : ''}}" bindtap="changeScope" data-scope="all">
@@ -41,13 +40,14 @@
               <view class="scope-info">
                 <view class="scope-top">
                   <view class="scope-icon icon-bag {{formData.scope === 'specific' ? 'active' : ''}}"></view>
-                  <view class="scope-name {{formData.scope === 'specific' ? 'orange' : ''}}">指定商品</view>
+                  <view class="scope-name {{formData.scope === 'specific' ? 'orange' : ''}}">
+                    指定商品
+                  </view>
                 </view>
                 <view class="scope-desc">优惠券适用于店铺指定商品</view>
               </view>
             </view>
           </view>
-
           <view class="required-title mt-40">优惠券类型：</view>
           <view class="type-radio-group">
             <view class="radio-item" bindtap="changeType" data-type="discount">
@@ -63,7 +63,6 @@
               <text>代金券</text>
             </view>
           </view>
-
           <view class="form-block mt-32">
             <text class="row-label required">优惠券名称：</text>
             <view class="row-input-box mt-16">
@@ -74,13 +73,14 @@
           <view class="form-block mt-32">
             <view class="row-label-wrap">
               <text class="row-label required align-top" style="width: auto;">兑换所需积分：</text>
-              <view class="help-icon" bindtap="showPointsModal" data-type="merchant" style="margin-left: 8rpx; margin-top: 4rpx;">?</view>
+              <view class="help-icon" bindtap="showPointsModal" data-type="merchant" style="margin-left: 8rpx; margin-top: 4rpx;">
+                ?
+              </view>
             </view>
             <view class="row-input-box mt-16">
               <input value="{{formData.pointsValue}}" data-field="pointsValue" bindinput="onInput" type="number" placeholder="请输入兑换此券所需的积分" placeholder-class="ph-v2" />
             </view>
           </view>
-
           <!-- 适用产品名称 -->
           <view wx:if="{{formData.scope === 'specific'}}" class="form-block mt-32">
             <text class="row-label required">商品名称：</text>
@@ -88,7 +88,6 @@
               <input value="{{formData.productName}}" data-field="productName" bindinput="onInput" placeholder="请输入指定的商品名称" placeholder-class="ph-v2" maxlength="30" />
             </view>
           </view>
-
           <!-- 折扣券: 折扣力度 -->
           <view wx:if="{{formData.couponType === 'discount'}}" class="form-row mt-32">
             <text class="row-label required">折扣力度：</text>
@@ -97,7 +96,6 @@
             </view>
             <text class="unit-text ml-16">折</text>
           </view>
-
           <!-- 代金券: 代金金额 -->
           <view wx:if="{{formData.couponType === 'voucher'}}" class="form-row mt-32">
             <text class="row-label required">代金金额：</text>
@@ -106,7 +104,6 @@
             </view>
             <text class="unit-text ml-16">元</text>
           </view>
-
           <!-- 满减券: 满减门槛及金额 -->
           <view wx:if="{{formData.couponType === 'reduction'}}" class="form-row mt-32">
             <text class="row-label required align-top">满减门槛及金额：</text>
@@ -121,25 +118,27 @@
               </view>
             </view>
           </view>
-
           <view class="form-block mt-32">
             <text class="row-label required align-top">使用期限：</text>
             <view class="date-picker-group mt-16">
               <view class="icon-clock"></view>
               <view class="time-box">
                 <picker mode="date" value="{{formData.startTime}}" data-field="startTime" bindchange="onDateChange">
-                  <text class="{{formData.startTime ? 'val' : 'ph'}}">{{formData.startTime || '开始时间'}}</text>
+                  <text class="{{formData.startTime ? 'val' : 'ph'}}">
+                    {{formData.startTime || '开始时间'}}
+                  </text>
                 </picker>
               </view>
               <text class="date-sep">—</text>
               <view class="time-box">
                 <picker mode="date" value="{{formData.endTime}}" data-field="endTime" bindchange="onDateChange" start="{{formData.startTime}}">
-                  <text class="{{formData.endTime ? 'val' : 'ph'}}">{{formData.endTime || '结束时间'}}</text>
+                  <text class="{{formData.endTime ? 'val' : 'ph'}}">
+                    {{formData.endTime || '结束时间'}}
+                  </text>
                 </picker>
               </view>
             </view>
           </view>
-
           <view class="form-row mt-32">
             <text class="row-label required">自领取当日起：</text>
             <view class="row-input-box small">
@@ -147,14 +146,12 @@
             </view>
             <text class="unit-text ml-16">天内可用</text>
           </view>
-
           <view class="form-row mt-32">
             <text class="row-label required">发行总量：</text>
             <view class="row-input-box">
               <input value="{{formData.totalCount}}" data-field="totalCount" bindinput="onInput" type="number" />
             </view>
           </view>
-
           <view class="form-block mt-32">
             <text class="row-label required">使用须知：</text>
             <view class="textarea-box mt-16">
@@ -163,81 +160,85 @@
           </view>
         </view>
       </block>
-
       <block wx:elif="{{isActivity}}">
         <view class="form-section-v2">
-
           <!-- 头图展示 -->
-            <view style="display: flex; align-items: center;">
-              <text class="row-label required">头图展示：</text>
-              <text class="hint-text" style="font-size: 26rpx; color: #9ca3af; margin-left: 12rpx;">作为活动展示封面</text>
-            </view>
-            <view class="cover-uploader mt-16" bindtap="chooseCover" style="width: 200rpx; height: 200rpx; background: #f3f4f6; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
-              <image wx:if="{{formData.cover}}" src="{{formData.cover}}" class="cover-img" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;" />
-              <view wx:else class="icon-add-large" style="font-size: 60rpx; color: #9ca3af;"></view>
-            </view>
+          <view style="display: flex; align-items: center;">
+            <text class="row-label required">头图展示：</text>
+            <text class="hint-text" style="font-size: 26rpx; color: #9ca3af; margin-left: 12rpx;">
+              作为活动展示封面
+            </text>
+          </view>
+          <view class="cover-uploader mt-16" bindtap="chooseCover" style="width: 200rpx; height: 200rpx; background: #f3f4f6; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
+            <image wx:if="{{formData.cover}}" src="{{formData.cover}}" class="cover-img" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;" />
+            <view wx:else class="icon-add-large" style="font-size: 60rpx; color: #9ca3af;"></view>
+          </view>
           <view class="divider"></view>
-
           <view class="form-block mt-32">
             <text class="row-label required">活动名称：</text>
             <view class="row-input-box mt-16">
               <input value="{{formData.activityName}}" data-field="activityName" bindinput="onInput" placeholder="请填写具体活动名称" placeholder-class="ph-v2" maxlength="30" />
             </view>
           </view>
-
           <view class="form-block mt-32">
             <text class="row-label required">活动介绍：</text>
             <view class="textarea-box mt-16" style="min-height: 120rpx; padding: 20rpx; border: 2rpx solid #eeeeee; border-radius: 12rpx;">
               <textarea value="{{formData.activityIntro}}" data-field="activityIntro" bindinput="onInput" placeholder="请填写活动内容简介(100字内)" placeholder-class="ph-v2" maxlength="100" auto-height style="width: 100%; min-height: 80rpx;" />
             </view>
           </view>
-
           <view class="form-block mt-32">
             <text class="row-label required">活动周期(自动避开节假日)：</text>
             <view class="date-picker-group mt-16">
               <view class="icon-clock"></view>
               <view class="time-box">
                 <picker mode="date" value="{{formData.activityStartDate}}" data-field="activityStartDate" bindchange="onDateChange">
-                  <text class="{{formData.activityStartDate ? 'val' : 'ph'}}">{{formData.activityStartDate || '开始日期'}}</text>
+                  <text class="{{formData.activityStartDate ? 'val' : 'ph'}}">
+                    {{formData.activityStartDate || '开始日期'}}
+                  </text>
                 </picker>
               </view>
               <text class="date-sep">—</text>
               <view class="time-box">
                 <picker mode="date" value="{{formData.activityEndDate}}" data-field="activityEndDate" bindchange="onDateChange" start="{{formData.activityStartDate}}">
-                  <text class="{{formData.activityEndDate ? 'val' : 'ph'}}">{{formData.activityEndDate || '结束日期'}}</text>
+                  <text class="{{formData.activityEndDate ? 'val' : 'ph'}}">
+                    {{formData.activityEndDate || '结束日期'}}
+                  </text>
                 </picker>
               </view>
             </view>
           </view>
-
           <view class="form-row mt-32 align-center">
             <text class="row-label required" style="min-width: 80rpx;">每周</text>
             <view class="row-input-box small" style="margin: 0 16rpx; display: flex; align-items: center; justify-content: space-between;" bindtap="toggleWeeklyDrawer">
               <view style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                <text class="{{formData.activityWeekly.length > 0 ? 'val' : 'ph'}}">{{formData.activityWeekly.length > 0 ? formData.activityWeekly : '请选择'}}</text>
+                <text class="{{formData.activityWeekly.length > 0 ? 'val' : 'ph'}}">
+                  {{formData.activityWeekly.length > 0 ? formData.activityWeekly : '请选择'}}
+                </text>
               </view>
               <view class="icon-chevron-down"></view>
             </view>
           </view>
-
           <view class="form-block mt-32">
             <text class="row-label required">活动时间段：</text>
             <view class="date-picker-group mt-16">
               <view class="icon-clock"></view>
               <view class="time-box">
                 <picker mode="time" value="{{formData.activityStartTime}}" data-field="activityStartTime" bindchange="onDateChange">
-                  <text class="{{formData.activityStartTime ? 'val' : 'ph'}}">{{formData.activityStartTime || '开始时间'}}</text>
+                  <text class="{{formData.activityStartTime ? 'val' : 'ph'}}">
+                    {{formData.activityStartTime || '开始时间'}}
+                  </text>
                 </picker>
               </view>
               <text class="date-sep">—</text>
               <view class="time-box">
                 <picker mode="time" value="{{formData.activityEndTime}}" data-field="activityEndTime" bindchange="onDateChange">
-                  <text class="{{formData.activityEndTime ? 'val' : 'ph'}}">{{formData.activityEndTime || '结束时间'}}</text>
+                  <text class="{{formData.activityEndTime ? 'val' : 'ph'}}">
+                    {{formData.activityEndTime || '结束时间'}}
+                  </text>
                 </picker>
               </view>
             </view>
           </view>
-
           <view class="form-row mt-32">
             <text class="row-label required" style="min-width: 160rpx;">设置库存：</text>
             <view class="row-input-box mini mr-16">
@@ -245,11 +246,12 @@
             </view>
             <text class="unit-text">人</text>
           </view>
-
           <view class="form-block mt-32">
             <view class="row-label-wrap">
               <text class="row-label required" style="width: auto;">是否需要消耗积分：</text>
-              <view class="help-icon" bindtap="showPointsModal" data-type="activity" style="margin-left: 8rpx; margin-top: 4rpx;">?</view>
+              <view class="help-icon" bindtap="showPointsModal" data-type="activity" style="margin-left: 8rpx; margin-top: 4rpx;">
+                ?
+              </view>
             </view>
             <view class="flex-row-center mt-16" style="min-height: 88rpx;">
               <view class="radio-item mr-32" bindtap="changeNeedPoints" data-val="1">
@@ -260,7 +262,6 @@
                 <view class="radio-circle {{formData.needPoints === 0 ? 'checked' : ''}}"></view>
                 <text>否</text>
               </view>
-
               <block wx:if="{{formData.needPoints === 1}}">
                 <text class="unit-text mr-16">需要消耗</text>
                 <view class="row-input-box mini mr-16">
@@ -270,23 +271,22 @@
               </block>
             </view>
           </view>
-
           <!-- 分发范围：党群中心 -->
           <block wx:if="{{userInfo.rolesId === 6}}">
             <view class="form-row mt-32 align-center">
               <text class="row-label required" style="min-width: 160rpx;">分发中心：</text>
               <view class="row-input-box small" style="margin: 0 16rpx; display: flex; align-items: center; justify-content: space-between;" bindtap="togglePartyCenterDrawer">
                 <view style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                  <text class="{{formData.partyCenterName ? 'val' : 'ph'}}">{{formData.partyCenterName || '点击搜索并选择党群中心'}}</text>
+                  <text class="{{formData.partyCenterName ? 'val' : 'ph'}}">
+                    {{formData.partyCenterName || '点击搜索并选择党群中心'}}
+                  </text>
                 </view>
                 <view class="icon-search" style="font-size: 24rpx; color: #9CA3AF;"></view>
               </view>
             </view>
             <view class="divider"></view>
           </block>
-
           <view class="divider"></view>
-
           <view class="form-block mt-32 pb-40">
             <text class="row-label align-top">活动相册(可选)：</text>
             <view class="image-grid mt-16">
@@ -309,24 +309,23 @@
               </view>
             </view>
           </view>
-
         </view>
       </block>
       <!-- 我们需要你专用布局 -->
       <block wx:elif="{{isNeedYou}}">
         <view class="form-section-v2">
           <!-- 头图展示 -->
-            <view style="display: flex; align-items: center;">
-              <text class="row-label required">头图展示：</text>
-              <text class="hint-text" style="font-size: 26rpx; color: #9ca3af; margin-left: 12rpx;">在启事最前端展示</text>
-            </view>
-            <view class="cover-uploader mt-16" bindtap="chooseCover" style="width: 200rpx; height: 200rpx; background: #f3f4f6; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
-              <image wx:if="{{formData.cover}}" src="{{formData.cover}}" class="cover-img" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;" />
-              <view wx:else class="icon-add-large" style="font-size: 60rpx; color: #9ca3af;"></view>
-            </view>
-
+          <view style="display: flex; align-items: center;">
+            <text class="row-label required">头图展示：</text>
+            <text class="hint-text" style="font-size: 26rpx; color: #9ca3af; margin-left: 12rpx;">
+              在启事最前端展示
+            </text>
+          </view>
+          <view class="cover-uploader mt-16" bindtap="chooseCover" style="width: 200rpx; height: 200rpx; background: #f3f4f6; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
+            <image wx:if="{{formData.cover}}" src="{{formData.cover}}" class="cover-img" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;" />
+            <view wx:else class="icon-add-large" style="font-size: 60rpx; color: #9ca3af;"></view>
+          </view>
           <view class="divider"></view>
-
           <!-- 主标题 -->
           <view class="form-block info-title-gap">
             <text class="row-label required align-top">主标题：</text>
@@ -334,9 +333,7 @@
               <input value="{{formData.mainTitle}}" data-field="mainTitle" bindinput="onInput" placeholder="输入您要发布的启事标题" placeholder-class="ph-v2" />
             </view>
           </view>
-
           <view class="divider"></view>
-
           <!-- 服务类型 -->
           <view class="form-block info-title-gap">
             <text class="row-label required align-top">服务类型：</text>
@@ -347,9 +344,7 @@
               <view class="icon-chevron-down"></view>
             </view>
           </view>
-          
           <view class="divider"></view>
-
           <!-- 活动日期 -->
           <view class="form-block info-title-gap">
             <text class="row-label required align-top">活动日期：</text>
@@ -357,20 +352,22 @@
               <view class="icon-clock"></view>
               <view class="time-box">
                 <picker mode="date" value="{{formData.needYouStartDate}}" data-field="needYouStartDate" bindchange="onDateChange">
-                  <text class="{{formData.needYouStartDate ? 'val' : 'ph'}}">{{formData.needYouStartDate || '开始日期'}}</text>
+                  <text class="{{formData.needYouStartDate ? 'val' : 'ph'}}">
+                    {{formData.needYouStartDate || '开始日期'}}
+                  </text>
                 </picker>
               </view>
               <text class="date-sep">—</text>
               <view class="time-box">
                 <picker mode="date" value="{{formData.needYouEndDate}}" data-field="needYouEndDate" bindchange="onDateChange">
-                  <text class="{{formData.needYouEndDate ? 'val' : 'ph'}}">{{formData.needYouEndDate || '结束日期'}}</text>
+                  <text class="{{formData.needYouEndDate ? 'val' : 'ph'}}">
+                    {{formData.needYouEndDate || '结束日期'}}
+                  </text>
                 </picker>
               </view>
             </view>
           </view>
-          
           <view class="divider"></view>
-
           <!-- 具体时间 -->
           <view class="form-block info-title-gap">
             <text class="row-label required align-top">具体时间：</text>
@@ -378,24 +375,26 @@
               <view class="icon-clock"></view>
               <view class="time-box">
                 <picker mode="time" value="{{formData.needYouStartTime}}" data-field="needYouStartTime" bindchange="onDateChange">
-                  <text class="{{formData.needYouStartTime ? 'val' : 'ph'}}">{{formData.needYouStartTime || '开始时间'}}</text>
+                  <text class="{{formData.needYouStartTime ? 'val' : 'ph'}}">
+                    {{formData.needYouStartTime || '开始时间'}}
+                  </text>
                 </picker>
               </view>
               <text class="date-sep">—</text>
               <view class="time-box">
                 <picker mode="time" value="{{formData.needYouEndTime}}" data-field="needYouEndTime" bindchange="onDateChange">
-                  <text class="{{formData.needYouEndTime ? 'val' : 'ph'}}">{{formData.needYouEndTime || '结束时间'}}</text>
+                  <text class="{{formData.needYouEndTime ? 'val' : 'ph'}}">
+                    {{formData.needYouEndTime || '结束时间'}}
+                  </text>
                 </picker>
               </view>
             </view>
           </view>
-
           <view class="divider"></view>
-
           <!-- 活动信息 (组合) -->
           <view class="form-block info-title-gap pb-60">
             <text class="row-label required align-top pb-2">活动信息</text>
-            <view class="info-group-v2 mt-24">
+            <view class="info-group-v2 mt-2">
               <view class="info-item-v2">
                 <text class="info-label-v2">地址：</text>
                 <input class="info-input-v2" value="{{formData.needYouAddress}}" data-field="needYouAddress" bindinput="onInput" placeholder="请输入地址信息" placeholder-class="ph-v2" />
@@ -414,30 +413,29 @@
               </view>
               <view class="info-item-v2">
                 <text class="info-label-v2">奖励机制（获得积分数）：</text>
-                <input class="info-input-v2" value="{{formData.needYouAward}}" data-field="needYouAward" bindinput="onInput" placeholder="请输入奖励机制" placeholder-class="ph-v2" type="number"/>
+                <input class="info-input-v2" value="{{formData.needYouAward}}" data-field="needYouAward" bindinput="onInput" placeholder="请输入奖励机制" placeholder-class="ph-v2" type="number" />
               </view>
               <view class="info-item-v2">
                 <text class="info-label-v2">人数限制（0为不限制）：</text>
-                <input class="info-input-v2" value="{{formData.needYouInventory}}" data-field="needYouInventory" bindinput="onInput" placeholder="请输入人数限制(0为不限制)" placeholder-class="ph-v2" type="number"/>
+                <input class="info-input-v2" value="{{formData.needYouInventory}}" data-field="needYouInventory" bindinput="onInput" placeholder="请输入人数限制(0为不限制)" placeholder-class="ph-v2" type="number" />
               </view>
             </view>
-            
             <!-- 分发范围：党群中心 -->
             <block wx:if="{{userInfo.rolesId === 6}}">
               <view class="form-row py-4 align-center">
                 <text class="row-label required" style="min-width: 160rpx;">分发中心：</text>
                 <view class="row-input-box small" style="margin: 0 16rpx; display: flex; align-items: center; justify-content: space-between; background: #f9fafb;" bindtap="togglePartyCenterDrawer">
                   <view style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                    <text class="{{formData.partyCenterName ? 'val' : 'ph'}}">{{formData.partyCenterName || '点击选择分发中心'}}</text>
+                    <text class="{{formData.partyCenterName ? 'val' : 'ph'}}">
+                      {{formData.partyCenterName || '点击选择分发中心'}}
+                    </text>
                   </view>
                   <view class="icon-search" style="font-size: 24rpx; color: #9CA3AF;"></view>
                 </view>
               </view>
               <view class="divider"></view>
             </block>
-
             <view class="divider"></view>
-            
             <!-- 新增：推送到轮播按钮 -->
             <view class="flex items-center justify-between py-4">
               <view class="flex flex-col">
@@ -448,62 +446,61 @@
           </view>
         </view>
       </block>
-
       <!-- 原有布局 (用于其他类型，官方通知除外) -->
       <block wx:elif="{{!isOfficial && !isActivity && !isNeedYou}}">
         <view class="cover-uploader" bindtap="chooseCover">
           <image wx:if="{{formData.cover}}" src="{{formData.cover}}" class="cover-img" mode="aspectFill" />
           <view wx:else class="icon-add"></view>
         </view>
-
         <!-- 针对学习模块及荣耀时刻：隐藏此冗余标题 (红色区域) -->
         <view wx:if="{{!isLearning && !isGloryLink}}" class="input-group">
           <input value="{{formData.title1}}" data-field="title1" bindinput="onInput" type="text" placeholder="{{isCoupon ? '请输入优惠劵的标题' : '请输入图文的标题'}}" placeholder-class="ph-style" class="input-field" maxlength="30" />
-          <text wx:if="{{formData.title1.length > 0}}" class="char-count">{{formData.title1.length}}/30</text>
+          <text wx:if="{{formData.title1.length > 0}}" class="char-count">
+            {{formData.title1.length}}/30
+          </text>
         </view>
-
         <view wx:if="{{!isLearning && !isGloryLink}}" class="divider"></view>
-
         <!-- 针对学习模块及荣耀时刻：摘要改为不可填写 (蓝色区域) -->
         <view class="input-group">
           <textarea value="{{formData.summary}}" data-field="summary" bindinput="onInput" auto-height placeholder="分享时的摘要，点击图片改封面" placeholder-class="ph-style" class="textarea-field summary-textarea" maxlength="200" disabled="{{isLearning || isGloryLink}}" />
-          <text wx:if="{{formData.summary.length > 0}}" class="char-count">{{formData.summary.length}}/200</text>
+          <text wx:if="{{formData.summary.length > 0}}" class="char-count">
+            {{formData.summary.length}}/200
+          </text>
         </view>
       </block>
-
       <view wx:if="{{!isOfficial && !isCoupon && !isActivity && !isNeedYou}}" class="divider my-4"></view>
-
       <view wx:if="{{!isCoupon && !isActivity && !isNeedYou}}" class="input-group py-2">
         <view class="label-title required">主标题：</view>
         <input value="{{formData.mainTitle}}" data-field="mainTitle" bindinput="onInput" type="text" placeholder="{{mainTitlePlaceholder}}" placeholder-class="ph-style" class="input-field" maxlength="50" />
-        <text wx:if="{{formData.mainTitle.length > 0}}" class="char-count">{{formData.mainTitle.length}}/50</text>
+        <text wx:if="{{formData.mainTitle.length > 0}}" class="char-count">
+          {{formData.mainTitle.length}}/50
+        </text>
       </view>
-
       <view wx:if="{{!isCoupon && !isNeedYou}}" class="divider"></view>
-
       <block wx:if="{{showSubtitle}}">
         <view class="input-group py-2">
           <view class="label-title">副标题：</view>
           <input value="{{formData.subtitle}}" data-field="subtitle" bindinput="onInput" type="text" placeholder="请输入标题" placeholder-class="ph-style" class="input-field" maxlength="100" />
-          <text wx:if="{{formData.subtitle.length > 0}}" class="char-count">{{formData.subtitle.length}}/100</text>
+          <text wx:if="{{formData.subtitle.length > 0}}" class="char-count">
+            {{formData.subtitle.length}}/100
+          </text>
         </view>
         <view class="divider"></view>
       </block>
-
       <block wx:if="{{isGloryLink}}">
         <view class="input-group py-2">
           <view class="label-title required">公众号链接地址：</view>
           <input value="{{formData.link}}" data-field="link" bindinput="onInput" type="text" placeholder="输入与主题相对应的http开头的公众号链接" placeholder-class="ph-style" class="input-field no-pr" />
         </view>
       </block>
-
       <block wx:if="{{!isGloryLink}}">
         <block wx:if="{{showContent && !isCoupon}}">
           <view class="input-group py-2">
             <view class="label-title required">正文编辑：</view>
             <textarea value="{{formData.content}}" data-field="content" bindinput="onInput" placeholder="{{contentPlaceholder}}" placeholder-class="ph-style" class="textarea-field content-textarea" maxlength="-1" />
-            <text wx:if="{{formData.content.length > 0}}" class="char-count">{{formData.content.length}}/2000</text>
-
+            <text wx:if="{{formData.content.length > 0}}" class="char-count">
+              {{formData.content.length}}/2000
+            </text>
             <!-- 学习模板 & 官方通知 专用：将图片上传集成在正文编辑内 -->
             <view wx:if="{{isLearning || isOfficial}}" class="image-grid mt-24">
               <view wx:for="{{formData.images}}" wx:key="*this" class="image-box">
@@ -519,7 +516,6 @@
           </view>
           <view class="divider my-4"></view>
         </block>
-
         <view wx:if="{{showImages && !isCoupon && !isLearning && !isOfficial}}" class="image-section">
           <view class="image-header">
             <block wx:if="{{isGoodDeeds}}">
@@ -531,7 +527,6 @@
               <text class="image-hint">小于50M</text>
             </block>
           </view>
-
           <view class="image-grid">
             <view wx:for="{{formData.images}}" wx:key="*this" class="image-box">
               <block wx:if="{{utils.isVideo(item)}}">
@@ -553,21 +548,15 @@
           </view>
         </view>
       </block>
-
     </view>
   </view>
-
   <view class="bottom-bar">
     <view wx:if="{{showPreview}}" class="preview-btn" hover-class="active-opacity" bindtap="handlePreview">
       <view class="icon-view"></view>
       <text class="preview-text">预览</text>
     </view>
-
-    <view class="submit-btn" hover-class="scale-95" bindtap="handleSubmit">
-      发布
-    </view>
+    <view class="submit-btn" hover-class="scale-95" bindtap="handleSubmit">发布</view>
   </view>
-
   <!-- 积分规则弹窗 -->
   <view wx:if="{{showPointsRuleModal}}" class="modal-overlay" catchtouchmove="true">
     <view class="modal-content animate-scale-in">
@@ -584,7 +573,6 @@
       <text class="close-x">✕</text>
     </view>
   </view>
-
   <!-- 党群中心搜索选择抽屉 -->
   <view class="drawer-overlay {{showPartyCenterDrawer ? 'active' : ''}}" bindtap="togglePartyCenterDrawer" catchtouchmove="true">
     <view class="drawer-content party-drawer {{showPartyCenterDrawer ? 'active' : ''}}" catchtap="true">
@@ -592,50 +580,33 @@
         <text class="drawer-title">选择归属党群中心</text>
         <view class="drawer-close" bindtap="togglePartyCenterDrawer">✕</view>
       </view>
-      
       <!-- 搜索栏 -->
       <view class="search-bar-wrap">
         <view class="search-input-box">
           <view class="icon-search-v2"></view>
-          <input 
-            class="search-input" 
-            placeholder="输入中心名称搜索" 
-            placeholder-class="ph-v2"
-            value="{{partySearchKey}}"
-            bindinput="onPartySearchInput"
-          />
+          <input class="search-input" placeholder="输入中心名称搜索" placeholder-class="ph-v2" value="{{partySearchKey}}" bindinput="onPartySearchInput" />
           <view wx:if="{{partySearchKey}}" class="clear-btn" bindtap="clearPartySearch">✕</view>
         </view>
       </view>
-
       <scroll-view scroll-y class="drawer-scroll" style="height: 600rpx;">
         <view class="party-list">
-          <view 
-            class="party-item {{formData.partyCenterId === item.id ? 'active' : ''}}" 
-            wx:for="{{filteredPartyCenters}}" 
-            wx:key="id"
-            bindtap="selectPartyCenter"
-            data-item="{{item}}"
-          >
+          <view class="party-item {{formData.partyCenterId === item.id ? 'active' : ''}}" wx:for="{{filteredPartyCenters}}" wx:key="id" bindtap="selectPartyCenter" data-item="{{item}}">
             <view class="party-main">
               <text class="party-name">{{item.name}}</text>
               <text class="party-phone">{{item.account}}</text>
             </view>
             <view class="party-radio {{formData.partyCenterId === item.id ? 'checked' : ''}}"></view>
           </view>
-          
           <view wx:if="{{filteredPartyCenters.length === 0}}" class="empty-search">
-             <text>未找到匹配的党群中心</text>
+            <text>未找到匹配的党群中心</text>
           </view>
         </view>
       </scroll-view>
-
       <view class="drawer-footer">
         <view class="confirm-btn" bindtap="togglePartyCenterDrawer">完成</view>
       </view>
     </view>
   </view>
-
   <!-- 每周选择抽屉 -->
   <view class="drawer-overlay {{showWeeklyDrawer ? 'active' : ''}}" bindtap="toggleWeeklyDrawer" catchtouchmove="true">
     <view class="drawer-content party-drawer {{showWeeklyDrawer ? 'active' : ''}}" catchtap="true">
@@ -643,16 +614,9 @@
         <text class="drawer-title">选择每周重复日期</text>
         <view class="drawer-close" bindtap="toggleWeeklyDrawer">✕</view>
       </view>
-      
       <scroll-view scroll-y class="drawer-scroll" style="height: 600rpx;">
         <view class="party-list">
-          <view 
-            class="party-item {{utils.indexOf(formData.activityWeekly, item) > -1 ? 'active' : ''}}" 
-            wx:for="{{weekOptions}}" 
-            wx:key="*this"
-            bindtap="selectWeekly"
-            data-week="{{item}}"
-          >
+          <view class="party-item {{utils.indexOf(formData.activityWeekly, item) > -1 ? 'active' : ''}}" wx:for="{{weekOptions}}" wx:key="*this" bindtap="selectWeekly" data-week="{{item}}">
             <view class="party-main">
               <text class="party-name">{{item}}</text>
             </view>
@@ -660,13 +624,11 @@
           </view>
         </view>
       </scroll-view>
-
       <view class="drawer-footer">
         <view class="confirm-btn" bindtap="toggleWeeklyDrawer">完成</view>
       </view>
     </view>
   </view>
-
   <!-- 服务类型选择抽屉 -->
   <view class="drawer-overlay {{showTagDrawer ? 'active' : ''}}" bindtap="toggleTagDrawer" catchtouchmove="true">
     <view class="drawer-content party-drawer {{showTagDrawer ? 'active' : ''}}" catchtap="true">
@@ -674,16 +636,9 @@
         <text class="drawer-title">选择服务类型</text>
         <view class="drawer-close" bindtap="toggleTagDrawer">✕</view>
       </view>
-      
       <scroll-view scroll-y class="drawer-scroll" style="height: 600rpx;">
         <view class="party-list">
-          <view 
-            class="party-item {{formData.tag === item ? 'active' : ''}}" 
-            wx:for="{{tagOptions}}" 
-            wx:key="*this"
-            bindtap="selectTag"
-            data-tag="{{item}}"
-          >
+          <view class="party-item {{formData.tag === item ? 'active' : ''}}" wx:for="{{tagOptions}}" wx:key="*this" bindtap="selectTag" data-tag="{{item}}">
             <view class="party-main">
               <text class="party-name">{{item}}</text>
             </view>
@@ -691,13 +646,11 @@
           </view>
         </view>
       </scroll-view>
-
       <view class="drawer-footer">
         <view class="confirm-btn" bindtap="toggleTagDrawer">完成</view>
       </view>
     </view>
   </view>
-
   <wxs module="utils">
     module.exports = {
       indexOf: function(arr, item) {
