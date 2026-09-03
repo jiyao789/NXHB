@@ -9,7 +9,6 @@
     </view>
   </view>
   <view style="height: {{safeAreaTop + 44}}px"></view>
-
   <!-- Form View -->
   <view wx:if="{{!isAuditing}}" class="form-view">
     <view class="tab-switch-container">
@@ -22,25 +21,21 @@
         <view class="tab-line" wx:if="{{formData.rolesId === 7}}"></view>
       </view>
     </view>
-
     <view class="form-list">
       <view class="form-item">
         <view class="icon-store mr-24"></view>
         <input class="form-input" value="{{formData.shopName}}" data-field="shopName" bindinput="handleInput" placeholder="{{formData.rolesId === 0 ? '商户名称 (如: 美味汉堡店)' : '党群中心全称'}}" placeholder-class="placeholder-text" />
       </view>
-
       <!-- 仅商户显示：统一社会信用代码 -->
       <view class="form-item" wx:if="{{formData.rolesId === 0}}">
         <view class="icon-cert mr-24"></view>
         <input class="form-input" value="{{formData.creditCode}}" data-field="creditCode" bindinput="handleInput" maxlength="18" placeholder="统一社会信用代码 (18位)" placeholder-class="placeholder-text" />
       </view>
-
       <!-- 仅党群中心显示：验证邀请码 -->
       <view class="form-item" wx:if="{{formData.rolesId === 7}}">
         <view class="icon-security mr-24"></view>
         <input class="form-input" value="{{formData.invitationCode}}" data-field="invitationCode" bindinput="handleInput" placeholder="请输入街道分发的邀请码" placeholder-class="placeholder-text" />
       </view>
-
       <!-- 精准选点条目 -->
       <view class="form-item" bindtap="chooseLocation">
         <view class="icon-location mr-24"></view>
@@ -49,23 +44,19 @@
         </view>
         <view class="icon-arrow-right" style="font-size: 24rpx; color: #ccc;"></view>
       </view>
-
       <!-- 详细地址补充 -->
       <view class="form-item" wx:if="{{formData.locationName}}">
         <view class="icon-edit mr-24"></view>
         <input class="form-input" value="{{formData.addressDetail}}" data-field="addressDetail" bindinput="handleInput" placeholder="门牌号/楼层/具体位置 (如: 302室)" placeholder-class="placeholder-text" />
       </view>
-
       <view class="form-item">
         <view class="icon-user mr-24"></view>
         <input class="form-input" value="{{formData.contactName}}" data-field="contactName" bindinput="handleInput" placeholder="负责人姓名" placeholder-class="placeholder-text" />
       </view>
-
       <view class="form-item">
         <view class="icon-phone-fill mr-24"></view>
         <input class="form-input" type="number" value="{{formData.contactPhone}}" data-field="contactPhone" bindinput="handleInput" maxlength="12" placeholder="联系电话/座机" placeholder-class="placeholder-text" />
       </view>
-
       <view class="form-item">
         <view class="icon-location mr-24"></view>
         <picker class="flex-1" bindchange="handleStreetChange" value="{{streetIndex}}" range="{{streetList}}">
@@ -74,7 +65,6 @@
           </view>
         </picker>
       </view>
-
       <view class="form-item" bindtap="openHoursDrawer">
         <view class="icon-time-sm mr-24"></view>
         <view class="form-input {{!formData.openingHours ? 'placeholder-text' : ''}} flex-1">
@@ -82,19 +72,15 @@
         </view>
         <view class="icon-arrow-right" style="font-size: 24rpx; color: #ccc;"></view>
       </view>
-
       <view class="divider"></view>
-
       <view class="form-item">
         <view class="icon-phone mr-24"></view>
         <input class="form-input" type="number" value="{{formData.mobile}}" data-field="mobile" bindinput="handleInput" maxlength="11" placeholder="登录手机号" placeholder-class="placeholder-text" />
       </view>
-
       <view class="form-item">
         <view class="icon-security mr-24"></view>
         <input class="form-input" type="password" value="{{formData.password}}" data-field="password" bindinput="handleInput" maxlength="20" placeholder="设置密码" placeholder-class="placeholder-text" />
       </view>
-
       <view class="row-gap">
         <view class="form-item flex-1">
           <view class="icon-security mr-24"></view>
@@ -105,15 +91,11 @@
         </view>
       </view>
     </view>
-
     <view class="submit-section">
-      
-
       <button class="submit-btn {{isSubmitting ? 'loading' : ''}}" disabled="{{isSubmitting}}" bindtap="handleSubmit">
         <view wx:if="{{isSubmitting}}" class="loading-icon"></view>
         {{isSubmitting ? '提交中...' : '提交审核'}}
       </button>
-
       <view class="login-link" bindtap="handleBack">
         <text class="link-label">已有账号？</text>
         <text class="link-action">去登录</text>
@@ -131,7 +113,6 @@
       </view>
     </view>
   </view>
-
   <!-- Auditing View -->
   <view wx:else class="audit-view animate-fade-in">
     <view class="audit-status-container">
@@ -141,25 +122,23 @@
         <view class="icon-time"></view>
       </view>
     </view>
-
     <text class="status-title">资料审核中</text>
     <text class="status-tip">正在等待所属街道审核通过，审核完成后即可登录。请确保手机通讯畅通。</text>
-
     <view class="progress-container">
       <view class="progress-bar animate-progress"></view>
     </view>
   </view>
-
   <!-- 须知弹窗 (进入页面显示) -->
   <view wx:if="{{showNoticeModal}}" class="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-black-60" catchtouchmove="true">
     <view class="relative w-600 overflow-hidden rounded-24 animate-scale-in">
       <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/login-modal-long-bg.png" class="absolute inset-0 h-full w-full -z-10" mode="scaleToFill"></image>
-      <view class="relative z-10 flex h-full flex-col items-center justify-center px-8 pt-8 text-center pb-10">
-        <text class="mt-2 mb-4 text-xl font-bold text-gray-900">须知</text>
+      <view style="padding-top: 20px;" class="relative z-10 flex h-full flex-col items-center justify-center px-8 text-center pb-10 pt-10">
+        <text class="mt-2 text-xl font-bold text-gray-900">须知</text>
         <scroll-view scroll-y class="notice-scroll mb-8">
-          <text class="text-mini leading-relaxed text-brown-5a text-left">暖新云巢服务端，主要面向提供服务的各类社会力量(两员两司一主播，即外卖员、快递员、货车司机、网约车司机和主播)。通过入驻申请审核后，即可加入暖新友好计划。为了能够更好的服务于这些社会力量，您将有义务作为暖新友好商户为其提供定向服务。商户需不定期发布仅面向新就业群体的优惠券，并为到来的新就业群体扫码核销，从而获取更多社会力量数据。后续将会开设友好商户评选，热度排名靠前的商户，有机会获得由街区支部书记领导的探店活动并得到长宁区官方宣传等权益。</text>
+          <text class="text-mini leading-relaxed text-brown-5a text-left">
+            暖新云巢服务端，主要面向提供服务的各类社会力量(两员两司一主播，即外卖员、快递员、货车司机、网约车司机和主播)。通过入驻申请审核后，即可加入暖新友好计划。为了能够更好的服务于这些社会力量，您将有义务作为暖新友好商户为其提供定向服务。商户需不定期发布仅面向新就业群体的优惠券，并为到来的新就业群体扫码核销，从而获取更多社会力量数据。后续将会开设友好商户评选，热度排名靠前的商户，有机会获得由街区支部书记领导的探店活动并得到长宁区官方宣传等权益。
+          </text>
         </scroll-view>
-        
         <view class="reapply-btn" bindtap="confirmNotice">我已知晓，自愿加入</view>
       </view>
     </view>
@@ -169,15 +148,15 @@
       </view>
     </view>
   </view>
-
   <!-- 审核失败弹窗 -->
   <view wx:if="{{showCustomModal}}" class="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-black-60" catchtouchmove="true">
     <view class="relative w-600 min-h-450 overflow-hidden rounded-24 animate-scale-in">
       <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/login-modal-bg.png" class="absolute inset-0 h-full w-full -z-10" mode="scaleToFill"></image>
       <view class="relative z-10 flex h-full flex-col items-center justify-center px-8 pt-3 text-center pb-10">
         <text class="mb-4 text-xl font-bold text-gray-900">提示</text>
-        <text class="mb-4 text-base font-medium leading-relaxed text-brown-5a">您的店铺信息审核失败，请核实您的{{modalMessage}}并再次提交申请</text>
-        
+        <text class="mb-4 text-base font-medium leading-relaxed text-brown-5a">
+          您的店铺信息审核失败，请核实您的{{modalMessage}}并再次提交申请
+        </text>
         <!-- 重新申请按钮 -->
         <view class="reapply-btn" bindtap="reapply">重新申请</view>
       </view>
@@ -188,9 +167,7 @@
       </view>
     </view>
   </view>
-
   <login-modal id="global-login-modal" />
-
   <!-- 营业时间自定义抽屉 -->
   <view class="drawer-mask" wx:if="{{showHoursDrawer}}" bindtap="closeHoursDrawer" catchtouchmove="true"></view>
   <view class="drawer-content {{showHoursDrawer ? 'show' : ''}}" catchtouchmove="true">
@@ -202,17 +179,10 @@
     <view class="drawer-body">
       <view class="section-title">选择营业日期 (多选)</view>
       <view class="week-list">
-        <view 
-          wx:for="{{weekOptions}}" 
-          wx:key="value" 
-          class="week-item {{item.selected ? 'active' : ''}}" 
-          bindtap="toggleWeek" 
-          data-index="{{index}}"
-        >
+        <view wx:for="{{weekOptions}}" wx:key="value" class="week-item {{item.selected ? 'active' : ''}}" bindtap="toggleWeek" data-index="{{index}}">
           <text class="week-label">{{item.label}}</text>
         </view>
       </view>
-
       <view class="section-title">选择起止时间</view>
       <view class="time-picker-row">
         <picker mode="time" value="{{tempStartTime}}" bindchange="onStartTimeChange" class="time-picker">
