@@ -1,0 +1,69 @@
+<view class="min-h-screen flex flex-col bg-efecec">
+  
+  <view class="fixed left-0 right-0 top-0 z-50 bg-efecec" style="padding-top: {{safeAreaTop}}px;">
+    <view class="relative h-11 flex items-center justify-center px-4">
+      <view class="absolute left-2 h-8 w-8 flex items-center justify-center rounded-full" hover-class="bg-black-5" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900"></view>
+      </view>
+      <text class="text-lg text-gray-900 font-bold">个人资料</text>
+    </view>
+  </view>
+
+  <view style="height: {{safeAreaTop + 44}}px;"></view>
+
+  <view class="px-4 pt-3">
+    <view class="overflow-hidden rounded-xl bg-white shadow-sm">
+      <view class="flex items-center justify-between px-4 py-4" hover-class="bg-gray-50" bindtap="editAvatar">
+        <text class="text-gray-800 font-bold">头像</text>
+        <view class="flex items-center gap-2">
+          <image src="{{userInfo.avatar}}" class="h-12 w-12 rounded-full bg-gray-100 border border-gray-100" mode="aspectFill"></image>
+          <view wx:if="{{isEditing}}" class="i-carbon-chevron-right text-gray-300"></view>
+        </view>
+      </view>
+      
+      <view class="mx-4 h-1px bg-gray-100"></view>
+
+      <view wx:for="{{profileList}}" wx:key="id" class="relative flex items-start justify-between px-4 py-4">
+        <text class="text-gray-800 font-bold shrink-0 mr-4 mt-1 whitespace-nowrap">{{ item.label }}</text>
+        
+        <block wx:if="{{isEditing}}">
+          <text wx:if="{{item.disabled}}" class="text-sm text-gray-400 mt-1 flex-1 text-right" style="word-break: break-all;">{{ item.value }}</text>
+          
+          <picker wx:elif="{{item.label === '生日'}}" mode="date" value="{{item.value}}" bindchange="onDateChange" data-index="{{index}}" class="flex-1 mt-1">
+            <view class="flex items-center justify-end gap-1">
+              <text class="text-sm text-orange-main">{{ item.value || '请选择' }}</text>
+              <view class="i-carbon-chevron-right text-orange-main text-xs"></view>
+            </view>
+          </picker>
+          
+          <textarea wx:elif="{{item.label === '个性介绍'}}" value="{{item.value}}" class="text-sm text-left text-orange-main flex-1 mt-1" style="min-height: 40rpx; max-height: 200rpx; word-break: break-all;" 
+            placeholder="请输入" 
+            bindinput="onInput" 
+            data-index="{{index}}" 
+            auto-height />
+            
+          <input wx:else value="{{item.value}}" class="text-sm text-right text-orange-main flex-1 mt-1" 
+            placeholder="请输入" 
+            bindinput="onInput" 
+            data-index="{{index}}" 
+            maxlength="{{item.label === '手机号' ? 11 : -1}}"
+            type="{{item.label === '手机号' ? 'number' : 'text'}}" />
+        </block>
+      
+        <text wx:else class="text-sm text-gray-500 flex-1 {{item.label === '个性介绍' ? 'text-left' : 'text-right'}} mt-1" style="word-break: break-all;">{{ item.value }}</text>
+        
+        <view wx:if="{{index < profileList.length - 1}}" class="absolute bottom-0 left-4 right-4 h-1px bg-gray-100"></view>
+      </view>
+    </view>
+
+    <view class="mt-8 px-4">
+      <view wx:if="{{!isEditing}}" class="w-full h-12 flex items-center justify-center rounded-full bg-white text-orange-main font-bold shadow-sm" hover-class="opacity-80" bindtap="toggleEdit">
+        编辑资料
+      </view>
+      <view wx:else class="w-full h-12 flex items-center justify-center rounded-full bg-orange-main text-white font-bold shadow-md" hover-class="opacity-80" bindtap="saveProfile">
+        保存修改
+      </view>
+    </view>
+  </view>
+
+</view>

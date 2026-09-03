@@ -1,0 +1,449 @@
+page {
+  height: 100vh;
+}
+
+::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+  height: 0 !important;
+  color: transparent;
+}
+
+.page-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.bg-absolute {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* ================= 导航栏 ================= */
+.nav-wrapper {
+  position: relative;
+  z-index: 50;
+  flex-shrink: 0;
+}
+
+.nav-content {
+  position: relative;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+}
+
+.back-btn {
+  position: absolute;
+  left: 8px;
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.btn-hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.icon-back {
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid #111827;
+  border-left: 2px solid #111827;
+  transform: rotate(-45deg);
+  margin-left: 4px;
+}
+
+.nav-title {
+  font-size: 18px;
+  color: #5b473f;
+  font-weight: bold;
+}
+
+.status-cards-container {
+  position: relative;
+  z-index: 50;
+  margin: 16px 40rpx 0; /* 恢复适中的外边距，让卡片分布更均匀 */
+  display: flex;
+  justify-content: space-around;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.status-card-box {
+  position: relative;
+  height: 80px;
+  width: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.card-icon {
+  position: relative;
+  z-index: 10;
+  margin-bottom: 4px;
+  height: 32px;
+  width: 32px;
+}
+
+.card-count-group {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-weight: bold;
+}
+
+.count-num {
+  font-size: 18px;
+}
+
+.count-unit {
+  font-size: 10px;
+}
+
+.status-title {
+  margin-top: 8px;
+  color: #5b473f;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* ================= 主要内容区域 ================= */
+.main-content {
+  position: relative;
+  z-index: 20;
+  margin-top: 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 16px 16px 0;
+}
+
+.content-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  filter: drop-shadow(0 -4px 6px rgba(0,0,0,0.08));
+}
+
+.content-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 16px;
+  padding-top: 8px;
+}
+
+.overview-title {
+  font-size: 18px;
+  color: #5b473f;
+  font-weight: bold;
+}
+
+.manage-btn {
+  position: absolute;
+  right: 16rpx;
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 26rpx;
+  color: #8b7165;
+  background: rgba(139, 113, 101, 0.1);
+  padding: 8rpx 20rpx;
+  border-radius: 99rpx;
+  transition: all 0.2s;
+}
+
+.item-manage-icon {
+  font-size: 28rpx;
+}
+
+/* 滚动列表 */
+.list-scroll {
+  flex: 1;
+  height: 0; /* Flex 布局下的滚动条黑科技，配合 flex:1 使用 */
+}
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 4px;
+  padding-bottom: 40px; /* 默认底部间距 */
+  transition: all 0.3s;
+}
+
+.list-container.manage-mode {
+  padding-bottom: 180rpx; /* 在管理模式下增加底部间距，避开操作栏 */
+}
+
+.list-item-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.select-box {
+  width: 80rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slideInLeft 0.3s forwards;
+}
+
+@keyframes slideInLeft {
+  from { width: 0; opacity: 0; }
+  to { width: 80rpx; opacity: 1; }
+}
+
+.select-circle {
+  width: 40rpx;
+  height: 40rpx;
+  border: 4rpx solid #ddd;
+  border-radius: 50%;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.select-circle.selected {
+  border-color: #ff9500;
+  background-color: #ff9500;
+}
+
+.select-circle.selected::after {
+  content: '';
+  position: absolute;
+  width: 20rpx;
+  height: 10rpx;
+  border-left: 4rpx solid white;
+  border-bottom: 4rpx solid white;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.list-item {
+  flex: 1; /* 占据剩余全部宽度，防止长度崩坏 */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 12px;
+  background-color: white;
+  padding: 16px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.item-icon {
+  position: absolute;
+  left: 0;
+  top: -4px;
+  height: 36px;
+  width: 36px;
+}
+
+.item-text-group {
+  margin-left: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-title {
+  font-size: 16px;
+  color: #1f2937;
+  font-weight: bold;
+}
+
+.item-subtitle {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.status-capsule {
+  border-radius: 99px;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: white;
+  font-weight: 500;
+  margin-left: 12px;
+  flex-shrink: 0;
+}
+
+/* ================= 底部管理栏 ================= */
+.manage-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120rpx;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40rpx calc(env(safe-area-inset-bottom) / 2);
+  box-shadow: 0 -4rpx 16rpx rgba(0,0,0,0.05);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+  transform: translateY(100%); /* 默认完全移出视野 */
+}
+
+.manage-footer.show {
+  transform: translateY(0); /* 只有在 show 时才移回视圈 */
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.delete-btn {
+  background: #ff3b30;
+  color: white;
+  padding: 16rpx 40rpx;
+  border-radius: 99rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.delete-btn.disabled {
+  background: #ff3b3044;
+}
+
+/* ================= 使用须知弹窗 ================= */
+.usage-btn-text {
+  font-size: 14px;
+  color: #ff9500;
+  text-decoration: underline;
+  padding: 4px 0;
+  display: inline-block;
+}
+
+.custom-modal-mask {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.custom-modal-mask.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.custom-modal-box {
+  width: 80%;
+  max-width: 600rpx;
+  background-color: white;
+  border-radius: 24rpx;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.custom-modal-mask.show .custom-modal-box {
+  transform: scale(1);
+}
+
+.custom-modal-header {
+  padding: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-bottom: 2rpx solid #f3f4f6;
+}
+
+.custom-modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.modal-close-icon {
+  position: absolute;
+  right: 32rpx;
+  width: 24rpx;
+  height: 24rpx;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%239ca3af' d='M24 9.4L22.6 8L16 14.6L9.4 8L8 9.4l6.6 6.6L8 22.6L9.4 24l6.6-6.6l6.6 6.6l1.4-1.4l-6.6-6.6z'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+}
+
+.custom-modal-content {
+  padding: 40rpx 32rpx;
+  max-height: 60vh;
+}
+
+.custom-modal-text {
+  font-size: 28rpx;
+  color: #4b5563;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.custom-modal-footer {
+  padding: 24rpx 32rpx 32rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.custom-modal-btn {
+  width: 100%;
+  background-color: #ff9500;
+  color: white;
+  height: 80rpx;
+  border-radius: 99rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  font-weight: bold;
+  box-shadow: 0 4rpx 12rpx rgba(255, 149, 0, 0.3);
+}

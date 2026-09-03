@@ -1,0 +1,138 @@
+<view class="min-h-screen flex flex-col bg-F5F5F5 pb-safe">
+    <view class="fixed left-0 right-0 top-0 z-50 bg-F5F5F5 shadow-sm">
+        <view style="height: {{safeAreaInsetsTop}}px;" />
+        <view class="relative flex h-11 items-center px-4">
+            <view class="absolute left-2 h-8 w-8 flex items-center justify-center rounded-full active-bg-black-5" bindtap="handleBack">
+                <view class="i-carbon-chevron-left text-2xl text-gray-900" />
+            </view>
+            <view class="absolute left-1-2 translate-x-minus-1-2 text-lg font-bold text-gray-900">
+                我的收藏
+            </view>
+        </view>
+        <view class="flex justify-around pb-2 pt-1">
+            <view wx:for="{{tabOptions}}" wx:key="index" class="relative px-4 py-2 transition-all {{currentTab === index ? 'text-333 font-bold text-16px' : 'text-gray-500 text-15px'}}" bindtap="switchTab" data-index="{{index}}">
+                {{ item }}
+                <view wx:if="{{currentTab === index}}" class="absolute bottom-1 left-1-2 h-3px w-4 rounded-full bg-FF6B00 translate-x-minus-1-2" />
+            </view>
+        </view>
+    </view>
+    <view style="height: {{safeAreaInsetsTop + 44 + 44}}px;" />
+    <view class="flex-1 p-3 box-border max-w-100vw overflow-x-hidden">
+        <view wx:if="{{currentTab === 2}}" class="waterfall-container">
+            <view class="waterfall-col">
+                <view wx:for="{{leftColumnList}}" wx:key="id" class="feed-card" bindtap="handleDetail" data-item="{{item}}">
+                    <view class="feed-cover-box">
+                        <image src="{{item.image}}" mode="widthFix" class="feed-cover" />
+                    </view>
+                    <view class="feed-title-box">
+                        <text class="feed-title line-clamp-2">{{ item.title }}</text>
+                    </view>
+                    <view class="feed-footer">
+                        <image src="{{item.avatar}}" class="feed-avatar" mode="aspectFill" />
+                        <view class="feed-info">
+                            <view class="feed-author-row">
+                                <text class="feed-author truncate">{{ item.author }}</text>
+                            </view>
+                            <text class="feed-date">{{ item.date }}</text>
+                        </view>
+                        <view class="feed-likes">
+                            <view class="i-carbon-thumbs-up-filled like-icon"></view>
+                            <text class="like-count">{{ item.likes }}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="waterfall-col">
+                <view wx:for="{{rightColumnList}}" wx:key="id" class="feed-card" bindtap="handleDetail" data-item="{{item}}">
+                    <view class="feed-cover-box">
+                        <image src="{{item.image}}" mode="widthFix" class="feed-cover" />
+                    </view>
+                    <view class="feed-title-box">
+                        <text class="feed-title line-clamp-2">{{ item.title }}</text>
+                    </view>
+                    <view class="feed-footer">
+                        <image src="{{item.avatar}}" class="feed-avatar" mode="aspectFill" />
+                        <view class="feed-info">
+                            <view class="feed-author-row">
+                                <text class="feed-author truncate">{{ item.author }}</text>
+                            </view>
+                            <text class="feed-date">{{ item.date }}</text>
+                        </view>
+                        <view class="feed-likes">
+                            <view class="i-carbon-thumbs-up-filled like-icon"></view>
+                            <text class="like-count">{{ item.likes }}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view wx:else>
+            <view wx:for="{{displayList}}" wx:key="index" class="mb-4">
+                <view class="relative w-full" bindtap="handleShopClick2" data-item="{{item}}">
+                    <view wx:if="{{currentTab === 0}}" class="flex rounded-xl bg-white p-3 shadow-sm active-bg-gray-50">
+                        <image src="{{item.image}}" class="h-20 w-20 flex-shrink-0 rounded-lg bg-gray-200" mode="aspectFill" />
+                        <view class="ml-3 flex flex-1 flex-col min-w-0">
+                            <view class="block truncate text-16px text-333 font-bold">
+                                {{ item.title }}
+                            </view>
+                            <view class="mt-1-5 flex items-center gap-1">
+                                <view wx:for="{{item.tags}}" wx:for-item="tag" wx:key="text" class="rounded bg-ff7613 px-1 py-0-5 text-10px text-white">
+                                    {{ tag.text }}
+                                </view>
+                            </view>
+                            <view wx:if="{{item.category || item.area}}" class="flex justify-between items-center mt-1">
+                                <view class="text-xs text-gray-500">
+                                    {{ item.category }} {{ item.area }}
+                                </view>
+                                <text class="text-xs text-gray-400">{{ item.distance }}</text>
+                            </view>
+                            <view wx:else class="flex justify-end items-center mt-1">
+                                <view class="text-xs text-gray-400">{{ item.distance }}</view>
+                            </view>
+                            <view class="mt-1 flex items-center text-orange-500">
+                                <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/icon_hot.png" class="w-2-5 mr-1" mode="widthFix"></image>
+                                <view class="text-xs">近30天{{ item.star }}人打卡</view>
+                            </view>
+                        </view>
+                    </view>
+                    <view wx:if="{{currentTab === 1}}" class="coupon-card" catchtap="handleUse" data-item="{{item}}">
+                        <view class="relative overflow-hidden" style="height: 210rpx; background-image: url('https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/coupon/detail_card1.png'); background-size: 100% 100%; background-repeat: no-repeat;">
+                            <view class="flex items-stretch h-full">
+                                <view class="flex-shrink-0 flex items-center justify-center" style="width: 200rpx;">
+                                    <image src="{{item.image}}" class="w-20 h-20 rounded-lg bg-gray-200" mode="aspectFill" />
+                                </view>
+                                <view class="flex-1 flex flex-col justify-between p-3 pr-4">
+                                    <view>
+                                        <view class="text-gray-900 font-bold leading-tight line-clamp-2" style="font-size: 30rpx;">
+                                            {{ item.shopName }}
+                                        </view>
+                                        <view class="mt-1 flex items-center gap-1">
+                                            <view class="bg-f1f2f2 text-gray-400 px-2 py-1 rounded text-12px">
+                                                {{ item.couponType }}
+                                            </view>
+                                            <view class="bg-f1f2f2 text-gray-400 px-2 py-1 rounded text-12px">
+                                                {{ item.scope || '全场通用' }}
+                                            </view>
+                                        </view>
+                                    </view>
+                                    <view class="flex items-end justify-between">
+                                        <view class="text-gray-400 text-12px">
+                                            {{ item.merchantName }}
+                                        </view>
+                                        <view class="flex items-center justify-center bg-FF6B00 text-white text-10px rounded-full px-4 py-2">
+                                            {{ item.pointsRequired }}积分兑换
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{(currentTab === 2 ? flatContentList.length : displayList.length) === 0}}" class="flex flex-col items-center justify-center pt-20 text-gray-400">
+            <view class="i-carbon-folder-open mb-2 text-6xl text-gray-300" />
+            <text class="text-sm">暂无收藏内容</text>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,47 @@
+<view class="min-h-screen flex flex-col bg-efecec">
+  <view class="fixed left-0 right-0 top-0 z-50 bg-efecec" style="padding-top: {{safeAreaInsetsTop}}px;">
+  <view class="relative h-11 flex items-center justify-center px-4">
+    
+    <view 
+      class="absolute left-2 flex h-8 w-8 items-center justify-center rounded-full active-bg-black-5" 
+      bindtap="handleBack"
+      style="top: 50%; transform: translateY(-50%);"
+    >
+      <view class="i-carbon-chevron-left text-2xl text-gray-900" />
+    </view>
+    
+    <text class="text-lg text-gray-900 font-bold">关于</text>
+  </view>
+</view>
+  <view style="height: {{safeAreaInsetsTop + 44}}px;" />
+
+  <view class="flex flex-col items-center pt-10">
+    <view class="mb-10 flex flex-col items-center">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/about_logo.png" class="mb-3 h-30 w-30 rounded-xl" mode="aspectFit" />
+    </view>
+
+    <view class="w-full">
+      <view class="w-95-pct overflow-hidden rounded-2xl bg-white mx-auto">
+        
+        <view class="flex items-center justify-between p-4 active-bg-gray-50" bindtap="handleNav" data-type="service">
+          <text class="text-gray-600">用户服务协议</text>
+          <view class="i-carbon-chevron-right text-gray-300" />
+        </view>
+        
+        <view class="mx-4 h-1px bg-gray-200" />
+        
+        <view class="flex items-center justify-between p-4 active-bg-gray-50" bindtap="handleNav" data-type="privacy">
+          <text class="text-gray-600">隐私协议</text>
+          <view class="i-carbon-chevron-right text-gray-300" />
+        </view>
+        
+        <view class="mx-4 h-1px bg-gray-200" />
+        
+        <view class="flex items-center justify-between p-4">
+          <text class="text-gray-600">版本号</text>
+          <text class="text-sm text-gray-400">v{{ version }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

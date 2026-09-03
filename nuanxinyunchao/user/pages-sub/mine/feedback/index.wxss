@@ -1,0 +1,59 @@
+@import "../../../styles/utilities.wxss";
+@import "../../../styles/icons.wxss";
+
+view, text, image, scroll-view, input, button { box-sizing: border-box !important; }
+button { padding: 0; margin: 0; line-height: inherit; }
+button::after { border: none; }
+
+.min-h-screen { min-height: 100vh; }
+.bg-F5F5F5 { background-color: #F5F5F5; }
+.bg-white { background-color: #ffffff; }
+.bg-FFF0E5 { background-color: #FFF0E5; }
+.bg-gray-200 { background-color: #e5e7eb; }
+
+.text-333 { color: #333333; }
+.text-555 { color: #555555; }
+.text-999 { color: #999999; }
+.text-FF8F44 { color: #FF8F44; }
+.text-7AC786 { color: #7AC786; }
+.text-FF6B6B { color: #FF6B6B; }
+.border-7AC786 { border-color: #7AC786; }
+.border-FF6B6B { border-color: #FF6B6B; }
+
+.text-17px { font-size: 34rpx; }
+.text-16px { font-size: 32rpx; }
+.text-3xl { font-size: 60rpx; }
+.text-2xl { font-size: 48rpx; }
+.text-sm { font-size: 28rpx; }
+.text-xs { font-size: 24rpx; }
+
+.h-11 { height: 88rpx; }
+.h-8 { height: 64rpx; }
+.w-8 { width: 64rpx; }
+.h-1px { height: 2rpx; }
+.left-2 { left: 16rpx; }
+
+.px-4 { padding-left: 32rpx; padding-right: 32rpx; }
+.px-3 { padding-left: 24rpx; padding-right: 24rpx; }
+.py-2px { padding-top: 4rpx; padding-bottom: 4rpx; }
+.py-1-5 { padding-top: 12rpx; padding-bottom: 12rpx; }
+.pt-20 { padding-top: 160rpx; }
+.pt-2 { padding-top: 16rpx; }
+.p-4 { padding: 32rpx; }
+.mb-3 { margin-bottom: 24rpx; }
+.mb-4 { margin-bottom: 32rpx; }
+.mb-1 { margin-bottom: 8rpx; }
+.mx-2 { margin-left: 16rpx; margin-right: 16rpx; }
+.mx-0-5 { margin-left: 4rpx; margin-right: 4rpx; }
+.gap-3 { gap: 24rpx; }
+.gap-1 { gap: 8rpx; }
+
+.shadow-custom { box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.02); }
+.active-bg-black-5:active { background-color: rgba(0, 0, 0, 0.05); }
+.active-opacity-80:active { opacity: 0.8; }
+.border-none { border: none; }
+.border { border-width: 2rpx; border-style: solid; }
+
+.i-carbon-chevron-left { display: inline-block; width: 1em; height: 1em; background-color: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M10%2016L20%206l1.4%201.4L12.8%2016l8.6%208.6L20%2026z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M10%2016L20%206l1.4%201.4L12.8%2016l8.6%208.6L20%2026z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+.i-carbon-circle-dash { display: inline-block; width: 1em; height: 1em; background-color: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M12%204.328A11.8%2011.8%200%200%201%2016%203.8a11.95%2011.95%200%200%201%204%20.686V2.365a13.9%2013.9%200%200%200-8-.544zM27.672%2012a11.8%2011.8%200%200%201%20.528%204a11.95%2011.95%200%200%201-.686%204h1.963a13.9%2013.9%200%200%200%20.544-8zM20%2027.672A11.8%2011.8%200%200%201%2016%2028.2a11.95%2011.95%200%200%201-4-.686v1.963a13.9%2013.9%200%200%200%208%20.544zM4.328%2020A11.8%2011.8%200%200%201%203.8%2016a11.95%2011.95%200%200%201%20.686-4H2.523a13.9%2013.9%200%200%200-.544%208zM25.045%206.954l-1.414%201.415a12.03%2012.03%200%200%201%201.415%201.414l1.414-1.414A14.04%2014.04%200%200%200%2025.045%206.955M6.955%2025.045l1.414-1.414a12.03%2012.03%200%200%201-1.414-1.414l-1.414%201.414a14.04%2014.04%200%200%200%201.414%201.414m18.09-15.26a12.03%2012.03%200%200%201%201.414%201.414l1.414-1.414a14.04%2014.04%200%200%200-1.414-1.414zM9.785%2022.215a12.03%2012.03%200%200%201-1.414%201.414l-1.414-1.414a14.04%2014.04%200%200%200%201.414%201.414%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M12%204.328A11.8%2011.8%200%200%201%2016%203.8a11.95%2011.95%200%200%201%204%20.686V2.365a13.9%2013.9%200%200%200-8-.544zM27.672%2012a11.8%2011.8%200%200%201%20.528%204a11.95%2011.95%200%200%201-.686%204h1.963a13.9%2013.9%200%200%200%20.544-8zM20%2027.672A11.8%2011.8%200%200%201%2016%2028.2a11.95%2011.95%200%200%201-4-.686v1.963a13.9%2013.9%200%200%200%208%20.544zM4.328%2020A11.8%2011.8%200%200%201%203.8%2016a11.95%2011.95%200%200%201%20.686-4H2.523a13.9%2013.9%200%200%200-.544%208zM25.045%206.954l-1.414%201.415a12.03%2012.03%200%200%201%201.415%201.414l1.414-1.414A14.04%2014.04%200%200%200%2025.045%206.955M6.955%2025.045l1.414-1.414a12.03%2012.03%200%200%201-1.414-1.414l-1.414%201.414a14.04%2014.04%200%200%200%201.414%201.414m18.09-15.26a12.03%2012.03%200%200%201%201.414%201.414l1.414-1.414a14.04%2014.04%200%200%200-1.414-1.414zM9.785%2022.215a12.03%2012.03%200%200%201-1.414%201.414l-1.414-1.414a14.04%2014.04%200%200%200%201.414%201.414%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+.i-carbon-time { display: inline-block; width: 1em; height: 1em; background-color: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202C8.269%202%202%208.269%202%2016s6.269%2014%2014%2014s14-6.269%2014-14S23.731%202%2016%202zm0%2026C9.383%2028%204%2022.617%204%2016S9.383%204%2016%204s12%205.383%2012%2012s-5.383%2012-12%2012z%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M17%208h-2v9l5.77%203.42l1.03-1.68L17%2015.82z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202C8.269%202%202%208.269%202%2016s6.269%2014%2014%2014s14-6.269%2014-14S23.731%202%2016%202zm0%2026C9.383%2028%204%2022.617%204%2016S9.383%204%2016%204s12%205.383%2012%2012s-5.383%2012-12%2012z%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M17%208h-2v9l5.77%203.42l1.03-1.68L17%2015.82z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }

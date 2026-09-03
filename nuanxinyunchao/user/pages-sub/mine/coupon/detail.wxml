@@ -1,0 +1,149 @@
+<view class="min-h-screen bg-f5f5f5 pb-10">
+
+    <view class="fixed left-0 right-0 top-0 z-50 bg-f5f5f5" style="padding-top: {{safeAreaInsetsTop}}px;">
+        <view class="h-11 flex items-center px-2">
+            <view class="h-8 w-8 flex items-center justify-center rounded-full active-bg-black-10" bindtap="handleBack">
+                <view class="i-carbon-chevron-left text-2xl text-gray-900" />
+            </view>
+            <view class="absolute left-1-2 translate-x-minus-1-2 text-lg font-bold text-gray-900">优惠券</view>
+        </view>
+    </view>
+    <view style="height: {{safeAreaInsetsTop + 44}}px;" />
+
+    <view wx:if="{{loading}}" class="flex justify-center pt-20">
+        <view class="i-carbon-circle-dash animate-spin text-3xl text-gray-300" />
+    </view>
+
+    <block wx:elif="{{detail}}">
+        <view class="mx-5 relative overflow-hidden h-105px" style="background-image: url('https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/coupon/detail_card1.png'); background-size: 100% 100%; background-repeat: no-repeat;">
+
+            <view class="flex items-stretch h-full">
+                <view class="w-100px flex-shrink-0 flex items-center justify-center">
+                    <image src="{{detail.coverImageUrlResolved}}" class="w-20 h-20 rounded-lg" mode="aspectFill" />
+                </view>
+
+                <view class="w-3 flex-shrink-0" />
+
+                <view class="flex-1 flex flex-col justify-between py-3 pr-4 pl-2">
+                    <view>
+                        <view class="flex items-start justify-between w-full">
+                            <text class="text-15px text-gray-900 leading-tight line-clamp-2 flex-1 pr-2">{{ detail.couponName }}</text>
+                        </view>
+                        <view class="mt-1 flex items-center gap-1">
+                            <view class="bg-f1f2f2 text-12px scale-90 origin-left text-gray-400 px-1 py-0-5 rounded border border-gray-100 leading-none">
+                                {{ detail.couponKindLabel }}
+                            </view>
+                            <view wx:if="{{ detail.applicabilityText }}" class="bg-f1f2f2 text-12px scale-90 origin-left text-gray-400 px-1 py-0-5 rounded border border-gray-100 leading-none line-clamp-1">
+                                {{ detail.applicabilityText }}
+                            </view>
+                        </view>
+                    </view>
+
+                    <view class="flex items-end justify-between">
+                        <text class="text-12px text-gray-400 mb-0-5 line-clamp-1 flex-1 pr-2">{{ detail.merchantName || '合作商户' }}</text>
+                        <view class="m-0 h-6 flex items-center justify-center text-10px rounded-full px-3 border-none shadow-sm active-opacity-80 {{ detail.btnClass }}" bindtap="handleExchangeTap">
+                            <text class="line-clamp-2 text-center leading-tight">{{ detail.btnText }}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="m-4 h-120px relative overflow-hidden" style="background-image: url('https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/coupon/detail_card2.png'); background-size: 100% 100%; background-repeat: no-repeat;">
+            <view class="flex flex-col h-full px-6 pt-3 pb-1">
+
+                <view class="flex items-center pb-1 mt-1">
+                    <text class="text-sm font-bold text-gray-900">券面：</text>
+                    <text class="text-lg text-ff9e40 leading-none pr-1 font-semibold">{{ detail.couponFaceMain }}</text>
+                    <text wx:if="{{ detail.couponFaceSub }}" class="text-11px text-gray-400">（{{ detail.couponFaceSub }}）</text>
+                </view>
+
+                <view wx:if="{{ detail.pointsBalance != null }}" class="flex items-center pb-0">
+                    <text class="text-xs text-gray-500">当前积分：</text>
+                    <text class="text-sm text-gray-900 font-medium">{{ detail.pointsBalance }}</text>
+                    <image
+                        src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/icon_star.png"
+                        class="h-4 w-4 flex-shrink-0 ml-1" mode="aspectFit" />
+                    <text wx:if="{{ detail.heldValidCount != null }}" class="text-xs text-gray-400 ml-3">持有未核销：{{ detail.heldValidCount }} 张</text>
+                </view>
+                <view wx:else class="flex items-center pb-0">
+                    <text class="text-xs text-gray-400">登录后可查看积分与兑换条件</text>
+                </view>
+
+                <view class="h-2" />
+
+                <view class="flex justify-between items-end pt-1">
+                    <view class="inline-flex items-center bg-fffaf0 px-2 py-0-5 rounded text-10px text-8b654d font-medium leading-none">
+                        近半年已兑换 {{ detail.redeemedCountHalfYear != null ? detail.redeemedCountHalfYear : 0 }} 次
+                    </view>
+                    <view 
+                        class="flex items-center gap-1 px-3 py-1 rounded-full text-11px border-none shadow-sm active-opacity-80"
+                        bindtap="handleFavoriteTap"
+                        style="background: {{ isFavorited ? '#FF6B00' : '#f1f2f2' }};"
+                    >
+                        <view wx:if="{{isFavorited}}" class="favorite-icon filled" />
+                        <view wx:else class="favorite-icon empty" />
+                        <text style="color: {{ isFavorited ? '#fff' : '#999' }};">{{ isFavorited ? '已收藏' : '收藏' }}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="mx-4 bg-white rounded-3xl p-6 shadow-sm border border-gray-50">
+            <text class="text-lg text-gray-600 mb-6 block">购买须知</text>
+            <view class="flex flex-col">
+                <view class="flex gap-3 pb-1">
+                    <view class="i-carbon-checkmark-outline text-xl text-gray-600 w-5 h-5 flex-shrink-0 mt-0-5 flex items-center justify-center" />
+                    <view>
+                        <text class="text-14px text-gray-600 mb-1 block">有效期</text>
+                        <text class="text-sm text-gray-400">{{ detail.validitySummary }}</text>
+                    </view>
+                </view>
+                <view class="w-full h-0-5 bg-gray-100 ml-10" />
+
+                <view class="flex gap-3 py-1">
+                    <view class="i-carbon-time text-xl text-gray-600 w-5 h-5 flex-shrink-0 mt-0-5 flex items-center justify-center" />
+                    <view>
+                        <text class="text-14px text-gray-600 mb-1 block">使用时间</text>
+                        <text class="text-sm text-gray-400">营业时间内可用（以门店为准）</text>
+                    </view>
+                </view>
+                <view class="w-full h-0-5 bg-gray-100 ml-10" />
+
+                <view class="flex gap-3 py-1">
+                    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/coupon/icon1.png" class="h-5 w-5 flex-shrink-0 mt-0-5" />
+                    <view>
+                        <text class="text-14px text-gray-600 mb-1 block">适用范围</text>
+                        <text class="text-sm text-gray-400">{{ detail.applicabilityText || '请以券规则为准' }}</text>
+                    </view>
+                </view>
+                <view class="w-full h-0-5 bg-gray-100 ml-10" />
+
+                <view wx:if="{{ detail.usageRulesHtml }}" class="flex gap-3 py-1">
+                    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/coupon/icon2.png" class="h-5 w-5 flex-shrink-0 mt-0-5" />
+                    <view class="flex-1">
+                        <text class="text-14px text-gray-600 mb-1 block">活动说明原文</text>
+                        <text class="text-xs text-gray-400 leading-snug whitespace-pre-wrap">{{ detail.usageRulesHtml }}</text>
+                    </view>
+                </view>
+
+                <view wx:if="{{ detail.usageRuleLines && detail.usageRuleLines.length }}" class="flex gap-3 pt-1 {{ detail.usageRulesHtml ? 'pb-1' : 'py-1' }}">
+                    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/coupon/icon2.png" class="h-5 w-5 flex-shrink-0 mt-0-5" />
+                    <view class="flex-1">
+                        <text class="text-14px text-gray-600 mb-1 block">使用规则</text>
+                        <view class="flex flex-col gap-1">
+                            <view class="flex items-start" wx:for="{{detail.usageRuleLines}}" wx:key="index">
+                                <text class="text-xs text-gray-400 w-3 flex-shrink-0">•</text>
+                                <text class="text-xs text-gray-400 leading-snug flex-1">{{ item }}</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+
+            </view>
+        </view>
+    </block>
+
+    <login-modal id="global-login-modal" />
+
+</view>

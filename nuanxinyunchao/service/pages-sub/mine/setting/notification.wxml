@@ -1,0 +1,37 @@
+<view class="page-container">
+  <view class="nav-bar" style="padding-top: {{safeAreaTop}}px;">
+    <view class="nav-content">
+      <view class="back-btn" hover-class="btn-hover" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">通知设置</text>
+    </view>
+  </view>
+  
+  <view style="height: {{safeAreaTop + 44}}px;"></view>
+
+  <view class="content-wrapper">
+    <view class="card-box">
+      
+      <view class="setting-item">
+        <view class="item-text-group">
+          <text class="item-title">消息推送</text>
+          <text class="item-desc">开启后可收到服务状态变更提醒</text>
+        </view>
+        <switch checked="{{settings.notification}}" color="#ffd300" bindchange="handleNotificationChange" />
+        
+        <view class="absolute-divider"></view>
+      </view>
+
+      <view class="setting-item">
+        <text class="item-title">通知显示具体内容</text>
+        <switch checked="{{settings.detail}}" color="#ffd300" bindchange="handleDetailChange" />
+      </view>
+
+    </view>
+    
+    <view class="hint-text">
+      注：如果无法开启，请检查手机系统设置中微信的通知权限是否打开。
+    </view>
+  </view>
+</view>

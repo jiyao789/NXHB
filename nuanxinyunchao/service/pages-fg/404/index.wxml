@@ -1,0 +1,5 @@
+<view class="page-container">
+  <view class="error-code">404</view>
+  <view class="error-text">页面不存在</view>
+  <button class="back-btn" bindtap="goBack">返回首页</button>
+</view>

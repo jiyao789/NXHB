@@ -1,0 +1,23 @@
+<!-- 底部协议 + 操作按钮（与原项目对齐） -->
+<view class="fixed bottom-0 left-0 right-0 p-6 z-10 bg-white-90 backdrop-blur-sm pb-safe box-border flex flex-col items-center">
+  <!-- 协议勾选（步骤2提交前显示） -->
+  <view wx:if="{{currentStep === 1}}" class="w-full flex items-center justify-center gap-1 text-xs text-gray-400 mb-4 animate-fade-in">
+    <view class="w-3-5 h-3-5 rounded-full border border-gray-300 flex items-center justify-center transition-colors {{isAgreed ? 'bg-orange-main border-orange-main' : 'bg-white'}}" bindtap="onToggleAgree">
+      <view wx:if="{{isAgreed}}" class="i-carbon-checkmark text-white text-10 font-bold"></view>
+    </view>
+    <text bindtap="onToggleAgree">同意</text>
+    <text class="text-orange-main" bindtap="onService">《用户协议》</text>
+    <text>和</text>
+    <text class="text-orange-main" bindtap="onPrivacy">《隐私政策》</text>
+  </view>
+
+  <!-- 操作按钮（改用 View 避免小程序原生 Button 居中与宽度顽疾） -->
+  <view wx:if="{{currentStep < 2}}"
+    class="w-full h-12 rounded-full bg-yellow-main text-black font-bold text-lg flex items-center justify-center shadow-sm active-scale-98 transition-all"
+    hover-class="opacity-90" bindtap="onNext">
+    {{currentStep === 1 ? '提交' : '下一步'}}
+  </view>
+  <view wx:else
+    class="w-full h-12 rounded-full bg-yellow-main text-black font-bold text-lg flex items-center justify-center shadow-sm active-scale-98 transition-all"
+    hover-class="opacity-90" bindtap="onLogin">返回登录</view>
+</view>

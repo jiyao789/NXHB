@@ -1,0 +1,160 @@
+<view class="container">
+  <!-- 全局背景 -->
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="bg-fixed" mode="scaleToFill" />
+
+  <!-- 固定导航栏 -->
+  <view class="navbar {{scrollTop > 10 ? 'solid' : ''}}">
+    <view class="navbar-content">
+      <view class="logo-group">
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo.png" mode="heightFix" class="logo-icon" />
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo_title.png" mode="heightFix" class="logo-title" />
+      </view>
+
+      <view class="nav-right"></view>
+    </view>
+  </view>
+
+  <view class="main-content">
+    <view class="badge-row">
+      <view class="badge-wrapper">
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/icon_nxyh.png" mode="heightFix" class="badge-img" />
+      </view>
+    </view>
+
+    <view class="page-title-box">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/create/title_start_create.png" mode="heightFix" class="page-title-img" />
+    </view>
+
+    <!-- 功能卡片 -->
+    <view class="card-row">
+      <view class="card-item" bindtap="togglePublishPopup">
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/create/card_bg.png" class="card-bg" mode="scaleToFill" />
+        <view class="card-inner">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/create/icon_publish.png" class="card-icon" mode="aspectFit" />
+          <text class="card-text">我要发布</text>
+        </view>
+      </view>
+
+      <view class="card-item" bindtap="handleAudit">
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/create/card_bg.png" class="card-bg" mode="scaleToFill" />
+        <view class="card-inner">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/create/icon_audit.png" class="card-icon" mode="aspectFit" />
+          <text class="card-text">审核进度</text>
+        </view>
+        <view class="badge-dot" wx:if="{{auditUnreadCount > 0}}">{{auditUnreadCount}}</view>
+      </view>
+    </view>
+
+    <!-- 数据图表区域 -->
+    <view class="data-section">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/hot/bg_down.png" class="section-bg" mode="scaleToFill" />
+      
+      <view class="section-content">
+        <view class="divider-box">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/create/arc_divider.png" class="divider-img" mode="heightFix" />
+        </view>
+
+        <!-- 柱状图 -->
+        <view class="chart-card">
+          <view class="chart-title">{{barChart.title}}</view>
+          <view class="bar-chart-container">
+            <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/create/bg_record.png" mode="aspectFit" class="bar-chart-bg-img" />
+            <view class="grid-lines">
+              <view wx:for="{{gridLines}}" wx:key="*this" class="grid-line"></view>
+            </view>
+            <view class="bars-wrapper">
+              <view wx:for="{{processedBarData}}" wx:key="index" class="bar-item">
+                <view class="bar-top-info" style="{{item.topStyle}}">
+                  <view wx:if="{{item.trend !== 0}}" class="trend-tag {{item.trendClass}}">
+                    {{item.trendIcon}}{{item.absTrend}}%
+                  </view>
+                  <view class="bar-val" style="background-color: {{item.color}}">{{item.value}}</view>
+                </view>
+                <view class="bar-body" style="{{item.barStyle}}"></view>
+                <view class="bar-label">{{item.label}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 曲线图 -->
+        <view class="chart-card">
+          <view class="chart-title">{{lineChart.title}}</view>
+          <view class="line-chart-outer">
+            <view class="line-chart-inner">
+              <view class="y-axis-grid">
+                <view wx:for="{{yAxisTicks}}" wx:key="*this" class="y-line">
+                  <text class="y-label">{{item}}</text>
+                </view>
+              </view>
+              <image src="{{chartSvgUrl}}" class="line-svg" mode="scaleToFill" />
+              <view class="touch-layer">
+                <view wx:for="{{chartPoints}}" wx:key="index" class="touch-item" data-index="{{index}}" bindtap="handleChartClick">
+                  <view wx:if="{{selectedIndex === index}}" class="bubble-box" style="{{item.bubbleStyle}}">
+                    <view class="bubble-val">{{item.value}}</view>
+                    <view class="bubble-arrow"></view>
+                    <view class="anchor-wrapper">
+                      <view class="anchor-glow"></view>
+                      <view class="anchor-dot"></view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="x-axis">
+              <view wx:for="{{lineChartCategories}}" wx:key="name" class="x-label-box" style="{{item.labelStyle}}">
+                <text class="x-label">{{item.name}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 环形图 -->
+        <view class="chart-card last-card">
+        <view class="pie-container">
+          <image wx:if="{{pieChartSvgUrl}}" src="{{pieChartSvgUrl}}" class="pie-img" mode="aspectFit" />
+          <view class="pie-center">
+            <view class="pie-center-text">
+              <text>用户占比</text>
+            </view>
+          </view>
+          
+          <view class="pie-labels-container">
+            <view wx:for="{{pieLabels}}" wx:key="name" class="pie-label-item {{item.isRight ? 'align-left' : 'align-right'}}" style="{{item.labelStyle}}">
+              <text class="pie-percent" style="color: {{item.color}}">{{item.percent}}%</text>
+              <text class="pie-name">{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      </view>
+    </view>
+  </view>
+
+  <!-- 发布弹窗 -->
+  <view wx:if="{{showPublishPopup}}" class="popup-mask" bindtap="togglePublishPopup">
+    <view class="popup-content" catchtap="preventBubble">
+      <image src="{{currentPopupBg}}" class="popup-bg" mode="widthFix" />
+      <view class="popup-list">
+        <view class="publish-grid {{currentPublishList.length === 1 ? 'is-single' : ''}}">
+          <view wx:for="{{currentPublishList}}" wx:key="type" class="publish-btn {{item.isLong ? 'is-long' : ''}}" data-type="{{item.type}}" bindtap="handlePublish" style="{{item.type === 8 ? 'margin-top: 40rpx;' : ''}}">
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="close-btn" catchtap="togglePublishPopup">
+      <view class="icon-close-white"></view>
+    </view>
+  </view>
+
+  <view class="tabbar-placeholder"></view>
+</view>
+
+
+<!-- 动态注入返回智慧党建飘窗 -->
+<global-home-btn />
+
+<!-- 动态注入子包底部导航栏 -->
+<nxyc-tabbar role="service" selected="1" />

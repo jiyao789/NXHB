@@ -1,0 +1,37 @@
+<!-- 步骤二：工作信息表单 -->
+<view class="animate-fade-in">
+  <view class="flex flex-col gap-5">
+    <!-- 所属网点 -->
+    <view>
+      <text class="mb-2 block text-15 font-bold text-gray-700 ml-1 flex items-center gap-1.5">
+        <view class="i-carbon-map text-gray-400 text-sm"></view>
+        <text><text class="text-orange-main mr-0.5">*</text>您的所属网点/站点</text>
+      </text>
+      <view class="bg-white rounded-xl h-12 flex items-center px-4 shadow-sm">
+        <input type="text" placeholder="请输入所属网点/站点" class="flex-1 text-15" placeholder-class="text-gray-400" value="{{siteName}}" bindinput="onSiteName" />
+      </view>
+    </view>
+
+    <!-- 商圈范围 -->
+    <view>
+      <text class="mb-2 block text-15 font-bold text-gray-700 ml-1 flex items-center gap-1.5">
+        <view class="i-carbon-location text-gray-400 text-sm"></view>
+        <text><text class="text-orange-main mr-0.5">*</text>配送的商圈范围</text>
+      </text>
+      <view class="bg-white rounded-xl h-12 flex items-center px-4 shadow-sm">
+        <input type="text" placeholder="如：XX商圈、XX街道" class="flex-1 text-15" placeholder-class="text-gray-400" value="{{businessArea}}" bindinput="onBusinessArea" />
+      </view>
+    </view>
+
+    <!-- 现居住地 -->
+    <view>
+      <text class="mb-2 block text-15 font-bold text-gray-700 ml-1 flex items-center gap-1.5">
+        <view class="i-carbon-home text-gray-400 text-sm"></view>
+        <text><text class="text-orange-main mr-0.5">*</text>现居住地</text>
+      </text>
+      <view class="bg-white rounded-xl h-12 flex items-center px-4 shadow-sm">
+        <input type="text" placeholder="输入当前居住的具体地址" class="flex-1 text-15" placeholder-class="text-gray-400" value="{{address}}" bindinput="onAddress" />
+      </view>
+    </view>
+  </view>
+</view>

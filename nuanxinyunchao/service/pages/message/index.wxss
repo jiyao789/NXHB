@@ -1,0 +1,181 @@
+/* 锁定整个页面的高度，防止系统级滚动 */
+page {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 全局容器 */
+.page-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 底部背景 */
+.bg-global {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* 导航栏 */
+.nav-bar {
+  position: relative;
+  z-index: 50;
+  padding: 96rpx 32rpx 16rpx;
+}
+
+.nav-title-box {
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-title {
+  font-size: 36rpx;
+  color: #1f2937;
+  font-weight: bold;
+}
+
+/* 操作区域 (点赞/收藏) */
+.action-area {
+  position: relative;
+  z-index: 10;
+  margin-bottom: 48rpx;
+  display: flex;
+  justify-content: space-around;
+  padding: 32rpx 80rpx 0;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+  transition: all 0.2s;
+}
+
+.btn-active {
+  transform: scale(0.95);
+}
+
+.action-icon {
+  height: 128rpx;
+  width: 128rpx;
+}
+
+.action-text {
+  font-size: 28rpx;
+  color: #374151;
+  font-weight: bold;
+}
+
+/* 列表容器 */
+.list-container {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 32rpx 32rpx 0;
+}
+
+.list-bg {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  filter: drop-shadow(0 -8rpx 12rpx rgba(0,0,0,0.08));
+}
+
+/* 解决 flex 环境下 scroll-view 失效的核心：min-height: 0 */
+.scroll-wrapper {
+  min-height: 0;
+  width: 100%;
+  flex: 1;
+}
+
+.scroll-view {
+  height: 100%;
+  width: 100%;
+}
+
+.scroll-inner {
+  padding: 32rpx 16rpx 144rpx;
+}
+
+/* 消息列表项 */
+.message-item {
+  margin-bottom: 48rpx;
+  display: flex;
+  align-items: flex-start;
+  gap: 24rpx;
+}
+
+.msg-icon {
+  height: 96rpx;
+  width: 96rpx;
+  flex-shrink: 0;
+}
+
+.msg-content {
+  min-width: 0;
+  flex: 1;
+  border-bottom: 2rpx solid #f3f4f6;
+  padding-bottom: 32rpx;
+}
+
+.msg-header {
+  margin-bottom: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.msg-title {
+  font-size: 32rpx;
+  color: #1f2937;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.msg-time {
+  font-size: 24rpx;
+  color: #9ca3af;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.msg-desc {
+  font-size: 28rpx;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 空状态 */
+.empty-state {
+  padding: 80rpx 0;
+  text-align: center;
+  font-size: 28rpx;
+  color: #9ca3af;
+}
+
+/* 隐藏滚动条 */
+::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+  height: 0 !important;
+  color: transparent;
+}

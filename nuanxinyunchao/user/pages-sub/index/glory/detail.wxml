@@ -1,0 +1,76 @@
+<view class="h-screen w-full flex flex-col relative bg-f5f7fa overflow-hidden">
+
+  <!-- 全局背景图 -->
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="fixed top-0 left-0 w-full z-0" style="height: 600rpx;" mode="widthFix" />
+
+  <!-- 顶部导航 -->
+  <view class="fixed left-0 right-0 top-0 z-50" style="padding-top: {{safeAreaTop}}px;">
+    <view class="relative h-11 flex items-center justify-between px-2">
+      <view class="h-8 w-8 flex items-center justify-center rounded-full" hover-class="bg-black-10" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900"></view>
+      </view>
+      <view class="w-20" />
+    </view>
+  </view>
+
+  <!-- 固定背景底层 (不随滚动条移动) -->
+  <view class="fixed left-0 right-0 z-0" style="top: {{safeAreaTop + 40}}px;">
+    <view class="relative w-full">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/glory/glory_bg_bottom.png" class="absolute top-0 left-0 w-full z-0" mode="widthFix" />
+      <view class="absolute top-30-px left-0 w-full h-80 bg-white z-0"></view>
+    </view>
+  </view>
+
+  <!-- 滚动区域 (标题 + 正文) -->
+  <scroll-view scroll-y class="flex-1 h-0 relative z-10 w-full" style="margin-top: {{safeAreaTop + 55}}px;" show-scrollbar="{{false}}">
+    <!-- 移除多余留白，让内容上移 -->
+    <view class="px-5 pb-28 min-h-screen">
+      <view wx:if="{{loading}}" class="flex flex-col items-center text-gray-400 pt-10">
+        <view class="i-carbon-circle-dash mb-2 animate-spin text-3xl"></view>
+        <text>加载中...</text>
+      </view>
+
+      <view wx:elif="{{article}}" class="animate-fade-in">
+        <!-- 标题区域，缩减上下间距 -->
+        <view class="pb-2">
+          <text class="article-title">
+            {{ article.title }}
+          </text>
+        </view>
+        
+        <view class="article-content" bindtap="handleContentTap">
+          <rich-text nodes="{{article.content}}" />
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部固定操作栏 -->
+  <view class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-100 pb-safe h-18 shadow-top-light" wx:if="{{article}}">
+    <view class="grid grid-cols-3 h-full items-center pt-2">
+      <button class="btn-reset flex flex-col items-center justify-center gap-1 active-scale" open-type="share">
+        <view class="relative" style="padding-top: 12rpx; padding-right: 20rpx;">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/glory/icon_share.png" class="w-8 h-8 block" mode="aspectFit" />
+          <view class="absolute top-0 right-0 z-10">
+            <view class="w-5 h-5 bg-FF6B00 flex items-center justify-center hexagon">
+              <view class="w-4 h-4 bg-gradient-to-b from-FFD54F to-FFB300 flex items-center justify-center hexagon">
+                <text class="text-xs text-8B4500 font-bold scale-90">{{ article.stats.share }}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <text class="text-12 text-gray-500">分享</text>
+      </button>
+
+      <view class="flex flex-col items-center justify-center gap-1 active-scale" bindtap="handleInteract" data-type="1">
+        <view class="{{article.stats.isStarred ? 'i-carbon-star-filled text-yellow-main' : 'i-carbon-star text-gray-800'}} icon-32"></view>
+        <text class="text-base text-gray-500">{{ article.stats.star }}</text>
+      </view>
+
+      <view class="flex flex-col items-center justify-center gap-1 active-scale" bindtap="handleInteract" data-type="2">
+        <view class="{{article.stats.isLiked ? 'i-carbon-favorite-filled text-red-500' : 'i-carbon-favorite text-gray-800'}} icon-32"></view>
+        <text class="text-base text-gray-500">{{ article.stats.like }}</text>
+      </view>
+    </view>
+  </view>
+</view>

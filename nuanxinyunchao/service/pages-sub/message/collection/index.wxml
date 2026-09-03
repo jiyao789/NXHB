@@ -1,0 +1,117 @@
+<view class="page-container">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar">
+    <view style="height: {{statusBarHeight}}px;"></view>
+    <view class="nav-content" style="height: {{navBarHeight}}px;">
+      <view class="back-btn" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">收藏</text>
+    </view>
+  </view>
+
+  <!-- 分类 Tab 栏 (仅街道用户显示) -->
+  <view class="tab-bar" wx:if="{{role === 'street'}}">
+    <view wx:for="{{tabs}}" wx:key="*this" class="tab-item" bindtap="handleTabChange" data-index="{{index}}">
+      <text class="tab-text {{activeTab === index ? 'active' : ''}}">{{item}}</text>
+      <view class="tab-line" wx:if="{{activeTab === index}}"></view>
+    </view>
+  </view>
+
+  <!-- 列表内容区 -->
+  <scroll-view scroll-y class="scroll-wrapper">
+    <view class="list-container">
+      
+      <!-- 街道用户收藏列表 (同步点赞页最美样式) -->
+      <block wx:if="{{role === 'street'}}">
+        <view wx:if="{{(activeTab === 0 && streetCollections.article.length > 0) || (activeTab === 1 && streetCollections.video.length > 0)}}">
+          <view wx:for="{{activeTab === 0 ? streetCollections.article : streetCollections.video}}" wx:key="id" class="like-card">
+          <view class="media-card-wrapper">
+            <view class="media-card-left">
+              <image src="{{item.userAvatar || 'https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/avatar.png'}}" class="street-avatar" mode="aspectFill" />
+              <view class="user-name-box">
+                <text class="street-nickname">{{item.userName}}</text>
+                <view class="action-time-row">
+                  <text class="street-action">{{item.actionText}}</text>
+                  <text class="street-date">{{item.date}}</text>
+                </view>
+              </view>
+            </view>
+            <view class="media-right">
+              <image src="{{item.coverImage}}" class="media-cover" mode="aspectFill" />
+              <view wx:if="{{item.isVideo}}" class="play-icon"></view>
+            </view>
+          </view>
+        </view>
+        </view>
+        <!-- 街道用户为空状态兜底 -->
+        <view wx:else class="empty-layout">
+          <view class="centered-box" style="transform: translateY(-{{totalNavHeight / 2}}px);">
+            <image 
+              src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/message/404.png" 
+              class="empty-icon" 
+              mode="widthFix" 
+            />
+          </view>
+        </view>
+      </block>
+
+      <!-- 商户用户收藏列表 (票据样式) -->
+      <view wx:else>
+        <view wx:if="{{collectionList.length > 0}}">
+        <view wx:for="{{collectionList}}" wx:key="id" class="collection-card">
+          <!-- 用户头部信息 -->
+          <view class="user-header">
+            <image src="{{item.userAvatar || 'https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/avatar.png'}}" class="avatar" mode="aspectFill" />
+            <view class="user-info">
+              <text class="nickname">{{item.userName}}</text>
+              <view class="action-row">
+                <text class="action">{{item.actionText}}</text>
+                <text class="date">{{item.date}}</text>
+              </view>
+            </view>
+          </view>
+
+          <!-- 嵌套票据样式优惠券卡片 -->
+          <view class="ticket-container">
+            <view class="ticket-card">
+              <view class="ticket-left">
+                <image src="{{item.coupon.image}}" class="coupon-img" mode="aspectFill" />
+              </view>
+              
+              <view class="ticket-divider">
+                <view class="dashed-line"></view>
+              </view>
+
+              <view class="ticket-right">
+                <view class="coupon-info">
+                  <text class="coupon-title">{{item.coupon.title}}</text>
+                  <view class="tag-box">
+                    <text class="tag">{{item.coupon.tag}}</text>
+                  </view>
+                  <text class="store-name">{{item.coupon.store}}</text>
+                </view>
+                
+                <view class="exchange-btn" catchtap="handleExchange" data-id="{{item.id}}">
+                  {{item.coupon.points}}积分兑换
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        </view>
+        <view wx:else class="empty-layout">
+          <view class="centered-box" style="transform: translateY(-{{totalNavHeight / 2}}px);">
+            <image 
+              src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/message/404.png" 
+              class="empty-icon" 
+              mode="widthFix" 
+            />
+          </view>
+        </view>
+      </view>
+
+      <view class="safe-bottom"></view>
+    </view>
+  </scroll-view>
+</view>

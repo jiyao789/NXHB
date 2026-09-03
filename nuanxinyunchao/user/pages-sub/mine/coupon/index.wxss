@@ -1,0 +1,145 @@
+@import "../../../styles/utilities.wxss";
+@import "../../../styles/icons.wxss";
+
+/* ==== 修复微信盒子模型与 Button 默认样式 ==== */
+view, text, image, scroll-view, input { box-sizing: border-box !important; }
+button { 
+  box-sizing: border-box !important; 
+  padding: 0; 
+  margin: 0; 
+  line-height: inherit; 
+  background-color: transparent; 
+}
+button::after { border: none; }
+image { will-change: transform; display: block; }
+
+/* ==== 特殊字符合规化映射 ==== */
+.min-h-screen { min-height: 100vh; }
+.bg-efefef { background-color: #efefef; }
+.bg-F5F5F5 { background-color: #F5F5F5; }
+.text-333 { color: #333333; }
+.text-FF6B00 { color: #FF6B00; }
+.bg-FF6B00 { background-color: #FF6B00; }
+.bg-fa3b2f { background-color: #fa3b2f; }
+.text-fa3b2f { color: #fa3b2f; }
+.bg-CCCCCC { background-color: #CCCCCC; }
+.bg-white-50 { background-color: rgba(255, 255, 255, 0.5); }
+
+/* 定位与 Transform */
+.left-1-2 { left: 50%; }
+.translate-x-minus-1-2 { transform: translateX(-50%); }
+
+/* 尺寸映射 */
+.h-11 { height: 88rpx; }
+.h-9 { height: 72rpx; }
+.h-8 { height: 64rpx; }
+.w-8 { width: 64rpx; }
+.h-3px { height: 6rpx; }
+.w-5 { width: 40rpx; }
+.left-2 { left: 16rpx; }
+.h-98px { height: 196rpx; }
+.w-80px { width: 160rpx; }
+.h-20px { height: 40rpx; }
+.w-60px { width: 120rpx; }
+.h-7 { height: 56rpx; }
+
+/* 字体排版 */
+.text-6xl { font-size: 120rpx; }
+.text-3xl { font-size: 60rpx; }
+.text-2xl { font-size: 48rpx; }
+.text-20px { font-size: 40rpx; }
+.text-15px { font-size: 30rpx; }
+.text-lg { font-size: 36rpx; }
+.text-sm { font-size: 28rpx; }
+.text-xs { font-size: 24rpx; }
+.text-11px { font-size: 22rpx; }
+.text-10px { font-size: 20rpx; }
+
+/* 边距映射 */
+.gap-3 { gap: 24rpx; }
+.gap-0-5 { gap: 4rpx; }
+.px-4 { padding-left: 32rpx; padding-right: 32rpx; }
+.px-3 { padding-left: 24rpx; padding-right: 24rpx; }
+.px-2 { padding-left: 16rpx; padding-right: 16rpx; }
+.px-1 { padding-left: 8rpx; padding-right: 8rpx; }
+.px-1-5 { padding-left: 12rpx; padding-right: 12rpx; }
+.pb-2 { padding-bottom: 16rpx; }
+.pt-1 { padding-top: 8rpx; }
+.mt-1 { margin-top: 8rpx; }
+.py-2 { padding-top: 16rpx; padding-bottom: 16rpx; }
+.py-0-5 { padding-top: 4rpx; padding-bottom: 4rpx; }
+.pb-0-5 { padding-bottom: 4rpx; }
+.pt-4 { padding-top: 32rpx; }
+.pb-10 { padding-bottom: 80rpx; }
+.py-20 { padding-top: 160rpx; padding-bottom: 160rpx; }
+.pt-24 { padding-top: 192rpx; }
+.mb-5 { margin-bottom: 40rpx; }
+.mb-3 { margin-bottom: 24rpx; }
+.mb-2 { margin-bottom: 16rpx; }
+.mb-0-5 { margin-bottom: 4rpx; }
+.p-2 { padding: 16rpx; }
+.p-3 { padding: 24rpx; }
+.pr-1 { padding-right: 8rpx; }
+.pl-1 { padding-left: 8rpx; }
+.pl-2 { padding-left: 16rpx; }
+.ml-0-5 { margin-left: 4rpx; }
+
+/* 杂项辅助 */
+.active-bg-black-5:active { background-color: rgba(0, 0, 0, 0.05); }
+.active-opacity-70:active { opacity: 0.7; }
+.active-opacity-90:active { opacity: 0.9; }
+.active-scale-99:active { transform: scale(0.99); }
+.opacity-20 { opacity: 0.2; }
+.transition-all { transition-property: all; transition-duration: 150ms; }
+.transition-transform { transition-property: transform; transition-duration: 150ms; }
+.shadow-sm { box-shadow: 0 2rpx 4rpx 0 rgba(0, 0, 0, 0.05); }
+.shadow-inner { box-shadow: inset 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.05); }
+.shadow-orange-200 { box-shadow: 0 4rpx 12rpx rgba(254, 215, 170, 0.5); }
+.line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.z-30 { z-index: 30; }
+.z-40 { z-index: 40; }
+.pointer-events-none { pointer-events: none; }
+.m-1 { margin: 8rpx; }
+
+/* 特殊裁剪 */
+.rounded-bl-50px { border-bottom-left-radius: 50px; }
+.clip-polygon-tag { clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%); }
+
+/* ======================================================== */
+/* 🚀 补丁：缺漏的全局 Icon (经过严格 URL Encoding，防止 WXSS 编译崩溃) */
+/* ======================================================== */
+
+.i-carbon-chevron-left { 
+  display: inline-block; width: 1em; height: 1em; background-color: currentColor; 
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M10%2016L20%206l1.4%201.4L12.8%2016l8.6%208.6L20%2026z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; 
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M10%2016L20%206l1.4%201.4L12.8%2016l8.6%208.6L20%2026z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; 
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%; 
+}
+
+.i-carbon-search { 
+  display: inline-block; width: 1em; height: 1em; background-color: currentColor; 
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M29%2027.586l-7.552-7.552a11.018%2011.018%200%201%200-1.414%201.414L27.586%2029zM4%2013a9%209%200%201%201%209%209a9.01%209.01%200%200%201-9-9z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; 
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M29%2027.586l-7.552-7.552a11.018%2011.018%200%201%200-1.414%201.414L27.586%2029zM4%2013a9%209%200%201%201%209%209a9.01%209.01%200%200%201-9-9z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; 
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%; 
+}
+
+.i-carbon-close-filled { 
+  display: inline-block; width: 1em; height: 1em; background-color: currentColor; 
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202C8.2%202%202%208.2%202%2016s6.2%2014%2014%2014s14-6.2%2014-14S23.8%202%2016%202zm5.4%2021L16%2017.6L10.6%2023L9%2021.4l5.4-5.4L9%2010.6L10.6%209l5.4%205.4L21.4%209l1.6%201.6l-5.4%205.4l5.4%205.4l-1.6%201.6z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; 
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202C8.2%202%202%208.2%202%2016s6.2%2014%2014%2014s14-6.2%2014-14S23.8%202%2016%202zm5.4%2021L16%2017.6L10.6%2023L9%2021.4l5.4-5.4L9%2010.6L10.6%209l5.4%205.4L21.4%209l1.6%201.6l-5.4%205.4l5.4%205.4l-1.6%201.6z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; 
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%; 
+}
+
+.i-carbon-ticket { 
+  display: inline-block; width: 1em; height: 1em; background-color: currentColor; 
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M26%208H6a2%202%200%200%200-2%202v6a2%202%200%200%201%200%204v6a2%202%200%200%200%202%202h20a2%202%200%200%200%202-2v-6a2%202%200%200%201%200-4v-6a2%202%200%200%200-2-2zM6%2026v-4.14A4%204%200%200%200%208%2018a4%204%200%200%200-2-3.86V10h20v4.14A4%204%200%200%200%2024%2018a4%204%200%200%200%202%203.86V26z%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M10%2014h12v2H10zm0%206h12v2H10z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; 
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M26%208H6a2%202%200%200%200-2%202v6a2%202%200%200%201%200%204v6a2%202%200%200%200%202%202h20a2%202%200%200%200%202-2v-6a2%202%200%200%201%200-4v-6a2%202%200%200%200-2-2zM6%2026v-4.14A4%204%200%200%200%208%2018a4%204%200%200%200-2-3.86V10h20v4.14A4%204%200%200%200%2024%2018a4%204%200%200%200%202%203.86V26z%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M10%2014h12v2H10zm0%206h12v2H10z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; 
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%; 
+}
+
+.i-carbon-circle-dash { 
+  display: inline-block; width: 1em; height: 1em; background-color: currentColor; 
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M12%204.328A11.8%2011.8%200%200%201%2016%203.8a11.95%2011.95%200%200%201%204%20.686V2.365a13.9%2013.9%200%200%200-8-.544zM27.672%2012a11.8%2011.8%200%200%201%20.528%204a11.95%2011.95%200%200%201-.686%204h1.963a13.9%2013.9%200%200%200%20.544-8zM20%2027.672A11.8%2011.8%200%200%201%2016%2028.2a11.95%2011.95%200%200%201-4-.686v1.963a13.9%2013.9%200%200%200%208%20.544zM4.328%2020A11.8%2011.8%200%200%201%203.8%2016a11.95%2011.95%200%200%201%20.686-4H2.523a13.9%2013.9%200%200%200-.544%208zM25.045%206.954l-1.414%201.415a12.03%2012.03%200%200%201%201.415%201.414l1.414-1.414A14.04%2014.04%200%200%200%2025.045%206.955M6.955%2025.045l1.414-1.414a12.03%2012.03%200%200%201-1.414-1.414l-1.414%201.414a14.04%2014.04%200%200%200%201.414%201.414m18.09-15.26a12.03%2012.03%200%200%201%201.414%201.414l1.414-1.414a14.04%2014.04%200%200%200-1.414-1.414zM9.785%2022.215a12.03%2012.03%200%200%201-1.414%201.414l-1.414-1.414a14.04%2014.04%200%200%200%201.414%201.414%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; 
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M12%204.328A11.8%2011.8%200%200%201%2016%203.8a11.95%2011.95%200%200%201%204%20.686V2.365a13.9%2013.9%200%200%200-8-.544zM27.672%2012a11.8%2011.8%200%200%201%20.528%204a11.95%2011.95%200%200%201-.686%204h1.963a13.9%2013.9%200%200%200%20.544-8zM20%2027.672A11.8%2011.8%200%200%201%2016%2028.2a11.95%2011.95%200%200%201-4-.686v1.963a13.9%2013.9%200%200%200%208%20.544zM4.328%2020A11.8%2011.8%200%200%201%203.8%2016a11.95%2011.95%200%200%201%20.686-4H2.523a13.9%2013.9%200%200%200-.544%208zM25.045%206.954l-1.414%201.415a12.03%2012.03%200%200%201%201.415%201.414l1.414-1.414A14.04%2014.04%200%200%200%2025.045%206.955M6.955%2025.045l1.414-1.414a12.03%2012.03%200%200%201-1.414-1.414l-1.414%201.414a14.04%2014.04%200%200%200%201.414%201.414m18.09-15.26a12.03%2012.03%200%200%201%201.414%201.414l1.414-1.414a14.04%2014.04%200%200%200-1.414-1.414zM9.785%2022.215a12.03%2012.03%200%200%201-1.414%201.414l-1.414-1.414a14.04%2014.04%200%200%200%201.414%201.414%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; 
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%; 
+}

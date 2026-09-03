@@ -1,0 +1,55 @@
+<view class="min-h-screen flex flex-col bg-efecec">
+  <view class="fixed left-0 right-0 top-0 z-50 bg-efecec" style="padding-top: {{safeAreaTop}}px;">
+    <view class="relative h-11 flex items-center justify-center px-4">
+      <view class="absolute left-2 h-8 w-8 flex items-center justify-center rounded-full" hover-class="bg-black-5" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900"></view>
+      </view>
+      <text class="text-lg text-gray-900 font-bold">安全中心</text>
+    </view>
+  </view>
+  
+  <view style="height: {{safeAreaTop + 44}}px;"></view>
+
+  <view class="flex flex-col items-center py-10">
+    <view class="relative mb-4">
+      <view class="h-24 w-24 rounded-full bg-green-500-10 flex items-center justify-center" style="animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;">
+         <view class="i-carbon-security text-5xl text-green-500"></view>
+      </view>
+      <view class="absolute -bottom-1 -right-1 h-6 w-6 bg-white rounded-full flex items-center justify-center shadow-sm">
+         <view class="i-carbon-checkmark-filled text-green-500 text-lg"></view>
+      </view>
+    </view>
+    <text class="text-xl font-bold text-gray-800">账号状态：安全</text>
+    <text class="mt-2 text-xs text-gray-400">已通过 12 项安全检测，持续守护中</text>
+  </view>
+
+  <view class="px-4">
+    <view class="bg-white rounded-40 p-2 shadow-md">
+      <view wx:for="{{safetyChecks}}" wx:key="label" class="flex items-center justify-between p-4">
+        <view class="flex items-center gap-3">
+          <view class="{{item.icon}} text-xl {{item.status === 'normal' ? 'text-green-500' : 'text-orange-500'}}"></view>
+          <view class="flex flex-col">
+            <text class="text-sm font-bold text-gray-800">{{ item.label }}</text>
+            <text class="text-10 text-gray-400">{{ item.desc }}</text>
+          </view>
+        </view>
+        <text class="text-xs font-bold {{item.status === 'normal' ? 'text-green-500' : 'text-orange-500'}}">
+          {{ item.statusText }}
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <view class="mt-10 px-6">
+    <view class="bg-white rounded-3xl p-5 border border-red-50">
+      <text class="text-sm font-bold text-red-500 mb-2 block">敏感操作</text>
+      <view class="flex items-center justify-between" hover-class="opacity-60" bindtap="handleDeleteAccount">
+        <view>
+          <text class="text-sm text-gray-800 font-bold">账号注销</text>
+          <text class="block text-10 text-gray-400 mt-1">注销后账号资料将永久删除且无法找回</text>
+        </view>
+        <view class="i-carbon-chevron-right text-gray-300"></view>
+      </view>
+    </view>
+  </view>
+</view>

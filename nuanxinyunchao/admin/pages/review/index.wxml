@@ -1,0 +1,162 @@
+<view class="relative h-screen w-full flex flex-col pt-safe">
+  <image
+    src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png"
+    class="absolute inset-0 z-0 h-full w-full" mode="scaleToFill"
+  />
+
+  <view class="relative z-10 flex-none px-4 pb-8 pt-12">
+    <view class="flex items-center justify-between">
+      <view class="flex items-center gap-2">
+        <image
+          src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo.png" mode="heightFix"
+          class="h-6 w-6 flex-shrink-0"
+        />
+        <image
+          src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo_title.png" mode="heightFix"
+          class="h-4 w-16 flex-shrink-0"
+        />
+      </view>
+      <view wx:if="{{false}}"
+        class="mx-3 h-8 flex flex-1 items-center border border-white-20 rounded-full bg-black-10 px-3 backdrop-blur-sm transition-all"
+      >
+        <view class="i-carbon-search mr-2 text-sm text-white" />
+        <text class="text-xs text-white-90">强国同学汇</text>
+      </view>
+      <view class="w-20" />
+    </view>
+  </view>
+
+  <view class="relative z-20 min-h-0 w-full flex flex-1 flex-col overflow-hidden rounded-t-40rpx">
+    <image
+      src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg_down.png"
+      class="absolute inset-0 z-0 h-full w-full" mode="scaleToFill"
+    />
+
+    <scroll-view scroll-y class="relative z-10 h-0 w-full flex-1 scroll-view-content" show-scrollbar="{{false}}">
+      <view class="px-4 pt-15 pb-safe">
+        <view class="relative mb-15">
+          <image
+            src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/review/title_pending.png"
+            mode="heightFix"
+            class="absolute left-0 z-8 h-20 w-auto minus-top-8-5"
+          />
+
+          <view class="absolute right-0 z-20 minus-top-7" bindtap="handleRemind">
+            <view class="flex items-center justify-center border border-black rounded-full border-solid px-3 py-1 shadow-sm transition-opacity active-scale">
+              <text class="text-xs text-red-light font-medium">一键提醒</text>
+            </view>
+          </view>
+
+          <view class="relative z-10 overflow-hidden rounded-2xl bg-white p-4 pt-8 shadow-sm">
+            <view wx:for="{{pendingList}}" wx:key="id" class="mb-2">
+              <view
+                class="flex items-center justify-between rounded-lg px-2 py-3 transition-colors minus-mx-2 active-bg-gray-50"
+                data-type="pending"
+                data-index="{{index}}"
+                bindtap="toggleExpand"
+              >
+                <view class="flex items-center gap-2 overflow-hidden">
+                  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/review/icon_review1.png" mode="heightFix" class="h-5" />
+                  <text class="truncate text-base text-gray-800 font-bold">{{ item.name }}</text>
+                </view>
+
+                <view class="flex flex-shrink-0 items-center gap-2">
+                  <view wx:if="{{item.totalCount > 0}}" class="rounded bg-orange-600 px-1-5 py-0-5 text-xs text-white font-medium">
+                    {{ item.totalCount + '条' }}
+                  </view>
+                  <view
+                    class="i-carbon-chevron-down text-gray-400 transition-transform duration-300 {{item.expanded ? 'rotate-180' : ''}}"
+                  />
+                </view>
+              </view>
+
+              <view wx:if="{{item.expanded}}" class="pb-2 pr-1 animate-fade-in-down">
+                <block wx:for="{{item.details}}" wx:for-item="group" wx:for-index="groupIndex" wx:key="groupIndex">
+                  <view class="mb-2 overflow-hidden rounded-32rpx bg-orange-50">
+                    <view
+                      wx:for="{{group.items}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="subIndex"
+                      class="flex items-center justify-between px-5 py-4 text-xs {{subIndex < group.items.length - 1 ? 'border-b border-white-20' : ''}}"
+                    >
+                      <text class="flex-1 truncate text-gray-500 font-medium text-left">{{ group.shopName }}</text>
+                      <text class="separator-line text-gray-300 opacity-60">|</text>
+                      <text class="flex-1 truncate text-center text-gray-400">{{ subItem.content }}</text>
+                      <text class="separator-line text-gray-300 opacity-60">|</text>
+                      <text class="flex-1 text-center text-red-light font-bold">{{ subItem.status }}</text>
+                    </view>
+                  </view>
+                </block>
+
+                <view wx:if="{{item.details.length === 0}}" class="py-2 text-center text-xs text-gray-400">
+                  暂无记录
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="relative mb-6 mt-15">
+          <image
+            src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/review/title_reviewed.png"
+            mode="heightFix"
+            class="absolute left-0 z-8 h-20 w-auto minus-top-8-5"
+          />
+
+          <view class="relative z-10 overflow-hidden rounded-2xl bg-white p-4 pt-8 shadow-sm">
+            <view wx:for="{{reviewedList}}" wx:key="id" class="mb-2">
+              <view
+                class="flex items-center justify-between rounded-lg px-2 py-3 transition-colors minus-mx-2 active-bg-gray-50"
+                data-type="reviewed"
+                data-index="{{index}}"
+                bindtap="toggleExpand"
+              >
+                <view class="flex items-center gap-2 overflow-hidden">
+                  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/review/con_review2.png" mode="heightFix" class="h-5" />
+                  <text class="truncate text-base text-gray-800 font-bold">{{ item.name }}</text>
+                </view>
+
+                <view class="flex flex-shrink-0 items-center gap-2">
+                  <view wx:if="{{item.totalCount > 0}}" class="rounded bg-green-dark px-1-5 py-0-5 text-xs text-white font-medium">
+                    {{ item.totalCount + '条' }}
+                  </view>
+                  <view
+                    class="i-carbon-chevron-down text-gray-400 transition-transform duration-300 {{item.expanded ? 'rotate-180' : ''}}"
+                  />
+                </view>
+              </view>
+
+              <view wx:if="{{item.expanded}}" class="pb-2 pr-1 animate-fade-in-down">
+                <block wx:for="{{item.details}}" wx:for-item="group" wx:for-index="groupIndex" wx:key="groupIndex">
+                  <view class="mb-2 overflow-hidden rounded-32rpx bg-green-50">
+                    <view
+                      wx:for="{{group.items}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="subIndex"
+                      class="flex items-center justify-between px-5 py-4 text-xs {{subIndex < group.items.length - 1 ? 'border-b border-white-20' : ''}}"
+                    >
+                      <text class="flex-1 truncate text-gray-500 font-medium text-left">{{ group.shopName }}</text>
+                      <text class="separator-line text-gray-300 opacity-60">|</text>
+                      <text class="flex-1 truncate text-center text-gray-400">{{ subItem.content }}</text>
+                      <text class="separator-line text-gray-300 opacity-60">|</text>
+                      <text class="flex-1 text-center text-green-light font-bold">已审核</text>
+                    </view>
+                  </view>
+                </block>
+
+                <view wx:if="{{item.details.length === 0}}" class="py-2 text-center text-xs text-gray-400">
+                  暂无记录
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="h-20" />
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+
+<!-- 动态注入返回智慧党建飘窗 -->
+<global-home-btn />
+
+<!-- 动态注入子包底部导航栏 -->
+<nxyc-tabbar role="admin" selected="2" />

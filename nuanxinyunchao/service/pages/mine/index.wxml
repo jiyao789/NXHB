@@ -1,0 +1,86 @@
+<view class="page-container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/mine_bg.png" class="bg-global" mode="scaleToFill" />
+
+
+  <scroll-view scroll-y class="scroll-container" show-scrollbar="{{false}}">
+    <view class="scroll-inner">
+
+      <view class="nav-header">
+        <view class="logo-group">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo.png" mode="heightFix" class="logo-icon" />
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo_title.png" mode="heightFix" class="logo-title" />
+        </view>
+      </view>
+      <view class="user-info-section" bindtap="handleUserInfoClick">
+        <view class="user-left">
+          <view class="avatar-box">
+            <image src="{{hasLogin && userInfo.avatar ? userInfo.avatar : 'https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/avatar.png'}}" class="avatar-img" mode="aspectFill" />
+          </view>
+
+          <view class="user-details">
+            <view class="name-row">
+              <text class="nickname {{hasLogin ? 'text-sm' : 'text-xl'}}">{{hasLogin ? (userInfo.nickname || '微信用户') : '点击登录'}}</text>
+
+              <view wx:if="{{hasLogin}}" class="role-badge-container">
+                <view class="role-badge">
+                  <text class="role-text">{{userInfo.role === 'street' ? '街道管理' : (userInfo.role === 'merchant' ? '商户认证' : '积分达人')}}</text>
+                </view>
+                <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/icon_1.png" class="role-icon" mode="aspectFit" />
+              </view>
+            </view>
+            <text class="account-info">{{hasLogin ? '账号：' + (userInfo.username || '--') : '登录体验更多功能'}}</text>
+          </view>
+        </view>
+
+        <view class="user-right">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/badge_hex.png" class="badge-hex" mode="aspectFit" />
+        </view>
+      </view>
+
+      <!-- 光荣时刻 Banner -->
+      <view class="relative z-5 px-5-6 mb-neg-40">
+        <view class="w-full h-40 bg-orange-light rounded-2xl p-10 box-border">
+          <view class="w-full h-full bg-white rounded-2xl overflow-hidden relative">
+            <image wx:if="{{bannerList && bannerList.length > 0}}" src="{{bannerList[0].imgUrl}}" mode="aspectFill" class="h-full w-full block rounded-2xl" bindtap="handleBannerClick"></image>
+            <view class="absolute bottom-0 left-0 right-0 h-40-px bg-gradient-to-t z-10 pointer-events-none"></view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 底部卡片区 -->
+      <view class="relative z-10 w-95 min-h-60vh -top-12 mx-auto">
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/mine/bg_curve.png" class="absolute top-0 left-0 w-full h-900 z-0" mode="scaleToFill"></image>
+
+        <view class="relative z-10 px-4 pt-16">
+          <!-- 我的权益按钮 -->
+          <view class="rights-btn" bindtap="handleRightsClick" wx:if="{{userInfo.role === 'merchant'}}">
+            <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/mine/my_rights.png" mode="heightFix" class="rights-img" />
+          </view>
+
+          <!-- 菜单列表 -->
+          <view class="bg-white rounded-36 shadow-sm min-h-400 relative">
+            <view wx:for="{{menuList}}" wx:key="title" class="flex items-center justify-between p-5 transition-colors menu-item-container" hover-class="bg-gray-100" bindtap="handleMenuClick" data-path="{{item.path}}">
+              <view class="flex items-center gap-4">
+                <image src="{{item.icon}}" class="h-6 w-6 pr-2" mode="aspectFit"></image>
+                <text class="text-16 color-dark">{{item.title}}</text>
+              </view>
+              <view class="i-carbon-chevron-right text-gray-400 text-20"></view>
+              
+              <!-- 分隔线 -->
+              <view wx:if="{{index < menuList.length - 1}}" class="divider-line"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-placeholder"></view>
+
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 动态注入返回智慧党建飘窗 -->
+<global-home-btn />
+
+<!-- 动态注入子包底部导航栏 -->
+<nxyc-tabbar role="service" selected="4" />

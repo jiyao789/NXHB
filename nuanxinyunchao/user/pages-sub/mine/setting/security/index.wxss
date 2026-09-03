@@ -1,0 +1,69 @@
+@import "../../../../styles/utilities.wxss";
+@import "../../../../styles/icons.wxss";
+
+/* ==== 修复微信盒子模型 ==== */
+view, text, image, scroll-view, input, button { box-sizing: border-box !important; }
+
+/* ==== 特殊字符合规化映射 ==== */
+.min-h-screen { min-height: 100vh; }
+.bg-efecec { background-color: #efecec; }
+.bg-white { background-color: #ffffff; }
+.bg-gray-200 { background-color: #e5e7eb; }
+
+.text-gray-900 { color: #111827; }
+.text-gray-800 { color: #1f2937; }
+.text-gray-300 { color: #d1d5db; }
+
+/* 尺寸与高度 */
+.h-11 { height: 88rpx; }
+.h-8 { height: 64rpx; }
+.w-8 { width: 64rpx; }
+.h-1px { height: 2rpx; }
+
+/* 字体排版 */
+.text-2xl { font-size: 48rpx; }
+.text-lg { font-size: 36rpx; }
+.text-base { font-size: 32rpx; }
+.font-bold { font-weight: 700; }
+
+/* 边距与排版 */
+.px-4 { padding-left: 32rpx; padding-right: 32rpx; }
+.pt-3 { padding-top: 24rpx; }
+.p-4 { padding: 32rpx; }
+
+.left-0 { left: 0; }
+.right-0 { right: 0; }
+.top-0 { top: 0; }
+.bottom-0 { bottom: 0; }
+.left-2 { left: 16rpx; }
+.right-2 { right: 16rpx; }
+
+/* 其他视觉 */
+.rounded-full { border-radius: 9999rpx; }
+.rounded-3xl { border-radius: 48rpx; }
+.overflow-hidden { overflow: hidden; }
+.z-50 { z-index: 50; }
+.z-20 { z-index: 20; }
+.shadow-md { box-shadow: 0 8rpx 12rpx -2rpx rgba(0, 0, 0, 0.1), 0 4rpx 8rpx -2rpx rgba(0, 0, 0, 0.06); }
+
+/* 交互反馈 */
+.active-bg-black-5:active { background-color: rgba(0, 0, 0, 0.05); }
+.active-bg-gray-50:active { background-color: #f9fafb; }
+
+/* ======================================================== */
+/* 🚀 补丁：缺漏的全局 Icon (完全合法化 URL Encoded) */
+/* ======================================================== */
+
+.i-carbon-chevron-left { 
+  display: inline-block; width: 1em; height: 1em; background-color: currentColor; 
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M10%2016L20%206l1.4%201.4L12.8%2016l8.6%208.6L20%2026z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; 
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M10%2016L20%206l1.4%201.4L12.8%2016l8.6%208.6L20%2026z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; 
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%; 
+}
+
+.i-carbon-chevron-right { 
+  display: inline-block; width: 1em; height: 1em; background-color: currentColor; 
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M22%2016L12%2026l-1.4-1.4l8.6-8.6l-8.6-8.6L12%206z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; 
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M22%2016L12%2026l-1.4-1.4l8.6-8.6l-8.6-8.6L12%206z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; 
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%; 
+}

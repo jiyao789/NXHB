@@ -1,0 +1,25 @@
+<view class="tabbar-placeholder pb-safe">
+  <view class="border-and-fixed bg-white" catchtouchmove="true">
+    <view class="h-55px flex items-center justify-around">
+      <view
+        wx:for="{{list}}"
+        wx:key="index"
+        class="h-full flex flex-1 flex-col items-center justify-center {{selected === index ? 'active' : 'inactive'}}"
+        data-index="{{index}}"
+        bindtap="switchTab"
+      >
+        <view class="relative flex flex-col items-center px-2 text-center">
+          <image
+            src="{{selected === index ? item.selectedIconPath : item.iconPath}}"
+            mode="aspectFit"
+            class="block h-32px w-32px"
+          />
+          <view class="mt-1 text-16px font-bold leading-none">
+            {{ item.text }}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="pb-safe" />
+  </view>
+</view>

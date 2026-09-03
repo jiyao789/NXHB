@@ -1,0 +1,2 @@
+@import "../../styles/utilities.wxss";
+@import "../../styles/icons.wxss";

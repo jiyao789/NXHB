@@ -1,0 +1,7 @@
+.text-center { text-align: center; }
+.mt-4 { margin-top: 1rem; }
+.w-40 { width: 10rem; }
+.pt-safe {
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+}

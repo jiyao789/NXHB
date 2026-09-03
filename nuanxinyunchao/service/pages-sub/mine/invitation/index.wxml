@@ -1,0 +1,74 @@
+<view class="page-container">
+  <!-- 自定义导航栏 -->
+  <view class="nav-fixed" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-content" style="height: {{navBarHeight}}px;">
+      <view class="back-btn" hover-class="bg-active" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">党群邀请码管理</text>
+    </view>
+  </view>
+  
+  <view class="nav-placeholder" style="height: {{statusBarHeight + navBarHeight}}px;"></view>
+
+  <view class="main-content">
+    <!-- 生成区域 -->
+    <view class="create-card">
+      <view class="card-title">新增注册名册</view>
+      <view class="card-desc">预设党群中心全称及随机生成的邀请码，用于自主入驻。</view>
+      
+      <view class="input-group">
+        <text class="label">党群中心名称</text>
+        <input 
+          class="center-input" 
+          placeholder="请输入党群中心完整名称" 
+          placeholder-class="ph"
+          value="{{centerName}}"
+          bindinput="handleInput"
+        />
+      </view>
+
+      <view class="btn-generate {{!centerName ? 'disabled' : ''}}" bindtap="handleGenerate">
+        <text>一键生成邀请码</text>
+      </view>
+    </view>
+
+    <!-- 记录列表 -->
+    <view class="list-section">
+      <view class="section-header">
+        <text class="section-title">生成记录</text>
+        <view class="refresh-box" bindtap="fetchList">
+          <view class="icon-refresh {{isRefreshing ? 'rotating' : ''}}"></view>
+          <text>刷新</text>
+        </view>
+      </view>
+
+      <block wx:if="{{list.length > 0}}">
+        <view class="record-item" wx:for="{{list}}" wx:key="id">
+          <view class="record-info">
+            <view class="name-status">
+              <text class="center-name">{{item.centerName}}</text>
+              <view class="status-tag {{item.isUsed ? 'used' : 'unused'}}">
+                {{item.isUsed ? '已注册' : '未使用'}}
+              </view>
+            </view>
+            <view class="code-box">
+              <text class="code-label">邀请码：</text>
+              <text class="code-value">{{item.invitationCode}}</text>
+              <view class="btn-copy" bindtap="handleCopy" data-code="{{item.invitationCode}}">复制</view>
+            </view>
+            <view class="time-box">生成时间：{{item.createTime || '2026-04-17'}}</view>
+          </view>
+          <view class="btn-delete" bindtap="handleDelete" data-id="{{item.id}}">
+            <view class="icon-delete"></view>
+          </view>
+        </view>
+      </block>
+      
+      <view class="empty-holder" wx:else>
+        <view class="empty-img"></view>
+        <text>暂无生成记录</text>
+      </view>
+    </view>
+  </view>
+</view>

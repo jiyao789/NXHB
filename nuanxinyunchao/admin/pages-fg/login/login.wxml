@@ -1,0 +1,12 @@
+<view class="login pt-safe">
+  <view class="text-center">
+    登录页
+  </view>
+  <button class="mt-4 w-40 text-center" bindtap="doLogin">
+    点击模拟登录
+  </button>
+</view>
+
+
+<!-- 动态注入返回智慧党建飘窗 -->
+<global-home-btn />

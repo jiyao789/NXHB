@@ -1,0 +1,38 @@
+<view class="min-h-screen flex flex-col bg-efecec">
+  
+  <view class="fixed left-0 right-0 top-0 z-50 bg-efecec" style="padding-top: {{safeAreaTop}}px;">
+    <view class="relative h-11 flex items-center justify-center px-4">
+      <view class="absolute left-2 h-8 w-8 flex items-center justify-center rounded-full" hover-class="bg-black-5" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900"></view>
+      </view>
+      <text class="text-lg text-gray-900 font-bold">通知设置</text>
+    </view>
+  </view>
+  
+  <view style="height: {{safeAreaTop + 44}}px;"></view>
+
+  <view class="px-4 pt-3">
+    <view class="overflow-hidden rounded-xl bg-white">
+      
+      <!-- 消息推送 -->
+      <view class="relative flex items-center justify-between p-4 border-b border-gray-50">
+        <view class="flex flex-col">
+          <text class="text-base text-gray-800">消息推送</text>
+          <text class="text-xs text-gray-400 mt-1">开启后可收到服务状态变更提醒</text>
+        </view>
+        <switch checked="{{settings.notification}}" color="#ffd300" bindchange="handleNotificationChange" />
+        <view class="absolute bottom-0 right-2 left-2 h-1px bg-gray-200 z-20"></view>
+      </view>
+
+      <!-- 详情显示 -->
+      <view class="flex items-center justify-between p-4">
+        <text class="text-base text-gray-800">通知显示具体内容</text>
+        <switch checked="{{settings.detail}}" color="#ffd300" bindchange="handleDetailChange" />
+      </view>
+    </view>
+    
+    <view class="px-4 mt-2 text-xs text-gray-400">
+      注：如果无法开启，请检查手机系统设置中微信的通知权限是否打开。
+    </view>
+  </view>
+</view>

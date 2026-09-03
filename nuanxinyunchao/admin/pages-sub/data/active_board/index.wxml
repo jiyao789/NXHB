@@ -1,0 +1,116 @@
+<view class="page-container">
+  <!-- FULL PAGE BACKGROUND -->
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/checkin_bg.png" class="bg-img" mode="scaleToFill" />
+
+  <!-- CUSTOM NAV BAR -->
+  <view class="custom-nav" style="padding-top: {{safeAreaTop}}px; background-color: {{scrollTop > 50 ? '#e6d144' : 'transparent'}};">
+    <view class="nav-bar" style="height: {{navBarHeight}}px;">
+      <view class="nav-back active-scale" bindtap="handleBack">
+        <view class="i-back"></view>
+      </view>
+      <view class="nav-title">活跃看板</view>
+      <view class="nav-right"></view>
+    </view>
+  </view>
+
+  <scroll-view scroll-y class="main-scroll" show-scrollbar="{{false}}" bindscroll="onPageScroll">
+    <view class="content-padding">
+
+      <!-- TOP 1 SECTION -->
+      <view class="top1-container" wx:if="{{topPerformer}}">
+        <view class="top1-content-box">
+          <!-- Left: Info Group -->
+          <view class="top1-left-info">
+            <view class="top1-name" data-text="{{topPerformer.name}}">{{topPerformer.name}}</view>
+
+            <view class="top1-badge-row">
+              <view class="badge-tag">
+                <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/rank_1.png" style="width: 28rpx; height: 20rpx; margin-right: 8rpx;" mode="aspectFit" />
+                <text class="badge-text1">表现最佳</text>
+                <view class="badge-text2-wrap">
+                  <text class="badge-text2">热度第一</text>
+                </view>
+              </view>
+            </view>
+
+            <view class="top1-data-list">
+              <view class="data-item">
+                <view class="dot-yellow"></view>
+                <text>活动参与总数</text>
+              </view>
+              <view class="data-item">
+                <view class="dot-orange"></view>
+                <text>优惠券核销总数</text>
+              </view>
+            </view>
+          </view>
+
+          <!-- Right: Visual Group -->
+          <view class="top1-right-visual">
+             <image class="bubble-static-img" src="/nuanxinyunchao/admin/static/images/组 281.png" mode="aspectFit" />
+             <text class="val-text val-text-left">{{topPerformer.act}}</text>
+             <text class="val-text val-text-right">{{topPerformer.red}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- SECTION HEADER -->
+      <view class="section-header-new">
+        <text class="header-title-new">全区各街道活跃度分布</text>
+        <view class="header-yellow-line"></view>
+      </view>
+
+      <!-- DYNAMIC GRID -->
+      <view class="treemap-grid">
+        <block wx:for="{{districts}}" wx:key="id">
+          
+          <!-- 大模块 TOP2-5 -->
+          <view wx:if="{{item.cardType === 'lg'}}" class="grid-card grid-card-lg {{item.gridClass}}">
+            <view class="lg-top-tag">
+              <image class="lg-top-tag-img" src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/data/top.png" mode="heightFix" />
+              <text class="lg-top-tag-text">TOP{{item.rank}}</text>
+            </view>
+            
+            <view class="lg-card-name">{{item.name}}</view>
+            
+            <view class="lg-card-content">
+              <view class="lg-data-column">
+                <view class="lg-indicator bar-act"></view>
+                <view class="lg-col">
+                  <text class="lg-label">活动</text>
+                  <text class="lg-val">{{item.act}}</text>
+                </view>
+              </view>
+              <view class="lg-data-column">
+                <view class="lg-indicator bar-red"></view>
+                <view class="lg-col">
+                  <text class="lg-label">核销</text>
+                  <text class="lg-val">{{item.red}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+
+          <!-- 小模块 -->
+          <view wx:else class="grid-card grid-card-sm {{item.gridClass}}">
+            <view class="sm-card-name">{{item.name}}</view>
+            <view class="sm-card-data">
+              <view class="sm-data-item">
+                <view class="dot-yellow sm-dot"></view>
+                <text class="sm-label">活动</text>
+                <text class="sm-val">{{item.act}}</text>
+              </view>
+              <view class="sm-data-item">
+                <view class="dot-orange sm-dot"></view>
+                <text class="sm-label">核销</text>
+                <text class="sm-val">{{item.red}}</text>
+              </view>
+            </view>
+          </view>
+
+        </block>
+      </view>
+
+    </view>
+  </scroll-view>
+</view>

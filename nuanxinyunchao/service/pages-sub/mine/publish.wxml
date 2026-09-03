@@ -1,0 +1,116 @@
+<view class="page-container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="bg-fixed" mode="widthFix" />
+
+  <!-- 固定头部 -->
+  <view class="nav-fixed" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-content">
+      <view class="back-btn" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">我的发布</text>
+    </view>
+  </view>
+
+  <!-- 导航占位 -->
+  <view class="nav-spacer" style="height: {{statusBarHeight + 44}}px;"></view>
+
+  <!-- 选项卡区域 -->
+  <view class="tabs-area">
+    <view class="main-tabs-area">
+      <view class="tab-item tab-left {{currentTab === 0 ? 'z-20' : 'z-10'}}" bindtap="switchMainTab" data-tab="0">
+        <view class="tab-bg tab-bg-left {{currentTab === 0 ? 'active' : 'inactive'}}"></view>
+        <text class="tab-text {{currentTab === 0 ? 'active' : 'inactive'}}">已发布</text>
+        <block wx:if="{{currentTab === 0}}">
+          <view class="tab-indicator indicator-left"></view>
+        </block>
+      </view>
+
+      <view class="tab-item tab-right {{currentTab === 1 ? 'z-20' : 'z-10'}}" bindtap="switchMainTab" data-tab="1">
+        <view class="tab-bg tab-bg-right {{currentTab === 1 ? 'active' : 'inactive'}}"></view>
+        <text class="tab-text {{currentTab === 1 ? 'active' : 'inactive'}}">未发布</text>
+        <block wx:if="{{currentTab === 1}}">
+          <view class="tab-indicator indicator-right"></view>
+        </block>
+      </view>
+    </view>
+
+    <view class="sub-tabs-box">
+      <scroll-view scroll-x class="sub-tabs-scroll" show-scrollbar="{{false}}" enhanced="{{true}}" bounces="{{false}}">
+        <view class="sub-tabs-inner">
+          <view 
+            wx:for="{{subTabs}}" 
+            wx:key="value" 
+            class="sub-tab {{currentSubTab === item.value ? 'active' : 'inactive'}}"
+            bindtap="toggleSubTab" 
+            data-val="{{item.value}}"
+          >
+            {{item.name}}
+          </view>
+        </view>
+      </scroll-view>
+      
+      <!-- 管理按钮：仅草稿态且有数据时显示 -->
+      <view wx:if="{{currentTab === 1 && rawList.length > 0}}" class="manage-btn-box">
+        <view class="manage-btn {{isManageMode ? 'active' : ''}}" bindtap="toggleManageMode">
+          {{isManageMode ? '完成' : '编辑管理'}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 原生滚动区域 -->
+  <scroll-view 
+    scroll-y 
+    class="scroll-area" 
+    refresher-enabled="{{true}}"
+    refresher-triggered="{{refresherTriggered}}"
+    bindrefresherrefresh="onRefresh"
+    bindscrolltolower="onLoadMore"
+    show-scrollbar="{{false}}"
+    enable-back-to-top
+  >
+    <view class="scroll-inner">
+      <!-- 1. 列表渲染 -->
+      <block wx:if="{{filteredList.length > 0}}">
+        <view wx:for="{{filteredList}}" wx:key="id" class="card-item" hover-class="card-hover" bindtap="handleToDetail" data-item="{{item}}">
+          <image src="{{item.icon}}" class="card-icon" mode="heightFix" />
+          
+          <!-- 删除图标 (管理模式下显示) -->
+          <view wx:if="{{isManageMode && currentTab === 1}}" class="delete-icon-box" catchtap="handleDeleteDraft" data-item="{{item}}">
+            <view class="icon-delete"></view>
+          </view>
+
+          <view class="card-content">
+            <text class="card-title">{{item.title}}</text>
+            <text class="card-time">{{currentTab === 1 ? '上次编辑' : '发布时间'}}：{{item.displayTime}}</text>
+          </view>
+        </view>
+      </block>
+
+      <!-- 2. 全局加载态 (首次加载或空列表时) -->
+      <view wx:if="{{isLoading && filteredList.length === 0}}" class="global-loading">
+        <view class="loading-anim"></view>
+        <text class="loading-text">正在努力加载中...</text>
+      </view>
+
+      <!-- 3. 空状态 (非加载中且列表为空) -->
+      <view wx:elif="{{!isLoading && filteredList.length === 0}}" class="empty-state">
+        <view class="icon-empty"></view>
+        <text class="empty-text">暂无发布记录</text>
+      </view>
+
+      <!-- 4. 底部翻页记载提示 (仅在有数据时显示) -->
+      <view wx:if="{{filteredList.length > 0}}" class="load-status {{isLoading ? 'loading' : ''}}">
+        <block wx:if="{{isLoading}}">
+          <view class="loading-spinner"></view>
+          <text>加载中...</text>
+        </block>
+        <block wx:elif="{{!hasMore}}">
+          <text>— 没有更多了 —</text>
+        </block>
+      </view>
+
+      <view class="bottom-padding"></view>
+    </view>
+  </scroll-view>
+</view>

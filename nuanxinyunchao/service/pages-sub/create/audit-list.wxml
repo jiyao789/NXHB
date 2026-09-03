@@ -1,0 +1,119 @@
+<view class="container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/points/points_bg.png" class="bg-img" mode="widthFix" />
+
+  <view class="nav-fixed" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-content">
+      <view class="back-btn" hover-class="bg-active" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">审核进度</text>
+    </view>
+  </view>
+
+  <view class="nav-spacer" style="height: {{statusBarHeight + 44}}px;"></view>
+
+  <view class="tabs-area">
+    <view class="status-tabs-wrapper">
+      <view class="status-tabs-box">
+        <view 
+          wx:for="{{statusTabs}}" 
+          wx:key="value" 
+          class="status-tab {{currentStatus === item.value ? 'active' : ''}}"
+          data-val="{{item.value}}" 
+          bindtap="switchStatus"
+        >
+          {{item.name}}
+        </view>
+      </view>
+    </view>
+
+    <view class="type-tabs-wrapper" wx:if="{{typeTabs.length > 1}}">
+      <view 
+        wx:for="{{typeTabs}}" 
+        wx:key="value" 
+        class="type-tab {{currentType === item.value ? 'active' : ''}}"
+        data-val="{{item.value}}" 
+        bindtap="switchType"
+      >
+        <text>{{item.name}}</text>
+        <view wx:if="{{currentType === item.value}}" class="type-indicator"></view>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view 
+    scroll-y 
+    class="scroll-area" 
+    refresher-enabled="{{true}}"
+    refresher-triggered="{{refresherTriggered}}"
+    bindrefresherrefresh="onRefresh"
+    show-scrollbar="{{false}}" 
+    enable-back-to-top
+  >
+    <view class="list-inner">
+      <block wx:if="{{filteredList.length > 0}}">
+        <view 
+          wx:for="{{filteredList}}" 
+          wx:key="id" 
+          class="list-card" 
+          hover-class="card-hover"
+          bindtap="toDetail"
+          data-item="{{item}}"
+        >
+          <!-- 样式 A: 入驻申请 (详情模式) -->
+          <block wx:if="{{currentType === 'application'}}">
+            <view class="card-detail-list">
+              <view class="detail-row"><text class="label">商家名称：</text><text class="val">{{item.merchantName}}</text></view>
+              <view class="detail-row"><text class="label">经营地址：</text><text class="val">{{item.address}}</text></view>
+              <view class="detail-row"><text class="label">负责人姓名：</text><text class="val">{{item.leaderName}}</text></view>
+              <view class="detail-row"><text class="label">联系电话：</text><text class="val">{{item.phone}}</text></view>
+              <view class="detail-row"><text class="label">统一社会信用代码：</text><text class="val">{{item.unifiedCode}}</text></view>
+            </view>
+            <view class="card-divider"></view>
+            <view class="card-bottom">
+              <view class="time-box">申请时间：{{item.time}}</view>
+              <view class="status-pill {{item.statusColorClass}}">{{item.statusName}}</view>
+            </view>
+          </block>
+
+          <!-- 样式 B: 默认 (图文/劵类等) -->
+          <block wx:else>
+            <view class="card-header">
+              <view class="card-title">{{item.title}}</view>
+              <view class="card-subtitle">{{item.couponTypeName}} | {{item.time}}</view>
+            </view>
+            <view class="card-bottom mt-24">
+              <view class="location-box">
+                <view class="icon-location"></view>
+                <text>{{item.location}}</text>
+              </view>
+              <view class="status-pill {{item.statusColorClass}}">{{item.statusName}}</view>
+            </view>
+          </block>
+        </view>
+      </block>
+
+      <view wx:else class="empty-state">
+        <icon type="info" size="60" color="#dddddd" />
+        <text class="empty-text">暂无相关审核记录</text>
+      </view>
+
+      <view class="bottom-padding"></view>
+    </view>
+  </scroll-view>
+
+  <!-- 未通过原因抽屉 -->
+  <view class="mask {{showReasonDrawer ? 'active' : ''}}" bindtap="closeReasonDrawer"></view>
+  <view class="reason-drawer {{showReasonDrawer ? 'show' : ''}}">
+    <view class="drawer-header">
+      <text class="drawer-label">拒绝理由：</text>
+    </view>
+    <view class="drawer-body">
+      <view class="reason-content">{{currentReason}}</view>
+      <view class="drawer-footer">
+        <button class="btn-cancel" bindtap="closeReasonDrawer">取消</button>
+        <button wx:if="{{isMerchant}}" class="btn-resubmit" bindtap="handleResubmit">再次提交</button>
+      </view>
+    </view>
+  </view>
+</view>

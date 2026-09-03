@@ -1,0 +1,64 @@
+.bg-efecec { background-color: #efecec; }
+.min-h-screen { min-height: 100vh; display: flex; flex-direction: column; }
+.fixed { position: fixed; z-index: 50; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.overflow-hidden { overflow: hidden; }
+
+.left-0 { left: 0; }
+.right-0 { right: 0; }
+.top-0 { top: 0; }
+.left-2 { left: 16rpx; }
+.right-4 { right: 32rpx; }
+.left-20 { left: 160rpx; }
+.bottom-0 { bottom: 0; }
+
+.h-11 { height: 88rpx; }
+.h-8 { height: 64rpx; }
+.w-8 { width: 64rpx; }
+.h-12 { height: 96rpx; }
+.w-12 { width: 96rpx; }
+.h-1px { height: 2rpx; }
+
+.px-4 { padding-left: 32rpx; padding-right: 32rpx; }
+.px-6 { padding-left: 48rpx; padding-right: 48rpx; }
+.py-4 { padding-top: 32rpx; padding-bottom: 32rpx; }
+.p-5 { padding: 40rpx; }
+.px-1-5 { padding-left: 12rpx; padding-right: 12rpx; }
+.py-0-5 { padding-top: 4rpx; padding-bottom: 4rpx; }
+.mt-1 { margin-top: 8rpx; }
+.gap-4 { gap: 32rpx; }
+.gap-2 { gap: 16rpx; }
+
+.rounded-full { border-radius: 9999px; }
+.rounded-3xl { border-radius: 48rpx; }
+.rounded-2xl { border-radius: 32rpx; }
+.rounded-md { border-radius: 12rpx; }
+.bg-black-5 { background-color: rgba(0,0,0,0.05); }
+.bg-gray-50 { background-color: #f9fafb; }
+.bg-gray-100 { background-color: #f3f4f6; }
+.bg-white { background-color: #ffffff; }
+.bg-green-100 { background-color: #dcfce7; }
+
+.border { border: 2rpx solid transparent; }
+.border-gray-200 { border-color: #e5e7eb; }
+
+.text-2xl { font-size: 48rpx; }
+.text-lg { font-size: 36rpx; }
+.text-base { font-size: 32rpx; }
+.text-xs { font-size: 24rpx; }
+.text-10 { font-size: 20rpx; }
+
+.text-gray-900 { color: #111827; }
+.text-gray-800 { color: #1f2937; }
+.text-gray-600 { color: #4b5563; }
+.text-gray-400 { color: #9ca3af; }
+.text-green-600 { color: #16a34a; }
+.font-bold { font-weight: bold; }
+
+.shadow-md { box-shadow: 0 4rpx 6rpx rgba(0,0,0,0.1); }

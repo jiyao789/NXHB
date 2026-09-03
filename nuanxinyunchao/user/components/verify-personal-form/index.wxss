@@ -1,0 +1,94 @@
+@import "../../styles/utilities.wxss";
+@import "../../styles/icons.wxss";
+
+.checkbox-square {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4rpx solid #e5e7eb;
+  background-color: #fff;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.checkbox-square.active {
+  background-color: #FF6B00;
+  border-color: #FF6B00;
+}
+
+/* 多图上传网格 */
+.cert-upload-section {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.03);
+}
+
+.cert-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.cert-item {
+  position: relative;
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.cert-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 16rpx;
+  border: 2rpx solid #eee;
+}
+
+.cert-delete-btn {
+  position: absolute;
+  top: 4rpx;
+  right: 4rpx;
+  width: 40rpx;
+  height: 40rpx;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.cert-add-btn {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 16rpx;
+  border: 3rpx dashed #d9d9d9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+}
+
+.cert-add-icon {
+  font-size: 56rpx;
+  color: #bbb;
+  line-height: 1;
+  margin-bottom: 4rpx;
+}
+
+.cert-add-text {
+  font-size: 22rpx;
+  color: #bbb;
+}
+
+.cert-hint {
+  padding-left: 4rpx;
+  margin-top: 8rpx;
+}

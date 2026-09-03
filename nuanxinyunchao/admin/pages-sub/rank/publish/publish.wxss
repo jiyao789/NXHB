@@ -1,0 +1,430 @@
+/* 容器基准 */
+.page-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.bg-fixed {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+}
+
+/* 导航栏 */
+.nav-fixed {
+  position: relative;
+  z-index: 50;
+  flex: none;
+}
+
+.nav-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 32rpx;
+}
+
+.back-btn {
+  position: absolute;
+  left: 32rpx;
+  height: 64rpx;
+  width: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 20;
+}
+
+.back-btn:active {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.icon-back {
+  width: 24rpx;
+  height: 24rpx;
+  border-top: 4rpx solid #333333;
+  border-left: 4rpx solid #333333;
+  transform: rotate(-45deg);
+}
+
+.nav-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+/* ================= 异形主 Tab 区域 ================= */
+.main-tabs-area {
+  position: relative;
+  z-index: 10;
+  flex: none;
+  display: flex;
+  align-items: flex-end;
+  padding: 32rpx 16rpx 0 16rpx;
+}
+
+.tab-item {
+  position: relative;
+  flex: 1;
+  height: 96rpx;
+  /* h-12 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+/* 负边距让两个 Tab 有交叉重叠 */
+.tab-left {
+  margin-right: -30rpx;
+}
+
+.tab-right {
+  margin-left: -30rpx;
+}
+
+.z-20 {
+  z-index: 20;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.tab-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 16rpx 16rpx 0 0;
+  transition: all 0.3s;
+  transform-origin: bottom;
+}
+
+/* 左侧 Tab 变形 */
+.tab-bg-left {
+  width: 120%;
+  left: -20%;
+}
+
+.tab-bg-left.active {
+  transform: skewX(20deg) scaleY(1);
+  background-color: #ffffff;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.03);
+}
+
+.tab-bg-left.inactive {
+  transform: skewX(20deg) scaleY(0.85);
+  background: linear-gradient(to bottom, #ffe4e6, #fff0f5, #ffffff);
+  opacity: 0.9;
+}
+
+/* 右侧 Tab 变形 */
+.tab-bg-right {
+  width: 140%;
+  right: -20%;
+}
+
+.tab-bg-right.active {
+  transform: skewX(-20deg) scaleY(1);
+  background-color: #ffffff;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.03);
+}
+
+.tab-bg-right.inactive {
+  transform: skewX(-20deg) scaleY(0.85);
+  background: linear-gradient(to bottom, #ffe4e6, #fff0f5, #ffffff);
+  opacity: 0.9;
+}
+
+.tab-text {
+  position: relative;
+  z-index: 10;
+  font-size: 32rpx;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+/* 抵消斜角带来的视觉偏移 */
+.tab-left .tab-text {
+  margin-right: 24rpx;
+}
+
+.tab-right .tab-text {
+  margin-left: 24rpx;
+}
+
+.tab-text.active {
+  color: #333333;
+  transform: scale(1.05);
+}
+
+.tab-text.inactive {
+  color: #888888;
+  transform: scale(0.95);
+}
+
+/* === 核心：底部防露缝盖板 (直角矩形，隐藏缝隙使底座与下方白块无缝衔接) === */
+.tab-cover {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 24rpx;
+  /* h-3 */
+  background-color: #ffffff;
+  z-index: 20;
+}
+
+/* 底部黑色小横线 */
+.tab-indicator {
+  position: absolute;
+  bottom: 16rpx;
+  /* bottom-2 */
+  left: 50%;
+  height: 6rpx;
+  width: 40rpx;
+  background-color: #333333;
+  border-radius: 999px;
+  z-index: 30;
+}
+
+.indicator-left {
+  transform: translateX(-50%);
+  margin-left: -16rpx;
+}
+
+.indicator-right {
+  transform: translateX(-50%);
+  margin-left: 16rpx;
+}
+
+
+/* ================= 列表主区域 ================= */
+.list-wrapper {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  top: -5rpx;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 100%;
+  overflow: hidden;
+}
+
+.sub-tabs-box {
+  flex: none;
+  background-color: #ffffff;
+  padding: 32rpx 0 16rpx 0;
+  /* 去除左右 padding，让滑动可以贴边 */
+  z-index: 20;
+  width: 100%;
+}
+
+/* 新增：滚动区域核心样式 */
+.sub-tabs-scroll {
+  width: 100%;
+  white-space: nowrap;
+  /* 强制内容不换行 */
+}
+
+.sub-tabs-inner {
+  display: inline-flex;
+  /* 改为 inline-flex 配合 nowrap */
+  align-items: center;
+  padding: 0 32rpx;
+  /* 将原本外层的边缘留白移到内部 */
+  gap: 20rpx;
+  /* 统一设置 Tab 之间的间距 */
+}
+
+.sub-tab {
+  flex-shrink: 0;
+  /* 核心：防止子元素被挤压变形 */
+  padding: 12rpx 48rpx;
+  border-radius: 999px;
+  font-size: 28rpx;
+  transition: all 0.2s;
+  border: 2rpx solid transparent;
+}
+
+/* 后面的 .sub-tab:active, .sub-tab.active, .sub-tab.inactive 保持你原来的不变即可 */
+
+.sub-tab:active {
+  transform: scale(0.95);
+}
+
+.sub-tab.active {
+  background-color: #ffffff;
+  border-color: #fed7aa;
+  /* orange-200 */
+  color: #333333;
+  font-weight: bold;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+}
+
+.sub-tab.inactive {
+  background-color: #f2f2f2;
+  color: #666666;
+  font-weight: 500;
+}
+
+/* 滑动列表 */
+.scroll-area {
+  flex: 1;
+  height: 0;
+  /* Flex 滚动核心 */
+  width: 100%;
+  background-color: #f5f5f5;
+}
+
+.scroll-inner {
+  padding: 24rpx 32rpx 80rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.list-item-wrap {
+  position: relative;
+  width: 100%;
+  border-radius: 24rpx;
+  background-color: #ff4d4f;
+  overflow: hidden;
+}
+
+.swipe-content {
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+.delete-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 140rpx;
+  background-color: #ff4d4f;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  font-weight: bold;
+  z-index: 1;
+}
+
+/* 卡片样式 */
+.card-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 24rpx;
+  padding: 40rpx 32rpx 32rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  /* 取消原来的 transform, 让外层容器管理 */
+}
+
+.card-hover {
+  opacity: 0.8;
+}
+
+/* 左上角自定义标签 */
+.custom-tag {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx 0 20rpx 0;
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #fff;
+  z-index: 10;
+}
+.tag-study { background: linear-gradient(90deg, #4facfe, #00f2fe); }
+.tag-glory { background: linear-gradient(90deg, #ff7e5f, #feb47b); }
+.tag-official { background: linear-gradient(90deg, #b224ef, #7579ff); }
+.tag-needyou { background: linear-gradient(90deg, #00b09b, #96c93d); }
+.tag-activity { background: linear-gradient(90deg, #ff9966, #ff5e62); }
+.tag-default { background: linear-gradient(90deg, #a1c4fd, #c2e9fb); }
+
+/* 左上角图标 */
+.card-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: auto;
+  height: 70rpx;
+  z-index: 10;
+}
+
+.card-content {
+  margin-left: 8rpx;
+  margin-top: 16rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  line-height: 1.4;
+  margin-bottom: 16rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.card-time {
+  font-size: 24rpx;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+/* 缺省空状态 */
+.empty-state {
+  padding: 96rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.6;
+}
+
+.icon-empty {
+  width: 96rpx;
+  height: 96rpx;
+  background-color: #d1d5db;
+  margin-bottom: 24rpx;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='currentColor' d='M25 27H7V5h10v6a2.006 2.006 0 0 0 2 2h6v14zm-8.414-18L19 11.414V7zM25 13h-4V9zM7 3a2.006 2.006 0 0 0-2 2v22a2.006 2.006 0 0 0 2 2h18a2.006 2.006 0 0 0 2-2V9.414a2.011 2.011 0 0 0-.586-1.414l-7.414-7.414A2.011 2.011 0 0 0 17.586 3z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='currentColor' d='M25 27H7V5h10v6a2.006 2.006 0 0 0 2 2h6v14zm-8.414-18L19 11.414V7zM25 13h-4V9zM7 3a2.006 2.006 0 0 0-2 2v22a2.006 2.006 0 0 0 2 2h18a2.006 2.006 0 0 0 2-2V9.414a2.011 2.011 0 0 0-.586-1.414l-7.414-7.414A2.011 2.011 0 0 0 17.586 3z'/%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #9ca3af;
+}
+
+.bottom-padding {
+  height: 48rpx;
+}
+
+::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+  height: 0 !important;
+  color: transparent;
+  background: transparent;
+}

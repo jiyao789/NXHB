@@ -1,0 +1,54 @@
+<view class="detail-wrapper pb-safe">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar-fixed" style="padding-top: {{safeAreaTop}}px;">
+    <view class="nav-bar-content">
+      <view class="nav-left" bindtap="handleBack">
+        <view class="icon-back-arrow"></view>
+        <image src="{{ detailData.orgLogo }}" class="org-logo-circle" />
+        <text class="org-name-text">{{ detailData.orgName }}</text>
+      </view>
+    </view>
+  </view>
+
+  <view style="height: {{safeAreaTop + 44}}px;"></view>
+
+  <!-- 多媒体展示区 -->
+  <view class="media-container">
+    <swiper wx:if="{{detailData.mediaList && detailData.mediaList.length > 0}}" class="detail-swiper" indicator-dots indicator-active-color="#FFD700">
+      <swiper-item wx:for="{{detailData.mediaList}}" wx:key="url">
+        <video wx:if="{{item.is_video}}" src="{{item.url}}" class="media-item-detail" autoplay="{{false}}" controls></video>
+        <image wx:else src="{{item.url}}" mode="aspectFill" class="media-item-detail" />
+      </swiper-item>
+    </swiper>
+    <image wx:elif="{{detailData.image}}" src="{{ detailData.image }}" mode="widthFix" class="banner-fallback" />
+  </view>
+
+  <!-- 内容详情区 -->
+  <view class="content-section">
+    <text class="detail-title">{{ detailData.title }}</text>
+    <text class="detail-body" space="nbsp">{{ detailData.fullText }}</text>
+    
+    <view class="meta-info">
+      <text class="time-text">{{ detailData.editTime }}</text>
+    </view>
+
+    <!-- 互动操作行 -->
+    <view class="action-row">
+      <view class="action-item" bindtap="toggleLike">
+        <view class="icon-heart-outline"></view>
+        <text>点赞</text>
+      </view>
+      <view class="action-item" bindtap="toggleCollect">
+        <view class="icon-star-outline"></view>
+        <text>收藏</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部固定发布栏 -->
+  <view class="footer-action-bar">
+    <view class="primary-submit-btn" hover-class="btn-hover-effect" bindtap="handlePublish">
+      发布
+    </view>
+  </view>
+</view>

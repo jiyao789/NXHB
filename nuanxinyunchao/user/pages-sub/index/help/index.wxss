@@ -1,0 +1,109 @@
+@import "../../../styles/utilities.wxss";
+@import "../../../styles/icons.wxss";
+
+/* ================= 基础颜色与变量 ================= */
+.bg-f5f7fa {
+  background-color: #F5F7FA;
+}
+
+.bg-f5 {
+  background-color: #F5F5F5;
+}
+
+.bg-black-50 {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.bg-black-10 {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.text-18 {
+  font-size: 36rpx;
+}
+
+.text-715b40 {
+  color: #715b40;
+}
+
+.h-1px {
+  height: 2rpx;
+}
+
+/* ================= 表单输入区样式重置 ================= */
+.custom-textarea {
+  width: 100%;
+  font-size: 28rpx;
+  color: #1f2937;
+  /* text-gray-800 */
+  min-height: 160rpx !important;
+  /* 调整 min-height 以显示完整的多行占位文本 */
+  padding-bottom: 48rpx;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* 联系电话整行布局 */
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  /* gap-2 对应的原生间距 */
+}
+
+.contact-label {
+  font-size: 28rpx;
+  color: #4b5563;
+  /* text-gray-600 */
+  flex-shrink: 0;
+}
+
+/* 联系电话输入框 */
+.contact-input {
+  flex: 1;
+  background-color: #F5F5F5;
+  height: 64rpx !important;
+  /* 还原 h-8 (32px) */
+  min-height: 64rpx !important;
+  /* 突破微信默认 min-height 限制 */
+  border-radius: 16rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  color: #1f2937;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* ================= 底部悬浮按钮样式 ================= */
+button::after {
+  border: none !important;
+  display: none !important;
+}
+
+.submit-btn {
+  width: 100% !important;
+  height: 88rpx !important;
+  /* 还原 h-11 (44px) */
+  line-height: 88rpx !important;
+  border-radius: 999rpx !important;
+  background-color: #f58045 !important;
+  /* 精确还原原本的特定橙色 */
+  color: #ffffff !important;
+  font-size: 32rpx !important;
+  /* 还原 text-base */
+  font-weight: bold !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: 0 8rpx 32rpx rgba(245, 128, 69, 0.4) !important;
+  /* 还原 shadow-orange-200 的发光感 */
+  transition: all 0.2s ease;
+}
+
+.submit-btn.is-loading {
+  opacity: 0.7;
+}
+
+.submit-btn-hover {
+  transform: scale(0.98);
+  opacity: 0.9;
+}

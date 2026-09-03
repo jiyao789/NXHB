@@ -1,0 +1,68 @@
+<view class="min-h-screen flex flex-col bg-F5F5F5 pb-safe">
+  <view class="fixed left-0 right-0 top-0 z-50 bg-F5F5F5 shadow-sm">
+    <view style="height: {{safeAreaInsetsTop}}px;" />
+    <view class="relative flex h-11 items-center justify-center px-4">
+      <view class="absolute left-2 h-8 w-8 flex items-center justify-center rounded-full active-bg-black-5" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900" />
+      </view>
+      <text class="text-lg font-bold text-gray-900">我的活动</text>
+    </view>
+    <view class="px-4 pb-2 pt-1">
+      <view class="flex h-9 items-center rounded-full bg-white px-3 shadow-inner">
+        <view class="i-carbon-search mr-2 text-lg text-gray-400" />
+        <input value="{{searchKeyword}}" bindinput="onSearchInput" type="text" placeholder="请输入活动关键词" class="h-full flex-1 text-sm text-gray-800" placeholder-class="text-gray-400" confirm-type="search" bindconfirm="handleRefresh" />
+        <view wx:if="{{searchKeyword}}" class="i-carbon-close-filled ml-2 text-lg text-gray-400 active-opacity-70" bindtap="clearSearch" />
+      </view>
+    </view>
+    <view class="mt-1 flex justify-around pb-2">
+      <view wx:for="{{tabs}}" wx:key="index" class="relative px-2 py-2 text-15px transition-all {{currentTab === index ? 'text-333 font-bold' : 'text-gray-500'}}" bindtap="handleTabChange" data-index="{{index}}">
+        {{ item.name }}
+        <view wx:if="{{currentTab === index}}" class="absolute bottom-1 left-1-2 h-3px w-5 translate-x-minus-1-2 rounded-full bg-E65100" />
+      </view>
+    </view>
+  </view>
+  <view style="height: {{safeAreaInsetsTop + 134}}px;" />
+  <view class="flex-1 px-3 pt-3 pb-10">
+    <view wx:if="{{isLoading}}" class="flex flex-col items-center justify-center py-20">
+      <view class="i-carbon-circle-dash animate-spin text-3xl text-gray-300 mb-2" />
+      <text class="text-xs text-gray-400">加载中...</text>
+    </view>
+    <block wx:else>
+      <view wx:for="{{groupedList}}" wx:for-item="group" wx:key="month" class="mb-6">
+        <text class="mb-2 block pl-1 text-15px font-bold text-333">{{ group.month }}</text>
+        <view class="overflow-hidden rounded-xl bg-white shadow-sm">
+          <view wx:for="{{group.items}}" wx:for-item="item" wx:for-index="index" wx:key="id" class="relative">
+            <view class="flex items-center justify-between p-4 active-bg-gray-50">
+              <view class="flex flex-1 flex-col gap-1-5 pr-4">
+                <view class="flex items-center gap-2">
+                  <text class="line-clamp-1 text-15px font-bold text-333">{{ item.title }}</text>
+                </view>
+                <text class="text-xs text-gray-400">{{ item.date }}</text>
+              </view>
+              <view class="flex flex-col items-center justify-start">
+                <view class="whitespace-nowrap text-13px font-bold {{item.statusClass}}">
+                  {{ item.statusText }}
+                </view>
+              </view>
+            </view>
+            <view wx:if="{{item.showCancelBtn}}" class="px-4 pb-4">
+              <view class="w-full h-8 flex items-center justify-center rounded-full bg-gray-100 text-13px text-gray-600 active-bg-gray-200" bindtap="handleCancelActivity" data-item="{{item}}">
+                取消活动
+              </view>
+            </view>
+            <view wx:if="{{item.showReviewBtn}}" class="px-4 pb-4">
+              <view class="w-full h-8 flex items-center justify-center rounded-full bg-E65100 text-white text-13px font-bold active-opacity-80" bindtap="handleGoReview" data-item="{{item}}">
+                去评价
+              </view>
+            </view>
+            <view wx:if="{{index < group.items.length - 1}}" class="absolute bottom-0 left-4 right-4 h-1px bg-F5F5F5" />
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{groupedList.length === 0}}" class="flex flex-col items-center justify-center pt-20 text-gray-400">
+        <view class="i-carbon-document-unknown mb-2 text-5xl opacity-30" />
+        <text class="text-sm">暂无相关记录</text>
+      </view>
+    </block>
+  </view>
+</view>

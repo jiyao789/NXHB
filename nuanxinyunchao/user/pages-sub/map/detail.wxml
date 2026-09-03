@@ -1,0 +1,124 @@
+<view class="page-container">
+  <!-- 顶部导航栏 -->
+  <view class="fixed left-0 right-0 top-0 z-50 bg-gradient-nav" style="padding-top: {{safeAreaTop}}px;">
+    <view class="h-11 flex items-center gap-3 px-4">
+      <!-- 返回按钮 -->
+      <view class="h-8 w-8 flex items-center justify-center rounded-full bg-white-20 backdrop-blur-md transition-colors" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-black"></view>
+      </view>
+
+      <!-- 搜索栏 -->
+      <view class="h-8 flex flex-1 items-center border border-white-50 rounded-full bg-white-90 px-3 shadow-sm backdrop-blur-sm relative">
+        <view class="i-carbon-search mr-2 text-sm text-gray-500"></view>
+        <input type="text" placeholder="搜索点位" placeholder-class="text-gray-500" class="h-full flex-1 text-sm text-gray-800" 
+          value="{{searchKeyword}}" bindfocus="onSearchFocus" bindinput="onSearchInput" />
+          
+        <!-- 搜索结果下拉面板（放回搜索栏内部，保证绝对对齐） -->
+        <view wx:if="{{showSearchResults}}" class="absolute left-0 right-0 z-50 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden" style="top: calc(100% + 8px); max-height: 50vh;">
+          <scroll-view scroll-y class="w-full h-full" style="max-height: 50vh;">
+            <view class="flex flex-col">
+              <view wx:if="{{searchResults.length === 0 && !isSearching}}" class="px-4 py-4 text-center text-xs text-gray-400">
+                暂无相关点位
+              </view>
+              <view wx:for="{{searchResults}}" wx:key="id" class="px-4 py-3 border-b border-gray-50 text-sm text-gray-700 active:bg-gray-50 truncate" bindtap="onSelectSearchResult" data-id="{{item.id}}" data-name="{{item.name}}">
+                {{item.name}}
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+      <!-- 占位，保持搜索栏居中 -->
+      <view class="w-18"></view>
+    </view>
+  </view>
+
+  <!-- 悬浮 Logo -->
+  <view class="pointer-events-none absolute left-0 right-0 z-40 flex justify-center" style="top: {{safeAreaTop + 50}}px;">
+    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/text_warm_map.png" class="h-12 drop-shadow-md" mode="heightFix"></image>
+  </view>
+
+  <!-- 右侧功能条（根据要求隐藏） -->
+  <view wx:if="{{false}}" class="absolute right-4 z-50 w-12 flex flex-col overflow-hidden border border-gray-100 rounded-xl bg-white-95 shadow-md backdrop-blur" style="top: {{safeAreaTop + 50}}px;">
+    <!-- 休息 -->
+    <view class="h-12 w-full flex flex-col items-center justify-center" hover-class="bg-gray-50">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/map/icon_rest.png" class="mb-0-5 h-5 w-5" mode="aspectFit"></image>
+      <text class="scale-90 text-8 text-gray-500">休息</text>
+    </view>
+    <view class="mx-auto h-1px w-full bg-gray-100"></view>
+    <!-- 热水 -->
+    <view class="h-12 w-full flex flex-col items-center justify-center" hover-class="bg-gray-50">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/map/icon_hotWater.png" class="mb-0-5 h-5 w-5" mode="aspectFit"></image>
+      <text class="scale-90 text-8 text-gray-500">热水</text>
+    </view>
+    <view class="mx-auto h-1px w-full bg-gray-100"></view>
+    <!-- 充电 -->
+    <view class="h-12 w-full flex flex-col items-center justify-center" hover-class="bg-gray-50">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/map/icon_charging.png" class="mb-0-5 h-5 w-5" mode="aspectFit"></image>
+      <text class="scale-90 text-8 text-gray-500">充电</text>
+    </view>
+    <view class="mx-auto h-1px w-full bg-gray-100"></view>
+    <!-- 卫生间 -->
+    <view class="h-12 w-full flex flex-col items-center justify-center" hover-class="bg-gray-50">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/map/icon_toilet.png" class="mb-0-5 h-5 w-5" mode="aspectFit"></image>
+      <text class="scale-90 text-8 text-gray-500">卫生间</text>
+    </view>
+  </view>
+
+  <!-- 下半部分：地图区域 -->
+  <view class="relative z-20 overflow-hidden -top-10">
+    <map id="myMap" style="width: 100%; height: 75vh;" show-location="{{true}}" latitude="{{mapLatitude}}" longitude="{{mapLongitude}}" markers="{{displayMarkers}}" scale="{{scale}}" bindmarkertap="markertap" bindcallouttap="callouttap" bindtap="hideSearchResults">
+
+      <cover-view slot="callout">
+        <block wx:for="{{displayMarkers}}" wx:key="id">
+          <cover-view marker-id="{{item.id}}" class="custom-callout">
+            <cover-image class="callout-bg" mode="aspectFill"
+              src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/bg_marker_orange.png"></cover-image>
+            <cover-view class="callout-content">
+              <cover-image src="{{item.customData.icon}}" class="bubble-icon" mode="aspectFill"></cover-image>
+              <cover-view class="bubble-text">{{ item.customData.title }}</cover-view>
+            </cover-view>
+          </cover-view>
+        </block>
+      </cover-view>
+    </map>
+  </view>
+
+  <!-- 下部：内容区域 -->
+  <view class="relative z-30 min-h-0 flex flex-1 flex-col overflow-hidden rounded-t-30 bg-white shadow-card -mt-60">
+    <!-- 列表内容 -->
+    <scroll-view scroll-y class="w-full flex-1">
+      <view class="px-5 pb-10 pt-4">
+        <!-- 加载状态 -->
+        <view wx:if="{{isLoading}}" class="flex flex-col items-center justify-center gap-4 py-10">
+          <view class="i-carbon-circle-dash animate-spin text-2xl text-gray-300"></view>
+          <text class="text-xs text-gray-400">加载中...</text>
+        </view>
+
+        <block wx:else>
+          <!-- 头部：当前选中点位详情 -->
+          <view class="mb-6 flex items-center gap-4 relative">
+            <view class="merchant-logo-box h-16 w-16 flex-shrink-0 rounded-2xl border border-gray-100 shadow-sm bg-gray-50 overflow-hidden">
+              <image src="{{centerMarker.icon || 'https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/map/icon_logo_white.png'}}" class="merchant-logo-img" mode="aspectFill" binderror="onCenterIconError"></image>
+            </view>
+            <view class="flex flex-col justify-center gap-1-5 flex-1 pr-12">
+              <text class="text-lg text-gray-900 font-bold leading-tight">{{ centerMarker.title }}</text>
+              <view class="flex items-center gap-3 text-xs text-gray-500">
+                <text class="rounded px-1-5 py-0-5 font-bold">营业时间:{{ centerMarker.openTime || '暂无时间' }}</text>
+              </view>
+              <text class="rounded px-1-5 py-0-5 text-xs text-gray-500 font-bold">咨询电话:{{ centerMarker.phone || '暂无' }}</text>
+              <text wx:if="{{centerMarker.categoryId === 'dining' || centerMarker.categoryId === 'toilet'}}" class="rounded px-1-5 py-0-5 text-xs text-red-500 font-bold">地图点位说明:{{ centerMarker.description || '暂无' }}</text>
+            </view>
+            
+            <!-- 导航按钮 -->
+            <view class="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1" bindtap="openMap">
+              <view class="p-1 rounded-4 bg-eeeeee">
+                <view class="i-carbon-location-current text-18 text-black drop-shadow-md"></view>
+              </view>
+              <text class="text-12 text-gray-500 font-bold">导航</text>
+            </view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+</view>

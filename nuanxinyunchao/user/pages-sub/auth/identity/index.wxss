@@ -1,0 +1,76 @@
+.min-h-screen { min-height: 100vh; display: flex; flex-direction: column; }
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.overflow-y-auto { overflow-y: auto; }
+
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.left-0 { left: 0; }
+.right-0 { right: 0; }
+.top-0 { top: 0; }
+.bottom-0 { bottom: 0; }
+.left-2 { left: 16rpx; }
+.-z-10 { z-index: -10; }
+.z-50 { z-index: 50; }
+.z-10 { z-index: 10; }
+
+.h-full { height: 100%; }
+.w-full { width: 100%; }
+.h-11 { height: 88rpx; }
+.h-8 { height: 64rpx; }
+.w-8 { width: 64rpx; }
+.h-28 { height: 224rpx; }
+.w-24 { width: 192rpx; }
+.h-6 { height: 48rpx; }
+.w-6 { width: 48rpx; }
+
+.px-4 { padding-left: 32rpx; padding-right: 32rpx; }
+.px-6 { padding-left: 48rpx; padding-right: 48rpx; }
+.pr-4 { padding-right: 32rpx; }
+.pl-28 { padding-left: 224rpx; }
+.pb-5 { padding-bottom: 40rpx; }
+.mb-6 { margin-bottom: 48rpx; }
+.mt-4 { margin-top: 32rpx; }
+.mb-2 { margin-bottom: 16rpx; }
+.gap-2-5 { gap: 20rpx; }
+.gap-4 { gap: 32rpx; }
+
+.rounded-full { border-radius: 9999px; }
+.rounded-2xl { border-radius: 32rpx; }
+
+.bg-black-10 { background-color: rgba(0,0,0,0.1); }
+.bg-white { background-color: #ffffff; }
+.bg-transparent { background-color: transparent; }
+.bg-orange-main { background-color: #ff7613; }
+
+.border-2 { border-width: 4rpx; border-style: solid; border-color: transparent; }
+.border-solid { border-style: solid; }
+.border-transparent { border-color: transparent; }
+.border-orange-identity { border-color: #ff7613; }
+
+.text-2xl { font-size: 48rpx; }
+.text-lg { font-size: 36rpx; }
+.text-sm { font-size: 28rpx; }
+.text-7a380d { color: #7a380d; }
+.text-5f4c3f { color: #5f4c3f; }
+.text-gray-900 { color: #111827; }
+.text-gray-800 { color: #1f2937; }
+.text-white { color: #ffffff; }
+
+.font-bold { font-weight: bold; }
+.block { display: block; }
+.shadow-sm { box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05); }
+.transition-all { transition: all 0.3s ease; }
+.transition-colors { transition: background-color 0.2s, border-color 0.2s; }
+.duration-200 { transition-duration: 200ms; }
+.scale-99 { transform: scale(0.99); }
+.align-bottom { object-position: bottom center; }
+image { object-fit: contain; object-position: bottom center; }
+
+page { overflow: hidden; height: 100%; }

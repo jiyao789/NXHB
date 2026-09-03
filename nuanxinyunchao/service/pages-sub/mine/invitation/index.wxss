@@ -1,0 +1,293 @@
+.page-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* 导航栏 */
+.nav-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: #fff;
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  padding: 0 32rpx;
+  position: relative;
+}
+
+.back-btn {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.icon-back {
+  width: 20rpx;
+  height: 20rpx;
+  border-left: 4rpx solid #333;
+  border-bottom: 4rpx solid #333;
+  transform: rotate(45deg);
+}
+
+.nav-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 主内容 */
+.main-content {
+  padding: 32rpx;
+}
+
+/* 生成卡片 */
+.create-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.05);
+  margin-bottom: 48rpx;
+}
+
+.card-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.card-desc {
+  font-size: 26rpx;
+  color: #999;
+  line-height: 1.5;
+  margin-bottom: 40rpx;
+}
+
+.input-group {
+  margin-bottom: 40rpx;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.center-input {
+  height: 96rpx;
+  background: #f5f7f9;
+  border-radius: 16rpx;
+  padding: 0 32rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.ph {
+  color: #ccc;
+}
+
+.btn-generate {
+  height: 100rpx;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  box-shadow: 0 8rpx 20rpx rgba(255, 165, 0, 0.2);
+  transition: all 0.2s;
+}
+
+.btn-generate.disabled {
+  background: #eee;
+  color: #999;
+  box-shadow: none;
+  opacity: 0.8;
+}
+
+/* 列表部分 */
+.list-section {
+  margin-top: 48rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+  padding: 0 8rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.refresh-box {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.icon-refresh {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 8rpx;
+  background-color: #666;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M512 85.333c-235.648 0-426.667 191.019-426.667 426.667s191.019 426.667 426.667 426.667c146.475 0 275.52-73.813 352.491-186.24l-68.523-46.613c-58.453 85.333-156.416 141.696-267.307 141.696-179.627 0-325.333-145.707-325.333-325.333S372.373 194.133 552 194.133c108.885 0 205.184 53.675 263.851 135.829l-118.528 72.043h285.333V96l-105.131 105.131C694.955 124.907 609.11 85.333 512 85.333z'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+}
+
+.rotating {
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 记录项 */
+.record-item {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.02);
+}
+
+.record-info {
+  flex: 1;
+}
+
+.name-status {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.center-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  margin-right: 16rpx;
+  flex: 1;
+}
+
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22rpx;
+  padding: 0 14rpx;
+  height: 40rpx;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+}
+
+.status-tag.unused {
+  background: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+}
+
+.status-tag.used {
+  background: rgba(0, 0, 0, 0.05);
+  color: #999;
+}
+
+.code-box {
+  display: flex;
+  align-items: center;
+  background: #fff9e6;
+  padding: 16rpx 24rpx;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.code-label {
+  font-size: 26rpx;
+  color: #b8860b;
+}
+
+.code-value {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #333;
+  letter-spacing: 2rpx;
+  margin-right: auto;
+}
+
+.btn-copy {
+  font-size: 24rpx;
+  color: #FFD700;
+  font-weight: 500;
+  padding: 8rpx 16rpx;
+}
+
+.time-box {
+  font-size: 24rpx;
+  color: #ccc;
+}
+
+.btn-delete {
+  padding: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-delete {
+  width: 32rpx;
+  height: 32rpx;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23cccccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.empty-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+  color: #ccc;
+  font-size: 28rpx;
+}
+
+.empty-img {
+  width: 240rpx;
+  height: 240rpx;
+  margin-bottom: 32rpx;
+  background-color: #e5e7eb;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M832 224H192c-35.346 0-64 28.654-64 64v448c0 35.346 28.654 64 64 64h640c35.346 0 64-28.654 64-64V288c0-35.346-28.654-64-64-64zm0 512H192V288h640v448zM320 416h384v64H320v-64zm0 160h256v64H320v-64z'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+}
+
+.bg-active {
+  background-color: rgba(0, 0, 0, 0.05);
+}

@@ -1,0 +1,111 @@
+/* 页面背景色 */
+page {
+  background-color: #efecec;
+}
+
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 固定导航栏 */
+.nav-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 50;
+  background-color: #efecec;
+}
+
+.nav-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 32rpx;
+}
+
+.back-btn {
+  position: absolute;
+  left: 16rpx;
+  height: 64rpx;
+  width: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 20;
+}
+
+.bg-active {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* 原生 CSS 绘制返回图标 */
+.icon-back {
+  width: 24rpx;
+  height: 24rpx;
+  border-top: 4rpx solid #111827; /* gray-900 */
+  border-left: 4rpx solid #111827;
+  transform: rotate(-45deg);
+}
+
+.nav-title {
+  font-size: 36rpx;
+  color: #111827;
+  font-weight: bold;
+}
+
+.nav-placeholder {
+  flex: none;
+}
+
+/* 内容区域 */
+.main-content {
+  padding: 24rpx 32rpx;
+}
+
+/* 圆角卡片 */
+.security-card {
+  background-color: #ffffff;
+  border-radius: 48rpx; /* rounded-3xl */
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05); /* shadow-md */
+}
+
+/* 列表单项 */
+.list-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32rpx;
+  transition: background-color 0.2s;
+}
+
+.item-title {
+  font-size: 32rpx; /* text-base */
+  color: #1f2937; /* gray-800 */
+}
+
+/* 原生 CSS 绘制向右箭头 */
+.icon-chevron-right {
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 4rpx solid #d1d5db; /* gray-300 */
+  border-right: 4rpx solid #d1d5db;
+  transform: rotate(45deg);
+}
+
+/* 分割线 (左右留白 left-2 right-2 近似于 16rpx) */
+.divider-line {
+  position: absolute;
+  bottom: 0;
+  left: 16rpx;
+  right: 16rpx;
+  height: 2rpx; /* 1px 物理像素视网膜屏处理 */
+  background-color: #e5e7eb; /* gray-200 */
+  z-index: 20;
+}

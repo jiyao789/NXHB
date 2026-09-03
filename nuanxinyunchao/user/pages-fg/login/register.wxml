@@ -1,0 +1,8 @@
+<view class="login">
+  <view class="text-center">注册页</view>
+  <button class="mt-4 w-40 text-center" bindtap="doRegister">点击模拟注册</button>
+</view>
+
+
+<!-- 动态注入返回智慧党建飘窗 -->
+<global-home-btn />

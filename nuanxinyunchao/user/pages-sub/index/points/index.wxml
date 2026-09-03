@@ -1,0 +1,176 @@
+<view class="page-container">
+
+  <view wx:if="{{taskInfo.active}}" class="task-floating-btn" style="position:fixed;right:0;top:40%;z-index:100;padding:12rpx 20rpx;background:#e85d04;border-radius:40rpx 0 0 40rpx;box-shadow:0 4rpx 12rpx rgba(0,0,0,.15);" bindtap="handleBackToTasks">
+    <text style="color:#fff;font-size:24rpx;font-weight:bold;">{{taskInfo.isCompleted ? '返回报到' : ('浏览中 ' + taskInfo.countdown + 's')}}</text>
+  </view>
+
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/points/points_bg.png" class="bg-img" mode="scaleToFill" />
+
+  <view class="custom-nav" style="padding-top: {{safeAreaTop}}px;">
+    <view class="nav-content">
+      <view class="nav-back-btn" hover-class="btn-hover" bindtap="handleBack">
+        <view class="i-carbon-chevron-left icon-back"></view>
+      </view>
+      <text class="nav-title">来赚积分</text>
+    </view>
+  </view>
+
+  <view class="top-fixed-area">
+    <view style="height: {{safeAreaTop + 44}}px;" />
+
+    <view class="points-card-wrapper" wx:if="{{userPointsInfo}}">
+      <view class="points-card" bindtap="showRules">
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/points/card_bg.png" class="card-bg" mode="scaleToFill" />
+
+        <view class="card-content">
+          <text class="card-label">我的积分</text>
+          <text class="card-score">{{ userPointsInfo.points }}</text>
+          <text class="card-date">有效期至：{{ userPointsInfo.expireDisplay || userPointsInfo.expireDate }}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="tabs-container">
+      <view class="tab-item" bindtap="switchTab" data-index="0">
+        <text class="tab-text {{currentTab === 0 ? 'active' : ''}}">赚积分</text>
+        <view class="tab-line {{currentTab === 0 ? 'active' : ''}}" />
+      </view>
+      <view class="tab-item" bindtap="switchTab" data-index="1">
+        <text class="tab-text {{currentTab === 1 ? 'active' : ''}}">用积分</text>
+        <view class="tab-line {{currentTab === 1 ? 'active' : ''}}" />
+      </view>
+    </view>
+  </view>
+
+  <scroll-view scroll-y class="scroll-area" enable-back-to-top="true" show-scrollbar="{{false}}">
+    <view class="scroll-inner">
+
+      <view wx:if="{{currentTab === 0}}" class="waterfall-container animate-fade-in">
+
+        <view class="waterfall-col">
+          <view wx:for="{{leftColumnList}}" wx:key="id" class="feed-card" bindtap="handleDetail" data-item="{{item}}">
+            <view class="feed-cover-box">
+              <image src="{{item.imgUrl}}" mode="widthFix" class="feed-cover" />
+              <view wx:if="{{item.isVideo || item.type === 1}}" class="play-icon-box">
+                <view class="i-carbon-play-filled play-icon"></view>
+              </view>
+            </view>
+            <view class="feed-title-box">
+              <text class="feed-title line-clamp-2">{{ item.title }}</text>
+            </view>
+            <view class="feed-footer">
+              <image src="{{item.avatar}}" class="feed-avatar" mode="aspectFill" />
+              <view class="feed-info">
+                <view class="feed-author-row">
+                  <text class="feed-author truncate">{{ item.author }}</text>
+                  <block wx:if="{{item.tag && item.tag.length}}">
+                    <view wx:for="{{item.tag}}" wx:for-item="tagItem" wx:for-index="tagIdx" wx:key="tagIdx" class="feed-tag">
+                      <image wx:if="{{tagItem.icon}}" src="{{tagItem.icon}}" class="tag-icon" mode="aspectFit" />
+                      <text class="tag-text">{{ tagItem.text }}</text>
+                    </view>
+                  </block>
+                </view>
+                <text class="feed-date">{{ item.date }}</text>
+              </view>
+              <view class="feed-likes">
+                <view class="i-carbon-thumbs-up like-icon"></view>
+                <text class="like-count">{{ item.likes }}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="waterfall-col">
+          <view wx:for="{{rightColumnList}}" wx:key="id" class="feed-card" bindtap="handleDetail" data-item="{{item}}">
+            <view class="feed-cover-box">
+              <image src="{{item.imgUrl}}" mode="widthFix" class="feed-cover" />
+              <view wx:if="{{item.isVideo || item.type === 1}}" class="play-icon-box">
+                <view class="i-carbon-play-filled play-icon"></view>
+              </view>
+            </view>
+            <view class="feed-title-box">
+              <text class="feed-title line-clamp-2">{{ item.title }}</text>
+            </view>
+            <view class="feed-footer">
+              <image src="{{item.avatar}}" class="feed-avatar" mode="aspectFill" />
+              <view class="feed-info">
+                <view class="feed-author-row">
+                  <text class="feed-author truncate">{{ item.author }}</text>
+                  <block wx:if="{{item.tag && item.tag.length}}">
+                    <view wx:for="{{item.tag}}" wx:for-item="tagItem" wx:for-index="tagIdx" wx:key="tagIdx" class="feed-tag">
+                      <image wx:if="{{tagItem.icon}}" src="{{tagItem.icon}}" class="tag-icon" mode="aspectFit" />
+                      <text class="tag-text">{{ tagItem.text }}</text>
+                    </view>
+                  </block>
+                </view>
+                <text class="feed-date">{{ item.date }}</text>
+              </view>
+              <view class="feed-likes">
+                <view class="i-carbon-thumbs-up like-icon"></view>
+                <text class="like-count">{{ item.likes }}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{currentTab === 1}}" class="use-points-container animate-fade-in">
+
+        <view class="filter-section">
+          <scroll-view scroll-x class="filter-scroll" show-scrollbar="{{false}}">
+            <view class="filter-list">
+              <view wx:for="{{usePointsFilters}}" wx:key="label" class="filter-item" bindtap="switchFilter" data-index="{{index}}">
+                <view class="filter-text {{currentFilterIndex === index ? 'active' : ''}}">
+                  {{ item.label }}
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+
+        <view class="coupon-grid">
+          <view wx:for="{{usePointsCoupons}}" wx:key="id" class="coupon-card" bindtap="handleUse" data-item="{{item}}">
+            <view class="coupon-img-box {{ item.templateType === 2 ? 'coupon-face-discount' : '' }}">
+              <view class="coupon-face-inner">
+                <text class="coupon-face-main">{{ item.couponFaceMain }}</text>
+                <text wx:if="{{ item.couponFaceSub }}" class="coupon-face-sub">{{ item.couponFaceSub }}</text>
+              </view>
+            </view>
+
+            <view class="coupon-info">
+              <view>
+                <text class="coupon-title truncate">{{ item.title }}</text>
+                <text class="coupon-subtitle">{{ item.subtitle || item.subTitle }}</text>
+              </view>
+
+              <view class="coupon-bottom">
+                <view class="coupon-price">
+                  {{ item.price }} <text class="price-unit">积分</text>
+                </view>
+                <button class="exchange-btn" hover-class="btn-active">兑换</button>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{showRulesModal}}" class="modal-overlay" catchtouchmove="preventTouch">
+    <view class="modal-box animate-scale-in">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/login-modal-bg.png" class="modal-bg" mode="scaleToFill" />
+
+      <view class="modal-content">
+        <text class="modal-title">积分规则</text>
+        <scroll-view wx:if="{{userPointsInfo.rules && userPointsInfo.rules.length}}" scroll-y class="modal-rules-scroll" show-scrollbar="{{false}}">
+          <text wx:for="{{userPointsInfo.rules}}" wx:key="*this" class="modal-rule-line">{{item}}</text>
+        </scroll-view>
+        <button class="modal-btn" hover-class="btn-active" bindtap="hideRules">
+          我已知晓
+        </button>
+      </view>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,171 @@
+<view class="min-h-screen flex flex-col bg-efefef pb-safe">
+
+  <view class="fixed left-0 right-0 top-0 z-50 bg-efefef shadow-sm">
+    <view style="height: {{safeAreaInsetsTop}}px;" class="bg-efefef" />
+    
+    <view class="pb-2">
+      <view class="relative flex h-11 items-center justify-center px-4">
+        <view class="absolute left-2 h-8 w-8 flex items-center justify-center rounded-full active-bg-black-5" bindtap="handleBack">
+          <view class="i-carbon-chevron-left text-2xl text-gray-900" />
+        </view>
+        <text class="text-lg font-bold text-gray-900">我的券包</text>
+      </view>
+
+      <view class="px-4">
+        <view class="flex h-9 items-center rounded-full bg-F5F5F5 px-3">
+          <view class="i-carbon-search mr-2 text-lg text-gray-400" />
+          <input 
+            value="{{searchKeyword}}"
+            bindinput="onSearchInput"
+            type="text" 
+            placeholder="搜索优惠券" 
+            class="h-full flex-1 text-sm text-gray-800" 
+            placeholder-class="text-gray-400"
+            confirm-type="search"
+            bindconfirm="handleRefresh"
+          />
+          <view wx:if="{{searchKeyword}}" class="i-carbon-close-filled ml-2 text-lg text-gray-400 active-opacity-70" bindtap="clearSearch" />
+        </view>
+      </view>
+    </view>
+
+    <view class="mt-1 flex justify-around">
+      <view
+        wx:for="{{tabs}}" 
+        wx:key="index"
+        class="relative px-4 py-2 text-15px transition-all {{currentTab === index ? 'text-FF6B00 font-bold' : 'text-gray-500'}}"
+        bindtap="handleTabChange"
+        data-index="{{index}}"
+      >
+        {{ item.label }}
+        <view wx:if="{{currentTab === index}}" class="absolute bottom-1 left-1-2 h-3px w-5 translate-x-minus-1-2 rounded-full bg-FF6B00" />
+      </view>
+    </view>
+  </view>
+
+  <view style="height: {{safeAreaInsetsTop + 140}}px;" />
+
+  <scroll-view
+    scroll-y="{{true}}"
+    class="box-border bg-efefef px-3 pb-10 pt-4"
+    style="height: {{scrollAreaHeight}}px;"
+    bindscrolltolower="loadMore"
+    lower-threshold="120"
+    show-scrollbar="{{false}}"
+  >
+
+    <view wx:if="{{isLoading}}" class="flex flex-col items-center justify-center py-20">
+       <view class="i-carbon-circle-dash animate-spin text-3xl text-gray-300 mb-2"/>
+       <text class="text-xs text-gray-400">正在加载券包...</text>
+    </view>
+
+    <block wx:else>
+      <view wx:for="{{displayList}}" wx:for-item="group" wx:key="type" class="mb-5 bg-white rounded-2xl p-2">
+        <view class="mb-3 flex items-center pl-1">
+           <text class="text-15px font-bold text-333">{{ group.type }}</text>
+           <text class="ml-2 rounded bg-gray-100 px-1-5 py-0-5 text-10px text-gray-500">{{ group.items.length }}张</text>
+        </view>
+
+        <view class="flex flex-col gap-3">
+          <view
+            wx:for="{{group.items}}"
+            wx:for-item="item"
+            wx:key="id"
+            class="relative w-full overflow-hidden rounded-xl transition-transform active-scale-99 m-1"
+            bindtap="handleUse"
+            data-user-coupon-id="{{item.id}}"
+            data-coupon-template-id="{{item.couponTemplateId}}"
+            data-status="{{item.status}}"
+            data-title="{{item.title}}"
+          >
+            <image 
+              src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/coupon_bg2.png" 
+              class="absolute inset-0 h-full w-full" 
+              mode="scaleToFill" 
+            />
+            
+            <view class="relative z-30 flex h-98px w-full items-stretch">
+              
+              <view class="flex w-80px flex-shrink-0 flex-col items-center justify-center py-2 px-1">
+                  <block wx:if="{{item.isDiscountCoupon}}">
+                    <view class="flex items-baseline text-fa3b2f">
+                      <text class="text-20px leading-none">{{ item.amountMain }}</text>
+                      <text wx:if="{{item.amountUnit}}" class="text-15px ml-0-5">{{ item.amountUnit }}</text>
+                    </view>
+                  </block>
+                  <block wx:elif="{{item.isExchangeCoupon}}">
+                    <view class="flex items-center justify-center text-fa3b2f px-1">
+                      <text class="text-lg font-bold leading-none text-center line-clamp-2">{{ item.amountMain }}</text>
+                    </view>
+                  </block>
+                  <block wx:else>
+                    <view class="flex items-baseline text-fa3b2f">
+                      <text class="text-20px leading-none">{{ item.amountMain }}</text>
+                      <text wx:if="{{item.amountUnit}}" class="text-15px ml-0-5">{{ item.amountUnit }}</text>
+                    </view>
+                  </block>
+                  <text wx:if="{{item.showMinSpend}}" class="mt-1 text-10px text-gray-500 font-medium">
+                    满{{ item.minSpendAmount }}可用
+                  </text>
+                  <text wx:elif="{{item.couponType === 1}}" class="mt-1 text-10px text-gray-500 font-medium">
+                    无金额门槛
+                  </text>
+              </view>
+
+              <view class="relative flex flex-1 flex-row items-center justify-between p-3 pl-2">
+                
+                <view class="absolute right-0 top-0 h-20px w-60px flex items-center justify-center bg-fa3b2f shadow-sm z-10 rounded-bl-50px clip-polygon-tag">
+                  <text class="text-10px text-white font-medium leading-none pb-0-5 pr-1">{{ item.type }}</text>
+                </view>
+
+                <view class="flex flex-col gap-0-5 px-2 flex-1 min-w-0">
+                   <text class="line-clamp-1 text-15px font-bold text-333">{{ item.title }}</text>
+                   <view class="flex flex-col leading-none">
+                     <text class="text-10px text-fa3b2f mb-0-5">有效期至 {{ item.date }}</text>
+                     <text class="text-10px text-fa3b2f truncate">
+                       {{ item.scopeHint }}
+                     </text>
+                   </view>
+                </view>
+
+                <view class="flex-shrink-0">
+                   <view 
+                     wx:if="{{item.status === 'unused'}}"
+                     class="m-0 flex h-7 items-center justify-center rounded-full bg-FF6B00 px-4 text-11px text-white leading-none shadow-sm shadow-orange-200 active-opacity-90"
+                     catchtap="handleToQrcode"
+                     data-user-coupon-id="{{item.id}}"
+                     data-title="{{item.title}}"
+                   >
+                     去使用
+                   </view>
+                   <view 
+                     wx:else
+                     class="m-0 flex h-7 items-center justify-center rounded-full bg-CCCCCC px-4 text-11px text-white leading-none"
+                   >
+                     {{ item.statusText }}
+                   </view>
+                </view>
+
+              </view>
+            </view>
+
+            <view 
+              wx:if="{{item.status !== 'unused'}}" 
+              class="absolute inset-0 z-40 bg-white-50 pointer-events-none"
+            />
+
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{displayList.length === 0}}" class="flex flex-col items-center justify-center pt-24 text-gray-400">
+        <view class="i-carbon-ticket mb-3 text-6xl opacity-20" />
+        <text class="text-sm">暂无此类优惠券</text>
+      </view>
+
+      <view wx:if="{{loadingMore}}" class="flex justify-center pb-6 pt-2">
+        <text class="text-xs text-gray-400">加载更多...</text>
+      </view>
+    </block>
+  </scroll-view>
+</view>

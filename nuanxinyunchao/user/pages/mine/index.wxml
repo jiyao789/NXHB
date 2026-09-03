@@ -1,0 +1,99 @@
+<view class="min-h-screen relative bg-gray-50 pb-30">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/mine_bg.png" class="absolute top-0 left-0 right-0 z-0 w-full h-full" mode="scaleToFill"></image>
+
+  <!-- 2. 用户信息区 -->
+  <view class="relative z-10 px-6 pt-20 mb-6 flex items-start justify-between">
+    <view class="flex items-center gap-4" bindtap="handleUserInfoClick">
+      <view class="h-16 w-16 rounded-full border-2 border-white overflow-hidden bg-gray-200">
+        <image src="{{userInfo.avatar || 'https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/avatar.png'}}" class="h-full w-full" mode="aspectFill"></image>
+      </view>
+
+      <view class="flex flex-col gap-1">
+        <view class="flex items-center gap-2">
+          <text class="text-xl text-333 font-bold">{{ hasLogin ? (userInfo.name || '新用户') : '点击登录' }}</text>
+          
+          <view wx:if="{{hasLogin}}" class="relative ml-4 mt-0-5">
+            <view class="bg-orange-main rounded-full pl-5 pr-2 py-1 flex items-center shadow-sm">
+              <text class="text-10 text-white font-medium leading-none">{{roleName}}</text>
+            </view>
+            <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/icon_1.png" class="absolute -left-3 top-half -translate-y-half h-8 w-8 drop-shadow-sm" mode="aspectFit"></image>
+          </view>
+        </view>
+        <text class="text-xs text-333">{{ hasLogin ? '账号：' + (userInfo.account || '**********') : '登录体验更多功能' }}</text>
+      </view>
+    </view>
+
+    <!-- 右侧：徽章 -->
+    <view class="relative">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/badge_hex.png" class="h-18 w-18 drop-shadow-md" mode="aspectFit"></image>
+    </view>
+  </view>
+
+  <!-- 3. 光荣时刻 -->
+  <view class="relative z-5 px-5-6 mb-neg-110">
+    <view class="w-full h-40 bg-orange-light rounded-3xl p-10 box-border">
+      <view class="w-full h-full bg-white rounded-2xl overflow-hidden relative">
+        <image wx:if="{{bannerList && bannerList.length > 0}}" src="{{bannerList[0].imgUrl}}" mode="aspectFill" class="h-full w-full block" bindtap="handleBannerClick"></image>
+        <view class="absolute bottom-0 left-0 right-0 h-40-px bg-gradient-to-t z-10 pointer-events-none"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 4. 底部卡片区 -->
+  <view class="relative z-10 w-95 min-h-60vh -top-2 mx-auto">
+    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/bg_curve.png" class="absolute top-0 left-0 w-full h-900 z-0" mode="scaleToFill"></image>
+
+    <view class="relative z-10 px-4 pt-16">
+      <!-- 4.1 积分 -->
+      <view class="flex items-center justify-between mb-8 px-2">
+        <view class="flex flex-col text-white">
+          <view class="flex items-center gap-2 mb-2">
+            <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/icon_1.png" class="h-5 w-5"></image>
+            <text class="text-18 opacity-90">积分余额</text>
+          </view>
+          <text class="text-5xl font-bold tracking-tighter mb-2 font-sans">{{ hasLogin ? pointsBalance : '0' }}</text>
+          <text wx:if="{{hasLogin && pointsExpireLabel}}" class="text-10 opacity-90 ml-2">有效期至: {{ pointsExpireLabel }}</text>
+          <text wx:elif="{{hasLogin}}" class="text-10 opacity-90 ml-2">有效期至: —</text>
+        </view>
+        <view class="btn-integral transition-transform active-scale-95" bindtap="handleIntegralClick">积分明细</view>
+      </view>
+
+      <!-- 4.2 菜单列表 -->
+      <view class="bg-white rounded-36 shadow-sm min-h-400 overflow-hidden relative">
+        <view wx:for="{{menuList}}" wx:key="title" class="flex items-center justify-between p-5 transition-colors relative menu-item" bindtap="handleMenuClick" data-item="{{item}}">
+          <view class="flex items-center gap-3">
+            <image src="{{item.iconClass}}" class="h-6 w-6" mode="heightFix"></image>
+            <text class="text-15 text-gray-500 font-medium">{{ item.title }}</text>
+          </view>
+          <view class="i-carbon-chevron-right text-gray-300"></view>
+          <view wx:if="{{index < menuList.length - 1}}" class="absolute bottom-0 left-12 right-5 h-1-5 bg-gray-200"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 自定义弹窗 -->
+  <view wx:if="{{showCustomModal}}" class="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-black-60" catchtouchmove="true">
+    <view class="relative w-600 min-h-280 overflow-hidden rounded-24 animate-scale-in">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/login-modal-bg.png" class="absolute inset-0 h-full w-full -z-10" mode="scaleToFill"></image>
+      <view class="relative z-10 flex h-full flex-col items-center justify-center px-8 pt-4 text-center pb-10">
+        <text class="mb-4 text-xl font-bold text-gray-900">提示</text>
+        <text class="mb-8 text-base font-medium leading-relaxed text-brown-5a">您还未参与过 【我们需要你】 志愿者活动 期待您的加入</text>
+      </view>
+    </view>
+    <view class="flex flex-col items-center mt-4 animate-scale-in">
+      <view class="flex items-center justify-center w-10 h-10 rounded-full border-2 border-white-80 backdrop-blur-sm transition-transform active-scale-90" bindtap="closeModal">
+        <view class="i-carbon-close text-2xl text-white font-bold">X</view>
+      </view>
+    </view>
+  </view>
+
+  <login-modal id="global-login-modal" />
+</view>
+
+
+<!-- 动态注入返回智慧党建飘窗 -->
+<global-home-btn />
+
+<!-- 动态注入子包底部导航栏 -->
+<nxyc-tabbar role="user" selected="3" />

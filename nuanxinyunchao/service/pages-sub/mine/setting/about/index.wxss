@@ -1,0 +1,147 @@
+/* 页面背景色 */
+page {
+  background-color: #efecec;
+}
+
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 导航栏样式 */
+.nav-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 50;
+  background-color: #efecec; /* 保持与页面背景色一致 */
+}
+
+.nav-content {
+  position: relative;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+}
+
+.back-btn {
+  position: absolute;
+  left: 8px;
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.back-btn-hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* CSS绘制返回箭头 */
+.icon-back {
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid #111827;
+  border-left: 2px solid #111827;
+  transform: rotate(-45deg);
+  margin-left: 4px;
+}
+
+.nav-title {
+  font-size: 18px;
+  color: #111827;
+  font-weight: bold;
+}
+
+/* 内容区 */
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+/* Logo 区 */
+.logo-section {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-img {
+  margin-bottom: 12px;
+  height: 80px;
+  width: 80px;
+}
+
+.app-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #574234;
+  line-height: 1.5;
+}
+
+.app-role {
+  font-size: 20px;
+  font-weight: 500;
+  color: #574234;
+}
+
+/* 列表区 */
+.list-container {
+  width: 100%;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.list-box {
+  width: 95%;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 16px;
+  background-color: #ffffff;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.item-hover {
+  background-color: #f9fafb;
+}
+
+.item-text {
+  color: #4b5563;
+  font-size: 16px;
+}
+
+.item-value {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* CSS绘制向右箭头 */
+.icon-right {
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #d1d5db;
+  border-right: 2px solid #d1d5db;
+  transform: rotate(45deg);
+}
+
+/* 细分割线 */
+.divider {
+  margin: 0 16px;
+  height: 1px;
+  background-color: #e5e7eb;
+}

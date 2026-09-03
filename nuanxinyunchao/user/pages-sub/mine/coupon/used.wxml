@@ -1,0 +1,225 @@
+<view class="min-h-screen bg-f5f5f5 pb-20">
+
+  <!-- 1. 自定义导航栏 -->
+  <view class="fixed left-0 right-0 top-0 z-50 transition-all duration-300 {{navBarOpacity > 0.1 ? 'nav-glass shadow-sm' : 'bg-transparent'}}" 
+        style="padding-top: {{safeAreaInsetsTop}}px; background-color: rgba(245, 245, 245, {{navBarOpacity}});">
+    <view class="h-11 flex items-center px-1 relative">
+      <view class="h-10 w-10 flex items-center justify-center rounded-full {{navBarOpacity < 0.5 ? 'bg-white-80' : 'active-bg-black-5'}}" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900" />
+      </view>
+      <view class="absolute left-1-2 translate-x-minus-1-2 text-lg font-bold text-gray-900 transition-all duration-300" style="opacity: {{navBarOpacity}};">
+        已使用券
+      </view>
+    </view>
+  </view>
+  <view style="height: {{safeAreaInsetsTop + 44}}px;" />
+
+  <!-- 加载状态 -->
+  <view wx:if="{{isLoading}}" class="flex flex-col items-center justify-center py-20">
+    <view class="i-carbon-circle-dash animate-spin text-3xl text-gray-300 mb-2" />
+    <text class="text-sm text-gray-400">正在加载记录...</text>
+  </view>
+
+  <view wx:elif="{{loadError}}" class="flex flex-col items-center pt-24 px-8">
+    <text class="text-sm text-gray-500">{{ loadError }}</text>
+  </view>
+
+  <block wx:elif="{{detail}}">
+    <view class="px-4 pt-4 flex flex-col gap-4">
+      
+      <!-- 状态指示 -->
+      <view class="flex items-center gap-2 py-2">
+        <view class="i-carbon-checkmark-filled text-2xl text-green-500" />
+        <text class="text-24px font-bold text-gray-900">已使用</text>
+      </view>
+      
+      <!-- 2 & 3. 券内容大模块 (统一卡片) -->
+      <view class="bg-white rounded-24 overflow-hidden flex flex-col">
+        <!-- 第一部分：券详情 -->
+        <view class="p-4 flex gap-4">
+          <image src="{{ detail.avatar }}" class="w-28 h-28 rounded-xl flex-shrink-0 bg-gray-100" mode="aspectFill" />
+          <view class="flex-1 flex flex-col justify-center">
+            <text class="text-18 font-bold text-gray-900 leading-tight">{{ detail.title }}</text>
+            <text class="text-12 text-gray-400 mt-2">{{ detail.subTitle }}</text>
+            <text class="text-12 text-gray-400 mt-0-5">{{ detail.policy }}</text>
+          </view>
+        </view>
+
+        <!-- 虚线分割线 1 (带侧边缺口) -->
+        <view class="relative h-1px flex items-center justify-center">
+          <view class="dash-line w-full mx-6" />
+          <view class="arc-cut-left absolute left-0" />
+          <view class="arc-cut-right absolute right-0" />
+        </view>
+
+        <!-- 第二部分：积分信息 -->
+        <view class="p-4 flex flex-col gap-2">
+          <view class="flex items-center text-15">
+            <text class="text-gray-500 w-24">本单消耗积分</text>
+            <text class="text-gray-900 font-medium">{{ detail.spentPoints }}</text>
+          </view>
+        </view>
+
+        <!-- 虚线分割线 2 (带侧边缺口) -->
+        <view class="relative h-1px flex items-center justify-center">
+          <view class="dash-line w-full mx-6" />
+          <view class="arc-cut-left absolute left-0" />
+          <view class="arc-cut-right absolute right-0" />
+        </view>
+
+        <!-- 第三部分：评价模块 -->
+        <view class="p-4">
+          <text class="text-18 font-bold text-gray-900">给与本店评价</text>
+          
+          <!-- 体验评分 (单选) -->
+          <view class="flex flex-wrap gap-3 mt-4" id="review-section">
+            <view 
+              wx:for="{{ratingTags}}" 
+              wx:key="text"
+              class="rating-tag {{item.active ? 'active' : 'unselected'}} {{isSubmitted ? 'opacity-60' : ''}}"
+              bindtap="handleRatingSelect"
+              data-index="{{index}}"
+            >
+              {{ item.text }}
+            </view>
+          </view>
+
+          <!-- 快捷标签 (多选 + 自定义) -->
+          <view class="flex flex-wrap gap-3 mt-4">
+            <view 
+              wx:for="{{quickTags}}" 
+              wx:key="text"
+              class="rating-tag {{item.active ? 'active' : 'unselected'}}"
+              bindtap="handleQuickTagSelect"
+              data-index="{{index}}"
+            >
+              {{ item.text }}
+            </view>
+            <!-- 自定义按钮 -->
+            <view class="rating-tag unselected border-dashed border-gray-300 flex items-center gap-1" bindtap="handleAddCustomTag">
+              <text>自定义</text>
+              <view class="i-carbon-add text-xs" />
+            </view>
+          </view>
+
+          <view class="mt-4 bg-gray-100 rounded-xl p-3 h-32">
+            <textarea 
+              class="w-full h-full text-14 text-gray-800" 
+              placeholder="点击这里输入评价" 
+              placeholder-class="text-gray-300"
+              bindinput="onCommentInput"
+              value="{{comment}}"
+            />
+          </view>
+
+          <view class="mt-4 flex justify-end" wx:if="{{!isSubmitted}}">
+            <view class="bg-orange-main text-white px-6 py-2 rounded-full text-14 font-medium active-opacity-80" bindtap="handleSubmitRating">
+              提交评价
+            </view>
+          </view>
+          <view class="mt-4 text-center text-12 text-green-500 py-2" wx:else>
+            感谢您的评价！
+          </view>
+        </view>
+      </view>
+
+      <!-- 4, 5, 6. 门店、详情与须知 (统一卡片) -->
+      <view class="bg-white rounded-24 overflow-hidden flex flex-col p-4 gap-4">
+        
+        <!-- 门店信息 -->
+        <view class="flex flex-col gap-3">
+          <view class="flex items-center justify-between" bindtap="handleToStoreDetail">
+            <text class="text-18 font-bold text-gray-900">{{ detail.storeName }}</text>
+            <view class="i-carbon-chevron-right text-lg text-gray-400" />
+          </view>
+          
+          <view class="flex flex-col gap-2 relative">
+            <view class="flex items-start gap-2 text-14 text-gray-600">
+              <view class="bottom-icon-wrap mt-minus-1px">
+                <view class="i-carbon-time text-gray-400" />
+              </view>
+              <text class="flex-1">营业时间: {{ detail.businessHours }}</text>
+            </view>
+            
+            <view class="flex items-center justify-between" bindtap="handleMakePhoneCall">
+              <view class="flex items-start gap-2 text-14 text-gray-600 flex-1">
+                <view class="bottom-icon-wrap mt-minus-1px">
+                  <view class="i-carbon-phone text-gray-400" />
+                </view>
+                <text class="flex-1">电话咨询 (点击此行拨号)</text>
+              </view>
+            </view>
+
+            <view class="flex items-center justify-between" bindtap="handleOpenMap">
+              <view class="flex-1 flex items-start gap-2 text-14 text-gray-600">
+                <view class="bottom-icon-wrap mt-minus-1px">
+                  <view class="i-carbon-location text-gray-400" />
+                </view>
+                <text class="flex-1">地址: {{ detail.address }}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="h-1px bg-gray-100" />
+
+        <!-- 6. 使用须知 (参照 detail.wxml 样式) -->
+        <view class="flex flex-col">
+          <text class="text-18 font-bold text-gray-900 mb-3">使用须知</text>
+          
+          <view class="flex flex-col gap-3">
+            <view class="flex gap-3">
+              <view class="bottom-icon-wrap mt-minus-1px">
+                <view class="i-carbon-checkmark-outline text-gray-600" />
+              </view>
+              <view>
+                <text class="text-14px text-gray-600 mb-1 block font-bold">有效期</text>
+                <text class="text-sm text-gray-400">{{ detail.validDate }}</text>
+              </view>
+            </view>
+            <view class="w-full h-0-5 bg-gray-100 ml-10" />
+
+            <view class="flex gap-3">
+              <view class="bottom-icon-wrap mt-minus-1px">
+                <view class="i-carbon-time text-gray-600" />
+              </view>
+              <view>
+                <text class="text-14px text-gray-600 mb-1 block font-bold">使用时间</text>
+                <text class="text-sm text-gray-400">{{ detail.usageTime }}</text>
+              </view>
+            </view>
+            <view class="w-full h-0-5 bg-gray-100 ml-10" />
+
+            <view class="flex gap-3">
+              <view class="bottom-icon-wrap mt-minus-1px">
+                <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/coupon/icon1.png" class="w-5 h-5" />
+              </view>
+              <view>
+                <text class="text-14px text-gray-600 mb-1 block font-bold">适用范围</text>
+                <text class="text-sm text-gray-400">{{ detail.scope }}</text>
+              </view>
+            </view>
+            <view class="w-full h-0-5 bg-gray-100 ml-10" />
+
+            <view class="flex gap-3">
+              <view class="bottom-icon-wrap mt-minus-1px">
+                <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/coupon/icon2.png" class="w-4 h-5" />
+              </view>
+              <view class="flex-1">
+            <text class="text-14px text-gray-600 mb-1 block">使用规则</text>
+            <view class="flex flex-col gap-1">
+              <view class="flex items-start" wx:for="{{detail.rules}}" wx:key="*this">
+                <text class="text-xs text-gray-400 w-3 flex-shrink-0" style="margin-left: -12px;">•</text>
+                <text class="text-xs text-gray-400 leading-snug flex-1">{{ item }}</text>
+              </view>
+            </view>
+          </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </block>
+
+</view>

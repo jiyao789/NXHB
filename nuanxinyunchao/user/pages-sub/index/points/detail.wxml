@@ -1,0 +1,75 @@
+<view class="h-screen w-full flex flex-col relative bg-white overflow-hidden">
+
+  <view wx:if="{{!isReadCompleted}}" class="task-floating-btn transition-all duration-300" style="position:fixed;right:0;top:20%;z-index:100;padding:12rpx 20rpx;background:#e85d04;border-radius:40rpx 0 0 40rpx;box-shadow:0 4rpx 12rpx rgba(0,0,0,.15);">
+    <text style="color:#fff;font-size:24rpx;font-weight:bold;">浏览中 {{countdownSeconds}}s</text>
+  </view>
+  <view wx:else class="task-floating-btn transition-all duration-300" style="position:fixed;right:0;top:20%;z-index:100;padding:12rpx 20rpx;background:#10b981;border-radius:40rpx 0 0 40rpx;box-shadow:0 4rpx 12rpx rgba(0,0,0,.15);">
+    <text style="color:#fff;font-size:24rpx;font-weight:bold;">已达标</text>
+  </view>
+
+  <view class="fixed left-0 right-0 top-0 z-50 bg-white" style="padding-top: {{safeAreaTop}}px;">
+    <view class="relative h-11 flex items-center justify-between px-2">
+      <view class="h-8 w-8 flex items-center justify-center rounded-full" hover-class="bg-black-10" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900"></view>
+      </view>
+      <view class="w-20" />
+    </view>
+  </view>
+
+  <scroll-view scroll-y class="flex-1 h-0 relative z-10 w-full" style="margin-top: {{safeAreaTop + 55}}px;" show-scrollbar="{{false}}">
+    <view class="pb-28 min-h-screen">
+      <view wx:if="{{loading}}" class="flex flex-col items-center text-gray-400 pt-10">
+        <view class="i-carbon-circle-dash mb-2 animate-spin text-3xl"></view>
+        <text>加载中...</text>
+      </view>
+
+      <view wx:elif="{{article}}" class="animate-fade-in">
+        
+        <!-- 顶部分组展示图片和视频 -->
+        <view wx:if="{{article.mediaList && article.mediaList.length > 0}}" class="w-full mb-4 bg-gray-100">
+          <swiper class="w-full" style="height: 500rpx;" indicator-dots="{{article.mediaList.length > 1}}" indicator-active-color="#FFD700" autoplay="{{true}}" circular="{{true}}" interval="{{5000}}">
+            <swiper-item wx:for="{{article.mediaList}}" wx:key="url">
+              <video wx:if="{{item.is_video}}" src="{{item.url}}" class="w-full h-full block" controls object-fit="contain"></video>
+              <image wx:else src="{{item.url}}" class="w-full h-full block" mode="aspectFill" bindtap="handleContentTap"></image>
+            </swiper-item>
+          </swiper>
+        </view>
+
+        <view class="pb-2 px-5 pt-2">
+          <text class="article-title">{{ article.title }}</text>
+        </view>
+        <view class="article-content px-5" bindtap="handleContentTap">
+          <rich-text nodes="{{article.content}}" />
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-100 pb-safe h-18 shadow-top-light" wx:if="{{article}}">
+    <view class="grid grid-cols-3 h-full items-center pt-2">
+      <button class="btn-reset flex flex-col items-center justify-center gap-1 active-scale" open-type="share">
+        <view class="relative" style="padding-top: 12rpx; padding-right: 20rpx;">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/glory/icon_share.png" class="w-8 h-8 block" mode="aspectFit" />
+          <view class="absolute top-0 right-0 z-10">
+            <view class="w-5 h-5 bg-FF6B00 flex items-center justify-center hexagon">
+              <view class="w-4 h-4 bg-gradient-to-b from-FFD54F to-FFB300 flex items-center justify-center hexagon">
+                <text class="text-xs text-8B4500 font-bold scale-90">{{ article.stats.share }}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <text class="text-12 text-gray-500">分享</text>
+      </button>
+
+      <view class="flex flex-col items-center justify-center gap-1 active-scale" bindtap="handleInteract" data-type="1">
+        <view class="{{article.stats.isStarred ? 'i-carbon-star-filled text-yellow-main' : 'i-carbon-star text-gray-800'}} icon-32"></view>
+        <text class="text-base text-gray-500">收藏</text>
+      </view>
+
+      <view class="flex flex-col items-center justify-center gap-1 active-scale" bindtap="handleInteract" data-type="2">
+        <view class="{{article.stats.isLiked ? 'i-carbon-favorite-filled text-red-500' : 'i-carbon-favorite text-gray-800'}} icon-32"></view>
+        <text class="text-base text-gray-500">{{ article.stats.like }}</text>
+      </view>
+    </view>
+  </view>
+</view>

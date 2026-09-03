@@ -1,0 +1,56 @@
+<view class="min-h-screen flex flex-col bg-efecec pb-safe">
+
+  <!-- 自定义导航栏 -->
+  <view class="fixed left-0 right-0 top-0 z-50 bg-efecec px-4" style="padding-top: {{safeAreaTop}}px;">
+    <view class="relative h-11 flex items-center justify-center">
+      <view class="absolute left-0 flex items-center gap-1 py-1 pr-3 rounded-full" hover-class="bg-black-5" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900"></view>
+        <text class="text-sm text-gray-800 font-medium">上一步</text>
+      </view>
+      <text class="text-lg text-gray-900 font-bold">身份验证</text>
+    </view>
+  </view>
+  <view style="height: {{safeAreaTop + 44}}px;"></view>
+
+  <!-- 进度条 -->
+  <verify-step-progress current="{{currentStep}}" bind:jump="onJump" />
+
+  <!-- 滚动内容区 -->
+  <scroll-view scroll-y class="flex-1 px-4 pb-24 w-full box-border">
+
+    <!-- 步骤一：个人信息 -->
+    <verify-personal-form wx:if="{{currentStep === 0}}"
+      name="{{form.name}}" idCard="{{form.idCard}}"
+      phone="{{form.phone}}" code="{{form.code}}"
+      certImages="{{certImages}}"
+      invitationCode="{{form.invitationCode}}"
+      isPartyMember="{{isPartyMember}}" countdown="{{countdown}}"
+      bind:fieldChange="onFieldChange"
+      bind:certChanged="onCertChanged"
+      bind:certDeleted="onCertDeleted"
+      bind:toggleParty="togglePartyMember"
+      bind:sendCode="handleSendCode" />
+
+    <!-- 步骤二：工作信息 -->
+    <verify-work-form wx:if="{{currentStep === 1}}"
+      siteName="{{form.siteName}}" businessArea="{{form.businessArea}}" address="{{form.address}}"
+      bind:fieldChange="onFieldChange" />
+
+    <!-- 步骤三：审核中 -->
+    <view wx:if="{{currentStep === 2}}" class="flex flex-col items-center pt-16 animate-fade-in">
+      <view class="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mb-4">
+        <view class="i-carbon-time text-4xl text-amber-500"></view>
+      </view>
+      <text class="text-xl font-bold text-gray-800 mb-2">审核中</text>
+      <text class="text-gray-500 text-sm px-10 text-center mb-2">您的注册申请已提交，正在审核中，请耐心等待。</text>
+      <text class="text-gray-400 text-xs px-10 text-center">审核通过后即可登录使用</text>
+    </view>
+
+  </scroll-view>
+
+  <!-- 底部按钮 & 协议 -->
+  <verify-footer currentStep="{{currentStep}}" isAgreed="{{isAgreed}}"
+    bind:toggleAgree="toggleAgree" bind:protocol="goToProtocol"
+    bind:next="handleNext" bind:login="goToLogin" />
+
+</view>

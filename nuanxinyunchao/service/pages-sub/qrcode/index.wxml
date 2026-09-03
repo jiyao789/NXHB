@@ -1,0 +1,55 @@
+<view class="page-container">
+
+  <camera
+    device-position="back"
+    mode="scanCode"
+    flash="{{isFlashOn ? 'on' : 'off'}}"
+    bindscancode="onScanCode"
+    binderror="onError"
+    class="camera-view"
+  >
+    <view class="custom-nav" style="height: {{navBarHeight + statusBarHeight}}px; padding-top: {{statusBarHeight}}px;">
+      <view class="back-btn" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <view class="nav-title">扫一扫</view>
+    </view>
+    
+    <view class="overlay-container">
+      
+      <view class="overlay-mask flex-1"></view>
+
+      <view class="scan-row">
+        <view class="overlay-mask flex-1"></view>
+        
+        <view class="scan-box">
+          <view class="corner top-left"></view>
+          <view class="corner top-right"></view>
+          <view class="corner bottom-left"></view>
+          <view class="corner bottom-right"></view>
+
+          <view class="scan-line"></view>
+        </view>
+
+        <view class="overlay-mask flex-1"></view>
+      </view>
+
+      <view class="overlay-mask flex-1 hint-container">
+        <view class="scan-hint">将二维码放入框内，即可自动扫描</view>
+      </view>
+
+      <view class="bottom-controls">
+        <view class="flash-btn-group" bindtap="toggleFlash">
+          <view class="flash-btn {{isFlashOn ? 'flash-on' : ''}}">
+            <image 
+              src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/icon_flashlight.png" 
+              class="flash-icon {{isFlashOn ? 'opacity-100' : 'opacity-40'}}"
+            ></image>
+          </view>
+          <view class="flash-text">手电筒</view>
+        </view>
+      </view>
+      
+    </view>
+  </camera>
+</view>

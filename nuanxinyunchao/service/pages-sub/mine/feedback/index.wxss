@@ -1,0 +1,275 @@
+page {
+  background-color: #f2f2f2;
+}
+
+.page-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* --- 导航栏 --- */
+.nav-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: #f2f2f2;
+}
+
+.nav-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 32rpx;
+}
+
+.back-btn {
+  position: absolute;
+  left: 16rpx;
+  height: 64rpx;
+  width: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 20;
+}
+
+.bg-active { background-color: rgba(0, 0, 0, 0.05); }
+
+/* 原生 CSS 返回图标 */
+.icon-back {
+  width: 24rpx;
+  height: 24rpx;
+  border-top: 4rpx solid #111827;
+  border-left: 4rpx solid #111827;
+  transform: rotate(-45deg);
+}
+
+.nav-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #111827;
+}
+
+.nav-placeholder {
+  flex: none;
+}
+
+/* --- 滚动内容区 --- */
+.scroll-area {
+  flex: 1;
+  height: 0;
+  width: 100%;
+}
+
+.content-wrapper {
+  padding: 0 32rpx;
+  box-sizing: border-box;
+}
+
+.section-group {
+  margin-bottom: 36rpx;
+}
+
+.section-title {
+  display: block;
+  margin-bottom: 24rpx;
+  font-size: 28rpx;
+  color: #4b5563; /* gray-600 */
+}
+
+/* --- 问题类型分类 --- */
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24rpx 28rpx; /* row-gap, column-gap */
+}
+
+.category-item {
+  padding: 20rpx 36rpx;
+  border-radius: 32rpx; /* rounded-2xl */
+  font-size: 28rpx;
+  transition: all 0.2s;
+}
+
+.category-active {
+  background-color: #f6d2b8;
+  color: #d36d2b;
+  font-weight: bold;
+}
+
+.category-normal {
+  background-color: #ffffff;
+  color: #6b7280; /* gray-500 */
+}
+
+/* --- 问题描述卡片 --- */
+.feedback-card {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 32rpx;
+  padding: 32rpx;
+}
+
+.content-textarea {
+  width: 100%;
+  min-height: 160rpx;
+  /* 留出下方传图和字数统计的空间 */
+  padding-bottom: 80rpx; 
+  font-size: 28rpx;
+  color: #374151; /* gray-700 */
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+.ph-style {
+  color: #9ca3af;
+  font-size: 28rpx;
+}
+
+.word-count {
+  position: absolute;
+  right: 32rpx;
+  top: 180rpx; /* 固定在输入框右下侧偏上位置 */
+  font-size: 24rpx;
+  color: #9ca3af;
+}
+
+/* --- 图片上传与预览 --- */
+.image-uploader-box {
+  margin-top: 24rpx;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.image-item, .add-btn {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 16rpx;
+}
+
+.image-item {
+  position: relative;
+  overflow: visible; /* 让右上角删除按钮可以出来 */
+}
+
+.uploaded-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 16rpx;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6; /* gray-100 */
+}
+
+/* 原生 CSS 加号图标 */
+.icon-add {
+  position: relative;
+  width: 48rpx;
+  height: 48rpx;
+}
+.icon-add::before, .icon-add::after {
+  content: '';
+  position: absolute;
+  background-color: #9ca3af;
+  border-radius: 4rpx;
+}
+.icon-add::before { top: 50%; left: 0; right: 0; height: 4rpx; transform: translateY(-50%); }
+.icon-add::after { left: 50%; top: 0; bottom: 0; width: 4rpx; transform: translateX(-50%); }
+
+/* 黑色半透明删除按钮 */
+.delete-btn {
+  position: absolute;
+  top: -12rpx;
+  right: -12rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+/* 原生 CSS 叉号图标 */
+.icon-close {
+  position: relative;
+  width: 20rpx;
+  height: 20rpx;
+  transform: rotate(45deg);
+}
+.icon-close::before, .icon-close::after {
+  content: '';
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: 2rpx;
+}
+.icon-close::before { top: 50%; left: 0; right: 0; height: 3rpx; transform: translateY(-50%); }
+.icon-close::after { left: 50%; top: 0; bottom: 0; width: 3rpx; transform: translateX(-50%); }
+
+/* --- 联系方式 --- */
+.phone-input {
+  width: 100%;
+  height: 96rpx;
+  padding: 0 32rpx;
+  border-radius: 999px;
+  background-color: #ffffff;
+  font-size: 28rpx;
+  color: #6b7280; /* gray-500 */
+  box-sizing: border-box;
+}
+
+.ph-style-input {
+  color: #9ca3af;
+  font-size: 28rpx;
+}
+
+.bottom-placeholder {
+  height: 200rpx; /* 留出底部提交按钮的空间 */
+}
+
+/* --- 底部提交按钮 --- */
+.bottom-submit-area {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 24rpx 32rpx calc(24rpx + env(safe-area-inset-bottom));
+  background-color: #f2f2f2;
+  z-index: 100;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 112rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background-color: #ffd200;
+  color: #000000;
+  font-size: 32rpx;
+  font-weight: 600;
+  border: none;
+}
+
+.submit-btn::after {
+  border: none; /* 去除原生 button 边框 */
+}
+
+.btn-hover {
+  opacity: 0.8;
+  transform: scale(0.98);
+}

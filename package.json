@@ -1,0 +1,16 @@
+{
+  "name": "wxapp-cndj-dev",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "node scripts/build_nxyc.js",
+    "dev": "node scripts/watch_nxyc.js"
+  },
+  "dependencies": {
+    "chokidar": "^3.6.0",
+    "fs-extra": "^11.2.0",
+    "glob": "^8.1.0"
+  },
+  "author": "Antigravity",
+  "license": "MIT"
+}

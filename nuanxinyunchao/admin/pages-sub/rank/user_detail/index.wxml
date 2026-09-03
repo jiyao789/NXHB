@@ -1,0 +1,127 @@
+<view class="page-container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/checkin_bg.png" class="bg-img" mode="scaleToFill" />
+
+  <!-- CUSTOM NAV BAR -->
+  <view class="custom-nav" style="padding-top: {{safeAreaTop}}px; background-color: {{scrollTop > 50 ? '#e6d144' : 'transparent'}};">
+    <view class="nav-left">
+      <view class="nav-back active-scale" bindtap="handleBack"><view class="i-back"></view></view>
+    </view>
+    <view class="nav-title">个人详情</view>
+    <view class="nav-right"></view>
+  </view>
+
+  <scroll-view scroll-y class="main-scroll" show-scrollbar="{{false}}" bindscroll="onScroll">
+    <view class="content-padding" style="padding-top: {{safeAreaTop + 44 + 20}}px;">
+      
+      <view class="profile-card">
+        <view class="avatar-wrap">
+          <image class="avatar-img" src="{{userInfo.avatar}}" mode="aspectFill"></image>
+          <view class="verified-badge"><view class="i-verified"></view></view>
+        </view>
+        <view class="user-name">{{userInfo.name}}</view>
+        <view class="user-contact">联系方式：{{userInfo.phone}}</view>
+        <view class="user-points">已获得积分：{{userInfo.points}}</view>
+        
+        <view class="tags-row">
+          <view class="tag-item tag-{{item.type}}" wx:for="{{userInfo.tags}}" wx:key="text">
+            <view class="{{item.icon}} icon-sm"></view>
+            <text>{{item.text}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="section-wrap">
+        <view class="section-header">
+          <view class="section-title">参与活动</view>
+          <view class="section-more active-scale" bindtap="handleViewAll" data-type="activities">
+            <text>查看全部</text>
+            <view class="i-chevron-right"></view>
+          </view>
+        </view>
+        <view class="list-card">
+          <view class="list-item active-scale-light" wx:for="{{activities}}" wx:key="id">
+            <view class="item-icon-wrap"><view class="{{item.icon}}"></view></view>
+            <view class="item-content">
+              <view class="item-header">
+                <text class="item-title truncate">{{item.title}}</text>
+                <text class="status-tag status-gray">{{item.status}}</text>
+              </view>
+              <view class="item-info">
+                <view class="i-location icon-xs"></view>
+                <text class="truncate">{{item.location}}</text>
+              </view>
+              <view class="item-info mt-1">
+                <view class="i-schedule icon-xs"></view>
+                <text>{{item.time}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="section-wrap">
+        <view class="section-header">
+          <view class="section-title">“我们需要你”志愿活动</view>
+          <view class="section-more active-scale" bindtap="handleViewAll" data-type="tasks">
+            <text>查看全部</text>
+            <view class="i-chevron-right"></view>
+          </view>
+        </view>
+        <view class="list-card">
+          <view class="list-item active-scale-light" wx:for="{{volunteerTasks}}" wx:key="id">
+            <view class="item-icon-wrap"><view class="{{item.icon}}"></view></view>
+            <view class="item-content">
+              <view class="item-header">
+                <text class="item-title truncate">{{item.title}}</text>
+                <text class="status-tag status-green">{{item.status}}</text>
+              </view>
+              <view class="item-info">
+                <view class="i-location icon-xs"></view>
+                <text class="truncate">{{item.location}}</text>
+              </view>
+              <view class="item-info mt-1">
+                <view class="i-check icon-xs"></view>
+                <text>{{item.time}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="section-wrap">
+        <view class="section-header">
+          <view class="section-title">优惠券兑换记录</view>
+          <view class="section-more active-scale" bindtap="handleViewAll" data-type="coupons">
+            <text>详情记录</text>
+            <view class="i-history"></view>
+          </view>
+        </view>
+        
+        <view class="coupon-list">
+          <view class="coupon-card active-scale-light" wx:for="{{coupons}}" wx:key="id">
+            <view class="coupon-border bg-{{item.theme}}-light"></view>
+            
+            <view class="coupon-top">
+              <view class="coupon-title-wrap">
+                <view class="coupon-tag text-{{item.theme}}">{{item.tag}}</view>
+                <view class="coupon-shop">{{item.shop}}</view>
+              </view>
+              <view class="coupon-icon-box"><view class="{{item.icon}}"></view></view>
+            </view>
+            
+            <view class="coupon-mid">
+              <text class="mid-label">{{item.action}}</text>
+              <text class="mid-value text-{{item.theme}}">{{item.discount}}</text>
+            </view>
+            
+            <view class="coupon-bottom">
+              <view class="i-event icon-xs"></view>
+              <text>{{item.time}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </scroll-view>
+</view>

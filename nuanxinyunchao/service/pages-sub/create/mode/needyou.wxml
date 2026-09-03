@@ -1,0 +1,91 @@
+<view class="min-h-screen bg-F5F7FA pb-28">
+    <view class="relative h-300px w-full">
+        <image src="{{detailData.image}}" mode="aspectFill" class="h-full w-full" />
+        <view class="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black-50 to-transparent" />
+
+        <view class="fixed left-0 top-0 z-50 flex items-center px-4"
+            style="padding-top: {{safeAreaTop}}px; height: {{safeAreaTop + 44}}px;">
+            <view class="flex h-8 w-8 items-center justify-center rounded-full bg-black-20 backdrop-blur-md"
+                bindtap="handleBack">
+                <view class="i-carbon-chevron-left text-2xl text-white" />
+            </view>
+        </view>
+    </view>
+
+    <view class="relative z-10 mt-2 flex flex-col gap-3 px-3">
+
+        <view class="rounded-xl flex-col gap-2 bg-white p-4">
+            <view class="block text-lg font-bold text-gray-900 leading-tight">
+                <text class="mr-2">{{ detailData.title }}</text>
+
+                <view class="inline-flex items-center justify-center rounded-2xl px-1-5 py-0-5 text-20rpx font-medium align-middle translate-y-minus-2rpx {{ detailData.type === 1 ? 'bg-feece5 text-ed792a' : 'bg-gray-100 text-gray-500' }}">{{ detailData.type === 1 ? '招募中' : '已满员' }}</view>
+            </view>
+
+            <view class="mt-3 text-sm text-gray-500">
+                活动时间：{{ detailData.dateRange || '2025-03-10 ~ 2025-03-15' }}
+            </view>
+        </view>
+
+        <view class="rounded-xl bg-white p-4 shadow-sm">
+            <view class="mb-4 text-base font-bold text-FF8F44">活动信息</view>
+
+            <view class="flex flex-col gap-4 mb-4">
+                <view class="flex items-start gap-2 text-sm text-gray-600">
+                    <view class="i-carbon-location flex-shrink-0 w-5 h-5 text-gray-400" />
+                    <text class="leading-5">地址：{{ detailData.location }}</text>
+                </view>
+
+                <view class="flex items-start gap-2 text-sm text-gray-600">
+                    <view class="i-carbon-time flex-shrink-0 w-5 h-5 text-gray-400" />
+                    <text class="leading-5">时间：{{ detailData.timeDesc || '即日起' }}</text>
+                </view>
+
+                <view class="flex items-start gap-2 text-sm text-gray-600">
+                    <view class="i-carbon-help flex-shrink-0 w-5 h-5 text-gray-400" />
+                    <view class="leading-5">
+                        <text>如有疑问请联系：</text>
+                        <text class="text-blue-500" bindtap="handleCall">{{ detailData.contactPhone }}</text>
+                        <text> ({{ detailData.orgName }})</text>
+                    </view>
+                </view>
+
+                <view class="relative flex items-center gap-2">
+                    <image
+                        src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/icon_star.png"
+                        class="h-6 w-6 flex-shrink-0" mode="aspectFit" />
+
+                    <view class="flex-1 text-sm font-medium p-1 rounded-lg bg-FFF5E5 text-FF8F44 leading-tight">奖励机制：完成此单后可获得{{ detailData.points || 200 }}积分</view>
+                </view>
+            </view>
+            <view class="mb-4 text-base font-bold text-FF8F44">报名成员</view>
+
+            <view class="grid grid-cols-5 gap-y-4">
+                <view wx:for="{{memberList}}" wx:for-item="member" wx:key="index" class="flex flex-col items-center gap-1">
+                    <image src="{{member.avatar}}" class="h-10 w-10 rounded-full bg-gray-100" />
+                    <text class="text-xs text-gray-500">{{ member.name }}</text>
+                </view>
+            </view>
+
+            <view wx:if="{{memberList.length === 0}}" class="py-4 text-center text-sm text-gray-400">
+                暂无人员报名，快来做第一个吧~
+            </view>
+        </view>
+    </view>
+
+    <view class="fixed bottom-0 left-0 right-0 z-50 bg-white px-4 pb-safe pt-2 shadow-custom-bottom">
+        <view class="flex h-14 items-center justify-between gap-4">
+            <view class="flex flex-col items-center justify-center gap-0-5 px-2 active-opacity-70">
+                <image
+                    src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/glory/icon_share.png"
+                    class="w-5 h-5" mode="aspectFit" />
+                <text class="text-10px text-gray-500">分享</text>
+            </view>
+
+            <view
+                class="flex h-10 flex-1 items-center justify-center rounded-full bg-FFD700 text-sm text-black shadow-sm transition-transform active-scale-95"
+                bindtap="handleAccept">
+                我要接单
+            </view>
+        </view>
+    </view>
+</view>

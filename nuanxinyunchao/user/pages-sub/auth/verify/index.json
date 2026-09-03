@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "身份验证",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "verify-step-progress": "/nuanxinyunchao/user/components/verify-step-progress/index",
+    "verify-personal-form": "/nuanxinyunchao/user/components/verify-personal-form/index",
+    "verify-work-form":     "/nuanxinyunchao/user/components/verify-work-form/index",
+    "verify-footer":        "/nuanxinyunchao/user/components/verify-footer/index"
+  }
+}

@@ -1,0 +1,328 @@
+page {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #f6faf0;
+  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+}
+
+.bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70vh;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+}
+
+/* ================== 导航栏 ================== */
+.custom-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition: background-color 0.3s;
+}
+
+.nav-bar { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  padding: 0 32rpx; 
+}
+.nav-back {
+  width: 80rpx; height: 80rpx; background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+}
+.i-back {
+  width: 40rpx; height: 40rpx; background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234a3424' d='M20 11H7.83l5.59-5.59L12 4l-8 8l8 8l1.41-1.41L7.83 13H20v-2z'/%3E%3C/svg%3E");
+}
+.nav-title { font-size: 36rpx; font-weight: bold; color: #4a3424; }
+.nav-right { width: 80rpx; }
+
+/* ================== 主体 ================== */
+.main-scroll { flex: 1; height: 0; width: 100%; }
+.content-padding { padding: 40rpx 40rpx 64rpx; }
+
+/* TOP 1 SECTION */
+.top1-container { padding-bottom: 20rpx; position: relative; }
+
+.top1-content-box {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 10rpx;
+}
+
+.top1-left-info {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+}
+
+.top1-name {
+  position: relative;
+  font-size: 56rpx;
+  font-weight: 900;
+  color: #eb592c;
+  letter-spacing: 2rpx;
+  margin-bottom: 24rpx;
+  z-index: 2;
+}
+.top1-name::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  color: #eb592c;
+  -webkit-text-stroke: 8rpx #ffffff;
+  text-shadow: 0 4rpx 10rpx rgba(235, 89, 44, 0.3);
+}
+
+.top1-badge-row { margin-bottom: 40rpx; display: flex; align-items: center; }
+.badge-tag {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(90deg, #fffcf0, #faeaca);
+  border-radius: 8rpx;
+  padding: 6rpx 12rpx;
+  border: 1rpx solid #f6e2b3;
+}
+.badge-text1 { font-size: 22rpx; color: #4a3424; font-weight: bold; margin-right: 12rpx; }
+.badge-text2-wrap {
+  background: #ea562d;
+  color: #ffffff;
+  font-size: 20rpx;
+  font-weight: bold;
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+}
+
+.top1-data-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+.data-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+.dot-yellow { width: 16rpx; height: 16rpx; border-radius: 50%; background: #faca3b; }
+.dot-orange { width: 16rpx; height: 16rpx; border-radius: 50%; background: #ea562d; }
+.data-item text { font-size: 28rpx; color: #444; font-weight: 500; }
+
+.top1-right-visual {
+  position: relative;
+  width: 55%;
+  height: 380rpx;
+  margin-right: -20rpx;
+  margin-top: -30rpx; /* 向上提一点，与文字对齐更紧凑 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bubble-static-img {
+  width: 100%;
+  height: 100%;
+}
+
+.val-text {
+  color: #ffffff;
+  font-weight: bold;
+  text-shadow: 0 4rpx 8rpx rgba(235, 89, 44, 0.2);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.val-text-left {
+  font-size: 40rpx;
+  left: 21%;
+  bottom: 45%;
+}
+
+.val-text-right {
+  font-size: 52rpx;
+  right: 22%;
+}
+
+/* SECTION HEADER */
+.section-header-new {
+  position: relative;
+  margin-bottom: 30rpx;
+  padding-left: 8rpx;
+}
+.header-title-new {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  position: relative;
+  z-index: 2;
+}
+.header-yellow-line {
+  position: absolute;
+  bottom: 2rpx;
+  left: 8rpx;
+  width: 310rpx;
+  height: 8rpx;
+  background: #fde047;
+  z-index: 1;
+}
+
+/* CSS GRID */
+.treemap-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 80rpx; /* 减小基础行高 */
+  gap: 20rpx;
+  padding-bottom: 40rpx;
+  grid-auto-flow: dense; 
+}
+
+/* COLUMNS & ROWS */
+.span-3 { grid-column: span 3; }
+.span-2 { grid-column: span 2; }
+.row-2 { grid-row: span 2; }
+.row-3 { grid-row: span 3; }
+
+/* CARD BASE */
+.grid-card {
+  background: #ffffff;
+  border-radius: 28rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.02);
+  position: relative;
+  /* overflow: visible; 为了让角标超出边界 */
+}
+
+/* LARGE CARD (TOP 2-5) */
+.grid-card-lg {
+  padding: 36rpx 28rpx 32rpx; /* 进一步优化间距 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: visible; 
+}
+
+.lg-top-tag {
+  position: absolute;
+  top: -12rpx; /* 向上超出边界 */
+  right: -2rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 10;
+}
+
+.lg-top-tag-img {
+  height: 100%;
+}
+
+.lg-top-tag-text {
+  position: absolute;
+  top: 18rpx;
+  right: 16rpx;
+  color: #ffffff;
+  font-size: 18rpx;
+  font-weight: bold;
+  z-index: 12;
+}
+
+.lg-card-name { 
+  font-size: 32rpx; /* 增大字体 */
+  font-weight: bold; 
+  color: #333; 
+  margin-bottom: 8rpx;
+}
+
+.lg-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 40rpx;
+  margin-top: 8rpx;
+}
+
+.lg-data-column {
+  display: flex;
+  align-items: stretch;
+  gap: 12rpx;
+}
+
+.lg-indicator {
+  width: 6rpx;
+  border-radius: 6rpx;
+}
+
+.bar-act {
+  background: #faca3b; /* 活动亮色条 */
+}
+
+.bar-red {
+  background: #ea562d; /* 核销深色条 */
+}
+
+.lg-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.lg-label { 
+  font-size: 24rpx; 
+  color: #999; 
+}
+
+.lg-val { 
+  font-size: 44rpx; 
+  font-weight: bold; 
+  color: #333; 
+  line-height: 1.1; 
+}
+
+/* SMALL CARD */
+.grid-card-sm {
+  padding: 24rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 居中分布，因为高度减小了 */
+  overflow: hidden;
+}
+
+.sm-card-name {
+  font-size: 28rpx; /* 增大字体 */
+  font-weight: bold; 
+  color: #333; 
+  margin-bottom: 12rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sm-card-data {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.sm-data-item {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.sm-dot { width: 10rpx; height: 10rpx; border-radius: 50%; flex-shrink: 0; }
+.sm-label { font-size: 22rpx; color: #888; width: 48rpx; }
+.sm-val { font-size: 26rpx; font-weight: bold; color: #333; }

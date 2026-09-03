@@ -1,0 +1,90 @@
+<view class="container">
+  <!-- 自定义导航栏 -->
+  <view class="nav-fixed" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-content">
+      <view class="back-btn" hover-class="bg-active" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">系统消息</text>
+    </view>
+  </view>
+  
+  <view class="nav-spacer" style="height: {{statusBarHeight + 44}}px;"></view>
+
+  <!-- 消息列表 -->
+  <scroll-view scroll-y class="scroll-area" show-scrollbar="{{false}}">
+    <view class="list-inner">
+      <view class="msg-card" wx:for="{{messageList}}" wx:key="id" bindtap="handleToDetail" data-id="{{item.id}}">
+        <view class="card-header">
+          <text class="card-title">{{item.title}}</text>
+        </view>
+        <view class="card-subheader" wx:if="{{item.type === 'street_redemption' || item.type === 'street_merchant' || item.type === 'street_coupon' || item.type === 'admin_remind'}}">
+          <text class="card-time">{{item.time}}</text>
+        </view>
+        <view class="card-body">
+          <!-- 街道：核销 -->
+          <block wx:if="{{item.type === 'street_redemption'}}">
+            <view class="redemption-info">
+              <view class="info-text">
+                <view class="info-line">{{item.projectName}}</view>
+                <view class="info-line">日期：{{item.date}}</view>
+                <view class="info-line">时间：{{item.slotTime}}</view>
+                <view class="info-line">用户姓名：{{item.userName}}</view>
+              </view>
+              <image src="{{item.image}}" class="small-preview-img" mode="aspectFill" />
+            </view>
+          </block>
+
+          <!-- 街道：商家入驻 -->
+          <block wx:elif="{{item.type === 'street_merchant'}}">
+            <view class="merchant-intro">
+              <text class="intro-text">{{item.content}}</text>
+            </view>
+          </block>
+
+          <!-- 街道：优惠券上传 -->
+          <block wx:elif="{{item.type === 'street_coupon'}}">
+            <view class="coupon-preview-wrapper glass-effect">
+              <view class="mini-coupon">
+                <view class="coupon-left">
+                  <view class="c-val"><text class="c-num">{{item.coupon.value}}</text>{{item.coupon.unit}}</view>
+                  <view class="c-sub">无金额门槛</view>
+                </view>
+                <view class="coupon-right">
+                  <view class="c-name">{{item.coupon.title}}</view>
+                  <view class="c-term">有效期至:{{item.coupon.validUntil}}</view>
+                  <view class="c-desc">{{item.coupon.rule}}</view>
+                  <view class="c-badge">{{item.coupon.typeText}}</view>
+                </view>
+              </view>
+            </view>
+          </block>
+
+          <!-- 管理端一键提醒 -->
+          <block wx:elif="{{item.type === 'admin_remind'}}">
+            <!-- 留白即可，不需要渲染额外的内容 -->
+          </block>
+
+          <!-- 商户：已有核销 -->
+          <block wx:else>
+            <view class="info-row">
+              <text class="info-label">核销人</text>
+              <text class="info-value">{{item.verifier}}</text>
+            </view>
+            <view class="info-row">
+              <text class="info-label">核销时间</text>
+              <text class="info-value">{{item.time}}</text>
+            </view>
+          </block>
+        </view>
+        
+        <!-- 统一页脚 -->
+        <view class="card-footer">
+          <text>查看详情</text>
+          <view class="icon-arrow-next"></view>
+        </view>
+      </view>
+      <view class="bottom-padding"></view>
+    </view>
+  </scroll-view>
+</view>

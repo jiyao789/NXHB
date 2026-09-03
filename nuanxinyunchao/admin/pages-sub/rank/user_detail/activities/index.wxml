@@ -1,0 +1,26 @@
+<view class="page-container">
+  <view class="list-card" wx:if="{{list.length > 0}}">
+    <view class="list-item active-scale-light" wx:for="{{list}}" wx:key="id">
+      <view class="item-icon-wrap"><view class="{{item.icon}}"></view></view>
+      <view class="item-content">
+        <view class="item-header">
+          <text class="item-title truncate">{{item.title}}</text>
+          <text class="status-tag status-gray">{{item.status}}</text>
+        </view>
+        <view class="item-info">
+          <view class="i-location icon-xs"></view>
+          <text class="truncate">{{item.location}}</text>
+        </view>
+        <view class="item-info mt-1">
+          <view class="i-schedule icon-xs"></view>
+          <text>{{item.time}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="empty-state" wx:else>
+    <view class="i-empty-box icon-empty"></view>
+    <text>暂无记录</text>
+  </view>
+</view>

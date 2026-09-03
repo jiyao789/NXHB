@@ -1,0 +1,76 @@
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100rpx;
+  background: white;
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom);
+  border-top: 1rpx solid #eee;
+  z-index: 999;
+}
+
+.tab-bar-border {
+  background-color: rgba(0, 0, 0, 0.33);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1rpx;
+  transform: scaleY(0.5);
+}
+
+.tab-bar-item {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.tab-icon {
+  width: 54rpx;
+  height: 54rpx;
+}
+
+.tab-icon-thin {
+  width: 44rpx;
+}
+
+.tab-text {
+  font-size: 20rpx;
+  margin-top: 4rpx;
+}
+
+/* 凸起按钮样式 */
+.bulge-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bulge {
+  position: absolute;
+  top: -46rpx;
+  width: 146rpx;
+  height: 146rpx;
+  border-radius: 50%;
+  background-color: #ffd700;
+  border: 8rpx solid #ffffff;
+  box-shadow: 0 -4rpx 10rpx rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.bulge-icon {
+  width: 90rpx;
+  height: 90rpx;
+}

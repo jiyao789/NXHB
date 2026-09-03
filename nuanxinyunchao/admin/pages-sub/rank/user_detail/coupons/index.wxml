@@ -1,0 +1,30 @@
+<view class="page-container">
+  <view class="coupon-list" wx:if="{{list.length > 0}}">
+    <view class="coupon-card active-scale-light" wx:for="{{list}}" wx:key="id">
+      <view class="coupon-border bg-{{item.theme}}-light"></view>
+      
+      <view class="coupon-top">
+        <view class="coupon-title-wrap">
+          <view class="coupon-tag text-{{item.theme}}">{{item.tag}}</view>
+          <view class="coupon-shop">{{item.shop}}</view>
+        </view>
+        <view class="coupon-icon-box"><view class="{{item.icon}}"></view></view>
+      </view>
+      
+      <view class="coupon-mid">
+        <text class="mid-label">{{item.action}}</text>
+        <text class="mid-value text-{{item.theme}}">{{item.discount}}</text>
+      </view>
+      
+      <view class="coupon-bottom">
+        <view class="i-event icon-xs"></view>
+        <text>{{item.time}}</text>
+      </view>
+    </view>
+  </view>
+  
+  <view class="empty-state" wx:else>
+    <view class="i-empty-box icon-empty"></view>
+    <text>暂无记录</text>
+  </view>
+</view>

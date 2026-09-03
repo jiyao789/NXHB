@@ -1,0 +1,16 @@
+<view class="tab-bar">
+  <view class="tab-bar-border"></view>
+  <view wx:for="{{list}}" wx:key="index" class="tab-bar-item" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab">
+    <block wx:if="{{item.isBulge}}">
+      <view class="bulge-wrapper">
+        <view class="bulge">
+          <image src="{{item.iconPath}}" class="bulge-icon"></image>
+        </view>
+      </view>
+    </block>
+    <block wx:else>
+      <image src="{{selected === index ? item.selectedIconPath : item.iconPath}}" class="tab-icon"></image>
+      <view class="tab-text" style="color: {{selected === index ? selectedColor : color}}">{{item.text}}</view>
+    </block>
+  </view>
+</view>

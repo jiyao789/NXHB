@@ -1,0 +1,90 @@
+<view class="page-container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="bg-fixed" mode="widthFix" />
+
+  <view class="nav-fixed">
+    <view style="height: {{statusBarHeight}}px;"></view>
+    <view class="nav-content" style="height: {{navBarHeight}}px;">
+      <view class="back-btn" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">我的发布</text>
+    </view>
+  </view>
+
+  <view class="main-tabs-area">
+    
+    <view class="tab-item tab-left {{currentTab === 0 ? 'z-20' : 'z-10'}}" bindtap="switchMainTab" data-tab="0">
+      <view class="tab-bg tab-bg-left {{currentTab === 0 ? 'active' : 'inactive'}}"></view>
+      <text class="tab-text {{currentTab === 0 ? 'active' : 'inactive'}}">已发布</text>
+      
+      <block wx:if="{{currentTab === 0}}">
+        <view class="tab-indicator indicator-left"></view>
+      </block>
+    </view>
+
+    <view class="tab-item tab-right {{currentTab === 1 ? 'z-20' : 'z-10'}}" bindtap="switchMainTab" data-tab="1">
+      <view class="tab-bg tab-bg-right {{currentTab === 1 ? 'active' : 'inactive'}}"></view>
+      <text class="tab-text {{currentTab === 1 ? 'active' : 'inactive'}}">未发布</text>
+
+      <block wx:if="{{currentTab === 1}}">
+        <view class="tab-indicator indicator-right"></view>
+      </block>
+    </view>
+
+  </view>
+
+  <view class="list-wrapper">
+    <view class="sub-tabs-box">
+      <scroll-view scroll-x class="sub-tabs-scroll" show-scrollbar="{{false}}" enhanced="{{true}}" bounces="{{false}}">
+        <view class="sub-tabs-inner">
+          <view 
+            wx:for="{{subTabs}}" 
+            wx:key="value" 
+            class="sub-tab {{currentSubTab === item.value ? 'active' : 'inactive'}}"
+            bindtap="toggleSubTab" 
+            data-val="{{item.value}}"
+          >
+            {{item.name}}
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <scroll-view scroll-y class="scroll-area" show-scrollbar="{{false}}">
+      <view class="scroll-inner">
+        
+        <block wx:if="{{filteredList.length > 0}}">
+          <view wx:for="{{filteredList}}" wx:key="id" class="list-item-wrap">
+            <view class="swipe-content" 
+                  style="transform: translateX({{item.slideX || 0}}px); transition: {{item.transition || 'none'}};"
+                  bindtouchstart="touchStart" 
+                  bindtouchmove="touchMove" 
+                  bindtouchend="touchEnd" 
+                  data-index="{{index}}">
+              
+              <view class="card-item" hover-class="card-hover" bindtap="handleToDetail" data-item="{{item}}">
+                <view class="custom-tag tag-{{item.type}}">{{item.typeName}}</view>
+                
+                <view class="card-content">
+                  <text class="card-title">{{item.title}}</text>
+                  <text class="card-time">发布时间：{{item.displayTime}}</text>
+                </view>
+              </view>
+            </view>
+            
+            <view class="delete-btn" catchtap="handleDelete" data-item="{{item}}">
+              <text>删除</text>
+            </view>
+          </view>
+        </block>
+
+        <view wx:if="{{filteredList.length === 0}}" class="empty-state">
+          <view class="icon-empty"></view>
+          <text class="empty-text">暂无发布记录</text>
+        </view>
+
+        <view class="bottom-padding"></view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

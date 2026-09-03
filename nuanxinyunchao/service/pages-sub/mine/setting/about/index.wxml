@@ -1,0 +1,45 @@
+<view class="page-container">
+  <view class="nav-bar" style="padding-top: {{safeAreaTop}}px;">
+    <view class="nav-content">
+      <view class="back-btn" hover-class="back-btn-hover" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">关于</text>
+    </view>
+  </view>
+  
+  <view style="height: {{safeAreaTop + 44}}px;"></view>
+
+  <view class="content-wrapper">
+    <view class="logo-section">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/mine/logo.png" class="logo-img" mode="aspectFit" />
+      <text class="app-name">"暖新云巢"小程序</text>
+      <text class="app-role">服务端</text>
+    </view>
+
+    <view class="list-container">
+      <view class="list-box">
+
+        <view class="list-item" hover-class="item-hover" bindtap="navToService">
+          <text class="item-text">用户服务协议</text>
+          <view class="icon-right"></view>
+        </view>
+
+        <view class="divider"></view>
+
+        <view class="list-item" hover-class="item-hover" bindtap="navToPrivacy">
+          <text class="item-text">隐私协议</text>
+          <view class="icon-right"></view>
+        </view>
+
+        <view class="divider"></view>
+
+        <view class="list-item">
+          <text class="item-text">版本号</text>
+          <text class="item-value">v{{ version }}</text>
+        </view>
+        
+      </view>
+    </view>
+  </view>
+</view>

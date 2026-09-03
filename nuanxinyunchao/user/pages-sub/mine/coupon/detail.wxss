@@ -1,0 +1,509 @@
+@import "../../../styles/utilities.wxss";
+@import "../../../styles/icons.wxss";
+
+/* ==== 修复微信盒子模型与 Button ==== */
+view,
+text,
+image,
+scroll-view,
+input {
+  box-sizing: border-box !important;
+}
+
+button {
+  box-sizing: border-box !important;
+  padding: 0;
+  margin: 0;
+  line-height: inherit;
+  background-color: transparent;
+}
+
+button::after {
+  border: none;
+}
+
+image {
+  display: block;
+}
+
+/* ==== 原 scoped 样式搬运 ==== */
+.custom-button:active,
+.active-opacity-80:active {
+  opacity: 0.8;
+  transform: scale(0.96);
+}
+
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* ==== 特殊字符合规化映射 ==== */
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.bg-f5f5f5 {
+  background-color: #f5f5f5;
+}
+
+.bg-f1f2f2 {
+  background-color: #f1f2f2;
+}
+
+.bg-gray-50-50 {
+  background-color: rgba(249, 250, 251, 0.5);
+}
+
+.bg-FF6B00 {
+  background-color: #FF6B00;
+}
+
+.bg-fffaf0 {
+  background-color: #fffaf0;
+}
+
+.text-ff9e40 {
+  color: #ff9e40;
+}
+
+.text-8b654d {
+  color: #8b654d;
+}
+
+.left-1-2 {
+  left: 50%;
+}
+
+.translate-x-minus-1-2 {
+  transform: translateX(-50%);
+}
+
+/* 尺寸与高度 */
+.h-11 {
+  height: 88rpx;
+}
+
+.h-8 {
+  height: 64rpx;
+}
+
+.w-8 {
+  width: 64rpx;
+}
+
+.h-105px {
+  height: 210rpx;
+}
+
+.w-100px {
+  width: 200rpx;
+}
+
+.h-20 {
+  height: 160rpx;
+}
+
+.w-20 {
+  width: 160rpx;
+}
+
+.w-3 {
+  width: 24rpx;
+}
+
+.h-6 {
+  height: 48rpx;
+}
+
+.h-120px {
+  height: 240rpx;
+}
+
+.h-2 {
+  height: 16rpx;
+}
+
+.h-0-5 {
+  height: 2rpx;
+}
+
+.h-5 {
+  height: 40rpx;
+}
+
+.w-5 {
+  width: 40rpx;
+}
+
+/* 字体排版 */
+.text-3xl {
+  font-size: 60rpx;
+}
+
+.text-2xl {
+  font-size: 48rpx;
+}
+
+.text-xl {
+  font-size: 40rpx;
+}
+
+.text-lg {
+  font-size: 36rpx;
+}
+
+.text-15px {
+  font-size: 30rpx;
+}
+
+.text-14px {
+  font-size: 28rpx;
+}
+
+.text-sm {
+  font-size: 28rpx;
+}
+
+.text-12px {
+  font-size: 24rpx;
+}
+
+.text-xs {
+  font-size: 24rpx;
+}
+
+.text-11px {
+  font-size: 22rpx;
+}
+
+.text-10px {
+  font-size: 20rpx;
+}
+
+/* 边距与内外距 */
+.pb-10 {
+  padding-bottom: 80rpx;
+}
+
+.px-2 {
+  padding-left: 16rpx;
+  padding-right: 16rpx;
+}
+
+.pt-20 {
+  padding-top: 160rpx;
+}
+
+.mx-5 {
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+}
+
+.py-3 {
+  padding-top: 24rpx;
+  padding-bottom: 24rpx;
+}
+
+.pr-4 {
+  padding-right: 32rpx;
+}
+
+.pr-2 {
+  padding-right: 16rpx;
+}
+
+.pl-2 {
+  padding-left: 16rpx;
+}
+
+.ml-1 {
+  margin-left: 8rpx;
+}
+
+.mt-1 {
+  margin-top: 8rpx;
+}
+
+.p-1 {
+  padding: 8rpx;
+}
+
+.px-1 {
+  padding-left: 8rpx;
+  padding-right: 8rpx;
+}
+
+.py-0-5 {
+  padding-top: 4rpx;
+  padding-bottom: 4rpx;
+}
+
+.mb-0-5 {
+  margin-bottom: 4rpx;
+}
+
+.px-3 {
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+}
+
+.m-4 {
+  margin: 32rpx;
+}
+
+.px-6 {
+  padding-left: 48rpx;
+  padding-right: 48rpx;
+}
+
+.pt-3 {
+  padding-top: 24rpx;
+}
+
+.pb-1 {
+  padding-bottom: 8rpx;
+}
+
+.mx-3 {
+  margin-left: 24rpx;
+  margin-right: 24rpx;
+}
+
+.mx-2 {
+  margin-left: 16rpx;
+  margin-right: 16rpx;
+}
+
+.gap-1-5 {
+  gap: 12rpx;
+}
+
+.pt-1 {
+  padding-top: 8rpx;
+}
+
+.mx-4 {
+  margin-left: 32rpx;
+  margin-right: 32rpx;
+}
+
+.p-6 {
+  padding: 48rpx;
+}
+
+.mb-6 {
+  margin-bottom: 48rpx;
+}
+
+.gap-3 {
+  gap: 24rpx;
+}
+
+.mt-0-5 {
+  margin-top: 4rpx;
+}
+
+.mb-1 {
+  margin-bottom: 8rpx;
+}
+
+.ml-10 {
+  margin-left: 80rpx;
+}
+
+.py-1 {
+  padding-top: 8rpx;
+  padding-bottom: 8rpx;
+}
+
+.gap-2 {
+  gap: 16rpx;
+}
+
+/* 🚀 对齐与排版强力补强 */
+.flex-1 {
+  flex: 1;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.self-start {
+  align-self: flex-start;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.leading-none {
+  line-height: 1;
+}
+
+.w-full {
+  width: 100%;
+}
+
+/* 杂项辅助 */
+.origin-left {
+  transform-origin: left center;
+}
+
+.scale-90 {
+  transform: scale(0.9);
+}
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.leading-tight {
+  line-height: 1.25;
+}
+
+.leading-relaxed {
+  line-height: 1.625;
+}
+
+.active-bg-black-10:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.border-none {
+  border: none;
+}
+
+.rounded-3xl {
+  border-radius: 48rpx;
+}
+
+.shadow-sm {
+  box-shadow: 0 2rpx 4rpx 0 rgba(0, 0, 0, 0.05);
+}
+
+/* ======================================================== */
+/* 🚀 补丁：缺漏的全局 Icon (URL Encoded) */
+/* ======================================================== */
+
+.i-carbon-chevron-left {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M10%2016L20%206l1.4%201.4L12.8%2016l8.6%208.6L20%2026z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M10%2016L20%206l1.4%201.4L12.8%2016l8.6%208.6L20%2026z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.i-carbon-circle-dash {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M12%204.328A11.8%2011.8%200%200%201%2016%203.8a11.95%2011.95%200%200%201%204%20.686V2.365a13.9%2013.9%200%200%200-8-.544zM27.672%2012a11.8%2011.8%200%200%201%20.528%204a11.95%2011.95%200%200%201-.686%204h1.963a13.9%2013.9%200%200%200%20.544-8zM20%2027.672A11.8%2011.8%200%200%201%2016%2028.2a11.95%2011.95%200%200%201-4-.686v1.963a13.9%2013.9%200%200%200%208%20.544zM4.328%2020A11.8%2011.8%200%200%201%203.8%2016a11.95%2011.95%200%200%201%20.686-4H2.523a13.9%2013.9%200%200%200-.544%208zM25.045%206.954l-1.414%201.415a12.03%2012.03%200%200%201%201.415%201.414l1.414-1.414A14.04%2014.04%200%200%200%2025.045%206.955M6.955%2025.045l1.414-1.414a12.03%2012.03%200%200%201-1.414-1.414l-1.414%201.414a14.04%2014.04%200%200%200%201.414%201.414m18.09-15.26a12.03%2012.03%200%200%201%201.414%201.414l1.414-1.414a14.04%2014.04%200%200%200-1.414-1.414zM9.785%2022.215a12.03%2012.03%200%200%201-1.414%201.414l-1.414-1.414a14.04%2014.04%200%200%200%201.414%201.414%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M12%204.328A11.8%2011.8%200%200%201%2016%203.8a11.95%2011.95%200%200%201%204%20.686V2.365a13.9%2013.9%200%200%200-8-.544zM27.672%2012a11.8%2011.8%200%200%201%20.528%204a11.95%2011.95%200%200%201-.686%204h1.963a13.9%2013.9%200%200%200%20.544-8zM20%2027.672A11.8%2011.8%200%200%201%2016%2028.2a11.95%2011.95%200%200%201-4-.686v1.963a13.9%2013.9%200%200%200%208%20.544zM4.328%2020A11.8%2011.8%200%200%201%203.8%2016a11.95%2011.95%200%200%201%20.686-4H2.523a13.9%2013.9%200%200%200-.544%208zM25.045%206.954l-1.414%201.415a12.03%2012.03%200%200%201%201.415%201.414l1.414-1.414A14.04%2014.04%200%200%200%2025.045%206.955M6.955%2025.045l1.414-1.414a12.03%2012.03%200%200%201-1.414-1.414l-1.414%201.414a14.04%2014.04%200%200%200%201.414%201.414m18.09-15.26a12.03%2012.03%200%200%201%201.414%201.414l1.414-1.414a14.04%2014.04%200%200%200-1.414-1.414zM9.785%2022.215a12.03%2012.03%200%200%201-1.414%201.414l-1.414-1.414a14.04%2014.04%200%200%200%201.414%201.414%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.i-carbon-star {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202l-4.55%209.22l-10.17%201.47l7.36%207.18L6.9%2030l9.1-4.78L25.1%2030l-1.74-10.13l7.36-7.17l-10.17-1.48zm0%2024.16L9.36%2029.6l1.26-7.3l-5.32-5.18l7.33-1.07L16%209.38l3.37%206.67l7.33%201.07l-5.32%205.18l1.26%207.3L16%2026.16z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202l-4.55%209.22l-10.17%201.47l7.36%207.18L6.9%2030l9.1-4.78L25.1%2030l-1.74-10.13l7.36-7.17l-10.17-1.48zm0%2024.16L9.36%2029.6l1.26-7.3l-5.32-5.18l7.33-1.07L16%209.38l3.37%206.67l7.33%201.07l-5.32%205.18l1.26%207.3L16%2026.16z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.text-gray-400 {
+  color: #9ca3af;
+}
+
+.text-gray-500 {
+  color: #6b7280;
+}
+
+.text-gray-600 {
+  color: #4b5563;
+}
+
+.text-gray-800 {
+  color: #1f2937;
+}
+
+.text-gray-900 {
+  color: #111827;
+}
+
+.text-FF6B00 {
+  color: #FF6B00;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+/* 2. 点亮后的实心橘色星星 (i-carbon-star-filled) */
+.i-carbon-star-filled {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202l-4.55%209.22l-10.17%201.47l7.36%207.18L6.9%2030l9.1-4.78L25.1%2030l-1.74-10.13l7.36-7.17l-10.17-1.48z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202l-4.55%209.22l-10.17%201.47l7.36%207.18L6.9%2030l9.1-4.78L25.1%2030l-1.74-10.13l7.36-7.17l-10.17-1.48z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.i-carbon-checkmark-outline {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M14%2021.414L9%2016.413l1.413-1.414L14%2018.586l8.586-8.586L24%2011.414z%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202a14%2014%200%201%200%2014%2014A14.016%2014.016%200%200%200%2016%202zm0%2026a12%2012%200%201%201%2012-12a12.014%2012.014%200%200%201-12%2012z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M14%2021.414L9%2016.413l1.413-1.414L14%2018.586l8.586-8.586L24%2011.414z%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202a14%2014%200%201%200%2014%2014A14.016%2014.016%200%200%200%2016%202zm0%2026a12%2012%200%201%201%2012-12a12.014%2012.014%200%200%201-12%2012z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.i-carbon-time {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202C8.269%202%202%208.269%202%2016s6.269%2014%2014%2014s14-6.269%2014-14S23.731%202%2016%202zm0%2026C9.383%2028%204%2022.617%204%2016S9.383%204%2016%204s12%205.383%2012%2012s-5.383%2012-12%2012z%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M17%208h-2v9l5.77%203.42l1.03-1.68L17%2015.82z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202C8.269%202%202%208.269%202%2016s6.269%2014%2014%2014s14-6.269%2014-14S23.731%202%2016%202zm0%2026C9.383%2028%204%2022.617%204%2016S9.383%204%2016%204s12%205.383%2012%2012s-5.383%2012-12%2012z%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M17%208h-2v9l5.77%203.42l1.03-1.68L17%2015.82z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+/* 收藏心形图标 */
+.favorite-icon {
+  display: inline-block;
+  width: 28rpx;
+  height: 28rpx;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+}
+
+.favorite-icon.filled {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFFFFF' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+}
+
+.favorite-icon.empty {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23999999' stroke-width='2' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+}

@@ -1,0 +1,106 @@
+<view class="page-container">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar">
+    <view style="height: {{statusBarHeight}}px;"></view>
+    <view class="nav-content" style="height: {{navBarHeight}}px;">
+      <view class="back-btn" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">点赞</text>
+    </view>
+  </view>
+
+  <!-- 分类 Tab 栏 (仅街道用户显示) -->
+  <view class="tab-bar" wx:if="{{role === 'street'}}">
+    <view wx:for="{{tabs}}" wx:key="*this" class="tab-item" bindtap="handleTabChange" data-index="{{index}}">
+      <text class="tab-text {{activeTab === index ? 'active' : ''}}">{{item}}</text>
+      <view class="tab-line" wx:if="{{activeTab === index}}"></view>
+    </view>
+  </view>
+
+  <!-- 列表内容区 -->
+  <scroll-view scroll-y class="scroll-wrapper">
+    <view class="list-container">
+      
+      <!-- 街道用户点赞列表 -->
+      <block wx:if="{{role === 'street'}}">
+        <view wx:if="{{(activeTab === 0 && streetLikes.activity.length > 0) || (activeTab === 1 && streetLikes.article.length > 0) || (activeTab === 2 && streetLikes.video.length > 0)}}">
+        <view wx:for="{{activeTab === 0 ? streetLikes.activity : (activeTab === 1 ? streetLikes.article : streetLikes.video)}}" wx:key="id" class="like-card">
+          
+          <!-- 1. 活动类点赞 (垂直布局) -->
+          <block wx:if="{{activeTab === 0}}">
+            <!-- 通用头部 (头像/昵称/点赞动作/时间) -->
+            <view class="street-user-header">
+              <image src="{{item.userAvatar}}" class="street-avatar" mode="aspectFill" />
+              <view class="user-name-box">
+                <text class="street-nickname">{{item.userName}}</text>
+                <view class="action-time-row">
+                  <text class="street-action">{{item.actionText}}</text>
+                  <text class="street-date">{{item.date}}</text>
+                </view>
+              </view>
+            </view>
+            <view class="card-divider"></view>
+            <view class="activity-body">
+              <view class="activity-main">
+                <view class="activity-title">{{item.title}}</view>
+                <view class="activity-meta">
+                  <text class="time-text">{{item.timeRange}}</text>
+                  <view class="week-tags-box">
+                    <text wx:for="{{item.weekTags}}" wx:for-item="week" wx:key="*this" class="week-tag">{{week}}</text>
+                  </view>
+                </view>
+
+              </view>
+            </view>
+          </block>
+
+          <!-- 2. 图文/视频类点赞 (并排布局) -->
+          <block wx:else>
+            <view class="media-card-wrapper">
+              <view class="media-card-left">
+                <image src="{{item.userAvatar}}" class="street-avatar" mode="aspectFill" />
+                <view class="user-name-box">
+                  <text class="street-nickname">{{item.userName}}</text>
+                  <view class="action-time-row">
+                    <text class="street-action">{{item.actionText}}</text>
+                    <text class="street-date">{{item.date}}</text>
+                  </view>
+                </view>
+              </view>
+              <view class="media-right">
+                <image src="{{item.coverImage}}" class="media-cover" mode="aspectFill" />
+                <view wx:if="{{item.isVideo}}" class="play-icon"></view>
+              </view>
+            </view>
+          </block>
+
+        </view>
+        </view>
+        <!-- 街道用户为空状态兜底 -->
+        <view wx:else class="empty-layout">
+          <view class="centered-box" style="transform: translateY(-{{totalNavHeight / 2}}px);">
+            <image 
+              src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/message/404.png" 
+              class="empty-icon" 
+              mode="widthFix" 
+            />
+          </view>
+        </view>
+      </block>
+
+      <!-- 商户用户兜底 (当 role !== 'street' 时) -->
+      <view wx:else class="empty-layout">
+        <view class="centered-box" style="transform: translateY(-{{totalNavHeight / 2}}px);">
+          <image 
+            src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/message/404.png" 
+            class="empty-icon" 
+            mode="widthFix" 
+          />
+        </view>
+      </view>
+
+      <view class="safe-bottom"></view>
+    </view>
+  </scroll-view>
+</view>

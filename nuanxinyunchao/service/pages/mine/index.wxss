@@ -1,0 +1,292 @@
+/* 彻底锁死外层，防止系统级滚动带来的抖动 */
+page {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 容器基准 */
+.page-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: #f9fafb;
+}
+
+.bg-global {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 顶部 Logo 栏 (悬浮在最上层) */
+.nav-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  padding: 96rpx 32rpx 16rpx 32rpx;
+  pointer-events: none; /* 让点击穿透到底部，防止挡住滚动条区域 */
+}
+
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.logo-icon { height: 48rpx; width: 48rpx; flex-shrink: 0; }
+.logo-title { height: 32rpx; width: 128rpx; flex-shrink: 0; }
+
+/* ================= 核心滚动区配置 ================= */
+.scroll-container {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-inner {
+  width: 100%;
+  /* 确保内部有足够空间排布 */
+}
+
+/* 隐藏所有的滚动条 (兼容各种机型) */
+::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+  height: 0 !important;
+  color: transparent;
+  background: transparent;
+}
+
+/* 用户信息区域 */
+.user-info-section {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  /* 顶部留足 padding，防止被 nav-header 盖住 */
+  padding: 160rpx 32rpx 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.user-left {
+  display: flex;
+  align-items: center;
+  gap: 32rpx;
+}
+
+.avatar-box {
+  height: 128rpx;
+  width: 128rpx;
+  border-radius: 50%;
+  border: 4rpx solid #ffffff;
+  background-color: #e5e7eb;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  overflow: hidden;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.nickname {
+  color: #333333;
+  font-weight: bold;
+  max-width: 200rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.3s;
+}
+
+.text-sm { font-size: 28rpx; }
+.text-xl { font-size: 40rpx; }
+
+/* 角色 Badge 样式 */
+.role-badge-container {
+  position: relative;
+  margin-left: 24rpx;
+  margin-top: 4rpx;
+}
+
+.role-badge {
+  display: flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4rpx 16rpx 4rpx 40rpx;
+  background-color: #FF6B00;
+  box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.1);
+  transition: background-color 0.3s;
+}
+
+.role-text {
+  font-size: 20rpx;
+  color: #ffffff;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.role-icon {
+  position: absolute;
+  top: 50%;
+  left: -24rpx;
+  transform: translateY(-50%);
+  height: 64rpx;
+  width: 64rpx;
+  filter: drop-shadow(0 2rpx 4rpx rgba(0,0,0,0.1));
+}
+
+.account-info {
+  font-size: 24rpx;
+  color: #333333;
+}
+
+.user-right { flex-shrink: 0; }
+.badge-hex { height: 144rpx; width: 144rpx; filter: drop-shadow(0 4rpx 6rpx rgba(0,0,0,0.1)); }
+
+/* ================= 底部内容布局 (仿 user/index) ================= */
+.mb-neg-110 { margin-bottom: -110rpx; }
+.mb-neg-40 { margin-bottom: -40rpx; }
+.-top-12 { top: -120rpx; }
+.px-5-6 { padding-left: 44rpx; padding-right: 44rpx; }
+.w-95 { width: 95%; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.min-h-60vh { min-height: 60vh; }
+.pt-16 { padding-top: 158rpx; }
+.px-4 { padding-left: 32rpx; padding-right: 32rpx; }
+.px-2 { padding-left: 16rpx; padding-right: 16rpx; }
+.mb-8 { margin-bottom: 64rpx; }
+.mb-2 { margin-bottom: 16rpx; }
+.ml-2 { margin-left: 16rpx; }
+.gap-2 { gap: 16rpx; }
+.gap-3 { gap: 24rpx; }
+
+/* 文本与颜色 */
+.text-white { color: #ffffff; }
+.text-10 { font-size: 20rpx; }
+.text-15 { font-size: 30rpx; }
+.text-18 { font-size: 36rpx; }
+.text-5xl { font-size: 96rpx; }
+.text-gray-500 { color: #6b7280; }
+.text-gray-300 { color: #d1d5db; }
+.opacity-90 { opacity: 0.9; }
+.font-bold { font-weight: bold; }
+.font-medium { font-weight: 500; }
+.tracking-tighter { letter-spacing: -2rpx; }
+
+/* 背景与圆角 */
+.bg-orange-light { background-color: #f7e7d7ff; }
+.bg-white { background-color: #ffffff; }
+.bg-gray-200 { background-color: #e5e7eb; }
+.rounded-3xl { border-radius: 48rpx; }
+.rounded-2xl { border-radius: 32rpx; }
+.rounded-36 { border-radius: 72rpx; }
+.shadow-sm { box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.05); }
+.bg-gradient-to-t { background: linear-gradient(to top, rgba(0,0,0,0.2), transparent); }
+
+/* 尺寸控制 */
+.h-40 { height: 320rpx; }
+.h-40-px { height: 80rpx; }
+.h-900 { height: 900rpx; }
+.h-5 { height: 40rpx; }
+.w-5 { width: 40rpx; }
+.h-6 { height: 48rpx; }
+.w-6 { width: 48rpx; }
+.h-1-5 { height: 3rpx; }
+.min-h-400 { min-height: 400rpx; }
+.p-10 { padding: 20rpx; }
+.p-5 { padding: 40rpx; }
+.box-border { box-sizing: border-box; }
+.pointer-events-none { pointer-events: none; }
+.pr-2 { padding-right: 20rpx; }
+/* 我的权益按钮 */
+.rights-btn {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40rpx;
+}
+.rights-img { height: 280rpx; }
+
+.active-scale-95:active { transform: scale(0.95); }
+
+/* 菜单项优化 */
+.menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40rpx;
+  transition: background-color 0.2s;
+}
+.bg-gray-100 { background-color: #f3f4f6 !important; }
+.right-0 { right: 0; }
+.left-12 { left: 96rpx; }
+
+/* 菜单项容器强化：确保点击态圆角不溢出 */
+.menu-item-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.menu-item-container:first-child {
+  border-top-left-radius: 72rpx;
+  border-top-right-radius: 72rpx;
+}
+
+.menu-item-container:last-child {
+  border-bottom-left-radius: 72rpx;
+  border-bottom-right-radius: 72rpx;
+}
+
+/* 分隔线强化 */
+.divider-line {
+  position: absolute;
+  bottom: 0;
+  left: 110rpx; /* 避开图标位置 */
+  right: 0;
+  height: 2rpx;
+  background-color: #eee;
+  z-index: 10;
+}
+
+/* 兼容原来的 Chevron 图标 */
+.i-carbon-chevron-right {
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 4rpx solid #d1d5db;
+  border-right: 4rpx solid #d1d5db;
+  transform: rotate(45deg);
+}
+
+/* ================= 核心修复：加大底部占位 ================= */
+.bottom-placeholder { 
+  height: 200rpx; /* 大幅增加底部空白，彻底解决由于 TabBar 遮挡导致的滑不到底的问题 */
+  width: 100%;
+}

@@ -1,0 +1,146 @@
+@import "../../../styles/utilities.wxss";
+@import "../../../styles/icons.wxss";
+
+.bg-f5f5f5 { background-color: #f5f5f5; }
+.bg-eeeeee { background-color: #eeeeee; }
+.bg-FFD700 { background-color: #FFD700; }
+.bg-orange-main { background-color: #FF6B00; }
+.border-orange-main { border-color: #FF6B00; }
+.bg-orange-selected { background-color: #FFF0E5; }
+.bg-tag-unselected { background-color: #F8F8F8; }
+.text-tag-unselected { color: #888888; }
+.border-gray-100 { border-color: #F0F0F0; }
+.border-gray-200 { border-color: #E8E8E8; }
+.border-gray-300 { border-color: #D9D9D9; }
+.border-dashed { border-style: dashed; }
+
+.rating-tag {
+    padding: 12rpx 32rpx;
+    border-radius: 12rpx;
+    font-size: 28rpx;
+    transition: all 0.2s;
+    border: 2rpx solid transparent;
+}
+
+.rating-tag.unselected {
+    background-color: #F5F5F5;
+    color: #666666;
+}
+
+.rating-tag.active {
+    background-color: #FFF0E5;
+    color: #FF6B00;
+    border-color: #FF6B00;
+    font-weight: bold;
+}
+
+.w-20 { width: 160rpx; }
+.h-20 { height: 160rpx; }
+.w-28 { width: 224rpx; }
+.h-28 { height: 224rpx; }
+.w-5 { width: 40rpx; }
+.h-5 { height: 40rpx; }
+.p-4 { padding: 32rpx; }
+.gap-2 { gap: 16rpx; }
+
+/* 底部图标统一 */
+.bottom-icon-wrap {
+    width: 44rpx;
+    height: 44rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.mt-minus-1px { margin-top: -2rpx; }
+
+.bottom-icon-wrap [class^="i-"] {
+    font-size: 36rpx;
+}
+
+.voucher-icon-rect {
+    width: 44rpx;
+    height: 32rpx;
+    flex-shrink: 0;
+}
+
+.text-orange-main { color: #FF6B00; }
+.text-fa3b2f { color: #fa3b2f; }
+.text-333 { color: #333333; }
+.text-24px { font-size: 48rpx; }
+.text-15 { font-size: 30rpx; }
+.text-18 { font-size: 36rpx; }
+.text-14 { font-size: 28rpx; }
+.text-12 { font-size: 24rpx; }
+.text-10 { font-size: 20rpx; }
+
+.rounded-24 { border-radius: 48rpx; }
+.rounded-4 { border-radius: 8rpx; }
+
+/* 定位辅助 */
+.left-1-2 { left: 50%; }
+.translate-x-minus-1-2 { transform: translateX(-50%); }
+
+/* 虚线分割线 */
+.dash-line {
+    height: 1rpx;
+    border-top: 2rpx dashed #eee;
+}
+
+.arc-cut-left, .arc-cut-right {
+    width: 24rpx;
+    height: 48rpx;
+    background-color: #f5f5f5; /* 采样背景色 */
+    z-index: 10;
+}
+
+.arc-cut-left {
+    border-radius: 0 24rpx 24rpx 0;
+    margin-left: -12rpx;
+}
+
+.arc-cut-right {
+    border-radius: 24rpx 0 0 24rpx;
+    margin-right: -12rpx;
+}
+
+/* 标签样式提升 */
+.active-opacity-80:active {
+    opacity: 0.8;
+}
+
+.active-bg-black-5:active {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.nav-glass {
+    backdrop-filter: blur(20rpx);
+    -webkit-backdrop-filter: blur(20rpx);
+}
+
+.bg-white-80 {
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.05);
+}
+
+.transition-all {
+    transition: all 0.3s ease;
+}
+
+.border-orange-200 { border-color: #FFD6BA; }
+
+textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+.i-carbon-checkmark-outline {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M14%2021.414L9%2016.413l1.413-1.414L14%2018.586l8.586-8.586L24%2011.414z%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202a14%2014%200%201%200%2014%2014A14.016%2014.016%200%200%200%2016%202zm0%2026a12%2012%200%201%201%2012-12a12.014%2012.014%200%200%201-12%2012z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M14%2021.414L9%2016.413l1.413-1.414L14%2018.586l8.586-8.586L24%2011.414z%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202a14%2014%200%201%200%2014%2014A14.016%2014.016%200%200%200%2016%202zm0%2026a12%2012%200%201%201%2012-12a12.014%2012.014%200%200%201-12%2012z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}

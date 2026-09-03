@@ -1,0 +1,87 @@
+<view class="page-container">
+  
+  <view class="nav-fixed" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-content" style="height: {{navBarHeight}}px;">
+      <view class="back-btn" hover-class="bg-active" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">设置</text>
+    </view>
+  </view>
+  
+  <view class="nav-placeholder" style="height: {{statusBarHeight + navBarHeight}}px;"></view>
+
+  <view class="main-content">
+    
+    <view class="setting-card">
+      
+      <view class="setting-item" hover-class="bg-active" data-url="/nuanxinyunchao/service/pages-sub/mine/setting/profile" bindtap="navTo">
+        <view class="item-left">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/setting/icon_updata_profile.png" class="item-icon" mode="aspectFit" />
+          <text class="item-text">资料修改</text>
+        </view>
+        <view class="icon-chevron-right"></view>
+      </view>
+
+
+
+      <view class="divider"></view>
+
+      <view class="setting-item" wx:if="{{userInfo.rolesId === 6}}" hover-class="bg-active" data-url="/nuanxinyunchao/service/pages-sub/map-point/index" bindtap="navTo">
+        <view class="item-left">
+          <view class="icon-map-point"></view>
+          <text class="item-text">地图点位设置</text>
+        </view>
+        <view class="icon-chevron-right"></view>
+      </view>
+
+      <view class="divider" wx:if="{{userInfo.rolesId === 6}}"></view>
+
+      <view class="setting-item" wx:if="{{userInfo.rolesId === 6}}" hover-class="bg-active" data-url="/nuanxinyunchao/service/pages-sub/mine/invitation/index" bindtap="navTo">
+        <view class="item-left">
+          <view class="icon-party-invitation"></view>
+          <text class="item-text">党群中心邀请码</text>
+        </view>
+        <view class="icon-chevron-right"></view>
+      </view>
+
+      <view class="divider" wx:if="{{userInfo.rolesId === 6}}"></view>
+
+      <view class="setting-item" wx:if="{{userInfo.rolesId === 6}}" hover-class="bg-active" data-url="/nuanxinyunchao/service/pages-sub/mine/user-invitation/index" bindtap="navTo">
+        <view class="item-left">
+          <view class="icon-user-invitation"></view>
+          <text class="item-text">用户注册邀请码</text>
+        </view>
+        <view class="icon-chevron-right"></view>
+      </view>
+
+      <view class="divider" wx:if="{{userInfo.rolesId === 6}}"></view>
+
+      <view class="setting-item" hover-class="bg-active" data-url="/nuanxinyunchao/service/pages-sub/mine/setting/about/index" bindtap="navTo">
+        <view class="item-left">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/setting/icon_about.png" class="item-icon" mode="aspectFit" />
+          <text class="item-text">关于</text>
+        </view>
+        <view class="icon-chevron-right"></view>
+      </view>
+
+
+    </view>
+
+    <view class="setting-card">
+      
+      <view class="action-item" hover-class="bg-active" bindtap="handleClearCache">
+        <text class="action-text">清理缓存</text>
+      </view>
+
+      <view class="divider"></view>
+
+      <view class="action-item" hover-class="bg-active" bindtap="handleLogout">
+        <text class="action-text">退出登录</text>
+      </view>
+
+
+    </view>
+
+  </view>
+</view>

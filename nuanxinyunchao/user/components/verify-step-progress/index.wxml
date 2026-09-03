@@ -1,0 +1,28 @@
+<!-- 步骤进度条组件 -->
+<view class="bg-white px-6 py-6 mx-4 mt-2 mb-4 rounded-2xl shadow-sm">
+  <view class="flex items-start justify-between">
+    <!-- 步骤1：个人信息 -->
+    <view class="flex flex-col items-center gap-2 z-10" bindtap="onStep0">
+      <view class="h-4 w-4 rounded-full transition-all box-border border-2 {{current >= 0 ? 'bg-orange-light border-yellow-main ring-yellow-main' : 'bg-gray-200 border-gray-200'}}"></view>
+      <text class="text-xs font-bold mt-1 {{current >= 0 ? 'text-gray-800' : 'text-gray-400'}}">个人信息</text>
+    </view>
+
+    <!-- 连接线1 -->
+    <view class="flex-1 h-0-5 mt-2 mx-2 transition-colors {{current >= 1 ? 'bg-yellow-main' : 'bg-gray-200'}}"></view>
+
+    <!-- 步骤2：工作信息 -->
+    <view class="flex flex-col items-center gap-2 z-10" bindtap="onStep1">
+      <view class="h-4 w-4 rounded-full transition-all box-border border-2 {{current >= 1 ? 'bg-orange-light border-yellow-main ring-yellow-main' : 'bg-gray-200 border-gray-200'}}"></view>
+      <text class="text-xs font-bold mt-1 {{current >= 1 ? 'text-gray-800' : 'text-gray-400'}}">工作信息</text>
+    </view>
+
+    <!-- 连接线2 -->
+    <view class="flex-1 h-0-5 mt-2 mx-2 transition-colors {{current >= 2 ? 'bg-yellow-main' : 'bg-gray-200'}}"></view>
+
+    <!-- 步骤3：审核 -->
+    <view class="flex flex-col items-center gap-2 z-10">
+      <view class="h-4 w-4 rounded-full transition-all box-border border-2 {{current >= 2 ? 'bg-orange-light border-yellow-main ring-yellow-main' : 'bg-gray-200 border-gray-200'}}"></view>
+      <text class="text-xs font-bold mt-1 {{current >= 2 ? 'text-gray-800' : 'text-gray-400'}}">审核</text>
+    </view>
+  </view>
+</view>

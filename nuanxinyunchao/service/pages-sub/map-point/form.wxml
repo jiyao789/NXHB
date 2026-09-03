@@ -1,0 +1,135 @@
+<view class="page-container" style="background: #ffffff; min-height: 100vh; padding-bottom: calc(env(safe-area-inset-bottom) + 160rpx);">
+  
+  <view style="padding: 24rpx 32rpx; display: flex; flex-direction: column; gap: 24rpx;">
+    
+    <!-- 点位名称 -->
+    <view style="display: flex; align-items: center; min-height: 100rpx; background: #F9FAFB; border-radius: 16rpx; padding: 0 24rpx;">
+      <view class="icon-shop" style="font-size: 40rpx; color: #6B7280; margin-right: 16rpx;"></view>
+      <text style="color: #EF4444; font-size: 32rpx; margin-right: 8rpx;">*</text>
+      <input style="flex: 1; font-size: 30rpx; color: #111827;" placeholder="点位名称" value="{{formData.name}}" data-field="name" bindinput="onInput" placeholder-style="color: #4B5563;" />
+      <view style="width: 32rpx; height: 32rpx; border: 2rpx solid #9CA3AF; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 16rpx;" bindtap="toggleNameRule">
+        <text style="color: #9CA3AF; font-size: 22rpx; line-height: 1;">?</text>
+      </view>
+    </view>
+
+    <!-- 经纬度 -->
+    <view style="display: flex; align-items: center; min-height: 100rpx; background: #F9FAFB; border-radius: 16rpx; padding: 0 24rpx;" bindtap="chooseLocation">
+      <view class="icon-location" style="font-size: 40rpx; color: #6B7280; margin-right: 16rpx;"></view>
+      <text style="color: #EF4444; font-size: 32rpx; margin-right: 8rpx;">*</text>
+      <view style="flex: 1; font-size: 30rpx; color: {{formData.latitude ? '#111827' : '#4B5563'}};">
+        {{formData.latitude && formData.longitude ? (formData.latitude + ', ' + formData.longitude) : '请点击在地图上选择位置'}}
+      </view>
+    </view>
+
+    <!-- 咨询电话 -->
+    <view style="display: flex; align-items: center; min-height: 100rpx; background: #F9FAFB; border-radius: 16rpx; padding: 0 24rpx;">
+      <view class="icon-phone" style="font-size: 40rpx; color: #6B7280; margin-right: 16rpx;"></view>
+      <text style="color: transparent; font-size: 32rpx; margin-right: 8rpx;">*</text>
+      <input style="flex: 1; font-size: 30rpx; color: #111827;" placeholder="咨询电话" value="{{formData.phone}}" data-field="phone" bindinput="onInput" placeholder-style="color: #4B5563;" type="number" />
+    </view>
+
+    <!-- 营业时间 -->
+    <view style="display: flex; align-items: center; min-height: 100rpx; background: #F9FAFB; border-radius: 16rpx; padding: 0 24rpx;" bindtap="openHoursDrawer">
+      <view class="icon-time" style="font-size: 40rpx; color: #6B7280; margin-right: 16rpx;"></view>
+      <text style="color: #EF4444; font-size: 32rpx; margin-right: 8rpx;">*</text>
+      <view style="flex: 1; font-size: 30rpx; color: {{formData.businessHours ? '#111827' : '#4B5563'}};">
+        {{formData.businessHours || '请选择营业时间'}}
+      </view>
+      <view class="i-carbon-chevron-down" style="font-size: 40rpx; color: #9CA3AF; margin-left: 16rpx;"></view>
+    </view>
+
+    <!-- 说明 -->
+    <view style="display: flex; align-items: center; min-height: 100rpx; background: #F9FAFB; border-radius: 16rpx; padding: 0 24rpx;">
+      <view class="icon-document" style="font-size: 40rpx; color: #6B7280; margin-right: 16rpx;"></view>
+      <text style="color: transparent; font-size: 32rpx; margin-right: 8rpx;">*</text>
+      <input style="flex: 1; font-size: 30rpx; color: #111827;" placeholder="地图点位说明" value="{{formData.description}}" data-field="description" bindinput="onInput" placeholder-style="color: #4B5563;" />
+    </view>
+
+    <!-- 图片上传 -->
+    <view style="padding: 16rpx 8rpx; margin-top: 16rpx;">
+      <view style="display: flex; align-items: center; margin-bottom: 24rpx;">
+        <text style="color: #EF4444; font-size: 32rpx; margin-right: 8rpx;">*</text>
+        <text style="font-size: 30rpx; color: #111827; font-weight: 500;">图片上传</text>
+      </view>
+      
+      <view style="display: flex; flex-wrap: wrap;">
+        <!-- 已上传图片 -->
+        <view wx:if="{{formData.images}}" style="width: 180rpx; height: 180rpx; border-radius: 16rpx; overflow: hidden; position: relative; margin-right: 24rpx; box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.05);">
+          <image src="{{formData.images}}" style="width: 100%; height: 100%; object-fit: cover;" mode="aspectFill" />
+          <view style="position: absolute; top: 0; right: 0; background: rgba(0,0,0,0.5); width: 48rpx; height: 48rpx; display: flex; align-items: center; justify-content: center; border-bottom-left-radius: 16rpx;" bindtap="removeImage">
+            <view class="i-carbon-close" style="color: #fff; font-size: 32rpx;"></view>
+          </view>
+        </view>
+        
+        <!-- 上传按钮 -->
+        <view wx:else style="width: 180rpx; height: 180rpx; border-radius: 16rpx; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2rpx dashed #D1D5DB; background: #F9FAFB;" bindtap="chooseImage">
+          <text style="font-size: 64rpx; color: #9CA3AF; line-height: 1; margin-bottom: 8rpx;">+</text>
+          <text style="font-size: 26rpx; color: #6B7280;">上传图片</text>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- 底部操作按钮 -->
+  <view style="position: fixed; left: 0; right: 0; bottom: 0; background: #fff; padding: 24rpx 32rpx env(safe-area-inset-bottom); border-top: 2rpx solid #F3F4F6; z-index: 50;">
+    <button style="width: 100%; background: #F97316; color: #fff; border-radius: 16rpx; font-size: 32rpx; font-weight: 500; height: 88rpx; display: flex; align-items: center; justify-content: center;" bindtap="handleSubmit" disabled="{{submitting}}">{{id ? '保存修改' : '确认新增'}}</button>
+  </view>
+
+  <!-- 命名规范弹窗 -->
+  <view wx:if="{{showNameRule}}" style="position: fixed; inset: 0; z-index: 100;">
+    <view style="position: absolute; inset: 0; background: rgba(0,0,0,0.5);" bindtap="toggleNameRule"></view>
+    <view style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600rpx; background: #fff; border-radius: 24rpx; overflow: hidden; display: flex; flex-direction: column;">
+      <view style="padding: 32rpx 0; text-align: center; font-size: 34rpx; font-weight: bold; color: #111827; border-bottom: 2rpx solid #F3F4F6;">
+        点位命名规范
+      </view>
+      <view style="padding: 40rpx 48rpx; font-size: 28rpx; color: #4B5563; line-height: 1.6;">
+        <view style="margin-bottom: 16rpx;">1、公共卫生间点位名称必须包含<text style="color: #EF4444; font-weight: bold;">“卫生间”</text></view>
+        <view>2、优惠就餐点位名称必须包含<text style="color: #EF4444; font-weight: bold;">“就餐点”</text></view>
+      </view>
+      <view style="border-top: 2rpx solid #F3F4F6; display: flex;">
+        <view style="flex: 1; padding: 28rpx 0; text-align: center; font-size: 34rpx; color: #3B82F6; font-weight: bold;" bindtap="toggleNameRule">知道了</view>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+  <!-- 营业时间自定义抽屉 -->
+  <view class="drawer-mask" wx:if="{{showHoursDrawer}}" bindtap="closeHoursDrawer" catchtouchmove="true"></view>
+  <view class="drawer-content {{showHoursDrawer ? 'show' : ''}}" catchtouchmove="true">
+    <view class="drawer-header">
+      <view class="drawer-cancel" bindtap="closeHoursDrawer">取消</view>
+      <text class="drawer-title">选择营业时间</text>
+      <view class="drawer-confirm" bindtap="confirmHours">确定</view>
+    </view>
+    <view class="drawer-body">
+      <view class="section-title">选择营业日期 (多选)</view>
+      <view class="week-list">
+        <view 
+          wx:for="{{weekOptions}}" 
+          wx:key="value" 
+          class="week-item {{item.selected ? 'active' : ''}}" 
+          bindtap="toggleWeek" 
+          data-index="{{index}}"
+        >
+          <text class="week-label">{{item.label}}</text>
+        </view>
+      </view>
+
+      <view class="section-title">选择起止时间</view>
+      <view class="time-picker-row">
+        <picker mode="time" value="{{tempStartTime}}" bindchange="onStartTimeChange" class="time-picker">
+          <view class="time-box">
+            <text class="time-val">{{tempStartTime}}</text>
+          </view>
+        </picker>
+        <view class="time-sep"></view>
+        <picker mode="time" value="{{tempEndTime}}" bindchange="onEndTimeChange" class="time-picker">
+          <view class="time-box">
+            <text class="time-val">{{tempEndTime}}</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>

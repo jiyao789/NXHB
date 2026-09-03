@@ -1,0 +1,117 @@
+page {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ================== 全局背景地图与导航 ================== */
+.bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+}
+
+.custom-nav { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  padding: 0 32rpx; 
+  padding-bottom: 20rpx; 
+  transition: background-color 0.3s ease; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  z-index: 999; 
+  box-sizing: border-box; 
+}
+.nav-left, .nav-right { width: 80rpx; height: 80rpx; display: flex; align-items: center; } 
+.nav-right { justify-content: flex-end; }
+.nav-back, .nav-right {
+  width: 80rpx; height: 80rpx; background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.03);
+}
+.nav-title { font-size: 34rpx; font-weight: bold; color: #0f172a; flex: 1; text-align: center; }
+
+/* ================== 主体滚动与卡片边距 ================== */
+.main-scroll { flex: 1; height: 100%; width: 100%; }
+.content-padding { padding: 32rpx 32rpx 64rpx; padding-bottom: calc(64rpx + env(safe-area-inset-bottom)); }
+
+/* ================== 1. 统计卡片与柱状图 ================== */
+.stats-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.02);
+  border: 2rpx solid #f1f5f9;
+  margin-bottom: 48rpx;
+}
+.stats-header { display: flex; justify-content: space-between; align-items: flex-start; }
+.stats-label { font-size: 24rpx; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 2rpx; }
+.stats-total { font-size: 60rpx; font-weight: bold; color: #0f172a; line-height: 1.2; margin-top: 8rpx; }
+.unit { font-size: 24rpx; font-weight: normal; color: #94a3b8; }
+.icon-wrap { background: rgba(236, 91, 19, 0.1); padding: 20rpx; border-radius: 24rpx; display: flex; }
+
+/* 迷你柱状图 */
+.chart-area {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  height: 240rpx; 
+  padding: 64rpx 16rpx 0; 
+  gap: 20rpx;
+  margin-top: 20rpx;
+}
+.chart-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12rpx; height: 100%; justify-content: flex-end; }
+.bar-track {
+  width: 80rpx;
+  background: linear-gradient(to top, rgba(236, 91, 19, 0.05), #ec5b13);
+  border-top-left-radius: 16rpx;
+  border-top-right-radius: 16rpx;
+  position: relative;
+  transition: height 0.5s ease-out;
+}
+.bar-line { display: none; }
+.bar-val {
+  position: absolute; top: -48rpx; left: 50%; transform: translateX(-50%);
+  font-size: 20rpx; font-weight: 900; color: #ec5b13;
+}
+.bar-label { font-size: 20rpx; font-weight: 500; color: #64748b; }
+
+/* ================== 2. 街道列表 ================== */
+.section-title {
+  font-size: 24rpx; font-weight: 600; color: #ec5b13;
+  text-transform: uppercase; letter-spacing: 2rpx; margin-bottom: 24rpx; padding-left: 8rpx;
+}
+.list-card {
+  background: #ffffff; border-radius: 24rpx; overflow: hidden;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.02); border: 2rpx solid #f1f5f9;
+}
+.list-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 32rpx; border-bottom: 2rpx solid rgba(241, 245, 249, 0.8);
+}
+.list-item:last-child { border-bottom: none; }
+.district-name { font-size: 28rpx; font-weight: 500; color: #334155; }
+.district-count {
+  background: #f1f5f9; color: #475569; font-size: 24rpx; font-weight: bold;
+  padding: 8rpx 20rpx; border-radius: 99rpx;
+}
+
+/* ================== SVG 图标与交互 ================== */
+[class^="i-"] { display: inline-block; background-size: contain; background-repeat: no-repeat; background-position: center; flex-shrink: 0; }
+.i-back { width: 44rpx; height: 44rpx; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23334155' d='M20 11H7.83l5.59-5.59L12 4l-8 8l8 8l1.41-1.41L7.83 13H20v-2z'/%3E%3C/svg%3E"); }
+.i-search { width: 44rpx; height: 44rpx; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23334155' d='M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5S14 7.01 14 9.5S11.99 14 9.5 14z'/%3E%3C/svg%3E"); }
+.i-analytics { width: 48rpx; height: 48rpx; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ec5b13' d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z'/%3E%3C/svg%3E"); }
+
+.active-scale:active { transform: scale(0.95); opacity: 0.8; transition: all 0.1s; }
+.active-scale-light:active { background-color: #f8fafc; transition: all 0.1s; }

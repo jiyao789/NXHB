@@ -1,0 +1,84 @@
+<view class="page-container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/checkin_bg.png" class="bg-img" mode="scaleToFill" />
+
+  <!-- CUSTOM NAV BAR -->
+  <view class="custom-nav" style="padding-top: {{safeAreaTop}}px; background-color: {{scrollTop > 50 ? '#e6d144' : 'transparent'}};">
+    <view class="nav-left">
+      <view class="nav-back active-scale" bindtap="handleBack"><view class="i-back"></view></view>
+    </view>
+    <view class="nav-title">人员详情</view>
+    <view class="nav-right active-scale" bindtap="handleSearch"><view class="i-search"></view></view>
+  </view>
+
+  <scroll-view scroll-y class="main-scroll" show-scrollbar="{{false}}" bindscroll="onScroll">
+    <view class="content-padding" style="padding-top: {{safeAreaTop + 44 + 20}}px;">
+      
+      <view class="stats-card">
+        <view class="stats-header">
+          <view class="stats-info">
+            <text class="stats-label">{{stats.title}}</text>
+            <view class="stats-total">{{stats.count}} <text class="unit">人</text></view>
+          </view>
+          <view class="icon-wrap"><view class="i-group"></view></view>
+        </view>
+        <view class="stats-footer">
+          <view class="badge-trend">
+            <view class="i-trending-up"></view>近期活跃
+          </view>
+        </view>
+      </view>
+
+      <scroll-view scroll-x class="tab-scroll" show-scrollbar="{{false}}" enable-flex>
+        <view class="tab-flex">
+          <view 
+            wx:for="{{tabs}}" 
+            wx:key="*this"
+            class="tab-item {{currentTab === item ? 'tab-active' : ''}} active-scale-sm"
+            data-tab="{{item}}"
+            bindtap="switchTab"
+          >
+            {{item}}
+          </view>
+        </view>
+      </scroll-view>
+
+      <view class="section-title">人员名单列表</view>
+
+      <view class="list-card">
+        <view wx:if="{{filteredList.length === 0}}" class="empty-state">
+          暂无该分类人员
+        </view>
+        
+        <view class="list-item active-scale-light" 
+              wx:for="{{filteredList}}" 
+              wx:key="id" 
+              bindtap="goToDetail" 
+              data-item="{{item}}">
+          
+          <view class="avatar-wrap">
+            <image class="avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+          </view>
+          
+          <view class="item-content">
+            <view class="item-header">
+              <view class="name-box">
+                <text class="user-name">{{item.name}}</text>
+                <view wx:if="{{item.isPartyMember}}" class="tag-party">
+                  <view class="i-star-fill"></view> 党员
+                </view>
+              </view>
+            </view>
+            <view class="user-role">{{item.role}}</view>
+            <view class="user-phone">
+              <view class="i-call"></view> {{item.phone}}
+            </view>
+          </view>
+
+          <view class="i-chevron-right"></view>
+        </view>
+
+      </view>
+
+    </view>
+  </scroll-view>
+</view>

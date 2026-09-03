@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "nxyc-tabbar": "/nuanxinyunchao/components/tabbar/index"
+  }
+}

@@ -1,0 +1,44 @@
+<view class="min-h-screen bg-f5f5f5 pb-20">
+  <view class="fixed left-0 right-0 top-0 z-50 bg-f5f5f5 shadow-sm">
+    <view style="padding-top: {{safeAreaInsetsTop}}px;" />
+    <view class="h-11 flex items-center px-1 relative">
+      <view class="h-10 w-10 flex items-center justify-center rounded-full active-bg-black-5" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900" />
+      </view>
+      <view class="absolute left-1-2 translate-x-minus-1-2 text-lg font-bold text-gray-900">
+        服务评价
+      </view>
+    </view>
+  </view>
+  <view style="height: {{safeAreaInsetsTop + 44}}px;" />
+  <view class="px-4 pt-4">
+    <view class="bg-white rounded-24 p-4">
+      <text class="text-base font-bold text-gray-900 block mb-1">{{activityTitle}}</text>
+      <text class="text-xs text-gray-400 block mb-4">分享您的参与体验</text>
+      <text class="text-18 font-bold text-gray-900">体验评价</text>
+      <view class="flex flex-wrap gap-3 mt-4">
+        <view wx:for="{{ratingTags}}" wx:key="text" class="rating-tag {{item.active ? 'active' : 'unselected'}}" bindtap="handleRatingSelect" data-index="{{index}}">
+          {{ item.text }}
+        </view>
+      </view>
+      <view class="flex flex-wrap gap-3 mt-4">
+        <view wx:for="{{quickTags}}" wx:key="text" class="rating-tag {{item.active ? 'active' : 'unselected'}}" bindtap="handleQuickTagSelect" data-index="{{index}}">
+          {{ item.text }}
+        </view>
+        <view class="rating-tag unselected border-dashed border-gray-300 flex items-center gap-1" bindtap="handleAddCustomTag">
+          <text>自定义</text>
+          <view class="i-carbon-add text-xs" />
+        </view>
+      </view>
+      <view class="mt-4 bg-gray-100 rounded-xl p-3 h-32">
+        <textarea class="w-full h-full text-14 text-gray-800" placeholder="点击这里输入评价" placeholder-class="text-gray-300" bindinput="onCommentInput" value="{{comment}}" disabled="{{isSubmitted}}" />
+      </view>
+      <view class="mt-4 flex justify-end" wx:if="{{!isSubmitted}}">
+        <view class="bg-orange-main text-white px-6 py-2 rounded-full text-14 font-medium active-opacity-80" bindtap="handleSubmitRating">
+          提交评价
+        </view>
+      </view>
+      <view class="mt-4 text-center text-12 text-green-500 py-2" wx:else>感谢您的评价！</view>
+    </view>
+  </view>
+</view>

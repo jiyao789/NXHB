@@ -1,0 +1,80 @@
+<view class="min-h-screen relative bg-f5f7fa pb-32">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/mine_bg.png" class="fixed top-0 left-0 right-0 z-0 w-full" style="height: 600rpx;" mode="widthFix" />
+
+  <view class="fixed left-0 right-0 top-0 z-50 transition-all duration-300" style="padding-top: {{safeAreaTop}}px; background-color: {{scrollTop > 50 ? '#FDD835' : 'transparent'}};">
+    <view class="h-11 flex items-center px-2 relative">
+      <view class="h-8 w-8 flex items-center justify-center rounded-full z-10" hover-class="bg-black-10" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900"></view>
+      </view>
+      <view class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <text class="text-18 text-715b40 font-semibold">我要帮助</text>
+      </view>
+    </view>
+  </view>
+
+  <view style="height: {{safeAreaTop + 44}}px;" />
+
+  <view class="px-3 pt-4 relative z-10">
+    <view class="rounded-2xl bg-white p-5 shadow-sm mb-4">
+      <view class="mb-2">
+        <text class="text-lg text-gray-900 font-bold block">需求反馈</text>
+      </view>
+      <view class="h-1px bg-gray-100 w-full my-3" />
+
+      <view class="relative w-full mb-4">
+        <textarea value="{{formData.feedbackContent}}" bindinput="onInput" data-field="feedbackContent" placeholder="把您的需求/问题/建议都写下来告诉我们吧" class="custom-textarea" placeholder-class="text-gray-300" maxlength="300" auto-height />
+      </view>
+
+      <view class="mb-6 flex flex-wrap gap-3">
+        <view wx:for="{{feedbackImages}}" wx:key="*this" class="relative w-20 h-20 rounded-xl overflow-hidden border border-gray-100">
+          <image src="{{item}}" class="w-full h-full" mode="aspectFill" bindtap="handlePreviewImage" data-type="feedback" data-index="{{index}}" />
+          <view class="absolute top-0 right-0 w-5 h-5 bg-black-50 rounded-bl-lg flex items-center justify-center z-10" bindtap="removeImage" data-type="feedback" data-index="{{index}}">
+            <view class="i-carbon-close text-xs text-white"></view>
+          </view>
+        </view>
+        <view wx:if="{{feedbackImages && feedbackImages.length < 9}}" class="w-20 h-20 bg-f5 rounded-xl flex items-center justify-center" hover-class="opacity-70" bindtap="handleUploadImage" data-type="feedback">
+          <view class="i-carbon-add text-4xl text-gray-300 font-light"></view>
+        </view>
+      </view>
+
+      <view class="contact-row">
+        <text class="contact-label">联系电话：</text>
+        <input value="{{formData.feedbackPhone}}" bindinput="onInput" data-field="feedbackPhone" type="number" class="contact-input" />
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-5 shadow-sm mb-6">
+      <view class="mb-2">
+        <text class="text-lg text-gray-900 font-bold block">我的特长</text>
+      </view>
+      <view class="h-1px bg-gray-100 w-full my-3" />
+
+      <view class="relative w-full mb-4">
+        <textarea value="{{formData.skillContent}}" bindinput="onInput" data-field="skillContent" placeholder="让我们知道您的优势吧，如有需要我们将联系您（如：会弹钢琴等等）" class="custom-textarea" placeholder-class="text-gray-300" maxlength="300" auto-height />
+      </view>
+
+      <view class="mb-6 flex flex-wrap gap-3">
+        <view wx:for="{{skillImages}}" wx:key="*this" class="relative w-20 h-20 rounded-xl overflow-hidden border border-gray-100">
+          <image src="{{item}}" class="w-full h-full" mode="aspectFill" bindtap="handlePreviewImage" data-type="skill" data-index="{{index}}" />
+          <view class="absolute top-0 right-0 w-5 h-5 bg-black-50 rounded-bl-lg flex items-center justify-center z-10" bindtap="removeImage" data-type="skill" data-index="{{index}}">
+            <view class="i-carbon-close text-xs text-white"></view>
+          </view>
+        </view>
+        <view wx:if="{{skillImages && skillImages.length < 9}}" class="w-20 h-20 bg-f5 rounded-xl flex items-center justify-center" hover-class="opacity-70" bindtap="handleUploadImage" data-type="skill">
+          <view class="i-carbon-add text-4xl text-gray-300 font-light"></view>
+        </view>
+      </view>
+
+      <view class="contact-row">
+        <text class="contact-label">联系电话：</text>
+        <input value="{{formData.skillPhone}}" bindinput="onInput" data-field="skillPhone" type="number" class="contact-input" />
+      </view>
+    </view>
+  </view>
+
+  <view class="fixed bottom-0 left-0 right-0 px-6 py-2 z-50" style="padding-bottom: {{safeAreaBottom + 8}}px;">
+    <button bindtap="handleSubmit" class="submit-btn {{isSubmitting ? 'is-loading' : ''}}" hover-class="submit-btn-hover" loading="{{isSubmitting}}">
+      提交
+    </button>
+  </view>
+</view>

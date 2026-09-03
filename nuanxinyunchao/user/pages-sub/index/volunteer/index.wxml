@@ -1,0 +1,124 @@
+<view class="page-container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="bg-img" mode="scaleToFill" />
+  <view class="custom-nav" style="padding-top: {{safeAreaTop}}px;">
+    <view class="nav-content">
+      <view class="nav-back" hover-class="btn-hover" bindtap="handleBack">
+        <view class="i-carbon-chevron-left icon-back"></view>
+      </view>
+      
+      <text class="nav-title">我们需要你</text>
+
+      <view class="nav-capsule-placeholder"></view>
+    </view>
+  </view>
+  <!-- 任务悬浮按钮 (复刻 Hot 同款样式) -->
+  <view wx:if="{{taskInfo.active}}" class="fixed-right-0-z-100 flex items-center shadow-lg transition-all task-floating-btn" bindtap="handleBackToTasks">
+    <view class="flex items-center gap-2">
+      <view class="h-4 w-4 flex items-center justify-center rounded-full bg-white-20">
+        <view class="i-carbon-chevron-left text-white text-xs"></view>
+      </view>
+      <view class="flex items-center gap-1-5">
+        <view wx:if="{{taskInfo.isCompleted}}" class="i-carbon-checkmark-filled text-white text-lg flex-shrink-0 animate-bounce"></view>
+        <text class="text-white text-xs font-bold whitespace-nowrap">
+          {{taskInfo.isCompleted ? '返回中心' : ('正在浏览中 ' + taskInfo.countdown + 's')}}
+        </text>
+      </view>
+    </view>
+  </view>
+  <view class="banner-area" wx:if="{{bannerList && bannerList.length > 0}}">
+    <swiper class="banner-swiper" indicator-dots="{{false}}" autoplay="{{true}}" circular="{{true}}" interval="{{4000}}" bindchange="onBannerChange">
+      <swiper-item wx:for="{{bannerList}}" wx:key="id">
+        <image src="{{item.imgUrl}}" mode="aspectFill" class="banner-img" bindtap="handleBannerClick" data-item="{{item}}" />
+      </swiper-item>
+    </swiper>
+    <view class="banner-gradient"></view>
+    <view class="banner-indicators">
+      <view wx:for="{{bannerList}}" wx:key="id" class="indicator-dot {{currentBannerIndex === index ? 'active' : ''}}"></view>
+    </view>
+  </view>
+  <view class="main-container" style="{{(!bannerList || bannerList.length === 0) ? 'margin-top: 24rpx;' : ''}}">
+    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/volunteer/bg_down.png" class="main-bg-img" mode="scaleToFill" />
+    <view class="filter-bar">
+      <view class="filter-wrap">
+        <view class="filter-item">
+          <view class="filter-btn {{activeFilter === 'area' ? 'active' : ''}}" bindtap="toggleFilter" data-type="area">
+            <text>区域筛选</text>
+            <view class="i-carbon-caret-down filter-icon {{activeFilter === 'area' ? 'rotate' : ''}}"></view>
+          </view>
+          <view wx:if="{{activeFilter === 'area'}}" class="filter-dropdown animate-slide-down">
+            <scroll-view scroll-y="true" class="dropdown-list" style="max-height: 50vh;">
+              <view wx:for="{{regionList}}" wx:key="id" class="dropdown-option {{selectedRegion === item.id ? 'active' : ''}}" hover-class="bg-gray-50" bindtap="handleRegionSelect" data-region="{{item.id}}">
+                {{item.name}}
+              </view>
+            </scroll-view>
+          </view>
+        </view>
+        <view class="filter-item">
+          <view class="filter-btn {{activeFilter === 'type' ? 'active' : ''}}" bindtap="toggleFilter" data-type="type">
+            <text>服务类型</text>
+            <view class="i-carbon-caret-down filter-icon {{activeFilter === 'type' ? 'rotate' : ''}}"></view>
+          </view>
+          <view wx:if="{{activeFilter === 'type'}}" class="filter-dropdown animate-slide-down">
+            <scroll-view scroll-y="true" class="dropdown-list" style="max-height: 50vh;">
+              <view class="dropdown-option {{selectedType === '' ? 'active' : ''}}" hover-class="bg-gray-50" bindtap="handleTypeSelect" data-type="">全部类型</view>
+              <view class="dropdown-option {{selectedType === '社区服务' ? 'active' : ''}}" hover-class="bg-gray-50" bindtap="handleTypeSelect" data-type="社区服务">社区服务</view>
+              <view class="dropdown-option {{selectedType === '医疗辅助' ? 'active' : ''}}" hover-class="bg-gray-50" bindtap="handleTypeSelect" data-type="医疗辅助">医疗辅助</view>
+              <view class="dropdown-option {{selectedType === '环境整治' ? 'active' : ''}}" hover-class="bg-gray-50" bindtap="handleTypeSelect" data-type="环境整治">环境整治</view>
+              <view class="dropdown-option {{selectedType === '环保绿化' ? 'active' : ''}}" hover-class="bg-gray-50" bindtap="handleTypeSelect" data-type="环保绿化">环保绿化</view>
+              <view class="dropdown-option {{selectedType === '敬老爱老' ? 'active' : ''}}" hover-class="bg-gray-50" bindtap="handleTypeSelect" data-type="敬老爱老">敬老爱老</view>
+              <view class="dropdown-option {{selectedType === '便民维修' ? 'active' : ''}}" hover-class="bg-gray-50" bindtap="handleTypeSelect" data-type="便民维修">便民维修</view>
+            </scroll-view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{activeFilter}}" class="filter-mask" bindtap="closeFilter"></view>
+    <scroll-view scroll-y class="list-scroll-view" enable-back-to-top="{{true}}" show-scrollbar="{{false}}">
+      <view class="list-inner pb-safe">
+        <view wx:for="{{list}}" wx:key="id" class="card-item" hover-class="card-hover" bindtap="handleItemClick" data-item="{{item}}">
+          <view class="card-header">
+            <view class="org-info">
+              <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/avatar.png" class="org-avatar" mode="aspectFill" />
+              <view class="org-text">
+                <text class="org-name">{{ item.orgName }}</text>
+                <text class="org-category">类型：{{ item.category }}</text>
+              </view>
+            </view>
+            <view class="status-tag {{ item.status === 1 ? 'status-waiting' : 'status-done' }}">
+              {{ item.status === 1 ? "未报名" : "已接单" }}
+            </view>
+          </view>
+          <view class="card-divider" />
+          <view class="card-body">
+            <view class="card-img-box">
+              <image src="{{item.image}}" class="card-img" mode="aspectFill" />
+              <view class="card-img-tag">
+                <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/volunteer/tag_bg.png" class="tag-bg" mode="widthFix" />
+                <view class="tag-text">{{ item.type == 1 ? "招募中" : (item.type == 0 ? "未招募" : "已满员") }}</view>
+              </view>
+            </view>
+            <view class="card-info">
+              <view class="info-top">
+                <text class="info-title line-clamp-2">{{ item.title }}</text>
+                <view wx:if="{{item.tag}}" class="mini-tag-wrap">
+                  <view class="mini-tag">{{ item.tag }}</view>
+                </view>
+              </view>
+              <view class="info-bottom">
+                <view class="meta-row">
+                  <view class="i-carbon-location meta-icon"></view>
+                  <text class="meta-text truncate">{{ item.location }}</text>
+                </view>
+                <view class="meta-row meta-gray">
+                  <view class="i-carbon-time meta-icon"></view>
+                  <text class="meta-text">{{ item.time }}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view style="height: 48rpx;" />
+      </view>
+    </scroll-view>
+  </view>
+</view>

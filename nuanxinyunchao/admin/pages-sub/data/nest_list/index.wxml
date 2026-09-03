@@ -1,0 +1,53 @@
+<view class="page-container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/checkin_bg.png" class="bg-img" mode="scaleToFill" />
+
+  <!-- CUSTOM NAV BAR -->
+  <view class="custom-nav" style="padding-top: {{safeAreaTop}}px; background-color: {{scrollTop > 50 ? '#e6d144' : 'transparent'}};">
+    <view class="nav-back active-scale" bindtap="handleBack">
+      <view class="i-back"></view>
+    </view>
+    <view class="nav-title">暖新巢点位列表</view>
+    <view class="nav-placeholder"></view>
+  </view>
+
+  <!-- 占位符以抵消 fixed 定位的 custom-nav 高度 -->
+  <view style="height: {{safeAreaTop + 44}}px; flex-shrink: 0;"></view>
+
+    <!-- 搜索栏 -->
+    <view class="search-box">
+      <view class="search-inner">
+        <view class="i-search"></view>
+        <input class="search-input" 
+               placeholder="搜索服务中心..." 
+               placeholder-class="search-placeholder"
+               value="{{searchQuery}}"
+               bindinput="onSearchInput"
+               type="text"/>
+      </view>
+    </view>
+
+  <scroll-view scroll-y class="main-content" show-scrollbar="{{false}}" bindscroll="onScroll">
+    <!-- 区域分组标题 -->
+    <view class="area-header">
+      <text class="area-name">上海市长宁区</text>
+      <view class="area-tag">{{siteList.length}}个</view>
+    </view>
+
+    <!-- 点位列表 -->
+    <view class="site-list">
+      <view class="site-card active-scale-light" wx:for="{{filteredList}}" wx:key="name" 
+            bindtap="openLocation" data-item="{{item}}">
+        <view class="site-icon-box">
+          <view class="i-location-pink"></view>
+        </view>
+        <view class="site-info">
+          <view class="site-name">{{item.name}}</view>
+          <view class="site-address">{{item.address}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部留白 -->
+    <view class="bottom-safe"></view>
+  </scroll-view>
+</view>

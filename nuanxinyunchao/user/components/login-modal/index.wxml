@@ -1,0 +1,17 @@
+<!-- 遮罩层 -->
+<view wx:if="{{show}}" class="fixed inset-0 flex items-center justify-center" style="background-color: rgba(0, 0, 0, 0.6); width: 100vw; height: 100vh; z-index: 999999;" catchtouchmove="preventTouchMove">
+  <!-- 弹窗主体 -->
+  <view class="relative overflow-hidden animate-fade-in-up" style="width: 600rpx; min-height: 443rpx; border-radius: 24rpx; display: flex; flex-direction: column;">
+    <image class="absolute inset-0 h-full w-full z-0" src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/login-modal-bg.png" mode="scaleToFill" style="z-index: -1;"></image>
+    
+    <view class="relative z-10 flex h-full flex-col items-center justify-center text-center box-border" style="padding: 48rpx 48rpx 0 48rpx;">
+      <text class="font-bold text-gray-900" style="font-size: 40rpx; margin: 24rpx 0;">提示</text>
+      <text class="text-base text-center" style="color: #6b5b4f; line-height: 1.625; margin-bottom: 48rpx;">为了更好地提供服务\n我们先进行登录验证吧</text>
+
+      <view class="flex justify-between pb-6 box-border font-bold" style="width: 85%; gap: 32rpx;">
+        <button class="flex flex-1 items-center justify-center rounded-full bg-white text-black m-0 p-0" style="height: 80rpx; font-size: 40rpx; border: 2rpx solid #FF9F43; line-height: 80rpx; box-sizing: border-box;" hover-class="bg-gray-50" bindtap="handleCancel">取消</button>
+        <button class="flex flex-1 items-center justify-center rounded-full text-white m-0 p-0 border-none" style="height: 80rpx; font-size: 40rpx; background-color: #f0642d; line-height: 80rpx;" hover-class="opacity-90" bindtap="handleConfirm">确认</button>
+      </view>
+    </view>
+  </view>
+</view>

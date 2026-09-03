@@ -1,0 +1,456 @@
+@import "./utilities.wxss";
+page {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.page-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f3f4f6;
+}
+
+.fixed {
+  position: fixed;
+  z-index: 50;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.bg-gradient-nav {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 0) 100%);
+}
+
+.h-11 {
+  height: 88rpx;
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-3 {
+  gap: 24rpx;
+}
+
+.px-4 {
+  padding-left: 32rpx;
+  padding-right: 32rpx;
+}
+
+.h-8 {
+  height: 64rpx;
+}
+
+.w-8 {
+  width: 64rpx;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.bg-white-20 {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+}
+
+.transition-colors {
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.text-2xl {
+  font-size: 48rpx;
+}
+
+.text-black {
+  color: #000000;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.border {
+  border-width: 2rpx;
+  border-style: solid;
+}
+
+.border-white-50 {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.bg-white-90 {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.px-3 {
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+}
+
+.shadow-sm {
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+}
+
+.backdrop-blur-sm {
+  backdrop-filter: blur(8rpx);
+}
+
+.mr-2 {
+  margin-right: 16rpx;
+}
+
+.text-sm {
+  font-size: 28rpx;
+}
+
+.text-gray-500 {
+  color: #6b7280;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.text-gray-800 {
+  color: #1f2937;
+}
+
+.w-18 {
+  width: 72rpx;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.z-40 {
+  z-index: 40;
+}
+
+.h-12 {
+  height: 96rpx;
+}
+
+.drop-shadow-md {
+  filter: drop-shadow(0 4rpx 6rpx rgba(0, 0, 0, 0.1));
+}
+
+.right-4 {
+  right: 32rpx;
+}
+
+.w-12 {
+  width: 96rpx;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.border-gray-100 {
+  border-color: #f3f4f6;
+}
+
+.rounded-xl {
+  border-radius: 32rpx;
+}
+
+.bg-white-95 {
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.shadow-md {
+  box-shadow: 0 4rpx 6rpx rgba(0, 0, 0, 0.1);
+}
+
+.backdrop-blur {
+  backdrop-filter: blur(16rpx);
+}
+
+.w-full {
+  width: 100%;
+}
+
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+
+.mb-0-5 {
+  margin-bottom: 4rpx;
+}
+
+.h-5 {
+  height: 40rpx;
+}
+
+.w-5 {
+  width: 40rpx;
+}
+
+.scale-90 {
+  transform: scale(0.9);
+}
+
+.text-8 {
+  font-size: 16rpx;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.h-1px {
+  height: 2rpx;
+}
+
+.relative {
+  position: relative;
+}
+
+.z-20 {
+  z-index: 20;
+}
+
+.-top-10 {
+  top: -80rpx;
+  margin-bottom: -160rpx;
+}
+
+/* Adjust to overlap */
+
+.z-30 {
+  z-index: 30;
+}
+
+.min-h-0 {
+  min-height: 0;
+}
+
+.rounded-t-30 {
+  border-top-left-radius: 60rpx;
+  border-top-right-radius: 60rpx;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.shadow-card {
+  box-shadow: 0 -8rpx 40rpx rgba(0, 0, 0, 0.05);
+}
+
+.-mt-60 {
+  margin-top: -120rpx;
+}
+
+.px-5 {
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+}
+
+.pb-10 {
+  padding-bottom: 80rpx;
+}
+
+.pt-4 {
+  padding-top: 32rpx;
+}
+
+.gap-4 {
+  gap: 32rpx;
+}
+
+.py-10 {
+  padding-top: 80rpx;
+  padding-bottom: 80rpx;
+}
+
+.text-gray-300 {
+  color: #d1d5db;
+}
+
+.text-xs {
+  font-size: 24rpx;
+}
+
+.mb-6 {
+  margin-bottom: 48rpx;
+}
+
+.h-16 {
+  height: 128rpx;
+}
+
+.w-16 {
+  width: 128rpx;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.rounded-2xl {
+  border-radius: 32rpx;
+}
+
+.from-ef6156 {
+  background-color: #ef6156;
+}
+
+/* Simulated gradient using bg */
+.to-ffa054 {
+  background-color: #ffa054;
+}
+
+.bg-gradient-to-r {
+  background: linear-gradient(to right, #ef6156, #ffa054);
+}
+
+.h-9 {
+  height: 72rpx;
+}
+
+.w-9 {
+  width: 72rpx;
+}
+
+.gap-1-5 {
+  gap: 12rpx;
+}
+
+.text-lg {
+  font-size: 36rpx;
+}
+
+.text-gray-900 {
+  color: #111827;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.leading-tight {
+  line-height: 1.25;
+}
+
+.rounded {
+  border-radius: 8rpx;
+}
+
+.px-1-5 {
+  padding-left: 12rpx;
+  padding-right: 12rpx;
+}
+
+.py-0-5 {
+  padding-top: 4rpx;
+  padding-bottom: 4rpx;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 气泡样式 (WXMP does not support cover-view custom structures simply via data markers, 
+   we construct the customCallout via TS marker array configuration. ) */
+.custom-callout {
+  position: relative;
+  display: block;
+  width: 140rpx;
+  height: 158rpx;
+}
+
+.callout-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.callout-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 98%;
+  height: 128rpx;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 6rpx;
+}
+
+.bubble-icon {
+  width: 45rpx;
+  height: 49rpx;
+  margin-bottom: 4rpx;
+  overflow: hidden;
+  border-radius: 8rpx;
+}
+
+/** 点位详情大图：铺满方形容器并裁切溢出 */
+.merchant-logo-box {
+  position: relative;
+}
+
+.merchant-logo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.bubble-text {
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 90%;
+}

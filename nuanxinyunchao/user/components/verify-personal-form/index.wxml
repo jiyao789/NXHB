@@ -1,0 +1,70 @@
+<!-- 步骤一：个人信息表单 -->
+<view>
+  <view class="mb-3 block text-15 text-gray-700 font-bold ml-1">请上传您的职业证件</view>
+  <view class="cert-upload-section mb-2">
+    <view class="cert-grid">
+      <!-- 已上传的图片列表 -->
+      <view class="cert-item" wx:for="{{certImages}}" wx:key="*this">
+        <image src="{{item}}" class="cert-img" mode="aspectFill" bindtap="onPreviewCert" data-index="{{index}}"></image>
+        <view class="cert-delete-btn" catchtap="onDeleteCert" data-index="{{index}}">✕</view>
+      </view>
+      <!-- 添加按钮（未达上限时显示） -->
+      <view class="cert-add-btn" wx:if="{{certImages.length < 6}}" bindtap="onUploadCert">
+        <view class="cert-add-icon">+</view>
+        <text class="cert-add-text">{{certImages.length}}/6</text>
+      </view>
+    </view>
+  </view>
+  <view class="cert-hint mb-6">
+    <text class="text-xs text-gray-400">请上传可以证明你对应身份的相关证件</text>
+  </view>
+
+  <!-- 表单区域 -->
+  <view class="mb-3 block text-15 text-gray-700 font-bold ml-1">请完善您的个人信息</view>
+  <view class="bg-white rounded-2xl p-4 mb-6 shadow-sm">
+    <view class="flex items-center py-3 border-b border-gray-100">
+      <view class="w-24 text-15 font-bold text-gray-700 flex items-center gap-1.5">
+        <view class="i-carbon-user text-gray-400"></view>
+        <text><text class="text-orange-main mr-1">*</text>姓名</text>
+      </view>
+      <input type="text" placeholder="输入姓名" class="flex-1 text-15 text-gray-800" placeholder-class="text-gray-400" value="{{name}}" bindinput="onName" />
+    </view>
+    <view class="flex items-center py-3 border-b border-gray-100">
+      <view class="w-24 text-15 font-bold text-gray-700 flex items-center gap-1.5">
+        <view class="i-carbon-phone text-gray-400"></view>
+        <text><text class="text-orange-main mr-1">*</text>联系方式</text>
+      </view>
+      <input type="number" maxlength="11" placeholder="请输入手机号" class="flex-1 text-15 text-gray-800" placeholder-class="text-gray-400" value="{{phone}}" bindinput="onPhone" />
+    </view>
+    <view class="flex items-center py-3 border-b border-gray-100">
+      <view class="w-24 text-15 font-bold text-gray-700 flex items-center gap-1.5">
+        <view class="i-carbon-security text-gray-400"></view>
+        <text><text class="text-orange-main mr-1">*</text>验证码</text>
+      </view>
+      <input type="number" maxlength="6" placeholder="请输入验证码" class="flex-3 text-15 text-gray-800" placeholder-class="text-gray-400" value="{{code}}" bindinput="onCode" />
+      <button class="m-0 h-8 flex-2 flex items-center justify-center rounded-full px-0 text-xs font-medium border-none active-scale-95 transition-all {{countdown > 0 ? 'bg-gray-100 text-gray-400' : 'bg-fff0e5 text-orange-main'}}" disabled="{{countdown > 0}}" bindtap="onSendCode">
+        {{countdown > 0 ? countdown + 's' : '获取验证码'}}
+      </button>
+    </view>
+    <!-- 邀请码 -->
+    <view class="flex items-center py-3 border-b border-gray-100">
+      <view class="w-24 text-15 font-bold text-gray-700 flex items-center gap-1.5">
+        <view class="i-carbon-password text-gray-400"></view>
+        <text><text class="text-orange-main mr-1">*</text>邀请码</text>
+      </view>
+      <input type="text" maxlength="6" placeholder="请输入邀请码" class="flex-1 text-15 text-gray-800" placeholder-class="text-gray-400" value="{{invitationCode}}" bindinput="onInvitationCode" />
+    </view>
+    <!-- 党员勾选 -->
+    <view class="pt-4 pb-2">
+      <view class="flex items-center gap-3 mb-2" bindtap="onToggleParty">
+        <view class="checkbox-square {{isPartyMember ? 'active' : ''}}">
+          <view wx:if="{{isPartyMember}}" class="i-carbon-checkmark text-white text-base font-bold"></view>
+        </view>
+        <text class="text-15 {{isPartyMember ? 'text-gray-900 font-bold' : 'text-gray-600'}}">我是党员</text>
+      </view>
+      <view class="pl-0 mt-2">
+        <text class="text-xs text-red-500/80 leading-tight">如是党员，后续我们将联系您</text>
+      </view>
+    </view>
+  </view>
+</view>

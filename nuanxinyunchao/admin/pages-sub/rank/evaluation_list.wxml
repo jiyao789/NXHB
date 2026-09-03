@@ -1,0 +1,130 @@
+<view class="flex h-screen w-full flex-col overflow-hidden">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/checkin_bg.png" class="bg-img" mode="scaleToFill" />
+
+  <view class="custom-nav" style="padding-top: {{safeAreaTop}}px; background-color: {{scrollTop > 50 ? '#e6d144' : 'transparent'}};">
+    <view class="nav-left">
+      <view class="flex size-10 items-center justify-center bg-white rounded-full shadow-sm active-scale" bindtap="handleBack">
+        <view class="i-back" />
+      </view>
+    </view>
+    <view class="nav-title">服务评价</view>
+    <view class="nav-right" />
+  </view>
+
+  <view class="shrink-0 z-50 transition-all duration-300">
+    <view style="height: {{safeAreaTop + 44}}px;"></view>
+
+    <view class="search-container {{isSearchShow ? 'show' : ''}}">
+      <view class="px-5 pb-3">
+        <view class="search-bar-inner">
+          <view class="i-search size-5 grayscale opacity-50 ml-4" />
+          <input class="flex-1 h-10 px-3 text-sm text-slate-700" placeholder="搜索评价内容、标签或姓名" value="{{searchQuery}}" bindinput="handleSearchInput" bindconfirm="handleSearchConfirm" focus="{{isSearchShow}}" />
+          <view wx:if="{{searchQuery}}" class="p-3" bindtap="handleClearSearch">
+            <view class="i-close size-4" />
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="filter-bar-row max-w-2xl mx-auto w-full pb-3 pt-1">
+      <scroll-view scroll-x class="filter-scroll flex-1 no-scrollbar" show-scrollbar="{{false}}" enable-flex enhanced>
+        <view class="flex flex-row gap-3 px-5 whitespace-nowrap align-center">
+          <view wx:for="{{filters}}" wx:key="key"
+                class="filter-tab-{{item.key}} flex h-9 shrink-0 items-center justify-center gap-x-1 rounded-full px-4 transition-all duration-200 {{(activeFilterKey === item.key || activeFilterValues[item.key] !== item.label || (item.key === 'sort' && !activeFilterKey)) ? 'bg-primary-10 text-primary font-bold' : 'bg-white text-slate-600 shadow-sm'}}"
+                bindtap="toggleFilter" data-key="{{item.key}}">
+            <text class="text-xs">{{activeFilterValues[item.key]}}</text>
+            <view class="i-arrow-down {{(activeFilterKey === item.key || activeFilterValues[item.key] !== item.label || (item.key === 'sort' && !activeFilterKey)) ? 'text-primary' : 'text-slate-400'}}" />
+          </view>
+        </view>
+      </scroll-view>
+      <view class="filter-search-btn shrink-0 mr-5" bindtap="handleSearch">
+        <view class="flex size-9 items-center justify-center bg-white rounded-full shadow-sm active-scale">
+          <view class="i-search {{isSearchShow ? 'text-primary' : ''}}" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{activeFilterKey}}" class="fixed z-50 animate-fade-in dropdown-bubble" style="left: {{dropdownX}}px; top: {{dropdownY}}px;">
+      <view class="bubble-arrow" />
+      <view class="py-2 flex flex-col min-w-240 bg-white rounded-2xl shadow-dropdown border border-slate-50">
+        <view wx:for="{{currentFilterOptions}}"
+              wx:key="*this"
+              class="px-5 py-3 text-sm flex items-center justify-between {{activeFilterValues[activeFilterKey] === item ? 'text-primary font-bold bg-primary-05' : 'text-slate-600'}}"
+              bindtap="selectOption" data-key="{{activeFilterKey}}" data-value="{{item}}">
+          <text>{{item}}</text>
+          <view wx:if="{{activeFilterValues[activeFilterKey] === item}}" class="size-4 rounded-full bg-primary-20 flex items-center justify-center"><view class="size-2 rounded-full bg-primary"></view></view>
+        </view>
+      </view>
+  </view>
+  <view wx:if="{{activeFilterKey}}" class="fixed inset-0 bg-black-20 z-40 transition-opacity" bindtap="toggleFilter" data-key="{{activeFilterKey}}" />
+
+  <scroll-view scroll-y class="flex-1 w-full" show-scrollbar="{{false}}" enhanced bindscroll="onScroll">
+    <view class="w-full px-5 pb-8 pt-4 box-border">
+      <view class="flex flex-col gap-4">
+
+        <view wx:for="{{filteredEvaluations}}" wx:key="id" class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 active-scale-sm" bindtap="openDetail" data-index="{{index}}">
+          <view class="flex items-start gap-3">
+
+            <view class="shrink-0">
+              <image alt="{{item.name}}" class="size-12 rounded-full object-cover bg-slate-100" src="{{item.avatar}}"/>
+            </view>
+
+            <view class="flex-1 min-w-0">
+
+              <view class="flex items-center justify-between mb-1">
+                <view class="flex items-center gap-2">
+                  <text class="text-base font-bold text-slate-900 truncate">{{item.name}}</text>
+                  <text class="text-10 text-slate-400 px-15 py-05 bg-slate-100 rounded scale-85 origin-left text-slate-500">{{item.role}}</text>
+                </view>
+                <text class="text-10 text-slate-400 bg-slate-50 px-2 py-05 rounded">{{item.time}}</text>
+              </view>
+
+              <view class="flex flex-wrap items-center gap-2 mb-2">
+                <text wx:for="{{item.tags}}" wx:for-item="tag" wx:for-index="idx" wx:key="*this"
+                      class="bg-{{item.tagColors[idx]}}-100 text-{{item.tagColors[idx]}}-700 text-11 font-bold px-2 py-05 rounded-full">{{tag}}</text>
+                <text class="text-slate-400 text-xs ml-auto">{{item.date}}</text>
+              </view>
+
+              <text wx:if="{{item.commentPreview}}" class="comment-preview text-sm text-slate-600 block">{{item.commentPreview}}</text>
+
+            </view>
+          </view>
+        </view>
+
+        <view wx:if="{{!loading && filteredEvaluations.length === 0}}" class="flex flex-col items-center justify-center py-20 animate-fade-in">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/rank/stat_comment.png" mode="aspectFit" class="w-32 h-32 opacity-30 grayscale" />
+          <text class="mt-4 text-slate-400 text-sm tracking-wide">暂无相关评价</text>
+        </view>
+
+      </view>
+    </view>
+    <view class="h-safe-bottom" />
+  </scroll-view>
+
+  <view wx:if="{{detailVisible}}" class="detail-mask fixed inset-0 z-60 flex items-end justify-center" bindtap="closeDetail">
+    <view class="detail-panel w-full bg-white rounded-t-3xl p-5 pb-safe" catchtap="">
+      <view class="flex items-center justify-between mb-3">
+        <text class="text-lg font-bold text-slate-900">评价详情</text>
+        <view class="size-8 flex items-center justify-center rounded-full bg-slate-100" bindtap="closeDetail">
+          <view class="i-close size-4" />
+        </view>
+      </view>
+      <view wx:if="{{detailItem}}" class="flex flex-col gap-3">
+        <view class="flex items-center gap-3">
+          <image class="size-10 rounded-full bg-slate-100" src="{{detailItem.avatar}}" mode="aspectFill" />
+          <view>
+            <text class="font-bold text-slate-900">{{detailItem.name}}</text>
+            <text class="text-xs text-slate-500 ml-2">{{detailItem.role}}</text>
+            <text class="text-xs text-slate-400 block">{{detailItem.date}} {{detailItem.time}}</text>
+          </view>
+        </view>
+        <view class="flex flex-wrap gap-2" wx:if="{{detailItem.tags.length}}">
+          <text wx:for="{{detailItem.tags}}" wx:for-item="tag" wx:for-index="idx" wx:key="*this"
+                class="bg-{{detailItem.tagColors[idx]}}-100 text-{{detailItem.tagColors[idx]}}-700 text-11 font-bold px-2 py-05 rounded-full">{{tag}}</text>
+        </view>
+        <text class="text-sm text-slate-700 leading-relaxed">{{detailItem.commentFull || '（无文字评价）'}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,227 @@
+<view class="h-screen flex flex-col overflow-hidden" bindtap="hideSearchResults">
+  <!-- 背景图 -->
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="absolute inset-0 z-0 w-full h-full" mode="scaleToFill"></image>
+
+  <!-- 任务悬浮按钮 -->
+  <view wx:if="{{taskInfo.active}}" class="fixed right-0 z-100 flex items-center shadow-lg transition-all task-floating-btn" bindtap="handleBackToTasks">
+    <view class="flex items-center gap-2">
+      <view class="h-4 w-4 flex items-center justify-center rounded-full bg-white-20">
+        <view class="i-carbon-chevron-left text-white text-xs"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 1. 自定义导航栏 -->
+  <view class="z-50 flex-shrink-0 relative" style="padding-top: {{safeAreaTop}}px;">
+    <view class="flex h-11 items-center px-2">
+      <view class="flex h-8 w-8 items-center justify-center" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-800"></view>
+      </view>
+      <view class="mx-3 flex h-8 flex-1 items-center rounded-full bg-black-20 px-3 backdrop-blur-sm transition-all relative" hover-class="scale-95">
+        <view class="i-carbon-search mr-2 text-white"></view>
+        <input type="text" placeholder="强国同学汇" placeholder-class="text-white opacity-80" class="h-full flex-1 text-xs text-white" value="{{searchKeyword}}" bindfocus="onSearchFocus" bindinput="onSearchInput" />
+        
+        <!-- 搜索结果下拉面板 -->
+        <view wx:if="{{showSearchResults}}" class="absolute left-0 right-0 z-50 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden" style="top: calc(100% + 8px); max-height: 50vh;">
+          <scroll-view scroll-y class="w-full h-full" style="max-height: 50vh;">
+            <view class="flex flex-col">
+              <view wx:if="{{searchResults.length === 0 && !isSearching}}" class="px-4 py-4 text-center text-xs text-gray-400">
+                暂无相关数据
+              </view>
+              <view wx:for="{{searchResults}}" wx:key="id" class="px-4 py-3 border-b border-gray-50 flex items-center justify-between active:bg-gray-50" catchtap="onSelectSearchResult" data-item="{{item}}">
+                <text class="text-sm text-gray-700 truncate flex-1">{{item.title}}</text>
+                <text class="text-10 text-orange-main border border-orange-main rounded px-1 ml-2 flex-shrink-0">{{item.type}}</text>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+      <view class="w-25"></view>
+    </view>
+  </view>
+
+  <!-- Banner 区域 -->
+  <view class="relative z-10 flex-shrink-0 px-4 pb-8 pt-4">
+    <swiper class="h-40 w-full overflow-hidden rounded-2xl bg-gray-200 shadow-md" indicator-dots="{{false}}" autoplay="{{true}}" circular="{{true}}" interval="{{4000}}" bindchange="onBannerChange">
+      <swiper-item wx:for="{{bannerList}}" wx:key="id">
+        <image src="{{item.imgUrl}}" mode="aspectFill" class="h-full w-full"></image>
+      </swiper-item>
+    </swiper>
+
+    <!-- 底部黑色渐变遮罩 -->
+    <view class="pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-55px bg-gradient-to-t"></view>
+
+    <!-- 指示器 -->
+    <view class="absolute bottom-15 right-8 z-20 flex items-center gap-1-5">
+      <view wx:for="{{bannerList}}" wx:key="id" class="h-1-5 rounded-full bg-white shadow-sm backdrop-blur-sm transition-all duration-300 {{currentBannerIndex === index ? 'w-4 opacity-100' : 'w-1-5 opacity-60'}}"></view>
+    </view>
+  </view>
+
+  <!-- 2. 主要内容区域 -->
+  <view class="relative z-20 -mt-13 flex flex-1 flex-col overflow-hidden rounded-t-40 px-4 pt-2">
+
+    <!-- 下方背景图 -->
+    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/volunteer/bg_down.png" class="absolute inset-0 z-0 h-full w-full" mode="scaleToFill"></image>
+
+    <!-- 2. 基础信息卡片 -->
+    <view class="mb-3 p-2 mt-2 relative z-10">
+      <!-- 标题行 -->
+      <view class="mb-4 flex items-start justify-between">
+        <view class="flex flex-1 flex-col">
+          <text class="mr-2 text-xl text-black font-bold leading-tight">{{ detailInfo.name }}</text>
+        </view>
+        <view class="flex flex-shrink-0 items-center gap-1 rounded-full {{ isFavorite ? 'border border-gray-300 bg-gray-50 text-gray-500' : 'bg-orange-main text-white' }} px-3 py-1 text-xs shadow-sm transition-colors" hover-class="opacity-80" bindtap="toggleCollection">
+          <view wx:if="{{!isFavorite}}" class="i-carbon-add"></view>
+          <text>{{ isFavorite ? '取消收藏' : '收藏' }}</text>
+        </view>
+      </view>
+
+      <!-- 信息列表 -->
+      <view class="relative flex flex-col gap-2 text-12 text-gray-800">
+        <view class="flex items-center gap-2">
+          <view class="i-carbon-time text-gray-800"></view>
+          <text>营业时间：{{ detailInfo.openTime }}</text>
+        </view>
+        <view class="flex items-center gap-2" bindtap="onPhoneTap" hover-class="opacity-80">
+          <view class="i-carbon-phone text-gray-800"></view>
+          <text>咨询电话：{{ detailInfo.phone }}</text>
+        </view>
+        <view class="flex items-center gap-2 pr-12">
+          <view class="i-carbon-location text-gray-800"></view>
+          <text class="line-clamp-1">地址：{{ detailInfo.address }}</text>
+        </view>
+
+        <!-- 右侧悬浮导航按钮 -->
+        <view class="absolute right-0 top-6 flex flex-col items-center gap-1" bindtap="openMap">
+          <view class="p-1 rounded-4 bg-eeeeee">
+            <view class="i-carbon-location-current text-18 text-black drop-shadow-md"></view>
+          </view>
+          <text class="text-12 text-gray-500 font-bold">导航</text>
+        </view>
+      </view>
+      <view class="absolute h-1px bg-gray-200 mt-5 w-95"></view>
+    </view>
+
+    <!-- 4. 正在进行列表 -->
+    <view class="px-2 relative z-10 pt-5 flex-1 flex flex-col min-h-0">
+      <view class="mb-3">
+        <text class="text-lg text-gray-900 font-bold">本周火热进行中：</text>
+      </view>
+
+      <view class="flex-1 min-h-0 w-full">
+        <scroll-view scroll-y class="h-full w-full" show-scrollbar="{{false}}">
+          <view class="pb-10 flex flex-col gap-3">
+            <view wx:for="{{serviceList}}" wx:key="index" class="relative flex justify-between items-stretch rounded-2xl bg-white p-4 shadow-sm overflow-hidden">
+
+              <!-- 左侧区域 -->
+              <view class="flex-1 flex flex-col items-start gap-2 pr-12">
+                <view class="flex flex-wrap items-center gap-2">
+                  <text class="text-xs text-gray-700 font-bold whitespace-nowrap">{{ item.time }}</text>
+                  <view wx:for="{{item.day}}" wx:key="*this" wx:for-item="tag" wx:if="{{tag}}" class="px-1-5 py-2px rounded-4 bg-ffeee5 border border-ffecd9">
+                    <text class="text-10 text-orange-main font-medium leading-none block">{{ tag }}</text>
+                  </view>
+                </view>
+                <text class="text-sm text-gray-900 font-bold text-left leading-relaxed line-clamp-2">{{ item.content }}</text>
+              </view>
+
+              <!-- 右侧价格 -->
+              <view class="flex flex-col justify-end items-end flex-shrink-0 pl-2 relative z-20" catchtap="handleOpenAppointment" data-item="{{item}}">
+                <view class="flex items-baseline">
+                  <block wx:if="{{item.price > 0}}">
+                    <text class="text-9 text-white font-bold -mb-2px rounded-2xl bg-orange-main py-2 px-3">{{ item.price }}积分参与</text>
+                  </block>
+                  <block wx:else>
+                    <text class="text-9 text-orange-main font-bold -mb-2px rounded-2xl border border-orange-main py-1-5 px-3">免费参与</text>
+                  </block>
+                </view>
+              </view>
+
+              <!-- 右上角点赞 -->
+              <view class="absolute top-0 right-0 h-22px flex justify-center pt-2px z-10 pr-14px" catchtap="toggleLike" data-index="{{index}}">
+                <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/surroundings/bg_like_container.png" class="absolute inset-0 h-full" mode="heightFix"></image>
+                <view class="relative z-10 transition-all duration-300 left-1-2 ml-0-5 {{item.liked ? 'i-carbon-thumbs-up-filled text-white scale-110' : 'i-carbon-thumbs-up text-white'}}" style="font-size: 12px;"></view>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+  <view class="fixed inset-0 z-100 bg-black-60 transition-all duration-300 {{showAppointment ? 'opacity-100 visible' : 'opacity-0 invisible'}}" catchtap="closeAppointment" catchtouchmove="preventTouchMove"></view>
+
+  <view class="fixed bottom-0 left-0 right-0 z-101 flex flex-col rounded-t-24 bg-white transition-transform duration-300 {{showAppointment ? 'translate-y-0' : 'translate-y-full'}}" catchtouchmove="preventTouchMove">
+    
+    <view class="flex w-full items-center justify-center py-3" catchtap="closeAppointment">
+      <view class="h-1-5 w-12 rounded-full bg-gray-200"></view>
+    </view>
+
+    <view class="px-6 pb-safe pt-2 flex flex-col">
+      <view class="flex items-center justify-between mb-6">
+        <text class="text-22px font-bold text-gray-900 tracking-tight">预约服务时间</text>
+        <view class="text-2xl text-gray-400 p-2 -mr-2 flex items-center justify-center" catchtap="closeAppointment">
+          <view class="i-carbon-close"></view>
+        </view>
+      </view>
+
+      <view class="flex flex-col mb-6">
+        <text class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">服务项目</text>
+        <view class="flex items-center gap-3 rounded-xl bg-orange-50 border border-orange-100 p-4">
+           <view class="text-orange-main text-xl flex-shrink-0 flex items-center justify-center">
+             <view class="icon-custom-tool"></view>
+           </view>
+           <text class="text-base font-medium text-gray-800 flex-1">{{ activeService.content || '衣物缝补、电瓶车部件维修' }}</text>
+        </view>
+        <text class="text-xs leading-relaxed text-gray-500 mt-3">{{ activeService.description || '本服务为社区暖心公益项目，由专业技师提供相关服务。旨在为社区骑手及居民解决生活小难题，保障出行安全，提升生活便利度，欢迎预约体验。' }}</text>
+      </view>
+
+      <view class="flex flex-col mb-6">
+         <text class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3">选择日期与时间</text>
+         <scroll-view scroll-y class="max-h-40vh flex flex-col" show-scrollbar="{{false}}">
+           <view class="flex flex-col gap-3 pb-2">
+             <view wx:for="{{scheduleOptions}}" wx:key="id" 
+                   class="flex items-center justify-between rounded-xl border-2 p-4 text-left transition-all {{selectedScheduleId === item.id ? 'border-orange-main bg-orange-50' : 'border-gray-100'}} {{!item.available ? 'opacity-50 grayscale' : ''}}" 
+                   catchtap="{{item.available ? 'selectSchedule' : ''}}" data-id="{{item.id}}">
+               
+               <view class="flex items-center gap-4">
+                 <view class="flex flex-col items-center min-w-10">
+                   <text class="{{selectedScheduleId === item.id ? 'text-orange-main' : 'text-gray-900'}} font-bold text-lg leading-tight">{{item.day}}</text>
+                   <text class="text-xs text-gray-500">{{item.date}}</text>
+                 </view>
+                 <view class="h-8 w-1px bg-gray-200"></view>
+                 <view class="flex flex-col">
+                   <text class="font-bold {{selectedScheduleId === item.id ? 'text-gray-900' : 'text-gray-700'}}">{{item.time}}</text>
+                   <text class="text-xs text-gray-500 mt-1">{{item.status}}</text>
+                 </view>
+               </view>
+
+               <view wx:if="{{selectedScheduleId === item.id}}" class="text-orange-main text-2xl flex items-center justify-center">
+                 <view class="i-carbon-checkmark-filled"></view>
+               </view>
+               <view wx:else class="h-6 w-6 rounded-full border-2 border-gray-200"></view>
+             </view>
+           </view>
+         </scroll-view>
+      </view>
+
+      <view class="flex flex-col gap-4 mt-auto">
+         <view class="flex items-center gap-2 text-sm text-gray-500">
+           <view class="text-gray-400 text-base flex items-center justify-center">
+              <view class="i-carbon-information"></view>
+           </view>
+           <text>预约成功后请准时前往社区中心</text>
+         </view>
+
+         <view class="relative w-full mb-4">
+           <view class="w-full rounded-xl bg-orange-main py-4 text-center font-bold text-white shadow-lg shadow-orange-main-20 flex items-center justify-center m-0" hover-class="opacity-90 scale-95 transition-all" catchtap="confirmAppointment" loading="{{isSubmitting}}" disabled="{{isSubmitting}}">
+             确认预约
+           </view>
+           
+           <view wx:if="{{activeService && activeService.price > 0}}" class="absolute -right-2 -top-3 z-10 rounded-full border-2 border-white bg-red-500 px-2 py-0-5 text-11px font-medium text-white shadow-sm flex items-center justify-center whitespace-nowrap">
+             扣除{{activeService.price}}积分
+           </view>
+         </view>
+      </view>
+    </view>
+  </view>
+  <login-modal id="global-login-modal" />
+</view>

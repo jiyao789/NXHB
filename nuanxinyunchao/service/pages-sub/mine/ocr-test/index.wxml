@@ -1,0 +1,208 @@
+<view class="page-container">
+
+  <!-- 顶部导航栏 -->
+  <view class="nav-fixed">
+    <view style="height: {{statusBarHeight}}px;"></view>
+    <view class="nav-content" style="height: {{navBarHeight}}px;">
+      <view class="back-btn" hover-class="bg-active" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">OCR识别测试</text>
+    </view>
+  </view>
+
+  <view class="nav-placeholder" style="height: {{statusBarHeight + navBarHeight}}px;"></view>
+
+  <scroll-view scroll-y class="scroll-area">
+    <view class="content-wrapper">
+
+      <!-- OCR类型选择 -->
+      <view class="section-group">
+        <text class="section-title">识别类型</text>
+        <view class="type-list">
+          <view 
+            wx:for="{{ocrTypes}}" 
+            wx:key="value" 
+            class="type-item {{ocrType === item.value ? 'type-active' : 'type-normal'}}"
+            data-val="{{item.value}}"
+            bindtap="selectOcrType"
+          >
+            {{ item.label }}
+          </view>
+        </view>
+      </view>
+
+      <!-- 身份证正反面选择 -->
+      <view class="section-group" wx:if="{{ocrType === 'idCard'}}">
+        <text class="section-title">选择面</text>
+        <view class="side-list">
+          <view 
+            class="side-item {{idCardSide === 'face' ? 'side-active' : 'side-normal'}}"
+            data-side="face"
+            bindtap="switchIdCardSide"
+          >
+            正面（人像面）
+          </view>
+          <view 
+            class="side-item {{idCardSide === 'back' ? 'side-active' : 'side-normal'}}"
+            data-side="back"
+            bindtap="switchIdCardSide"
+          >
+            背面（国徽面）
+          </view>
+        </view>
+      </view>
+
+      <!-- 图片选择区 -->
+      <view class="section-group">
+        <text class="section-title">选择图片</text>
+        <view class="image-area" bindtap="chooseImage">
+          <block wx:if="{{imagePath}}">
+            <image src="{{imagePath}}" class="preview-image" mode="aspectFit" />
+            <text class="change-tip">点击更换图片</text>
+          </block>
+          <block wx:else>
+            <view class="upload-placeholder">
+              <view class="plus-icon">+</view>
+              <text class="upload-text">拍照 / 从相册选择</text>
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <!-- 识别按钮 -->
+      <view class="action-area">
+        <button 
+          class="recognize-btn {{ocrLoading ? 'btn-disabled' : ''}}" 
+          hover-class="btn-hover" 
+          bindtap="startRecognize"
+          disabled="{{ocrLoading}}"
+        >
+          {{ocrLoading ? '识别中...' : '开始识别'}}
+        </button>
+      </view>
+
+      <!-- 识别结果 -->
+      <view class="section-group" wx:if="{{result || resultJson}}">
+        <view class="result-header">
+          <text class="section-title">识别结果</text>
+          <text class="copy-btn" bindtap="copyResult">复制</text>
+        </view>
+
+        <!-- 身份证结果 -->
+        <view class="result-card" wx:if="{{ocrType === 'idCard' && result}}">
+          <block wx:if="{{result.side === 'face'}}">
+            <view class="result-row">
+              <text class="result-label">姓名</text>
+              <text class="result-value">{{result.name || '-'}}</text>
+            </view>
+            <view class="result-row">
+              <text class="result-label">性别</text>
+              <text class="result-value">{{result.gender || '-'}}</text>
+            </view>
+            <view class="result-row">
+              <text class="result-label">民族</text>
+              <text class="result-value">{{result.nationality || '-'}}</text>
+            </view>
+            <view class="result-row">
+              <text class="result-label">出生日期</text>
+              <text class="result-value">{{result.birthDate || '-'}}</text>
+            </view>
+            <view class="result-row">
+              <text class="result-label">住址</text>
+              <text class="result-value">{{result.address || '-'}}</text>
+            </view>
+            <view class="result-row">
+              <text class="result-label">身份证号</text>
+              <text class="result-value">{{result.idNumber || '-'}}</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="result-row">
+              <text class="result-label">签发机关</text>
+              <text class="result-value">{{result.issueAuthority || '-'}}</text>
+            </view>
+            <view class="result-row">
+              <text class="result-label">有效期限</text>
+              <text class="result-value">{{result.validPeriod || '-'}}</text>
+            </view>
+          </block>
+        </view>
+
+        <!-- 银行卡结果 -->
+        <view class="result-card" wx:elif="{{ocrType === 'bankCard' && result}}">
+          <view class="result-row">
+            <text class="result-label">卡号</text>
+            <text class="result-value">{{result.cardNumber || '-'}}</text>
+          </view>
+          <view class="result-row">
+            <text class="result-label">银行</text>
+            <text class="result-value">{{result.bankName || '-'}}</text>
+          </view>
+          <view class="result-row">
+            <text class="result-label">卡类型</text>
+            <text class="result-value">{{result.cardType || '-'}}</text>
+          </view>
+          <view class="result-row">
+            <text class="result-label">有效期</text>
+            <text class="result-value">{{result.validDate || '-'}}</text>
+          </view>
+        </view>
+
+        <!-- 营业执照结果 -->
+        <view class="result-card" wx:elif="{{ocrType === 'businessLicense' && result}}">
+          <view class="result-row">
+            <text class="result-label">信用代码</text>
+            <text class="result-value">{{result.creditCode || '-'}}</text>
+          </view>
+          <view class="result-row">
+            <text class="result-label">公司名称</text>
+            <text class="result-value">{{result.companyName || '-'}}</text>
+          </view>
+          <view class="result-row">
+            <text class="result-label">公司类型</text>
+            <text class="result-value">{{result.companyType || '-'}}</text>
+          </view>
+          <view class="result-row">
+            <text class="result-label">法定代表人</text>
+            <text class="result-value">{{result.legalPerson || '-'}}</text>
+          </view>
+          <view class="result-row">
+            <text class="result-label">注册资本</text>
+            <text class="result-value">{{result.registeredCapital || '-'}}</text>
+          </view>
+          <view class="result-row">
+            <text class="result-label">成立日期</text>
+            <text class="result-value">{{result.establishDate || '-'}}</text>
+          </view>
+          <view class="result-row">
+            <text class="result-label">经营范围</text>
+            <text class="result-value">{{result.businessScope || '-'}}</text>
+          </view>
+          <view class="result-row">
+            <text class="result-label">地址</text>
+            <text class="result-value">{{result.address || '-'}}</text>
+          </view>
+        </view>
+
+        <!-- 通用文字结果 -->
+        <view class="result-card" wx:elif="{{ocrType === 'general' && result}}">
+          <view class="result-row-full">
+            <text class="result-label">识别内容</text>
+            <text class="result-value-full">{{result.content || '-'}}</text>
+          </view>
+        </view>
+
+        <!-- 原始JSON -->
+        <view class="json-card">
+          <text class="json-title">原始JSON</text>
+          <text class="json-content" selectable>{{resultJson}}</text>
+        </view>
+      </view>
+
+      <view class="bottom-placeholder"></view>
+
+    </view>
+  </scroll-view>
+
+</view>

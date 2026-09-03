@@ -1,0 +1,47 @@
+<view class="container">
+  <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+    <view class="back-btn" bindtap="goBack">
+      <view class="i-carbon-arrow-left text-xl"></view>
+    </view>
+    <view class="title">长宁区新就业群体详情</view>
+  </view>
+
+  <scroll-view scroll-y class="content-scroll">
+    <view class="card chart-card">
+      <view class="chart-header">
+        <view class="stat-info">
+          <text class="stat-label">实时分布统计</text>
+          <view class="stat-number">
+            <text class="num">{{total}}</text>
+            <text class="unit">人</text>
+          </view>
+        </view>
+        <view class="stat-icon">
+          <!-- Icon similar to screenshot -->
+          <view class="i-carbon-chart-column"></view>
+        </view>
+      </view>
+
+      <view class="chart-area">
+        <view class="chart-bar-wrap" wx:for="{{roles}}" wx:key="id">
+          <view class="bar-value">{{item.count}}</view>
+          <view class="bar-track">
+            <!-- Height calculated relative to maxCount, minimum height 10% to ensure visibility -->
+            <view class="bar-fill" style="height: {{ (item.count / maxCount) * 80 + 10 }}%;"></view>
+          </view>
+          <view class="bar-label">{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-title">各街道人员登记分布</view>
+
+    <view class="card list-card">
+      <view class="list-item" wx:for="{{streetList}}" wx:key="streetId" bindtap="handleStreetClick" data-id="{{item.streetId}}" data-name="{{item.streetName}}" data-count="{{item.count}}">
+        <text class="item-name">{{item.streetName}}</text>
+        <view class="item-count">{{item.count}} 人</view>
+      </view>
+    </view>
+    <view style="height: 40px;"></view>
+  </scroll-view>
+</view>

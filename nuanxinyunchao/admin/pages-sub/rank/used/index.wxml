@@ -1,0 +1,98 @@
+<view class="page-container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/checkin_bg.png" class="bg-img" mode="scaleToFill" />
+
+  <!-- CUSTOM NAV BAR -->
+  <view class="custom-nav" style="padding-top: {{safeAreaTop}}px; background-color: {{scrollTop > 50 ? '#e6d144' : 'transparent'}};">
+    <view class="nav-left">
+      <view class="nav-back active-scale" bindtap="handleBack"><view class="i-back"></view></view>
+    </view>
+    <view class="nav-title">{{currentMonth}}月人员服务详情</view>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 占位符以抵消 fixed 定位的 custom-nav 高度 -->
+  <view style="height: {{safeAreaTop + 44}}px; flex-shrink: 0;"></view>
+
+  <view class="header-static">
+    
+    <view class="chart-card">
+      <view class="chart-flex">
+        <view class="legend-box">
+          <view class="legend-item" wx:for="{{chartData}}" wx:key="label">
+            <view class="legend-left">
+              <view class="legend-dot" style="background: {{item.color}};"></view>
+              <text class="legend-label">{{item.label}}</text>
+            </view>
+            <view class="legend-right">
+              <text class="legend-count">{{item.count}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="donut-container">
+          <view class="donut-outer" style="{{conicGradientStyle}}">
+            <view class="donut-inner">
+              <text class="donut-title">总人次</text>
+              <text class="donut-total">{{chartTotal}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <scroll-view scroll-x class="tab-scroll" show-scrollbar="{{false}}" enable-flex>
+      <view class="tab-flex">
+        <view 
+          wx:for="{{tabs}}" 
+          wx:key="*this"
+          class="tab-item {{currentTab === item ? 'tab-active' : ''}} active-scale"
+          data-tab="{{item}}"
+          bindtap="switchTab"
+        >
+          {{item}}
+        </view>
+      </view>
+    </scroll-view>
+
+  </view>
+
+  <scroll-view scroll-y class="list-scroll" show-scrollbar="{{false}}" bindscroll="onScroll">
+    <view class="list-inner">
+      
+      <view wx:if="{{groupedList.length === 0}}" class="empty-state">
+        <text>暂无相关人员记录</text>
+      </view>
+
+      <block wx:for="{{groupedList}}" wx:key="date" wx:for-item="group">
+        <view class="date-group">
+          
+          <view class="date-header">
+            <text class="date-text">{{group.date}}</text>
+            <view class="date-line"></view>
+          </view>
+          
+          <view class="items-wrap">
+            <view class="list-item active-scale" wx:for="{{group.items}}" wx:key="id" wx:for-item="person">
+              <image class="avatar" src="{{person.avatar}}" mode="aspectFill"></image>
+              <view class="item-content">
+                <view class="item-row-top">
+                  <view class="name-role">
+                    <text class="name">{{person.name}}</text>
+                    <view class="role-tag">{{person.role}}</view>
+                  </view>
+                  <text class="time">{{person.time}}</text>
+                </view>
+                <view class="item-row-bottom">
+                  <view class="service-tag">{{person.service}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+
+        </view>
+      </block>
+
+    </view>
+  </scroll-view>
+
+</view>

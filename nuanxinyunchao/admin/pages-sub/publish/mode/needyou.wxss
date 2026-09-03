@@ -1,0 +1,150 @@
+/* 🚀 修复整体偏右的核心代码：强行将小程序默认盒模型拉回 Tailwind 的标准 */
+view, text, image, scroll-view, swiper, swiper-item, button {
+  box-sizing: border-box !important;
+}
+
+/* ============== 基础与背景 ============== */
+.min-h-screen { min-height: 100vh; }
+.bg-F5F7FA { background-color: #F5F7FA; }
+.bg-white { background-color: #ffffff; }
+.bg-black-20 { background-color: rgba(0, 0, 0, 0.2); }
+.bg-gray-100 { background-color: #f3f4f6; }
+.bg-feece5 { background-color: #feece5; }
+.bg-FFF5E5 { background-color: #FFF5E5; }
+.bg-FFD700 { background-color: #FFD700; }
+.to-transparent { --tw-gradient-to: transparent; }
+.from-black-50 { --tw-gradient-from: rgba(0, 0, 0, 0.5); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0, 0, 0, 0)); }
+.bg-gradient-to-b { background-image: linear-gradient(to bottom, var(--tw-gradient-stops)); }
+
+/* ============== 布局与对齐 ============== */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.top-0 { top: 0; }
+.left-0 { left: 0; }
+.right-0 { right: 0; }
+.bottom-0 { bottom: 0; }
+.z-10 { z-index: 10; }
+.z-50 { z-index: 50; }
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.flex-1 { flex: 1 1 0%; }
+.flex-shrink-0 { flex-shrink: 0; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.align-middle { vertical-align: middle; }
+.inline-flex { display: inline-flex; }
+
+/* ============== 间距系统 ============== */
+.mt-2 { margin-top: 16rpx; }
+.mt-3 { margin-top: 24rpx; }
+.mb-4 { margin-bottom: 32rpx; }
+.mr-2 { margin-right: 16rpx; }
+.p-4 { padding: 32rpx; }
+.p-1 { padding: 8rpx; }
+.px-4 { padding-left: 32rpx; padding-right: 32rpx; }
+.px-3 { padding-left: 24rpx; padding-right: 24rpx; }
+.px-2 { padding-left: 16rpx; padding-right: 16rpx; }
+.py-4 { padding-top: 32rpx; padding-bottom: 32rpx; }
+.py-0-5 { padding-top: 4rpx; padding-bottom: 4rpx; }
+.pt-2 { padding-top: 16rpx; }
+.pb-28 { padding-bottom: 224rpx; }
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+.gap-1 { gap: 8rpx; }
+.gap-2 { gap: 16rpx; }
+.gap-3 { gap: 24rpx; }
+.gap-4 { gap: 32rpx; }
+.gap-0-5 { gap: 4rpx; }
+
+/* ============== 尺寸系统 ============== */
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.h-24 { height: 192rpx; }
+.h-300px { height: 300px; }
+.h-8 { height: 64rpx; }
+.w-8 { width: 64rpx; }
+.h-14 { height: 112rpx; }
+.h-10 { height: 80rpx; }
+.w-10 { width: 80rpx; }
+.h-6 { height: 48rpx; }
+.w-6 { width: 48rpx; }
+.h-5 { height: 40rpx; }
+.w-5 { width: 40rpx; }
+
+/* ============== 字体与颜色 ============== */
+.text-xs { font-size: 24rpx; }
+.text-sm { font-size: 28rpx; }
+.text-base { font-size: 32rpx; }
+.text-lg { font-size: 36rpx; }
+.text-2xl { font-size: 48rpx; }
+.text-20rpx { font-size: 20rpx; }
+.text-10px { font-size: 20rpx; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.text-white { color: #ffffff; }
+.text-black { color: #000000; }
+.text-gray-900 { color: #111827; }
+.text-gray-600 { color: #4b5563; }
+.text-gray-500 { color: #6b7280; }
+.text-gray-400 { color: #9ca3af; }
+.text-blue-500 { color: #3b82f6; }
+.text-ed792a { color: #ed792a; }
+.text-FF8F44 { color: #FF8F44; }
+.leading-tight { line-height: 1.25; }
+.leading-5 { line-height: 40rpx; }
+.text-center { text-align: center; }
+
+/* ============== 边框与效果 ============== */
+.rounded-xl { border-radius: 24rpx; }
+.rounded-lg { border-radius: 16rpx; }
+.rounded-2xl { border-radius: 32rpx; }
+.rounded-full { border-radius: 9999rpx; }
+.shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+.shadow-custom-bottom { box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05); }
+.backdrop-blur-md { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+
+/* ============== 网格布局 ============== */
+.grid { display: grid; }
+.grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.gap-y-4 { row-gap: 32rpx; }
+
+/* ============== 交互反馈 ============== */
+.active-opacity-70:active { opacity: 0.7; }
+.active-scale-95:active { transform: scale(0.95); }
+.transition-transform { transition-property: transform; transition-duration: 0.15s; }
+
+/* ============== 图标系统 (i-carbon) ============== */
+[class^="i-carbon-"], [class*=" i-carbon-"] {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.i-carbon-chevron-left {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='currentColor' d='M20 24l-8-8 8-8 1.4 1.4L14.8 16l6.6 6.6L20 24z'/%3E%3C/svg%3E");
+}
+.i-carbon-location {
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%2018a5%205%200%201%201%205-5a5.006%205.006%200%200%201-5%205m0-8a3%203%200%201%200%203%203a3.003%203.003%200%200%200-3-3%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22m16%2030l-8.436-9.949a35%2035%200%200%201-.348-.451A10.9%2010.9%200%200%201%205%2013a11%2011%200%200%201%2022%200a10.9%2010.9%200%200%201-2.215%206.597l-.001.003s-.3.394-.345.447ZM8.813%2018.395s.233.308.286.374L16%2026.908l6.91-8.15c.044-.055.278-.365.279-.366A8.9%208.9%200%200%200%2025%2013a9%209%200%201%200-18%200a8.9%208.9%200%200%200%201.813%205.395%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%2018a5%205%200%201%201%205-5a5.006%205.006%200%200%201-5%205m0-8a3%203%200%201%200%203%203a3.003%203.003%200%200%200-3-3%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22m16%2030l-8.436-9.949a35%2035%200%200%201-.348-.451A10.9%2010.9%200%200%201%205%2013a11%2011%200%200%201%2022%200a10.9%2010.9%200%200%201-2.215%206.597l-.001.003s-.3.394-.345.447ZM8.813%2018.395s.233.308.286.374L16%2026.908l6.91-8.15c.044-.055.278-.365.279-.366A8.9%208.9%200%200%200%2025%2013a9%209%200%201%200-18%200a8.9%208.9%200%200%200%201.813%205.395%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+.i-carbon-time {
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%2030a14%2014%200%201%201%2014-14a14%2014%200%200%201-14%2014m0-26a12%2012%200%201%200%2012%2012A12%2012%200%200%200%2016%204%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M20.59%2022L15%2016.41V7h2v8.58l5%205.01z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%2030a14%2014%200%201%201%2014-14a14%2014%200%200%201-14%2014m0-26a12%2012%200%201%200%2012%2012A12%2012%200%200%200%2016%204%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M20.59%2022L15%2016.41V7h2v8.58l5%205.01z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+.i-carbon-help, .i-carbon-help-filled {
+    -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202a14%2014%200%201%200%2014%2014A14%2014%200%200%200%2016%202m0%2026a12%2012%200%201%201%2012-12a12%2012%200%200%201-12%2012%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2223.5%22%20r%3D%221.5%22%20fill%3D%22currentColor%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M17%208h-1.5a4.49%204.49%200%200%200-4.5%204.5v.5h2v-.5a2.5%202.5%200%200%201%202.5-2.5H17a2.5%202.5%200%200%201%200%205h-2v4.5h2V17a4.5%204.5%200%200%200%200-9%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202a14%2014%200%201%200%2014%2014A14%2014%200%200%200%2016%202m0%2026a12%2012%200%201%201%2012-12a12%2012%200%200%201-12%2012%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2223.5%22%20r%3D%221.5%22%20fill%3D%22currentColor%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M17%208h-1.5a4.49%204.49%200%200%200-4.5%204.5v.5h2v-.5a2.5%202.5%200%200%201%202.5-2.5H17a2.5%202.5%200%200%201%200%205h-2v4.5h2V17a4.5%204.5%200%200%200%200-9%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  }

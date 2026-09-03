@@ -1,0 +1,107 @@
+<view class="min-h-screen relative overflow-hidden">
+
+    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/checkin_bg.png"
+        class="absolute inset-0 z-0 w-full h-full" mode="scaleToFill" />
+
+    <view class="fixed left-0 right-0 top-0 z-50 transition-all"
+        style="padding-top: {{safeAreaInsetsTop}}px; background-color: {{scrollTop > 50 ? '#e6d144' : 'transparent'}};">
+        <view class="h-11 flex items-center justify-between px-2">
+            <view class="h-8 w-8 flex items-center justify-center rounded-full active-bg-black-10"
+                bindtap="handleBack">
+                <view class="i-carbon-chevron-left text-2xl text-gray-900" />
+            </view>
+            <view class="absolute left-1-2 translate-x-minus-1-2 text-20px text-715b40 font-semibold">
+                我的荣耀时刻
+            </view>
+        </view>
+    </view>
+
+    <view style="height: {{safeAreaInsetsTop + 44}}px;" />
+
+    <view class="px-4 pt-4 relative z-10">
+
+        <view class="relative w-full h-260rpx mb-4 flex items-center justify-center">
+            <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/honor/honor_card_bg.png" class="absolute inset-0 w-full h-full"
+                mode="scaleToFill" />
+
+            <view class="relative z-10 w-full px-6 flex items-center justify-between mt-2">
+                <view class="absolute left-10 right-10 h-4rpx bg-f3f3f2 top-1-2 translate-y-minus-1-2 z-0">
+                    <view class="h-full bg-ff8d4d transition-all duration-500" style="width: {{progressWidth}};">
+                    </view>
+                </view>
+
+                <view wx:for="{{progressNodes}}" wx:for-item="node" wx:key="index"
+                    class="relative z-10 flex flex-col items-center justify-center w-90rpx h-110rpx rounded-2xl border-2 transition-all {{currentFinished >= node.value ? 'bg-gradient-to-t-yellow shadow-sm' : 'bg-f3f3f2 border-gray-100'}}">
+                    <text class="text-sm font-bold mb-1 text-feaa5b">{{ node.value }}</text>
+                    <view class="w-6 h-6 flex items-center justify-center rounded-full">
+                        <image wx:if="{{currentFinished >= node.value}}" src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/honor/true_icon.png"
+                            class="h-5 w-5" mode="aspectFit" />
+                        <image wx:else
+                            src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/icon_star.png"
+                            class="h-5 w-5" mode="aspectFit" />
+                    </view>
+                </view>
+            </view>
+        </view>
+
+
+        <view
+            class="bg-gradient-to-t-white rounded-40rpx py-4 mb-4 shadow-sm flex items-center border border-white">
+            <view class="flex-1 flex flex-col items-center">
+                <text class="text-2xl font-bold text-gray-900 mb-2">{{ orderCount }}</text>
+                <view class="flex items-center justify-center gap-1">
+                    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/honor/honor_icon4.png" class="h-3 w-3" mode="aspectFit" />
+                    <text class="text-10px text-gray-600 leading-none">接单数量</text>
+                </view>
+            </view>
+
+            <view class="w-1px h-3 bg-orange-200 mt-8" />
+
+            <view class="flex-1 flex flex-col items-center">
+                <text class="text-2xl font-bold text-gray-900 mb-2">{{ completedCount }}</text>
+                <view class="flex items-center justify-center gap-1">
+                    <view class="i-carbon-checkmark-outline text-10px text-gray-600" />
+                    <text class="text-10px text-gray-600 leading-none">已完成(个)</text>
+                </view>
+            </view>
+
+            <view class="w-1px h-3 bg-orange-200 mt-8" />
+
+            <view class="flex-1 flex flex-col items-center">
+                <text class="text-2xl font-bold text-gray-900 mb-2">{{ points }}</text>
+                <view class="flex items-center justify-center gap-1">
+                    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/honor/honor_icon5.png" class="h-3 w-3" mode="aspectFit" />
+                    <text class="text-10px text-gray-600 leading-none">累计积分</text>
+                </view>
+            </view>
+        </view>
+
+
+        <view class="bg-white rounded-40rpx p-5 mb-10 shadow-sm">
+            <view class="mb-4 flex items-center">
+                <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/honor/title.png" mode="heightFix" class="h-6" />
+            </view>
+
+            <view class="flex flex-col gap-6">
+                <view wx:for="{{rewardList}}" wx:key="index" class="flex items-center justify-between">
+                    <view class="flex items-center gap-3">
+                        <view class="w-12 h-12 rounded-full flex items-center justify-center shadow-inner">
+                            <image src="{{item.icon}}" mode="heightFix" class="h-full" />
+                        </view>
+                        <view class="flex flex-col">
+                            <text class="text-15px font-bold text-gray-800">{{ item.title }}</text>
+                            <text class="text-xs text-b8a58a">{{ item.desc }}</text>
+                        </view>
+                    </view>
+
+                    <view
+                        class="w-140rpx h-8 flex items-center justify-center rounded-full text-sm font-medium transition-all active-scale-95 {{item.status === '领取' ? 'bg-gradient-to-r-orange text-white shadow-md' : 'bg-f5f5f5 text-b8a58a'}} {{item.status === '已领取' ? 'opacity-50' : ''}}"
+                        bindtap="handleReceive" data-index="{{index}}">
+                        {{ item.status }}
+                    </view>
+                </view>
+            </view>
+        </view>
+
+    </view>
+</view>

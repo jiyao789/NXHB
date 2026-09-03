@@ -1,0 +1,93 @@
+<view class="relative h-screen w-full flex flex-col">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="absolute inset-0 z-0 h-full w-full" mode="scaleToFill" />
+
+  <view class="relative z-10 flex-none px-4 pb-8 header-padding-rank">
+    <view class="flex items-center justify-between">
+      <view class="flex items-center gap-2">
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo.png" mode="heightFix" class="h-6 w-6 flex-shrink-0" />
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo_title.png" mode="heightFix" class="h-4 w-16 flex-shrink-0" />
+      </view>
+      <view class="mx-3 h-8 flex flex-1 items-center"></view>
+      <view class="w-20" />
+    </view>
+
+  </view>
+
+  <view class="relative z-20 min-h-0 w-full flex flex-1 flex-col overflow-hidden rounded-t-40rpx minus-mt-6">
+    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg_down.png" class="absolute inset-0 z-0 h-full w-full" mode="scaleToFill" />
+
+    <scroll-view scroll-y class="relative z-10 h-0 w-full flex-1 scroll-view-content pt-1" show-scrollbar="{{false}}">
+      <view class="px-4 pt-6 pb-safe">
+        <view wx:for="{{rankGroups}}" wx:for-item="group" wx:for-index="groupIndex" wx:key="groupIndex" class="relative mb-4 overflow-hidden rounded-2xl bg-white shadow-sm">
+          <image src="{{group.titleImg}}" mode="heightFix" class="absolute left-0 top-0 z-10 h-11 w-auto" />
+
+          <image src="{{group.iconImg}}" mode="aspectFit" class="absolute right-3 top-3 z-10 h-6 w-6" />
+
+          <view class="px-4 pb-2 pt-10">
+            <!-- Site and User List Rendering -->
+            <block wx:if="{{groupIndex < 2}}">
+              <view wx:for="{{group.list}}" wx:for-item="item" wx:for-index="index" wx:key="id" class="flex items-center justify-between border-b border-gray-50 py-3 {{index === group.list.length - 1 ? 'border-none' : ''}}" data-item="{{item}}" data-groupindex="{{groupIndex}}" data-index="{{index}}" bindtap="handleItemClick">
+                <view class="mr-4 flex flex-1 items-center gap-3 overflow-hidden">
+                  <view class="w-8 flex flex-shrink-0 items-center justify-center">
+                    <image wx:if="{{index < 3}}" src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/rank_{{index + 1}}.png" class="h-6 w-6" mode="aspectFit" />
+                    <text wx:else class="text-lg text-gray-800 font-bold italic">
+                      {{ index + 1 }}
+                    </text>
+                  </view>
+                  <image src="{{item.avatar}}" mode="aspectFill" class="h-10 w-10 flex-shrink-0 rounded-full" />
+                  <text class="truncate text-sm text-brown-dark font-bold">{{ item.name }}</text>
+                </view>
+
+                <!-- Only show score for groupIndex 0 (Site) -->
+                <view wx:if="{{groupIndex === 0}}" class="flex flex-shrink-0 items-center gap-1">
+                  <view class="i-carbon-favorite text-xs text-brown-dark" />
+                  <text class="text-sm text-brown-dark font-medium">{{ item.score }}</text>
+                </view>
+              </view>
+            </block>
+
+            <!-- Information Section Custom UI -->
+            <block wx:else>
+              <view class="flex flex-col gap-3 py-2 px- pb-2">
+                <text class="text-xs text-gray-400 font-medium tracking-tight">快速发布/查看政务通知及图文内容</text>
+                <view class="flex gap-5 mt-2">
+                  <view class="flex-1 active-scale shadow-sm rounded-2xl overflow-hidden" bindtap="handlePublish">
+                    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/rank/release.png" mode="widthFix" class="w-full h-auto block" />
+                  </view>
+                  <view class="flex-1 active-scale shadow-sm rounded-2xl overflow-hidden" bindtap="handleManage">
+                    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/rank/management.png" mode="widthFix" class="w-full h-auto block" />
+                  </view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+
+        <view class="h-20" />
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 发布弹窗 -->
+  <view wx:if="{{showPublishPopup}}" class="popup-mask" bindtap="togglePublishPopup">
+    <view class="popup-content" catchtap="preventBubble">
+      <image src="{{currentPopupBg}}" class="popup-bg" mode="widthFix" />
+      <view class="popup-list">
+        <view class="publish-grid">
+          <view wx:for="{{currentPublishList}}" wx:key="type" class="publish-btn" data-type="{{item.type}}" bindtap="handleFinalPublish">
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="close-btn" catchtap="togglePublishPopup">
+      <view class="icon-close-white"></view>
+    </view>
+  </view>
+</view>
+
+<!-- 动态注入返回智慧党建飘窗 -->
+<global-home-btn />
+
+<!-- 动态注入子包底部导航栏 -->
+<nxyc-tabbar role="admin" selected="0" />

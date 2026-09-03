@@ -1,0 +1,65 @@
+@import "../../../styles/utilities.wxss";
+@import "../../../styles/icons.wxss";
+
+/* ==== 特殊字符合规化映射 ==== */
+
+/* 尺寸与高度 */
+.h-260rpx { height: 260rpx; }
+.h-4rpx { height: 4rpx; }
+.w-90rpx { width: 90rpx; }
+.h-110rpx { height: 110rpx; }
+.w-1px { width: 2rpx; }
+.w-140rpx { width: 140rpx; }
+.text-20px { font-size: 40rpx; }
+.text-10px { font-size: 20rpx; }
+.text-15px { font-size: 30rpx; }
+.rounded-40rpx { border-radius: 40rpx; }
+
+/* 颜色 */
+.text-715b40 { color: #715b40; }
+.bg-f3f3f2 { background-color: #f3f3f2; }
+.bg-ff8d4d { background-color: #ff8d4d; }
+.text-feaa5b { color: #feaa5b; }
+.text-b8a58a { color: #b8a58a; }
+.bg-f5f5f5 { background-color: #f5f5f5; }
+.bg-orange-200 { background-color: #fbd38d; }
+.border-white { border-color: #ffffff; }
+
+/* 定位与 Transform */
+.left-1-2 { left: 50%; }
+.translate-x-minus-1-2 { transform: translateX(-50%); }
+.top-1-2 { top: 50%; }
+.translate-y-minus-1-2 { transform: translateY(-50%); }
+
+/* 🚀 修复点 1：精准计算进度条背景线的起止位置 */
+/* 容器 px-6 (48rpx) + 节点中心 (90rpx / 2 = 45rpx) = 93rpx，完美隐藏在圆角矩形背后 */
+.left-10 { left: 93rpx; }
+.right-10 { right: 93rpx; }
+
+/* 渐变组合映射 */
+.bg-gradient-to-t-yellow { background: linear-gradient(to top, #fff8bd, #fef05e); }
+.bg-gradient-to-t-white { background: linear-gradient(to top, #ffffff, #fffdd0); }
+.bg-gradient-to-r-orange { background: linear-gradient(to right, #ff8d4d, #ff6b00); }
+
+/* 交互与杂项 */
+.active-bg-black-10:active { background-color: rgba(0, 0, 0, 0.1); }
+.active-scale-95:active { transform: scale(0.95); }
+.opacity-50 { opacity: 0.5; }
+.shadow-inner { box-shadow: inset 0 2rpx 4rpx 0 rgba(0, 0, 0, 0.06); }
+.font-semibold { font-weight: 600; }
+.transition-all { transition-property: all; transition-duration: 150ms; }
+.duration-500 { transition-duration: 500ms; }
+
+view, text, image, scroll-view, button, input { box-sizing: border-box !important; }
+
+/* 🚀 修复点 2：强制注入“已完成”的 Checkmark Outline 图标，防止全局样式缺失 */
+.i-carbon-checkmark-outline {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M14%2021.414L9%2016.413l1.413-1.414L14%2018.586l8.586-8.586L24%2011.414z%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202a14%2014%200%201%200%2014%2014A14.016%2014.016%200%200%200%2016%202zm0%2026a12%2012%200%201%201%2012-12a12.014%2012.014%200%200%201-12%2012z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M14%2021.414L9%2016.413l1.413-1.414L14%2018.586l8.586-8.586L24%2011.414z%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M16%202a14%2014%200%201%200%2014%2014A14.016%2014.016%200%200%200%2016%202zm0%2026a12%2012%200%201%201%2012-12a12.014%2012.014%200%200%201-12%2012z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}

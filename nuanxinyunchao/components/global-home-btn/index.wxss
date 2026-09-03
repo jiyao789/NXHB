@@ -1,0 +1,109 @@
+/* nuanxinyunchao/components/global-home-btn/index.wxss */
+.global-btn-wrap {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 999999;
+  pointer-events: none;
+}
+
+.movable-area {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.movable-view {
+  height: 90rpx;
+  pointer-events: auto;
+  /* 仅过渡宽度，因为 x 永远为 0，绝对不会触发边界 Bug */
+  transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.folded { width: 72rpx; }
+.expanded { width: 320rpx; z-index: 1000000; }
+
+.inner-btn {
+  width: 100%;
+  height: 100%;
+  background-color: #ff6f27; /* 强烈的实体橙色 */
+  border-radius: 0 45rpx 45rpx 0; /* 默认：左边直角，右边圆角 */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 18rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+/* 核心优化：拖拽时变为全圆正圆 */
+.inner-btn.is-dragging {
+  border-radius: 45rpx !important;
+  padding-left: 0 !important;
+  justify-content: center !important;
+  width: 90rpx;
+}
+
+/* 实体弥散阴影，增加悬浮高度感 */
+.shadow-heavy {
+  box-shadow: 6rpx 6rpx 16rpx rgba(255, 111, 39, 0.4);
+}
+
+.movable-view:active .inner-btn {
+  transform: scale(0.96);
+  opacity: 0.9;
+}
+
+.icon-wrap {
+  width: 48rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 核心优化：纯 CSS 实现的 > 箭头 */
+.pure-arrow-right {
+  width: 20rpx;
+  height: 20rpx;
+  border-top: 6rpx solid #ffffff;
+  border-right: 6rpx solid #ffffff;
+  transform: rotate(45deg);
+  margin-left: -8rpx; /* 视觉对齐微调 */
+  border-radius: 4rpx; /* 让折角圆润一点 */
+}
+
+/* 调整 SVG 图标尺寸 */
+.svg-icon { width: 42rpx; height: 42rpx; }
+.svg-icon-small { width: 36rpx; height: 36rpx; flex-shrink: 0;}
+
+.expanded-content {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  padding-left: 10rpx;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.confirm-text {
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+}
+
+.mr-2 { margin-right: 12rpx; }
+
+.global-mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 999998;
+  background: rgba(0, 0, 0, 0.5); /* 纯黑半透遮罩，去除毛玻璃 */
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

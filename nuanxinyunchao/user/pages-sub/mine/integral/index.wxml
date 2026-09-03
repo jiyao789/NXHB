@@ -1,0 +1,133 @@
+<view class="h-screen w-full flex flex-col overflow-hidden bg-transparent">
+    
+    <image 
+      src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/mine_bg.png" 
+      class="fixed left-0 top-0 z-minus-10 h-full w-full" 
+      mode="aspectFill" 
+    />
+
+    <view class="z-50 shrink-0" style="padding-top: {{safeAreaInsetsTop}}px;">
+      <view class="relative flex h-11 items-center justify-center px-4">
+        <view 
+          class="absolute left-2 flex h-8 w-8 items-center justify-center rounded-full active-bg-black-10" 
+          bindtap="handleBack"
+        >
+          <view class="i-carbon-chevron-left text-2xl text-gray-900" />
+        </view>
+        <text class="text-lg font-bold text-gray-900">积分明细</text>
+        <view class="absolute right-2 flex gap-2">
+          <view class="i-carbon-overflow-menu-horizontal text-xl text-gray-900" />
+        </view>
+      </view>
+    </view>
+
+    <view class="relative z-0 w-full h-140px shrink-0 pointer-events-none">
+      <view 
+        class="absolute bottom-0px flex flex-col items-center"
+        style="top: -10px; left: 46%; width: 180px; height: 130px;"
+      >
+        <image 
+          src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/coin-illustration.png" 
+          class="h-full w-full object-contain" 
+          mode="scaleToFill" 
+        />
+        <view 
+          class="absolute bottom-2-5 left-minus-5 drop-shadow-tag"
+        >
+          <view 
+            class="flex items-center justify-center bg-FF7D46 pl-9 pr-6 py-2 rounded-tr-25px clip-polygon"
+          >
+            <text class="text-xs text-white whitespace-nowrap">累计积分: {{ summaryData.totalPoints }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="relative z-10 flex-1 w-95-pct mx-auto mt-minus-130px overflow-hidden rounded-30px drop-shadow-card">
+      
+      <image 
+        src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/bg_card.png"
+        class="absolute left-0 top-0 z-minus-10 h-full w-full"
+        mode="scaleToFill" 
+      />
+
+      <view class="flex flex-col h-full w-full">
+        
+        <view class="px-5 pt-5 pb-0 shrink-0">
+          <view class="mb-6 mt-2 ml-4 flex flex-col">
+            <text class="mb-1 text-lg text-E65100">可用积分:</text>
+            <text class="text-4xl text-E65100 font-bold">{{ summaryData.availablePoints }}</text>
+          </view>
+
+          <view class="flex justify-around relative">
+            <view
+              wx:for="{{tabs}}"
+              wx:key="index"
+              class="relative px-2 py-3 text-base transition-colors cursor-pointer {{currentTab === index ? 'text-E65100 font-bold' : 'text-gray-500'}}"
+              bindtap="switchTab"
+              data-index="{{index}}"
+            >
+              {{ item }}
+              
+              <view 
+                wx:if="{{currentTab === index}}" 
+                class="absolute left-1-2 h-3px w-10 translate-x-minus-1-2 rounded-t-full bg-ff8048 z-10" 
+              />
+            </view>
+          </view>
+        </view>
+
+        <view class="flex-1 w-full min-h-0 relative">
+          <scroll-view 
+            scroll-y 
+            class="h-95-pct w-98-pct mx-auto bg-transparent" 
+            bindscrolltolower="loadMore"
+          >
+            <view class="px-5 pb-5 mb-3">
+              <view 
+                wx:for="{{dataList}}" 
+                wx:key="ledgerId"
+                class="relative" 
+              >
+                
+                <view 
+                  wx:if="{{item.isNewMonth}}" 
+                  class="flex justify-center pt-6 pb-2"
+                >
+                  <view class="relative">
+                    <text class="relative z-10 text-base font-bold text-E65100">{{ item.monthStr }}</text>
+                    <view class="absolute bottom-0-5 left-0 right-0 h-2-5 bg-ffdf63 z-minus-0 rounded-full opacity-80" />
+                  </view>
+                </view>
+
+                <view class="relative z-10 flex items-center justify-between py-4 active-bg-gray-50 rounded-lg transition-colors">
+                  <view class="flex flex-col gap-1-5">
+                    <text class="text-15px text-gray-800">{{ item.title }}</text>
+                    <text class="text-xs text-gray-400">{{ item.date }}</text>
+                  </view>
+                  <text 
+                    class="text-lg {{item.points > 0 ? 'text-E65100' : 'text-333333'}}"
+                  >
+                    {{ item.points > 0 ? '+' : '' }}{{ item.points }}
+                  </text>
+                </view>
+                <view 
+                  wx:if="{{index < dataList.length - 1}}" 
+                  class="absolute bottom-0 right-0 h-1px bg-gray-200 z-20"
+                  style="left: 0rpx;" 
+                />
+                
+              </view>
+              
+              <view wx:if="{{firstLoaded && dataList.length === 0}}" class="flex flex-col items-center justify-center py-20">
+                <view class="i-carbon-document-blank text-4xl text-gray-300 mb-2" />
+                <text class="text-sm text-gray-400">暂无明细数据</text>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+        
+      </view> 
+    </view> 
+  
+  </view>

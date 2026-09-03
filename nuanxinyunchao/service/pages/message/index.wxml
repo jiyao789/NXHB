@@ -1,0 +1,54 @@
+<view class="page-container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="bg-global" mode="scaleToFill" />
+
+  <view class="nav-bar">
+    <view class="nav-title-box">
+      <text class="nav-title">消息</text>
+    </view>
+  </view>
+
+  <view class="action-area">
+    <view wx:if="{{userInfo.role !== 'merchant'}}" class="action-btn" hover-class="btn-active" bindtap="handleLike">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/message/icon_like.png" class="action-icon" mode="aspectFit" />
+      <text class="action-text">点赞</text>
+    </view>
+    <view class="action-btn" hover-class="btn-active" bindtap="handleStar">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/message/icon_star.png" class="action-icon" mode="aspectFit" />
+      <text class="action-text">收藏</text>
+    </view>
+  </view>
+
+  <view class="list-container">
+    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg_down.png" class="list-bg" mode="scaleToFill" />
+    
+    <view class="scroll-wrapper">
+      <scroll-view scroll-y class="scroll-view" show-scrollbar="{{false}}">
+        <view class="scroll-inner">
+          
+          <view wx:for="{{messageList}}" wx:key="index" class="message-item" bindtap="handleToDetail" data-item="{{item}}">
+            <image src="{{item.icon}}" class="msg-icon" mode="aspectFit" />
+
+            <view class="msg-content">
+              <view class="msg-header">
+                <text class="msg-title">{{item.title}}</text>
+                <text class="msg-time">{{item.displayTime}}</text>
+              </view>
+              <view class="msg-desc">{{item.desc}}</view>
+            </view>
+          </view>
+
+          <view wx:if="{{!isLoading && messageList.length === 0}}" class="empty-state">
+            暂无消息
+          </view>
+
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>
+
+<!-- 动态注入返回智慧党建飘窗 -->
+<global-home-btn />
+
+<!-- 动态注入子包底部导航栏 -->
+<nxyc-tabbar role="service" selected="3" />

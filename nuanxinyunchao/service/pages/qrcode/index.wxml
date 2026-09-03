@@ -1,0 +1,32 @@
+<view class="container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="bg-fixed" mode="widthFix" />
+  
+  <view class="qr-content">
+    <view class="qr-card">
+      <view class="qr-header">
+        <text class="qr-title">扫码核销</text>
+        <text class="qr-subtitle">请扫描用户的核销二维码</text>
+      </view>
+      
+      <view class="qr-box" bindtap="handleScan">
+        <image src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=nuanxinyunchao" class="mock-qr" mode="aspectFit" />
+        <view class="scan-line"></view>
+      </view>
+      
+      <button class="scan-btn" bindtap="handleScan">立即扫码</button>
+    </view>
+    
+    <view class="tip-section">
+      <text class="tip-text">核销成功后，相应积分将自动结算</text>
+    </view>
+  </view>
+
+  <view class="tabbar-placeholder"></view>
+</view>
+
+
+<!-- 动态注入返回智慧党建飘窗 -->
+<global-home-btn />
+
+<!-- 动态注入子包底部导航栏 -->
+<nxyc-tabbar role="service" selected="2" />

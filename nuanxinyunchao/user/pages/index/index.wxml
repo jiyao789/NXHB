@@ -1,0 +1,112 @@
+<!-- 1. 整体容器 -->
+<view class="h-screen overflow-hidden relative" id="page-container" bindtap="hideSearchResults">
+  <!-- 背景图 -->
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png"
+    class="absolute inset-0 z-0 h-full w-full" mode="scaleToFill"></image>
+
+  <!-- 2. 顶部固定导航栏 -->
+  <view class="fixed left-0 right-0 top-0 z-50 px-4 pb-2 transition-colors"
+    style="background-color: {{scrollTop > 50 ? '#e6d144' : 'transparent'}}; padding-top: {{statusBarHeight}}px; height: {{statusBarHeight + navBarHeight}}px; box-sizing: border-box;">
+    <view class="flex items-center justify-between h-full w-full">
+      <view class="flex items-center gap-2 flex-shrink-0">
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo.png"
+          mode="heightFix" class="h-6 w-6 flex-shrink-0"></image>
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo_title.png"
+          mode="heightFix" class="h-4 w-16 flex-shrink-0"></image>
+      </view>
+      <view class="mx-3 h-8 flex flex-1 items-center rounded-full bg-black-20 px-3 backdrop-blur-sm transition-all relative">
+        <icon type="search" size="14" color="#ffffff" class="mr-2" />
+        <input type="text" placeholder="强国同学汇" placeholder-class="text-white opacity-80" class="h-full flex-1 text-xs text-white" value="{{searchKeyword}}" bindfocus="onSearchFocus" bindinput="onSearchInput" />
+        
+        <!-- 搜索结果下拉面板 -->
+        <view wx:if="{{showSearchResults}}" class="absolute left-0 right-0 z-50 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden" style="top: calc(100% + 8px); max-height: 50vh;">
+          <scroll-view scroll-y class="w-full h-full" style="max-height: 50vh;">
+            <view class="flex flex-col">
+              <view wx:if="{{searchResults.length === 0 && !isSearching}}" class="px-4 py-4 text-center text-xs text-gray-400">
+                暂无相关数据
+              </view>
+              <view wx:for="{{searchResults}}" wx:key="id" class="px-4 py-3 border-b border-gray-50 flex items-center justify-between active:bg-gray-50" bindtap="onSelectSearchResult" data-item="{{item}}">
+                <text class="text-sm text-gray-700 truncate flex-1">{{item.title}}</text>
+                <text class="text-10 text-orange-main border border-orange-main rounded px-1 ml-2 flex-shrink-0">{{item.type}}</text>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+      <view class="w-18 flex-shrink-0"></view>
+    </view>
+  </view>
+
+  <!-- 占位符 (根据导航总高度) -->
+  <view style="height: {{statusBarHeight + navBarHeight}}px;"></view>
+
+  <!-- Scroll View -->
+  <scroll-view scroll-y class="h-full relative z-10" bindscroll="onPageScrollEvent" enhanced="{{true}}" show-scrollbar="{{false}}">
+    <!-- 3. Banner 轮播图区域（数据到位后再挂载 swiper，避免空列表异步填充后不渲染） -->
+    <view class="relative px-4 pt-2 mt-4">
+      <view wx:if="{{bannerLoading}}" class="h-40 w-full overflow-hidden rounded-2xl bg-gray-200 shadow-md"></view>
+      <block wx:elif="{{bannerList.length > 0}}">
+        <swiper
+          key="home-banner-{{bannerSwiperKey}}"
+          class="h-40 w-full overflow-hidden rounded-2xl bg-gray-200 shadow-md"
+          indicator-dots="{{false}}"
+          autoplay="{{bannerList.length > 1}}"
+          circular="{{bannerList.length > 1}}"
+          interval="{{4000}}"
+          bindchange="onBannerChange">
+          <swiper-item wx:for="{{bannerList}}" wx:key="id">
+            <image src="{{item.imgUrl}}" mode="aspectFill" class="h-full w-full" show-menu-by-longpress="{{false}}"></image>
+          </swiper-item>
+        </swiper>
+
+        <!-- 底部黑色渐变遮罩 -->
+        <view class="pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-14 bg-gradient-to-t"></view>
+
+        <!-- 指示器 (圆点) -->
+        <view wx:if="{{bannerList.length > 1}}" class="absolute bottom-10 right-8 z-20 flex items-center gap-1">
+          <view wx:for="{{bannerList}}" wx:key="id"
+            class="h-1-5 rounded-full bg-white shadow-sm backdrop-blur-sm transition-all duration-300 {{currentBannerIndex === index ? 'w-4 opacity-100' : 'w-1-5 opacity-60'}}"></view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 4. 主要内容大背景板 -->
+    <view class="relative z-20 min-h-screen overflow-hidden rounded-t-40 px-4 pt-2 -mt-6">
+      <!-- 下方背景图 -->
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg_down.png"
+        class="absolute inset-0 z-0 h-full w-full" mode="scaleToFill"></image>
+
+      <!-- 4.1 金刚区 -->
+      <view class="relative z-10 mb-2 flex items-start justify-between rounded-2xl px-2 py-4">
+        <view wx:for="{{menuList}}" wx:key="title"
+          class="flex flex-1 flex-col items-center gap-2 backdrop-blur-xl" bindtap="handleMenuClick" data-path="{{item.path}}">
+          <image src="{{item.icon}}" class="h-15 w-15" mode="aspectFit"></image>
+          <text class="text-xs text-gray-700 font-bold">{{item.title}}</text>
+        </view>
+      </view>
+
+      <view class="relative z-10 mb-4 border border-orange-100-50 rounded-2xl bg-gradient-to-r p-1 shadow-sm">
+        <view class="relative h-42 w-full overflow-hidden rounded-xl bg-orange-50" bindtap="handleHonorClick">
+          <image src="{{honorCard.imgUrl}}" mode="aspectFill" class="h-full w-full"></image>
+        </view>
+      </view>
+
+      <view class="relative z-10 mb-1 pb-20">
+        <view class="relative h-40 w-full overflow-hidden rounded-24 bg-card shadow-sm transition-all active-scale-98"
+          bindtap="navigateToVolunteer">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/volunteer_person.png" mode="aspectFill" class="h-full w-full"></image>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  
+  <!-- 自定义全局登录弹窗 -->
+  <login-modal id="global-login-modal" />
+</view>
+
+
+<!-- 动态注入返回智慧党建飘窗 -->
+<global-home-btn />
+
+<!-- 动态注入子包底部导航栏 -->
+<nxyc-tabbar role="user" selected="0" />

@@ -1,0 +1,47 @@
+<view class="page-container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/checkin_bg.png" class="bg-img" mode="scaleToFill" />
+
+  <!-- CUSTOM NAV BAR -->
+  <view class="custom-nav" style="padding-top: {{safeAreaTop}}px; background-color: {{scrollTop > 50 ? '#e6d144' : 'transparent'}};">
+    <view class="nav-left">
+      <view class="nav-back active-scale" bindtap="handleBack"><view class="i-back"></view></view>
+    </view>
+    <view class="nav-title">长宁区新就业群体详情</view>
+    <view class="nav-right active-scale" bindtap="handleSearch"><view class="i-search"></view></view>
+  </view>
+
+  <scroll-view scroll-y class="main-scroll" show-scrollbar="{{false}}" bindscroll="onScroll">
+    <view class="content-padding" style="padding-top: {{safeAreaTop + 44 + 20}}px;">
+
+      <view class="stats-card">
+        <view class="stats-header">
+          <view class="stats-info">
+            <text class="stats-label">实时分布统计</text>
+            <view class="stats-total">{{totalCount}} <text class="unit">人</text></view>
+          </view>
+          <view class="icon-wrap"><view class="i-analytics"></view></view>
+        </view>
+        
+        <view class="chart-area">
+          <view class="chart-col" wx:for="{{statsChart}}" wx:key="label">
+            <view class="bar-track" style="height: {{item.percent}}%;">
+              <view class="bar-line"></view>
+              <text class="bar-val">{{item.count}}</text>
+            </view>
+            <text class="bar-label">{{item.label}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="section-title">各街道人员登记分布</view>
+      
+      <view class="list-card">
+        <view class="list-item active-scale-light" wx:for="{{districts}}" wx:key="name" bindtap="handleToPersonnelDetails" data-name="{{item.name}}">
+          <text class="district-name">{{item.name}}</text>
+          <view class="district-count">{{item.count}} 人</view>
+        </view>
+      </view>
+
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,64 @@
+.bg-white { background-color: #ffffff; }
+.min-h-screen { min-height: 100vh; display: flex; flex-direction: column; }
+.fixed { position: fixed; z-index: 50; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.flex-1 { flex: 1; }
+.w-full { width: 100%; box-sizing: border-box; }
+.box-border { box-sizing: border-box; }
+
+.left-0 { left: 0; }
+.right-0 { right: 0; }
+.top-0 { top: 0; }
+.left-2 { left: 16rpx; }
+
+.h-11 { height: 88rpx; }
+.h-8 { height: 64rpx; }
+.w-8 { width: 64rpx; }
+.w-1px { width: 2rpx; }
+.h-2 { height: 16rpx; }
+
+.px-4 { padding-left: 32rpx; padding-right: 32rpx; }
+.px-5 { padding-left: 40rpx; padding-right: 40rpx; }
+.pt-6 { padding-top: 48rpx; }
+.pb-12 { padding-bottom: 96rpx; }
+.mb-8 { margin-bottom: 64rpx; }
+.mb-3 { margin-bottom: 24rpx; }
+.gap-3 { gap: 24rpx; }
+
+.rounded-full { border-radius: 9999px; }
+.bg-black-5 { background-color: rgba(0,0,0,0.05); }
+.bg-gray-200 { background-color: #e5e7eb; }
+
+.text-2xl { font-size: 48rpx; }
+.text-lg { font-size: 36rpx; }
+.text-xs { font-size: 24rpx; }
+
+.text-gray-900 { color: #111827; }
+.text-gray-400 { color: #9ca3af; }
+.font-bold { font-weight: bold; }
+.text-center { text-align: center; }
+
+/* Rich Text Styles Simulation for SCSS parsing */
+.protocol-rich-text {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #4b5563; /* text-gray-600 */
+  line-height: 1.8;
+  font-size: 28rpx;
+}
+
+/* WXMP limits CSS deep selectors inside rich-text. 
+   We pre-parse tags into classes or use inline styles in the JS data string below */
+.i-carbon-chevron-left {
+  width: 48rpx;
+  height: 48rpx;
+  background-color: #111827;
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M10%2016L20%206l1.4%201.4l-8.6%208.6l8.6%208.6L20%2026z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M10%2016L20%206l1.4%201.4l-8.6%208.6l8.6%208.6L20%2026z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}

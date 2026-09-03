@@ -1,0 +1,202 @@
+<view class="relative h-screen w-full flex flex-col pt-safe">
+  <image
+    src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png"
+    class="absolute inset-0 z-0 h-full w-full" mode="scaleToFill"
+  />
+
+  <view class="relative z-10 flex-none px-4 pb-8 pt-12">
+    <view class="flex items-center justify-between">
+      <view class="flex items-center gap-2">
+        <image
+          src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo.png" mode="heightFix"
+          class="h-6 w-6 flex-shrink-0"
+        />
+        <image
+          src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo_title.png" mode="heightFix"
+          class="h-4 w-16 flex-shrink-0"
+        />
+      </view>
+      <view class="mx-3 h-8 flex flex-1 items-center"></view>
+      <view class="w-20"></view>
+    </view>
+  </view>
+
+  <view class="relative z-20 min-h-0 w-full flex flex-1 flex-col overflow-hidden rounded-t-40rpx">
+    <image
+      src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg_down.png"
+      class="absolute inset-0 z-0 h-full w-full" mode="scaleToFill"
+    />
+
+    <scroll-view scroll-y class="relative z-10 h-0 w-full flex-1 scroll-view-content pt-1" show-scrollbar="{{false}}">
+      <view class="px-4 pt-6 pb-safe">
+        <view class="relative mb-4 overflow-hidden rounded-2xl bg-white p-4 shadow-sm" bindtap="handleToSiteOverview" hover-class="opacity-80">
+          <image src="{{titleImages.site}}" mode="heightFix" class="absolute left-0 top-0 z-10 h-11 w-auto" />
+
+          <view class="absolute right-4 top-4 flex items-center gap-1">
+            <text class="text-xl text-orange-high font-bold">{{ siteData.total }}</text>
+            <text class="text-sm text-brown-dark font-bold">个</text>
+          </view>
+
+          <view class="flex items-stretch pt-12">
+            <view class="flex flex-col">
+              <view
+                wx:for="{{siteChartList}}" wx:key="index"
+                class="mb-5 h-9 w-9 flex items-center justify-center {{index === siteChartList.length - 1 ? 'mb-0' : ''}}"
+              >
+                <text class="whitespace-pre-wrap text-center text-xs text-brown-dark font-bold leading-tight">{{ item.label }}</text>
+              </view>
+            </view>
+            <view class="relative w-1px flex-shrink-0 bg-gray-500"></view>
+            <view class="relative flex-1">
+              <view
+                class="absolute inset-0 z-0 chart-bg-pattern"
+              ></view>
+              <view class="relative z-10 flex flex-col pl-0-5">
+                <view
+                  wx:for="{{siteChartList}}" wx:for-item="row" wx:key="index"
+                  class="mb-5 h-9 w-full flex items-center {{index === siteChartList.length - 1 ? 'mb-0' : ''}}"
+                >
+                  <view class="relative h-full w-full flex items-center">
+                    <block wx:if="{{row.type === 'composite'}}">
+                      <view class="relative h-full w-full">
+                        <view
+                          wx:for="{{row.segments}}" wx:for-item="seg" wx:for-index="i" wx:key="i"
+                          class="absolute left-0 top-1-2 h-full flex items-center overflow-hidden whitespace-nowrap border border-white-20 rounded-xl px-2 text-10px font-bold shadow-sm transition-all duration-500 transform-y-half justify-end"
+                          style="width: {{seg.width}}; background-color: {{seg.bg}}; color: {{seg.textColor}}; z-index: {{i}}"
+                        >
+                          {{ seg.text }}
+                        </view>
+                      </view>
+                    </block>
+                    <block wx:else>
+                      <view
+                        class="h-full flex items-center rounded-xl px-3 text-xs font-bold shadow-sm transition-all duration-500 justify-end"
+                        style="width: {{row.width}}; background-color: {{row.barColor}}; color: {{row.textColor}};"
+                      >
+                        <view class="mr-2 flex items-end gap-2px opacity-80">
+                          <view class="w-2px rounded-xl" style="height: 6px; background-color: {{row.textColor}}" />
+                          <view class="w-2px rounded-xl" style="height: 12px; background-color: {{row.textColor}}" />
+                          <view class="w-2px rounded-xl" style="height: 10px; background-color: {{row.textColor}}" />
+                        </view>
+                        {{ row.value }}
+                      </view>
+                    </block>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="relative mb-4 overflow-hidden rounded-2xl bg-white p-4 shadow-sm" bindtap="handleToEmploymentDetails" hover-class="opacity-80">
+          <image src="{{titleImages.group}}" mode="heightFix" class="absolute left-0 top-0 z-10 h-11 w-auto" />
+
+          <view class="flex items-center justify-between pt-5">
+            <view class="flex flex-col gap-2 minus-top-10">
+              <view wx:for="{{employmentData.groups}}" wx:key="index" class="flex items-center gap-2">
+                <view class="h-2 w-2 rounded-full" style="background-color: {{item.color}}" />
+                <text class="text-sm text-gray-600">{{ item.name }}</text>
+              </view>
+            </view>
+
+            <view class="relative h-45 w-45 flex items-center justify-center minus-top-5">
+              <view
+                class="absolute inset-0 h-full w-full"
+                style="background-image: url('{{chartSvgUrl}}'); background-repeat: no-repeat; background-position: center; background-size: contain;"
+              />
+
+              <view class="absolute inset-0 z-10 flex flex-col items-center justify-center">
+                <view class="service-modal-icon mb-1 text-xl text-orange-400"></view>
+                <view class="flex items-baseline">
+                  <text class="text-2xl text-orange-500 font-bold leading-none">{{workerTotal}}</text>
+                  <text class="ml-0-5 text-xs text-gray-400">人</text>
+                </view>
+              </view>
+
+              <view
+                wx:for="{{chartLabels}}"
+                wx:key="index"
+                class="absolute flex items-center justify-center text-9px text-white font-bold"
+                style="left:{{item.x}}%; top:{{item.y}}%;transform:translate(-50%,-50%) rotate({{item.rotate}}deg);"
+              >
+                {{ item.text }}
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="relative mb-4 overflow-hidden rounded-2xl bg-white shadow-sm" style="padding: 16px; padding-top: 48px;" bindtap="handleToActiveBoard" hover-class="opacity-70">
+          <image src="{{titleImages.active}}" mode="heightFix" class="absolute left-0 top-0 z-10 h-11 w-auto" />
+
+          <view style="display: flex; align-items: stretch;">
+            <!-- Left Side -->
+            <view style="width: 44%; background-color: #f6faf0; border-radius: 12px; padding: 14px 10px; flex-shrink: 0; box-sizing: border-box;">
+              <text style="font-size: 14px; color: #555555; font-weight: bold; display: block; margin-bottom: 20px; padding-left: 4px;">全区活跃程度</text>
+              <view style="display: flex; justify-content: space-around; width: 100%;">
+                
+                <!-- 第一项 -->
+                <view style="display: flex; flex-direction: column; align-items: center;">
+                  <view style="width: 42px; height: 42px; border-radius: 50%; background-color: #badc2e; box-shadow: 0 0 0 5px #e2f2a7; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+                    <!-- User Provided Flag Icon -->
+                    <image src="data:image/svg+xml,%3Csvg%20t%3D%221774939169648%22%20class%3D%22icon%22%20viewBox%3D%220%200%201024%201024%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20p-id%3D%225218%22%20width%3D%22200%22%20height%3D%22200%22%3E%3Cpath%20d%3D%22M832.056889%2058.083556a10.126222%2010.126222%200%200%200-10.467556%200.625777%20428.145778%20428.145778%200%200%201-175.559111%2072.192c-3.811556%200-7.623111-0.227556-11.377778-0.739555a272.156444%20272.156444%200%200%201-73.557333-23.552%20279.722667%20279.722667%200%200%200-122.424889-29.411556h-12.458666c-61.44%203.072-122.311111%2014.108444-180.963556%2032.881778l-12.117333-13.084444a10.126222%2010.126222%200%200%200-11.377778-2.446223l-44.657778%2018.545778a10.126222%2010.126222%200%200%200-5.688889%2011.889778l214.812445%20834.446222a10.126222%2010.126222%200%200%200%2017.066666%204.721778l51.655111-50.574222a10.126222%2010.126222%200%200%200%202.844445-9.329778c-0.455111-2.161778-45.511111-214.926222-48.412445-262.769778a97.507556%2097.507556%200%200%201%2027.591112-71.68%20184.945778%20184.945778%200%200%201%20141.539555-47.672889%20413.070222%20413.070222%200%200%200%20123.392-17.408c28.444444-8.647111%2055.296-21.674667%2079.644445-38.684444%2022.528-14.961778%2041.472-34.702222%2055.466666-57.799111a10.126222%2010.126222%200%200%200%201.137778-4.664889V67.072a10.126222%2010.126222%200%200%200-5.688889-8.931556l-0.398222-0.056888z%22%20fill%3D%22%23ffffff%22%20p-id%3D%225219%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E" style="width: 24px; height: 24px;" mode="aspectFit" />
+                  </view>
+                  <text style="font-size: 18px; font-weight: bold; color: #333333; line-height: 1;">{{activeData.totalAct}}</text>
+                  <text style="font-size: 10px; color: #666666; text-align: center; margin-top: 5px; line-height: 1.2;">活动参与\n总计</text>
+                </view>
+
+                <!-- 第二项 -->
+                <view style="display: flex; flex-direction: column; align-items: center;">
+                  <view style="width: 42px; height: 42px; border-radius: 50%; background-color: #badc2e; box-shadow: 0 0 0 5px #e2f2a7; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+                    <!-- User Provided Ticket Icon -->
+                    <image src="data:image/svg+xml,%3Csvg%20t%3D%221774939246338%22%20class%3D%22icon%22%20viewBox%3D%220%200%201024%201024%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20p-id%3D%2213535%22%20width%3D%22200%22%20height%3D%22200%22%3E%3Cpath%20d%3D%22M821.333333%20138.666667c64.8%200%20117.333333%2052.533333%20117.333334%20117.333333v149.333333a32%2032%200%200%201-32%2032%2074.666667%2074.666667%200%200%200%200%20149.333334%2032%2032%200%200%201%2032%2032v149.333333c0%2064.8-52.533333%20117.333333-117.333334%20117.333333H202.666667c-64.8%200-117.333333-52.533333-117.333334-117.333333V618.666667a32%2032%200%200%201%2032-32%2074.666667%2074.666667%200%200%200%200-149.333334%2032%2032%200%200%201-32-32V256c0-64.8%2052.533333-117.333333%20117.333334-117.333333h618.666666zM640%20565.333333H384a32%2032%200%200%200%200%2064h256a32%2032%200%200%200%200-64z%20m0-170.666666H384a32%2032%200%200%200%200%2064h256a32%2032%200%200%200%200-64z%22%20fill%3D%22%23ffffff%22%20p-id%3D%2213536%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E" style="width: 24px; height: 24px;" mode="aspectFit" />
+                  </view>
+                  <text style="font-size: 18px; font-weight: bold; color: #333333; line-height: 1;">{{activeData.totalRed}}</text>
+                  <text style="font-size: 10px; color: #666666; text-align: center; margin-top: 5px; line-height: 1.2;">券类核销\n总计</text>
+                </view>
+              </view>
+            </view>
+
+            <!-- Right Side -->
+            <view style="flex: 1; margin-left: 16px; display: flex; flex-direction: column; justify-content: space-around; padding: 2px 0;">
+              <block wx:for="{{activeData.list}}" wx:key="name">
+                <view style="display: flex; flex-direction: column; {{index !== activeData.list.length - 1 ? 'border-bottom: 1px solid #eeeeee; padding-bottom: 12px; margin-bottom: 12px;' : ''}}">
+                  
+                  <view style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <text style="font-size: 15px; color: #555555; font-weight: bold;">{{item.name}}</text>
+                    
+                    <view style="display: flex; align-items: center;">
+                      <image wx:if="{{index === 0}}" src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/rank_1.png" style="width: 24px; height: 16px;" mode="aspectFit" />
+                      <image wx:elif="{{index === 1}}" src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/rank_2.png" style="width: 24px; height: 16px;" mode="aspectFit" />
+                    </view>
+                  </view>
+
+                  <view style="display: flex; align-items: center; justify-content: flex-start; width: 100%;">
+                    <view style="display: flex; align-items: baseline; width: 50%;">
+                      <view style="width: 6px; height: 6px; border-radius: 50%; background-color: #fca814; margin-right: 5px; position: relative; top: -1px; flex-shrink: 0;"></view>
+                      <text style="font-size: 12px; color: #777777; margin-right: 6px;">活动</text>
+                      <text style="font-size: 17px; font-weight: bold; color: #4a3424;">{{item.act}}</text>
+                    </view>
+                    <view style="display: flex; align-items: baseline; width: 50%;">
+                      <view style="width: 6px; height: 6px; border-radius: 50%; background-color: #fc6814; margin-right: 5px; position: relative; top: -1px; flex-shrink: 0;"></view>
+                      <text style="font-size: 12px; color: #777777; margin-right: 6px;">核销</text>
+                      <text style="font-size: 17px; font-weight: bold; color: #4a3424;">{{item.red}}</text>
+                    </view>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </view>
+        </view>
+
+        <view style="height: 80px;" />
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+
+<!-- 动态注入返回智慧党建飘窗 -->
+<global-home-btn />
+
+<!-- 动态注入子包底部导航栏 -->
+<nxyc-tabbar role="admin" selected="1" />

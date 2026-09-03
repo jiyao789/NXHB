@@ -1,0 +1,169 @@
+<view class="page-container">
+  
+  <image
+    src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/checkin_bg.png"
+    class="bg-img"
+    mode="scaleToFill"
+  />
+
+  <view class="custom-nav" style="padding-top: {{safeAreaTop}}px; background-color: {{scrollTop > 50 ? '#e6d144' : 'transparent'}};">
+    <view class="nav-content">
+      <view class="nav-back" hover-class="btn-hover" bindtap="handleBack">
+        <view class="i-carbon-chevron-left icon-back"></view>
+      </view>
+      <view class="nav-title">我来报到</view>
+    </view>
+  </view>
+
+  <view style="height: {{safeAreaTop + 44}}px;" />
+
+  <view class="main-content" wx:if="{{userInfo && taskInfo}}">
+    
+    <view class="header-card">
+      <view class="badge-container">
+           <image 
+              src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/badge_hex_bottom.png" 
+              class="badge-shadow" 
+              mode="aspectFit" 
+           />
+           <image 
+              src="{{userInfo.badgeUrl}}" 
+              class="badge-img" 
+              mode="aspectFit" 
+           />
+      </view>
+
+      <view class="header-info">
+          <view class="header-title-row">
+              <text class="header-title">每日签到</text>
+              <view class="help-icon-wrapper" hover-class="opacity-60" bindtap="toggleRules">
+                  <view class="i-carbon-help help-icon"></view>
+              </view>
+          </view>
+
+          <view class="streak-row">
+              <text class="streak-text">已经连续签到</text>
+              <text class="streak-days">{{ userInfo.continueDays }}</text>
+              <text class="streak-text">天</text>
+          </view>
+          
+          <button 
+              bindtap="handleSignIn"
+              disabled="{{isTodaySigned}}"
+              hover-class="btn-active"
+              class="sign-btn {{isTodaySigned ? 'is-signed' : ''}}"
+          >
+              {{ isTodaySigned ? '已签到' : '立即签到' }}
+          </button>
+      </view>
+    </view>
+
+
+    <view class="curve-container">
+        <image 
+          src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/curve_line.png" 
+          class="curve-img" 
+          mode="scaleToFill" 
+        />
+        <text class="curve-rank">{{ userInfo.rankName }}</text>
+    </view>
+
+    <view class="distance-text">
+        距离获得xx徽章/称号还有
+    </view>
+
+    <view class="days-section">
+        <view class="days-row">
+          <view wx:for="{{userInfo.weekDays}}" wx:key="index" class="day-item">
+              
+              <view wx:if="{{item.isSigned}}" class="day-box is-signed">
+                  <view class="i-carbon-checkmark check-icon"></view>
+              </view>
+
+              <view wx:else class="day-box">
+                  <view class="hex-inner">
+                      <view class="hex-bg dark"></view>
+                      <view class="hex-bg light"></view>
+                      <text class="hex-score">+{{ item.points }}</text>
+                  </view>
+              </view>
+              <text class="day-label">{{ item.date }}</text>
+          </view>
+        </view>
+    </view>
+
+    <view class="task-card">
+        <view class="card-header">
+          <view class="card-title">今日任务</view>
+          <view class="i-carbon-renew refresh-icon" hover-class="rotate-180"></view>
+        </view>
+
+        <view class="task-list">
+          <view wx:for="{{taskInfo.dailyTasks}}" wx:key="index" class="task-item">
+              <image src="{{item.icon}}" class="task-icon" mode="aspectFit" />
+              <view class="task-info">
+                  <view class="task-name">{{ item.title }}</view>
+                  <view class="task-points-wrap">
+                      <view class="task-points-pill">
+                          <text class="points-text">+{{ item.points }}积分</text>
+                      </view>
+                      <image 
+                          src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/icon_star.png" 
+                          class="star-icon" 
+                          mode="aspectFit"
+                      />
+                  </view>
+              </view>
+              <button class="task-btn {{item.isCompleted ? 'is-completed' : ''}}" hover-class="{{item.isCompleted ? '' : 'btn-active'}}" bindtap="handleTaskClick" data-item="{{item}}">
+                  {{ item.btnText }}
+              </button>
+          </view>
+        </view>
+    </view>
+    
+    <view class="task-card" wx:if="{{taskInfo.specialTask}}">
+        <view class="special-task-line">
+           <view class="card-title mb-16rpx">特殊任务</view>
+           <view class="task-item">
+              <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/task_icon2.png" class="task-icon" mode="aspectFit" />
+              <view class="task-info">
+                  <view class="task-name">{{ taskInfo.specialTask.title }}</view>
+                  <view class="task-points-wrap">
+                      <view class="task-points-pill">
+                          <text class="points-text">+{{ taskInfo.specialTask.points }}积分</text>
+                      </view>
+                      <image 
+                          src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/icon_star.png" 
+                          class="star-icon" 
+                          mode="aspectFit"
+                      />
+                  </view>
+              </view>
+              <button class="task-btn {{taskInfo.specialTask.isCompleted ? 'is-completed' : ''}}" hover-class="{{taskInfo.specialTask.isCompleted ? '' : 'btn-active'}}" bindtap="handleTaskClick" data-item="{{taskInfo.specialTask}}">
+                  {{ taskInfo.specialTask.btnText }}
+              </button>
+           </view>
+        </view>
+    </view>
+
+  </view>
+
+  <view wx:if="{{showRules}}" class="modal-overlay" catchtouchmove="preventTouch">
+      <view class="modal-content">
+          <text class="modal-title">签到规则</text>
+          
+          <scroll-view scroll-y class="modal-scroll">
+              <view wx:if="{{userInfo && userInfo.signInRules}}">
+                   <view wx:for="{{userInfo.signInRules}}" wx:key="index" class="rule-item">
+                      <text class="rule-num">{{ index + 1 }}.</text>
+                      <text class="rule-text">{{ item }}</text>
+                   </view>
+              </view>
+          </scroll-view>
+
+          <button class="modal-close-btn" hover-class="btn-active" bindtap="toggleRules">
+              我知道了
+          </button>
+      </view>
+  </view>
+</view>

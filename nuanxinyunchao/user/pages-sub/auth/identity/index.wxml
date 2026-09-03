@@ -1,0 +1,44 @@
+<view class="min-h-screen flex flex-col pb-safe relative">
+  
+  <!-- 全局背景图 -->
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="fixed inset-0 h-full w-full -z-10" mode="scaleToFill"></image>
+
+  <!-- 导航栏 -->
+  <view class="fixed left-0 right-0 top-0 z-50 px-4" style="padding-top: {{safeAreaTop}}px;">
+    <view class="h-11 flex items-center">
+      <view class="flex items-center gap-1 py-1 pr-3 rounded-full" hover-class="bg-black-10" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900"></view>
+        <text class="text-sm text-gray-800 font-medium">返回</text>
+      </view>
+    </view>
+  </view>
+  <view style="height: {{safeAreaTop + 44}}px;"></view>
+
+  <!-- 标题 -->
+  <view class="mb-6 mt-4 px-6">
+    <text class="mb-2 block text-2xl text-7a380d font-bold">请选择您的身份</text>
+    <text class="text-sm text-5f4c3f">方便我们为您提供更准确的服务</text>
+  </view>
+
+  <!-- 选项列表 -->
+  <view class="flex flex-col gap-2-5 px-4 overflow-y-auto pb-5">
+    <view wx:for="{{roles}}" wx:key="index" class="relative h-28 flex items-center justify-end rounded-2xl bg-white pr-4 shadow-sm transition-all border-2 {{selectedRole === index ? 'border-orange-identity' : 'border-transparent'}}" hover-class="scale-99" bindtap="handleSelect" data-index="{{index}}">
+      
+      <!-- 左侧人物插画 -->
+      <image src="{{item.img}}" class="absolute bottom-0 left-2 w-24 h-full" mode="aspectFit"></image>
+
+      <!-- 右侧内容区域 -->
+      <view class="flex items-center gap-4 z-10 pl-28"> 
+        
+        <!-- 身份名称 -->
+        <text class="text-lg text-gray-800 font-bold">{{ item.name }}</text>
+
+        <!-- 选中状态圈圈 -->
+        <view class="h-6 w-6 rounded-full flex items-center justify-center border-2 border-solid transition-colors duration-200 z-50 {{selectedRole === index ? 'bg-orange-identity border-orange-identity' : 'bg-transparent border-orange-identity'}}">
+          <view wx:if="{{selectedRole === index}}" class="i-carbon-checkmark text-white text-sm font-bold"></view>
+        </view>
+
+      </view>
+    </view>
+  </view>
+</view>

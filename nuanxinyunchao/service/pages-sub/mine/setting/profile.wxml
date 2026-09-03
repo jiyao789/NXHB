@@ -1,0 +1,143 @@
+<view class="page-container">
+  
+  <view class="nav-fixed" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-content" style="height: {{navBarHeight}}px;">
+      <view class="back-btn" hover-class="bg-active" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">资料修改</text>
+    </view>
+  </view>
+  
+  <view class="nav-placeholder" style="height: {{statusBarHeight + navBarHeight}}px;"></view>
+
+  <view class="main-content">
+    <view class="profile-card">
+      
+      <view class="row-item" hover-class="bg-active" bindtap="editAvatar">
+        <text class="label-text">头像</text>
+        <image src="{{userInfo.avatar}}" class="avatar-img" mode="aspectFill" />
+      </view>
+
+      <view class="divider-mx"></view>
+
+      <view 
+        wx:for="{{profileList}}" 
+        wx:key="index" 
+        class="row-item relative {{isEditing && !item.readonly ? 'editing' : ''}}" 
+        hover-class="{{isEditing && !item.readonly ? 'none' : 'bg-active'}}"
+      >
+        <text class="label-text">{{item.label}}</text>
+        
+        <block wx:if="{{isEditing && !item.readonly}}">
+          <view 
+            wx:if="{{item.key === 'openingHours'}}"
+            class="value-picker"
+            bindtap="openHoursDrawer"
+          >
+            <view class="value-text orange-main">{{item.value}}</view>
+          </view>
+          <input 
+            wx:else
+            class="value-input" 
+            value="{{item.value}}" 
+            data-index="{{index}}" 
+            bindinput="onInputChange" 
+            placeholder="请输入{{item.label}}"
+          />
+        </block>
+        <block wx:else>
+          <text class="value-text">{{item.value}}</text>
+        </block>
+
+        <view wx:if="{{index < profileList.length - 1}}" class="divider-absolute"></view>
+      </view>
+
+      <!-- 党群中心图片集 (仅党群中心展示) -->
+      <block wx:if="{{userInfo.rolesId === 7}}">
+        <view class="divider-mx"></view>
+        <view class="row-section">
+          <view class="section-header">
+            <text class="label-text">党群图片集</text>
+            <text class="count-tag">{{imageCollection.length}}/9</text>
+          </view>
+          
+          <view class="image-grid">
+            <view 
+              class="image-item" 
+              wx:for="{{imageCollection}}" 
+              wx:key="index"
+            >
+              <image src="{{item}}" mode="aspectFill" class="grid-img" bindtap="previewImage" data-url="{{item}}" />
+              <view 
+                wx:if="{{isEditing}}" 
+                class="btn-delete" 
+                bindtap="removeCollectionImg" 
+                data-index="{{index}}"
+              >×</view>
+            </view>
+            
+            <view 
+              wx:if="{{isEditing && imageCollection.length < 9}}" 
+              class="image-item btn-add" 
+              bindtap="chooseCollection"
+            >
+              <text class="plus-icon">+</text>
+              <text class="add-text">添加图片</text>
+            </view>
+          </view>
+        </view>
+      </block>
+
+    </view>
+
+    <!-- 编辑/保存按钮 -->
+    <view class="edit-footer">
+      <view wx:if="{{!isEditing}}" class="btn-edit" hover-class="opacity-80" bindtap="toggleEdit">
+        编辑资料
+      </view>
+      <view wx:else class="btn-save" hover-class="opacity-80" bindtap="saveProfile">
+        保存修改
+      </view>
+    </view>
+  </view>
+
+  <!-- 营业时间自定义抽屉 -->
+  <view class="drawer-mask" wx:if="{{showHoursDrawer}}" bindtap="closeHoursDrawer" catchtouchmove="true"></view>
+  <view class="drawer-content {{showHoursDrawer ? 'show' : ''}}" catchtouchmove="true">
+    <view class="drawer-header">
+      <view class="drawer-cancel" bindtap="closeHoursDrawer">取消</view>
+      <text class="drawer-title">选择营业时间</text>
+      <view class="drawer-confirm" bindtap="confirmHours">确定</view>
+    </view>
+    <view class="drawer-body">
+      <view class="section-title">选择营业日期 (多选)</view>
+      <view class="week-list">
+        <view 
+          wx:for="{{weekOptions}}" 
+          wx:key="value" 
+          class="week-item {{item.selected ? 'active' : ''}}" 
+          bindtap="toggleWeek" 
+          data-index="{{index}}"
+        >
+          <text class="week-label">{{item.label}}</text>
+        </view>
+      </view>
+
+      <view class="section-title">选择起止时间</view>
+      <view class="time-picker-row">
+        <picker mode="time" value="{{tempStartTime}}" bindchange="onStartTimeChange" class="time-picker">
+          <view class="time-box">
+            <text class="time-val">{{tempStartTime}}</text>
+          </view>
+        </picker>
+        <view class="time-sep"></view>
+        <picker mode="time" value="{{tempEndTime}}" bindchange="onEndTimeChange" class="time-picker">
+          <view class="time-box">
+            <text class="time-val">{{tempEndTime}}</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+</view>

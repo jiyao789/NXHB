@@ -1,0 +1,231 @@
+<view class="container">
+  <!-- 全局背景图 -->
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="bg-fixed" mode="scaleToFill" />
+  <!-- 顶部导航栏 -->
+  <view class="navbar" style="background-color: {{scrollTop > 10 ? '#FDD835' : 'transparent'}}">
+    <view class="navbar-content">
+      <view class="logo-group">
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo.png" mode="heightFix" class="logo-icon" />
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo_title.png" mode="heightFix" class="logo-title" />
+      </view>
+
+      <view class="navbar-placeholder"></view>
+    </view>
+  </view>
+  <!-- 页面内容 -->
+  <view wx:if="{{!isLoading}}" class="content-wrapper {{isLoading ? '' : 'animate-fade-in'}}">
+    <!-- 暖心友好图标 -->
+    <view class="sub-header">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/icon_nxyh.png" mode="heightFix" class="nxyh-icon" />
+    </view>
+    <!-- 排名标题 -->
+    <view class="rank-header">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/rank_title.png" mode="heightFix" class="rank-title-img" />
+    </view>
+    <!-- Podium - Top 3 -->
+    <view class="podium">
+      <!-- ... (Top 3 items stay the same) ... -->
+      <view wx:if="{{topThree[1]}}" class="podium-item top2" data-id="{{topThree[1].id}}" data-subject-type="{{topThree[1].subjectType}}" bindtap="toTopDetail">
+        <view class="podium-card">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/rank_bg_2.png" class="card-bg" mode="scaleToFill" />
+          <view class="card-content">
+            <image src="{{topThree[1].image}}" class="avatar-top" mode="widthFix" />
+            <view class="card-info">
+              <view class="info-left">
+                <text class="name">{{topThree[1].name}}</text>
+                <text class="subtitle">{{topThree[1].subTitle}}</text>
+              </view>
+              <view class="info-right">
+                <text class="score">{{topThree[1].score}}</text>
+                <view class="heart-icon {{topThree[1].isLiked ? 'active' : ''}}"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{topThree[0]}}" class="podium-item top1" data-id="{{topThree[0].id}}" data-subject-type="{{topThree[0].subjectType}}" bindtap="toTopDetail">
+        <view class="podium-card large">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/rank_bg_1.png" class="card-bg" mode="scaleToFill" />
+          <view class="card-content">
+            <image src="{{topThree[0].image}}" class="avatar-top larger" mode="widthFix" />
+            <view class="card-info">
+              <view class="info-left">
+                <text class="name large">{{topThree[0].name}}</text>
+                <text class="subtitle">{{topThree[0].subTitle}}</text>
+              </view>
+              <view class="info-right">
+                <text class="score">{{topThree[0].score}}</text>
+                <view class="heart-icon large {{topThree[0].isLiked ? 'active' : ''}}"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{topThree[2]}}" class="podium-item top3" data-id="{{topThree[2].id}}" data-subject-type="{{topThree[2].subjectType}}" bindtap="toTopDetail">
+        <view class="podium-card">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/rank_bg_3.png" class="card-bg" mode="scaleToFill" />
+          <view class="card-content">
+            <image src="{{topThree[2].image}}" class="avatar-top" mode="widthFix" />
+            <view class="card-info">
+              <view class="info-left">
+                <text class="name">{{topThree[2].name}}</text>
+                <text class="subtitle">{{topThree[2].subTitle}}</text>
+              </view>
+              <view class="info-right">
+                <text class="score">{{topThree[2].score}}</text>
+                <view class="heart-icon {{topThree[2].isLiked ? 'active' : ''}}"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- Ranking List -->
+    <view class="rank-list-container">
+      <scroll-view scroll-y class="rank-list">
+        <block wx:for="{{listData}}" wx:key="id">
+          <view class="rank-item" data-id="{{item.id}}" data-subject-type="{{item.subjectType}}" bindtap="toTopDetail">
+            <image src="{{item.image}}" mode="aspectFill" class="rank-avatar" />
+            <view class="rank-name-container">
+              <text class="rank-name">{{item.name}}</text>
+            </view>
+            <view class="rank-stats">
+              <view class="stat-score-group">
+                <view class="heart-icon small {{item.isLiked ? 'active' : ''}}"></view>
+                <text class="stat-score">{{item.score}}</text>
+              </view>
+              <view class="trend-group">
+                <view class="trend-arrow"></view>
+                <text class="trend-text">{{item.trend}}</text>
+              </view>
+            </view>
+          </view>
+          <view wx:if="{{index < listData.length - 1}}" class="divider"></view>
+        </block>
+      </scroll-view>
+    </view>
+    <!-- Data Dashboard -->
+    <view class="dashboard">
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/hot/bg_down.png" class="dashboard-bg" mode="scaleToFill" />
+      <view class="dashboard-content">
+        <view class="data-title">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/data_title.png" class="data-title-img" mode="heightFix" />
+        </view>
+        <!-- 本月计划 -->
+        <view class="card plan-card" bindtap="toMonthPlan">
+          <view class="plan-header">
+            <view class="plan-label-group">
+              <text class="plan-label-single">本月</text>
+              <text class="plan-label-single">计划</text>
+            </view>
+            <text class="plan-total">{{monthlyPlan.total}}</text>
+            <text class="plan-unit">项</text>
+            <view class="plan-complete-group">
+              <view class="bars-icon">
+                <view class="bar bar1"></view>
+                <view class="bar bar2"></view>
+                <view class="bar bar3"></view>
+              </view>
+              <text class="complete-text">进行中</text>
+            </view>
+            <view class="flex-spacer"></view>
+            <view class="uncomplete-text">
+              未完成
+              <text class="uncomplete-num">
+                {{(monthlyPlan.total || 0) - (monthlyPlan.completed || 0)}}
+              </text>
+              项
+            </view>
+          </view>
+          <view class="progress-outer">
+            <view class="progress-track-bg"></view>
+            <view class="progress-bar-floating" style="width:{{(planPercent || 0) + '%'}}; min-width: 72rpx;">
+              <view class="arrow-right-white"></view>
+            </view>
+          </view>
+        </view>
+        <!-- Gauges - Activity / Service (Street Role) -->
+        <block wx:if="{{role === 'street'}}">
+          <view class="card gauge-card" data-type="1" bindtap="toData">
+            <view class="card-title">活动</view>
+            <view class="gauge-row">
+              <view wx:for="{{activityData}}" wx:key="label" class="gauge-item">
+                <view class="gauge-wrapper">
+                  <image src="{{item.svgUrl}}" class="gauge-svg" mode="aspectFit" />
+                  <view class="gauge-inner">
+                    <view class="gauge-icon-bg">
+                      <view class="gauge-icon {{item.icon}}"></view>
+                    </view>
+                    <text class="gauge-value">{{item.value}}</text>
+                  </view>
+                </view>
+                <text class="gauge-label">{{item.label}}</text>
+              </view>
+            </view>
+          </view>
+          <view class="card gauge-card card-last" data-type="2" bindtap="toData">
+            <view class="card-title">服务</view>
+            <view class="gauge-row">
+              <view wx:for="{{serviceData}}" wx:key="label" class="gauge-item">
+                <view class="gauge-wrapper">
+                  <image src="{{item.svgUrl}}" class="gauge-svg" mode="aspectFit" />
+                  <view class="gauge-inner">
+                    <view class="gauge-icon-bg green">
+                      <view class="gauge-icon {{item.icon}}"></view>
+                    </view>
+                    <text class="gauge-value">{{item.value}}</text>
+                  </view>
+                </view>
+                <text class="gauge-label">{{item.label}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+        <!-- Gauges - Discount (Merchant Role) -->
+        <block wx:if="{{role === 'merchant'}}">
+          <view class="card gauge-card card-last" data-type="3" bindtap="toData">
+            <view class="card-title">优惠</view>
+            <view class="gauge-row justify-center">
+              <view wx:for="{{discountData}}" wx:key="label" class="gauge-item">
+                <view class="gauge-wrapper">
+                  <image src="{{item.svgUrl}}" class="gauge-svg" mode="aspectFit" />
+                  <view class="gauge-inner">
+                    <view class="gauge-icon-bg orange">
+                      <view class="gauge-icon {{item.icon}}"></view>
+                    </view>
+                    <text class="gauge-value">{{item.value}}</text>
+                  </view>
+                </view>
+                <!-- Special labels for Merchant role gauges -->
+                <view wx:if="{{index === 0}}" class="gauge-sub-info">
+                  <view class="sub-info-item">
+                    <view class="dot yellow"></view>
+                    <text class="dot-text">兑换数量</text>
+                  </view>
+                </view>
+                <view wx:if="{{index === 1}}" class="gauge-sub-info">
+                  <view class="sub-info-item">
+                    <view class="dot yellow"></view>
+                    <text class="dot-text">已核销</text>
+                  </view>
+                  <view class="sub-info-item">
+                    <view class="dot gray"></view>
+                    <text class="dot-text">已兑换</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+  <!-- Padding for Tabbar -->
+  <view class="tabbar-placeholder"></view>
+</view>
+
+<!-- 动态注入返回智慧党建飘窗 -->
+<global-home-btn />
+
+<!-- 动态注入子包底部导航栏 -->
+<nxyc-tabbar role="service" selected="0" />

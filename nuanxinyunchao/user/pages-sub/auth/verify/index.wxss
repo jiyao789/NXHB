@@ -1,0 +1,10 @@
+@import "../../../styles/utilities.wxss";
+@import "../../../styles/icons.wxss";
+
+input {
+  height: 100%;
+}
+
+button::after {
+  border: none;
+}

@@ -1,0 +1,127 @@
+<view class="container">
+  <view class="nav-fixed" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-content">
+      <view class="back-btn" hover-class="bg-active" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">待审核</text>
+    </view>
+  </view>
+  <view class="nav-spacer" style="height: {{statusBarHeight + 44}}px;"></view>
+
+  <view class="content">
+    <view class="audit-card">
+      <view class="card-body">
+        <!-- 样式 A: 入驻申请 -->
+        <block wx:if="{{detail.type === 'application'}}">
+          <view class="info-row">
+            <text class="label">商家名称：</text>
+            <text class="value">{{detail.merchantName}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">经营地址：</text>
+            <text class="value">{{detail.address}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">负责人姓名：</text>
+            <text class="value">{{detail.leaderName}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">联系电话：</text>
+            <text class="value">{{detail.phone}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">统一社会信用代码：</text>
+            <text class="value">{{detail.unifiedCode}}</text>
+          </view>
+        </block>
+
+        <!-- 样式 B: 劵类 -->
+        <block wx:else>
+          <view class="coupon-brief">
+            <view class="coupon-main-info">
+              <text class="badge">{{detail.couponTypeName}}</text>
+              <text class="coupon-name">{{detail.title}}</text>
+            </view>
+            <view class="coupon-details">
+              <view class="detail-item">
+                <text class="d-label">券数值：</text>
+                <text class="d-value highlighted">{{detail.raw.templateType === 2 ? detail.couponValue + '折' : detail.couponValue + '元'}}</text>
+              </view>
+              <view class="detail-item">
+                <text class="d-label">门槛：</text>
+                <text class="d-value">{{detail.minConsume > 0 ? '满' + detail.minConsume + '可用' : '无门槛'}}</text>
+              </view>
+              <view class="detail-item">
+                <text class="d-label">发行量：</text>
+                <text class="d-value">{{detail.totalQuantity}}张</text>
+              </view>
+              <view class="detail-item">
+                <text class="d-value" wx:if="{{detail.validityType === 1}}">{{detail.fixedStartTime}} 至 {{detail.fixedEndTime}}</text>
+                <text class="d-value" wx:else>领取后 {{detail.daysAfterAcquire}} 天有效</text>
+              </view>
+              <view class="detail-item">
+                <text class="d-label">适用范围：</text>
+                <text class="d-value">{{detail.useScope === 2 ? '指定商品 (' + (detail.productName || '未填写') + ')' : '全店通用'}}</text>
+              </view>
+            </view>
+          </view>
+
+          <view class="divider" style="margin: 20rpx 0;"></view>
+
+          <view class="info-row">
+            <text class="label">所属商家：</text>
+            <text class="value">{{detail.merchantName || '未知商户'}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">经营地址：</text>
+            <text class="value">{{detail.address || '未填写'}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">负责人：</text>
+            <text class="value">{{detail.leaderName || '未填写'}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">信用代码：</text>
+            <text class="value">{{detail.unifiedCode || '未填写'}}</text>
+          </view>
+        </block>
+      </view>
+      
+      <view class="divider"></view>
+      
+      <view class="card-footer">
+        <text class="apply-time">申请时间：{{detail.time}}</text>
+        <view class="action-btns" wx:if="{{detail.status === 0}}">
+          <button class="btn-approve" hover-class="btn-active" bindtap="handleApprove">通过</button>
+          <button class="btn-reject" hover-class="btn-active" bindtap="handleReject">拒绝</button>
+        </view>
+        <view class="status-text" wx:else>
+          <text wx:if="{{detail.status === 1}}" style="color: #52c41a; font-weight: bold;">已通过</text>
+          <text wx:elif="{{detail.status === 2}}" style="color: #f5222d; font-weight: bold;">已拒绝</text>
+          <text wx:else style="color: #999; font-weight: bold;">已审核</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 拒绝原因抽屉 -->
+  <view class="mask {{showRejectDrawer ? 'active' : ''}}" bindtap="closeDrawer"></view>
+  <view class="reject-drawer {{showRejectDrawer ? 'show' : ''}}">
+    <view class="drawer-header">
+      <text class="drawer-label">原因：</text>
+    </view>
+    <view class="drawer-body">
+      <textarea 
+        class="reason-input" 
+        placeholder="请填写拒绝原因" 
+        placeholder-class="ph-style"
+        value="{{rejectReason}}"
+        bindinput="onReasonInput"
+        fixed="{{true}}"
+      ></textarea>
+      
+      <button class="btn-submit" hover-class="btn-active" bindtap="submitReject">提交</button>
+    </view>
+  </view>
+</view>

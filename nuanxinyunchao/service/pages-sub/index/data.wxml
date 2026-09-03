@@ -1,0 +1,143 @@
+<view class="page-container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="bg-fixed" mode="scaleToFill" />
+
+  <view class="top-header" style="padding-top: {{safeAreaTop + 10}}px;">
+    <view class="nav-title-box">
+      <view class="back-btn" hover-class="btn-hover" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title-text">{{ titleText }}</text>
+    </view>
+
+    <view class="tab-container">
+      <view class="tab-box">
+        <view class="tab-item {{tab === 1 ? 'active' : ''}}" data-val="1" bindtap="onTab">月度数据</view>
+        <view class="tab-item {{tab === 2 ? 'active' : ''}}" data-val="2" bindtap="onTab">年度数据</view>
+      </view>
+    </view>
+
+    <picker mode="date" fields="{{tab === 1 ? 'month' : 'year'}}" value="{{pickerValue}}" bindchange="onPeriodChange">
+      <view class="period-picker">
+        <text>{{ displayPeriod }}</text>
+        <view class="icon-down"></view>
+      </view>
+    </picker>
+
+    <view class="summary-box">
+      <text class="summary-val">{{ totalSales }}</text>
+      <text class="summary-label">总核销量</text>
+    </view>
+  </view>
+
+  <view class="main-content">
+    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg_down.png" class="content-bg" mode="scaleToFill" />
+
+    <scroll-view scroll-y class="scroll-area">
+      <view class="scroll-inner">
+        
+        <view wx:if="{{tab === 1}}" class="section-block">
+          <text class="section-title">月度概览</text>
+          <view class="grid-cards">
+            <view wx:for="{{overviewCards}}" wx:key="title" class="overview-card">
+              
+              <view class="card-top">
+                <view class="icon-box">
+                  <view class="card-icon {{item.iconClass}} {{item.gradientClass}}"></view>
+                </view>
+                <text class="card-title">{{item.title}}</text>
+              </view>
+              
+              <view class="card-divider"></view>
+              
+              <view class="card-bottom">
+                <view class="card-val-box">
+                  <text class="card-val">{{item.value}}</text>
+                </view>
+                <view class="card-delta-box">
+                  <text class="delta-text {{item.delta >= 0 ? 'text-green' : 'text-red'}}">{{item.deltaText}}%</text>
+                  <view wx:if="{{item.delta >= 0}}" class="icon-caret-up"></view>
+                  <view wx:else class="icon-caret-down"></view>
+                </view>
+              </view>
+              
+            </view>
+          </view>
+        </view>
+
+        <view wx:if="{{tab === 1}}" class="section-block">
+          <text class="section-title">每月核销对比（近6个月）</text>
+          <view class="chart-card">
+            <view class="bar-chart-container">
+              <view class="chart-lines">
+                <view wx:for="12345" wx:key="*this" class="chart-line-dashed"></view>
+              </view>
+              <view class="chart-line-bottom"></view>
+              
+              <view class="bar-group">
+                <view wx:for="{{processedMonthlyData}}" wx:key="label" class="bar-item" data-idx="{{index}}" bindtap="selectBar">
+                  <view wx:if="{{selectedBar === index}}" class="bar-tooltip">
+                    <text>{{item.value}}</text>
+                  </view>
+                  <view class="bar-pillar" style="height: {{item.baseHeight}}px; background: {{selectedBar === index ? 'linear-gradient(to top, #4CAF50, #25b864)' : 'linear-gradient(to top, #d2e982, #82d94d)'}};"></view>
+                  <view class="bar-label">
+                    <text>{{item.label}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view wx:if="{{tab === 1}}" class="section-block padding-bottom">
+          <text class="section-title">当月核销排行榜（前10）</text>
+          <view class="list-card">
+            <view wx:for="{{topList}}" wx:key="id" class="list-item">
+              <view wx:if="{{index < topList.length - 1}}" class="list-divider"></view>
+              <view class="rank-index">
+                <image wx:if="{{index < 3}}" src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/rank_{{index + 1}}.png" class="rank-img" mode="aspectFit" />
+                <text wx:else class="rank-num">{{index + 1}}</text>
+              </view>
+              <view class="rank-title">
+                <text>{{item.title}}</text>
+              </view>
+              <text class="rank-count">{{item.count}}{{type === 3 ? '份' : '人'}}</text>
+            </view>
+          </view>
+        </view>
+
+        <view wx:if="{{tab === 2}}" class="pb-10 padding-bottom">
+          <view class="section-block">
+            <text class="section-title">{{type === 3 ? '年度热门优惠(TOP10)' : '年度热门活动(TOP10)'}}</text>
+            <view class="list-card">
+              <view wx:for="{{yearlyTopList}}" wx:key="id" class="list-item">
+                <view wx:if="{{index < yearlyTopList.length - 1}}" class="list-divider"></view>
+                <view class="rank-index">
+                  <image wx:if="{{index < 3}}" src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/rank_{{index + 1}}.png" class="rank-img" mode="aspectFit" />
+                  <text wx:else class="rank-num">{{index + 1}}</text>
+                </view>
+                <view class="rank-title">
+                  <text>{{item.title}}</text>
+                </view>
+                <text class="rank-count">{{item.count}}{{type === 3 ? '份' : '人'}}</text>
+              </view>
+            </view>
+          </view>
+
+          <view class="section-block">
+            <text class="section-title">年度用户类别占比</text>
+            <view class="chart-card pie-card">
+              <view class="pie-container">
+                <image wx:if="{{pieChartSvgUrl}}" src="{{pieChartSvgUrl}}" class="pie-img" mode="aspectFit" />
+                <view class="pie-labels-container">
+                  <view wx:for="{{pieLabels}}" wx:key="name" class="pie-label-item {{item.isRight ? 'align-left' : 'align-right'}}" style="transform: translate({{item.x}}px, {{item.y}}px) translate({{item.isRight ? '0' : '-100%'}}, -58%);">
+                    <text class="pie-percent" style="color: {{item.color}}">{{item.percent}}%</text>
+                    <text class="pie-name">{{item.name}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view> </scroll-view>
+  </view>
+</view>

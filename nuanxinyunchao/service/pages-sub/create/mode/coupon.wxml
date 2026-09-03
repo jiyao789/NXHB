@@ -1,0 +1,102 @@
+<view class="coupon-page">
+  <!-- Navbar -->
+  <view class="nav-bar" style="padding-top: {{safeAreaInsetsTop}}px;">
+    <view class="nav-content">
+      <view class="back-btn" bindtap="handleBack">
+        <view class="i-carbon-chevron-left"></view>
+      </view>
+      <view class="nav-title">优惠券</view>
+    </view>
+  </view>
+  <view style="height: {{safeAreaInsetsTop + 44}}px;"></view>
+
+  <view wx:if="{{loading}}" class="loading-wrap">
+    <view class="i-carbon-circle-dash spinner"></view>
+  </view>
+
+  <block wx:elif="{{detail}}">
+    <!-- 顶部卡片：店铺/金额/类型信息 -->
+    <view class="coupon-card header-card" style="background-image: url('https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/coupon/detail_card1.png');">
+      <view class="header-inner">
+        <view class="avatar-wrap">
+          <image src="{{detail.avatar}}" mode="aspectFill" />
+        </view>
+        <view class="header-info">
+          <view class="info-top">
+            <text class="card-title line-clamp-1">{{ detail.title }}</text>
+            <view class="scope-tag">{{ detail.scope }}</view>
+          </view>
+          <view class="info-bottom">
+            <text class="shop-name line-clamp-1">{{ detail.shopName }}{{ detail.couponTypeName }}</text>
+            <view class="points-btn">{{ detail.price }}积分兑换</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 中部卡片：积分/有效期 -->
+    <view class="coupon-card points-card" style="background-image: url('https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/coupon/detail_card2.png');">
+      <view class="points-inner">
+        <view class="points-row">
+          <text class="p-label">本单消耗积分：</text>
+          <text class="p-val">{{ detail.price }}</text>
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/icon_star.png" class="icon-star" mode="aspectFit" />
+        </view>
+        <view class="sales-row">
+          <view class="sales-tag">半年售 999+</view>
+          <text class="time-tip">周一至周日可用</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部详情栏：购买须知 -->
+    <view class="rules-box">
+      <text class="rules-main-title">购买须知</text>
+      
+      <!-- 有效期 -->
+      <view class="rule-item">
+        <view class="i-carbon-checkmark-outline r-icon"></view>
+        <view class="rule-content">
+          <text class="r-title">有效期</text>
+          <text class="r-desc">{{ detail.validDate }}</text>
+        </view>
+      </view>
+      <view class="divider"></view>
+      
+      <!-- 使用时间 -->
+      <view class="rule-item">
+        <view class="i-carbon-time r-icon"></view>
+        <view class="rule-content">
+          <text class="r-title">使用时间</text>
+          <text class="r-desc">营业时间内可用</text>
+        </view>
+      </view>
+      <view class="divider"></view>
+
+      <!-- 适用范围 -->
+      <view class="rule-item">
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/coupon/icon1.png" class="r-icon-img" />
+        <view class="rule-content">
+          <text class="r-title">适用范围</text>
+          <text class="r-desc">{{ detail.scope }}</text>
+        </view>
+      </view>
+      <view class="divider"></view>
+
+      <!-- 使用规则 -->
+      <view class="rule-item align-top">
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/coupon/icon2.png" class="r-icon-img icon-thin" />
+        <view class="rule-content">
+          <text class="r-title">使用规则</text>
+          <view class="rule-list">
+            <view class="rule-li" wx:for="{{detail.rules}}" wx:key="*this">
+              <text class="dot">•</text>
+              <text class="li-text">{{ item }}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </block>
+</view>

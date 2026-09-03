@@ -1,0 +1,65 @@
+<view class="min-h-screen flex flex-col bg-efecec">
+  <view class="fixed left-0 right-0 top-0 z-50 bg-efecec" style="padding-top: {{safeAreaTop}}px;">
+    <view class="relative h-11 flex items-center justify-center px-4">
+      <view class="absolute left-2 h-8 w-8 flex items-center justify-center rounded-full" hover-class="bg-black-5" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900"></view>
+      </view>
+      <text class="text-lg text-gray-900 font-bold">应急联系人</text>
+    </view>
+  </view>
+  
+  <view style="height: {{safeAreaTop + 44}}px;"></view>
+
+  <view class="px-4 pt-4">
+    <view class="bg-gradient-to-br rounded-3xl p-5 shadow-lg shadow-orange-100 mb-6">
+      <view class="flex items-center gap-3 mb-2">
+        <view class="i-carbon-user-favorite-alt text-white text-2xl"></view>
+        <text class="text-white font-bold text-lg">安全守护中</text>
+      </view>
+      <text class="text-white-80 text-xs leading-relaxed">
+        设置应急联系人后，在紧急情况下（如一键求助）系统将自动向对方发送您的位置信息并拨打电话。
+      </text>
+    </view>
+  </view>
+
+  <view class="px-4">
+    <view wx:if="{{contacts.length > 0}}" class="overflow-hidden rounded-3xl bg-white shadow-md">
+      <view wx:for="{{contacts}}" wx:key="id" class="relative p-5">
+        <view class="flex items-center justify-between mb-2">
+          <view class="flex items-center gap-3">
+            <view class="h-10 w-10 flex items-center justify-center rounded-full bg-orange-50 text-orange-main font-bold text-lg">
+              {{ item.name[0] }}
+            </view>
+            <view class="flex flex-col">
+              <text class="text-base font-bold text-gray-800">{{ item.name }}</text>
+              <text class="text-sm text-gray-400">{{ item.phone }}</text>
+            </view>
+          </view>
+          <view class="p-2" hover-class="opacity-50" bindtap="handleDelete" data-index="{{index}}">
+            <view class="i-carbon-trash-can text-gray-300 text-xl"></view>
+          </view>
+        </view>
+        
+        <view class="flex items-center justify-between mt-4 bg-gray-50 rounded-2xl px-4 py-3">
+          <text class="text-xs text-gray-500">允许对方在紧急情况下查看我的位置</text>
+          <switch checked="{{item.allowLocation}}" color="#FF6B00" style="transform:scale(0.7)" bindchange="handleLocationChange" data-index="{{index}}" />
+        </view>
+
+        <view wx:if="{{index < contacts.length - 1}}" class="absolute bottom-0 right-4 left-4 h-1px bg-gray-50 z-20"></view>
+      </view>
+    </view>
+
+    <view wx:else class="flex flex-col items-center justify-center py-20">
+      <view class="i-carbon-user-data text-6xl text-gray-200 mb-4"></view>
+      <text class="text-gray-400 text-sm">暂未添加应急联系人</text>
+    </view>
+  </view>
+
+  <view class="mt-auto px-6 pb-10">
+    <view class="h-14 w-full flex items-center justify-center rounded-full bg-white border-2 border-orange text-orange-main font-bold transition-all gap-2" hover-class="bg-orange-50" bindtap="handleAdd">
+      <view class="i-carbon-add text-xl"></view>
+      <text>从通讯录导入</text>
+    </view>
+    <text class="block text-center mt-4 text-10 text-gray-300">最多可添加 5 位联系人</text>
+  </view>
+</view>

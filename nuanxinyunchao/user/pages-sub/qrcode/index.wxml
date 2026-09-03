@@ -1,0 +1,49 @@
+<view class="min-h-screen w-full flex flex-col overflow-hidden relative bg-gray-50">
+  <!-- 页面背景图 -->
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="absolute inset-0 z-0 h-full w-full" mode="scaleToFill"></image>
+  <!-- 自定义导航栏 -->
+  <view class="relative z-50" style="padding-top: {{safeAreaTop}}px;">
+    <view class="relative h-11 flex items-center justify-center px-4">
+      <view class="absolute left-4 h-8 w-8 flex items-center justify-center rounded-full transition-colors" hover-class="bg-black-10" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-800"></view>
+      </view>
+      <text class="text-lg text-gray-800 font-bold">我的二维码</text>
+    </view>
+  </view>
+  <!-- 主要内容区域 -->
+  <view class="relative z-10 w-full flex flex-1 items-center justify-center pb-20">
+    <!-- 卡片容器 -->
+    <view class="relative w-690 mx-auto">
+      <!-- 卡片背景图 -->
+      <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/qrcode/card_bg.png" class="absolute inset-0 z-0 h-full w-full" mode="scaleToFill"></image>
+      <!-- 卡片内容层 -->
+      <view class="relative z-10 flex flex-col items-center">
+        <!-- 头像 -->
+        <view class="absolute left-1-2 -translate-x-1-2 h-15 w-15 rounded-full shadow-sm overflow-hidden bg-white" style="top: 10rpx;">
+          <image src="{{userInfo.avatar}}" class="h-full w-full" mode="aspectFill"></image>
+        </view>
+        <!-- 上半部分内容 -->
+        <view class="flex w-full flex-col items-center pt-20 pb-6">
+          <text class="text-lg text-gray-800 font-bold mb-1">{{ userInfo.name }}</text>
+          <text class="text-lg text-gray-800 font-mono mb-6">FID: {{ userInfo.fid }}</text>
+          <!-- 二维码（canvas 由 JS 绘制） -->
+          <view wx:if="{{loading}}" class="h-48 w-48 mb-4 flex items-center justify-center bg-white/80 rounded">
+            <text class="text-sm text-gray-500">加载中...</text>
+          </view>
+          <view wx:elif="{{loadFailed}}" class="h-48 w-48 mb-4 flex flex-col items-center justify-center bg-white/80 rounded px-2">
+            <text class="text-sm text-gray-600 mb-2 text-center">加载失败</text>
+            <button class="text-sm bg-amber-600 text-white px-4 py-1 rounded" bindtap="handleRetry">
+              重试
+            </button>
+          </view>
+          <canvas wx:else canvas-id="warmQrCanvas" class="mb-4 block mx-auto bg-white" style="width: 384rpx; height: 384rpx;"></canvas>
+        </view>
+        <!-- 下半部分内容 -->
+        <view class="flex flex-col items-center justify-center py-6">
+          <text class="text-lg font-bold tracking-widest mb-2">请出示暖新码</text>
+          <text class="text-lg text-5a3911">参与活动时出示</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

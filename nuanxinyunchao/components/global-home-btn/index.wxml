@@ -1,0 +1,31 @@
+<!-- nuanxinyunchao/components/global-home-btn/index.wxml -->
+<view class="global-btn-wrap" wx:if="{{isVisible}}">
+  <movable-area class="movable-area">
+    <movable-view 
+      class="movable-view {{isExpanded ? 'expanded' : 'folded'}} {{isDragging ? 'dragging' : ''}}" 
+      direction="all" 
+      x="{{x}}" 
+      y="{{y}}" 
+      animation="{{true}}"
+      bindchange="onPositionChange"
+      bindtouchstart="onDragStart"
+      bindtouchend="onDragEnd"
+    >
+      <view class="inner-btn bg-solid-orange shadow-heavy {{isDragging ? 'is-dragging' : ''}}" bindtap="toggleExpand">
+        
+        <!-- 核心优化：改用 CSS 画法实现实心箭头，确保 100% 显示 -->
+        <view wx:if="{{!isExpanded}}" class="icon-wrap">
+          <view class="pure-arrow-right"></view>
+        </view>
+
+        <view wx:else class="expanded-content">
+          <image class="svg-icon-small mr-2" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%23ffffff' d='M12 3L2 12h3v8h14v-8h3L12 3z'/%3E%3C/svg%3E"></image>
+          <text class="confirm-text">返回智慧党建</text>
+        </view>
+        
+      </view>
+    </movable-view>
+  </movable-area>
+</view>
+
+<view wx:if="{{isVisible && isExpanded}}" class="global-mask" bindtap="closeExpand"></view>

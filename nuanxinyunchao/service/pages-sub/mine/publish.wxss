@@ -1,0 +1,507 @@
+page {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.page-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent; /* 移除容器背景，让 fixed 背景图透出来 */
+}
+
+.bg-fixed {
+  position: fixed; /* 必须是 fixed 才能在下拉时不跟随移动 */
+  inset: 0;
+  z-index: -1; 
+  width: 100%;
+}
+
+/* 导航栏：固定置顶 */
+.nav-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  background-color: transparent; /* 背景透明，利用 bg-fixed 的底图 */
+}
+
+.nav-content {
+  position: relative;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 32rpx;
+}
+
+.nav-spacer {
+  flex: none;
+  width: 100%;
+}
+
+.back-btn {
+  position: absolute;
+  left: 32rpx;
+  height: 64rpx;
+  width: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 20;
+}
+
+.back-btn:active {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.icon-back {
+  width: 20rpx;
+  height: 20rpx;
+  border-top: 4rpx solid #333333;
+  border-left: 4rpx solid #333333;
+  transform: rotate(-45deg);
+}
+
+.nav-title {
+  font-size: 36rpx;
+  color: #333333;
+  font-weight: bold;
+}
+
+/* ================= 选项卡区域 (对齐 audit-list 的 tabs-area) ================= */
+.tabs-area {
+  position: relative;
+  z-index: 10;
+  flex: none;
+  background-color: transparent; /* 关键：透明，让主 Tab 异形边框不被遮挡 */
+}
+
+.main-tabs-area {
+  display: flex;
+  align-items: flex-end;
+  padding: 16rpx 16rpx 0 16rpx;
+}
+
+.tab-item {
+  position: relative;
+  flex: 1;
+  height: 106rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+/* 负边距让两个 Tab 有交叉重叠 */
+.tab-left {
+  margin-right: -30rpx;
+}
+
+.tab-right {
+  margin-left: -30rpx;
+}
+
+.z-20 {
+  z-index: 20;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.tab-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 16rpx 16rpx 0 0;
+  transition: all 0.3s;
+  transform-origin: bottom;
+}
+
+/* 左侧 Tab 变形 */
+.tab-bg-left {
+  width: 120%;
+  left: -20%;
+}
+
+.tab-bg-left.active {
+  transform: skewX(20deg) scaleY(1);
+  background-color: #ffffff;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.03);
+}
+
+.tab-bg-left.inactive {
+  transform: skewX(20deg) scaleY(0.85);
+  background: linear-gradient(to bottom, #ffe4e6, #fff0f5, #ffffff);
+  opacity: 0.9;
+}
+
+/* 右侧 Tab 变形 */
+.tab-bg-right {
+  width: 140%;
+  right: -20%;
+}
+
+.tab-bg-right.active {
+  transform: skewX(-20deg) scaleY(1);
+  background-color: #ffffff;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.03);
+}
+
+.tab-bg-right.inactive {
+  transform: skewX(-20deg) scaleY(0.85);
+  background: linear-gradient(to bottom, #ffe4e6, #fff0f5, #ffffff);
+  opacity: 0.9;
+}
+
+.tab-text {
+  position: relative;
+  z-index: 10;
+  font-size: 32rpx;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+/* 抵消斜角带来的视觉偏移 */
+.tab-left .tab-text {
+  margin-right: 24rpx;
+}
+
+.tab-right .tab-text {
+  margin-left: 24rpx;
+}
+
+.tab-text.active {
+  color: #333333;
+  transform: scale(1.05);
+}
+
+.tab-text.inactive {
+  color: #888888;
+  transform: scale(0.95);
+}
+
+/* === 核心：底部防露缝盖板 (直角矩形，隐藏缝隙使底座与下方白块无缝衔接) === */
+.tab-cover {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 24rpx;
+  /* h-3 */
+  background-color: #ffffff;
+  z-index: 20;
+}
+
+/* 底部黑色小横线 */
+.tab-indicator {
+  position: absolute;
+  bottom: 16rpx;
+  /* bottom-2 */
+  left: 50%;
+  height: 6rpx;
+  width: 40rpx;
+  background-color: #333333;
+  border-radius: 999px;
+  z-index: 30;
+}
+
+.indicator-left {
+  transform: translateX(-50%);
+  margin-left: -16rpx;
+}
+
+.indicator-right {
+  transform: translateX(-50%);
+  margin-left: 16rpx;
+}
+
+
+/* ================= 列表主区域 ================= */
+.list-wrapper {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 100%;
+  overflow: hidden;
+}
+
+.sub-tabs-box {
+  flex: none;
+  background-color: #ffffff;
+  padding: 32rpx 0 16rpx 0;
+  z-index: 20;
+  width: 100%;
+}
+
+/* 新增：滚动区域核心样式 */
+.sub-tabs-scroll {
+  width: 100%;
+  white-space: nowrap;
+  /* 强制内容不换行 */
+}
+
+.sub-tabs-inner {
+  display: inline-flex;
+  /* 改为 inline-flex 配合 nowrap */
+  align-items: center;
+  padding: 0 32rpx;
+  /* 将原本外层的边缘留白移到内部 */
+  gap: 20rpx;
+  /* 统一设置 Tab 之间的间距 */
+}
+
+.sub-tab {
+  flex-shrink: 0;
+  /* 核心：防止子元素被挤压变形 */
+  padding: 12rpx 48rpx;
+  border-radius: 999px;
+  font-size: 28rpx;
+  transition: all 0.2s;
+  border: 2rpx solid transparent;
+}
+
+/* 后面的 .sub-tab:active, .sub-tab.active, .sub-tab.inactive 保持你原来的不变即可 */
+
+.sub-tab:active {
+  transform: scale(0.95);
+}
+
+.sub-tab.active {
+  background-color: #ffffff;
+  border-color: #fed7aa;
+  /* orange-200 */
+  color: #333333;
+  font-weight: bold;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+}
+
+.sub-tab.inactive {
+  background-color: #f2f2f2;
+  color: #666666;
+  font-weight: 500;
+}
+
+/* 滑动列表 */
+.scroll-area {
+  flex: 1;
+  height: 0;
+  /* Flex 滚动核心 */
+  width: 100%;
+  background-color: #f2f2f2;
+}
+
+.scroll-inner {
+  padding: 24rpx 32rpx 80rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+/* 卡片样式 */
+.card-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 24rpx;
+  padding: 40rpx 32rpx 32rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+  overflow: hidden;
+  /* 核心：确保内容不超出卡片（特别是左上角图标） */
+}
+
+.card-hover {
+  transform: scale(0.99);
+}
+
+/* 左上角图标 */
+.card-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: auto;
+  height: 70rpx;
+  z-index: 10;
+}
+
+.card-content {
+  margin-left: 8rpx;
+  margin-top: 16rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  line-height: 1.4;
+  margin-bottom: 16rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.card-time {
+  font-size: 24rpx;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+/* 缺省空状态 */
+.empty-state {
+  padding: 96rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.6;
+}
+
+.icon-empty {
+  width: 96rpx;
+  height: 96rpx;
+  background-color: #d1d5db;
+  margin-bottom: 24rpx;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='currentColor' d='M25 27H7V5h10v6a2.006 2.006 0 0 0 2 2h6v14zm-8.414-18L19 11.414V7zM25 13h-4V9zM7 3a2.006 2.006 0 0 0-2 2v22a2.006 2.006 0 0 0 2 2h18a2.006 2.006 0 0 0 2-2V9.414a2.011 2.011 0 0 0-.586-1.414l-7.414-7.414A2.011 2.011 0 0 0 17.586 3z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='currentColor' d='M25 27H7V5h10v6a2.006 2.006 0 0 0 2 2h6v14zm-8.414-18L19 11.414V7zM25 13h-4V9zM7 3a2.006 2.006 0 0 0-2 2v22a2.006 2.006 0 0 0 2 2h18a2.006 2.006 0 0 0 2-2V9.414a2.011 2.011 0 0 0-.586-1.414l-7.414-7.414A2.011 2.011 0 0 0 17.586 3z'/%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #9ca3af;
+}
+
+.bottom-padding {
+  height: 48rpx;
+}
+
+::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+  height: 0 !important;
+  color: transparent;
+  background: transparent;
+}
+
+/* ================= 滚动加载状态 ================= */
+.load-status {
+  padding: 32rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 24rpx;
+  gap: 12rpx;
+}
+
+.loading-spinner {
+  width: 28rpx;
+  height: 28rpx;
+  border: 3rpx solid #e5e7eb;
+  border-top-color: #9ca3af;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ================= 全局加载态 (首次或空列表) ================= */
+.global-loading {
+  padding: 120rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24rpx;
+}
+
+.loading-anim {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  border: 6rpx solid rgba(254, 215, 170, 0.3); /* orange-200 fade */
+  border-top: 6rpx solid #fed7aa; /* orange-200 */
+  animation: spin 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  box-shadow: 0 0 15rpx rgba(254, 215, 170, 0.4);
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #9ca3af;
+  letter-spacing: 2rpx;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+/* ================= 管理按钮样式 ================= */
+.manage-btn-box {
+  padding: 16rpx 32rpx 0;
+  display: flex;
+  justify-content: flex-end;
+  background-color: transparent;
+}
+
+.manage-btn {
+  font-size: 24rpx;
+  color: #666666;
+  padding: 8rpx 24rpx;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  transition: all 0.2s;
+  border: 1rpx solid #e5e7eb;
+}
+
+.manage-btn.active {
+  background-color: #fef2f2;
+  color: #ef4444;
+  border-color: #fecaca;
+  font-weight: bold;
+}
+
+.delete-icon-box {
+  position: absolute;
+  top: 16rpx;
+  right: 16rpx;
+  width: 56rpx;
+  height: 56rpx;
+  background-color: #fee2e2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  box-shadow: 0 4rpx 12rpx rgba(239, 68, 68, 0.2);
+}
+
+.delete-icon-box:active {
+  transform: scale(0.9);
+  background-color: #fecaca;
+}
+
+.icon-delete {
+  width: 28rpx;
+  height: 28rpx;
+  background-color: #ef4444;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M19 4h-3.5l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M19 4h-3.5l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12z'/%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}

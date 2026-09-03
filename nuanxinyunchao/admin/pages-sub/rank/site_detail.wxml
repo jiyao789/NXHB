@@ -1,0 +1,150 @@
+<view class="h-screen w-full flex flex-col overflow-hidden bg-f7f7f7">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/mine_bg.png" class="absolute inset-0 z-0 h-full w-full" mode="scaleToFill" />
+
+  <view class="relative z-50 flex-none px-4 pb-2" style="{{statusBarPaddingStyle}}">
+    <view class="h-11 flex items-center justify-between">
+      <view class="absolute left-0 h-8 w-8 flex items-center justify-center rounded-full active-bg-black-5" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900" />
+      </view>
+      <view class="ml-5 flex items-center gap-2">
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo.png" mode="heightFix" class="h-6 w-6 flex-shrink-0" />
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo_title.png" mode="heightFix" class="h-4 w-16 flex-shrink-0" />
+      </view>
+      <view class="mx-3 h-8 flex flex-1 items-center"></view>
+      <view class="w-16" />
+    </view>
+  </view>
+
+  <scroll-view scroll-y class="relative z-10 h-0 w-full flex-1" show-scrollbar="{{false}}">
+    <view class="px-4 pt-2 pb-safe">
+      <view class="relative z-0 mb-4">
+        <view class="relative h-48 w-full">
+          <swiper class="box-border h-full w-full overflow-hidden border-2 border-707070 rounded-2xl border-solid" indicator-dots="{{false}}" autoplay="{{true}}" circular="{{true}}" interval="{{4000}}">
+            <swiper-item wx:for="{{bannerList}}" wx:key="id">
+              <image src="{{item.imgUrl}}" mode="aspectFill" class="h-full w-full" />
+            </swiper-item>
+          </swiper>
+        </view>
+      </view>
+
+      <view class="relative z-10 mb-4 overflow-hidden rounded-b-2xl bg-white px-1 py-2 shadow-sm minus-mt-12">
+        <view class="flex flex-col gap-2 px-2 py-1">
+          <view class="flex items-center gap-2">
+            <image wx:if="{{badgeUrl}}" src="{{badgeUrl}}" mode="heightFix" class="h-6 flex-shrink-0" />
+            <view wx:elif="{{rank > 3}}" class="w-6 h-6 flex flex-shrink-0 items-center justify-center rounded-full bg-white shadow-sm border border-gray-100">
+              <text class="text-sm text-gray-800 font-bold italic">{{rank}}</text>
+            </view>
+            <image wx:else src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/rank_icon.png" mode="heightFix" class="h-6 flex-shrink-0" />
+            
+            <text class="text-lg text-gray-800 font-bold truncate flex-1">{{facilityName}}</text>
+          </view>
+          
+          <view class="flex items-center justify-between gap-2 text-12px text-gray-500 mt-1">
+            <view class="flex items-center gap-1 flex-1 min-w-0">
+              <text class="rounded bg-ffeee5 px-1-5 py-0-5 text-10px text-e67e22 flex-shrink-0">地址</text>
+              <text class="truncate flex-1">{{facilityAddress}}</text>
+            </view>
+            <view class="flex items-center gap-1 flex-shrink-0">
+              <text class="rounded bg-ffeee5 px-1-5 py-0-5 text-10px text-e67e22">联系电话</text>
+              <text>{{facilityPhone}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="relative mb-4 overflow-hidden rounded-2xl bg-white p-4 shadow-sm">
+        <scroll-view scroll-x class="w-full" show-scrollbar="{{false}}">
+          <view class="flex flex-col gap-3">
+            <view class="w-max flex gap-2">
+              <view wx:for="{{tagsRow1}}" wx:key="name" class="flex items-center justify-center whitespace-nowrap border rounded-full px-3 py-1-5 text-xs font-medium {{item.name === '特色亮点' ? 'bg-ff9a61 text-white' : 'bg-ffeee5 text-ff7613'}}">
+                <image wx:if="{{item.icon !== ''}}" src="{{item.icon}}" mode="widthFix" class="mr-1 h-3 w-3" />
+                <text>{{ item.name }}</text>
+              </view>
+            </view>
+            <view class="w-max flex gap-2">
+              <view wx:for="{{tagsRow2}}" wx:key="name" class="flex items-center justify-center whitespace-nowrap border rounded-full bg-ffeee5 px-3 py-1-5 text-xs text-ff7613 font-medium">
+                <image wx:if="{{item.icon !== ''}}" src="{{item.icon}}" mode="widthFix" class="mr-1 h-3 w-3" />
+                <text>{{ item.name }}</text>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+
+      <view class="relative mb-4 overflow-hidden rounded-2xl bg-white p-4 shadow-sm" bindtap="handleToMonth" hover-class="opacity-70">
+        <view class="mb-2 flex items-end gap-2">
+          <view class="flex flex-col leading-none">
+            <text class="text-xs text-gray-500 font-bold">实时</text>
+            <text class="text-xs text-gray-500 font-bold">监控</text>
+          </view>
+          <text class="text-4xl text-ff6f27 font-bold leading-none">{{ monthlyPlan.total }}</text>
+          <text class="mb-1 text-xs text-gray-400">项</text>
+
+          <view class="mb-1 ml-2 flex items-center gap-1">
+            <view class="h-3 w-3 flex items-end justify-between gap-1px">
+              <view class="h-40pct w-2px rounded-1px bg-gray-800" />
+              <view class="h-70pct w-2px rounded-1px bg-gray-800" />
+              <view class="h-full w-2px rounded-1px bg-gray-800" />
+            </view>
+            <text class="text-sm text-gray-800 font-bold">已完成</text>
+          </view>
+
+          <view class="flex-1" />
+
+          <view class="mb-1 flex items-baseline gap-1 text-xs text-gray-400">
+            <text>未完成</text>
+            <text class="mx-0-5 text-xl text-gray-600 font-bold">{{ monthlyPlan.total - monthlyPlan.completed }}</text>
+            <text>项</text>
+          </view>
+        </view>
+
+        <view class="relative mt-2 h-12 w-full flex items-center">
+          <view class="absolute left-0 top-1-2 h-6 w-full rounded-full bg-black-20 minus-translate-y-1-2" />
+          <view class="relative z-10 h-9 flex items-center justify-end rounded-full bg-gradient-orange shadow-orange transition-all duration-1000" style="{{planPercentStyle}}">
+            <text class="mr-1 text-xs text-white font-bold">{{ planPercent }}%</text>
+            <view class="i-mage-direction-right-fill mr-1 text-xl text-white" />
+          </view>
+        </view>
+      </view>
+
+      <view class="mb-4 flex justify-between gap-3" style="max-height: 140px;">
+        <view class="aspect-square flex flex-1 items-center justify-center bg-white rounded-2xl p-2 shadow-sm" bindtap="handleToServiceModal" hover-class="active-bg-black-5">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/rank/stat_service.png" mode="aspectFit" class="h-full w-full" />
+        </view>
+        <view class="flex flex-1"></view>
+      </view>
+
+      <view class="relative mb-4 overflow-hidden rounded-2xl bg-white p-4 shadow-sm" bindtap="handleToUsed" hover-class="opacity-70">
+        <view class="mb-4 pt-2 text-center text-gray-800 font-bold">{{currentMonth}}月服务人员类别比重</view>
+        <view class="relative h-220px w-full flex items-center justify-center">
+          <image src="{{pieChartSvgUrl}}" class="absolute h-300px w-300px" mode="scaleToFill" />
+          <view wx:for="{{pieLabels}}" wx:key="name" class="absolute flex flex-col text-xs transition-all duration-500 {{item.isRight ? 'items-start text-left' : 'items-end text-right'}}" style="{{item.containerStyle}}">
+            <text class="mb-1 text-sm font-bold" style="{{item.labelStyle}}">{{ item.percent }}%</text>
+            <text class="mt-1 text-10px text-gray-500">{{ item.name }}</text>
+          </view>
+        </view>
+      </view>
+      <view class="h-10"></view>
+    </view>
+  </scroll-view>
+
+  <!-- 服务统计报告弹窗 -->
+  <view class="service-modal-mask" wx:if="{{showServiceModal}}" bindtap="handleCloseServiceModal">
+    <view class="service-modal-card" catchtap="">
+      <view class="service-modal-icon-wrap">
+        <view class="i-carbon-group-objects service-modal-icon"></view>
+      </view>
+      <text class="service-modal-title">服务统计报告</text>
+      <view class="service-modal-stat-box">
+        <text class="service-modal-stat-label">本月核销人数</text>
+        <view class="service-modal-stat-row">
+          <text class="service-modal-stat-num">{{verifyCount}}</text>
+          <text class="service-modal-stat-unit">人</text>
+        </view>
+      </view>
+      <view class="service-modal-btn" bindtap="handleCloseServiceModal">
+        <text>确认</text>
+      </view>
+    </view>
+  </view>
+</view>

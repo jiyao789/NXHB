@@ -1,0 +1,106 @@
+<view class="page-container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/checkin_bg.png" class="bg-img" mode="scaleToFill" />
+
+  <!-- CUSTOM NAV BAR -->
+  <view class="custom-nav" style="padding-top: {{safeAreaTop}}px; background-color: {{scrollTop > 50 ? '#e6d144' : 'transparent'}};">
+    <view class="nav-back active-scale" bindtap="handleBack">
+      <view class="i-back"></view>
+    </view>
+    <view class="nav-title">友好商户列表</view>
+    <view class="nav-placeholder"></view>
+  </view>
+
+  <view class="header-flow">
+    <!-- 占位符以抵消 fixed 定位的 custom-nav 高度 -->
+    <view style="height: {{safeAreaTop + 44}}px; flex-shrink: 0;"></view>
+
+    <!-- 搜索框 -->
+    <view class="search-wrap">
+      <view class="search-inner">
+        <view class="i-search"></view>
+        <input class="search-input" 
+               placeholder="搜索商户名称或地址" 
+               placeholder-class="search-placeholder"
+               value="{{searchQuery}}"
+               bindinput="onSearchInput"
+               bindconfirm="onSearchConfirm"/>
+      </view>
+    </view>
+
+    <!-- 分类 Tab -->
+    <scroll-view scroll-x class="tab-scroll" show-scrollbar="{{false}}">
+      <view class="tab-list">
+        <view class="tab-item {{activeTab === item ? 'tab-active' : ''}}" 
+              wx:for="{{tabs}}" wx:key="*this"
+              bindtap="switchTab" data-tab="{{item}}">
+          {{item}}
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 内容区域（滚动） -->
+  <scroll-view scroll-y class="main-content" show-scrollbar="{{false}}" bindscroll="onScroll">
+    <view class="scroll-inner">
+      <!-- 本月新入驻 -->
+      <view class="section-group" wx:if="{{filteredNew.length > 0}}">
+        <view class="section-header">
+          <view class="section-title">
+            <view class="title-decor"></view>
+            <text>本月新入驻商家</text>
+            <view class="count-badge">{{filteredNew.length}}家</view>
+          </view>
+        </view>
+        <view class="merchant-list">
+          <view class="merchant-card active-scale-light" wx:for="{{filteredNew}}" wx:key="name" bindtap="openLocation" data-item="{{item}}">
+            <view class="card-top">
+              <view class="merchant-name-wrap">
+                <text class="merchant-name">{{item.name}}</text>
+                <view class="new-tag">新</view>
+              </view>
+            </view>
+            <view class="merchant-address">
+              <view class="i-location-gray"></view>
+              <text>{{item.address}}</text>
+            </view>
+            <view class="tag-list">
+              <view class="tag-item" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 全部商家 -->
+      <view class="section-group">
+        <view class="section-header">
+          <view class="section-title">
+            <view class="title-decor"></view>
+            <text>全部商家</text>
+            <view class="count-badge">{{filteredAll.length}}家</view>
+          </view>
+        </view>
+        <view class="merchant-list">
+          <view class="merchant-card active-scale-light" wx:for="{{filteredAll}}" wx:key="name" bindtap="openLocation" data-item="{{item}}">
+            <view class="card-top">
+              <text class="merchant-name">{{item.name}}</text>
+            </view>
+            <view class="merchant-address">
+              <view class="i-location-gray"></view>
+              <text>{{item.address}}</text>
+            </view>
+            <view class="tag-list">
+              <view class="tag-item" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="empty-tip" wx:if="{{filteredNew.length === 0 && filteredAll.length === 0}}">
+        未找到相关商户
+      </view>
+
+      <!-- 底部安全区 -->
+      <view class="bottom-safe"></view>
+    </view>
+  </scroll-view>
+</view>

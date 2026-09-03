@@ -1,0 +1,170 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "subpackages": [
+    {
+      "root": "nuanxinyunchao/admin",
+      "pages": [
+        "pages/rank/index",
+        "pages/data/index",
+        "pages/review/index",
+        "pages-fg/login/login",
+        "pages-fg/login/register",
+        "pages-sub/about/about",
+        "pages-sub/rank/site_detail",
+        "pages-sub/rank/evaluation_list",
+        "pages-sub/rank/used/index",
+        "pages-sub/rank/month/month",
+        "pages-sub/data/active_board/index",
+        "pages-sub/rank/user_detail/index",
+        "pages-sub/data/personnel_details/index",
+        "pages-sub/data/site_overview/index",
+        "pages-sub/data/nest_list/index",
+        "pages-sub/data/shop_list/index",
+        "pages-sub/data/site_overview/map/index",
+        "pages-sub/data/site_overview/map/detail",
+        "pages-sub/data/employment_group/index",
+        "pages-sub/data/employment_group/detail/index",
+        "pages-sub/rank/publish/publish",
+        "pages-sub/rank/user_detail/activities/index",
+        "pages-sub/rank/user_detail/tasks/index",
+        "pages-sub/rank/user_detail/coupons/index",
+        "pages-sub/publish/publish",
+        "pages-sub/publish/mode/surroundings",
+        "pages-sub/publish/mode/needyou",
+        "pages-sub/publish/mode/coupon",
+        "pages-sub/publish/mode/study/index",
+        "pages-sub/publish/mode/message/index"
+      ]
+    },
+    {
+      "root": "nuanxinyunchao/service",
+      "pages": [
+        "pages/index/index",
+        "pages/create/index",
+        "pages/qrcode/index",
+        "pages/message/index",
+        "pages/mine/index",
+        "pages-fg/404/index",
+        "pages-sub/index/detail",
+        "pages-sub/index/data",
+        "pages-sub/index/month",
+        "pages-sub/message/detail",
+        "pages-sub/message/system",
+        "pages-sub/message/official/index",
+        "pages-sub/message/collection/index",
+        "pages-sub/message/like/index",
+        "pages-sub/create/publish",
+        "pages-sub/create/audit-list",
+        "pages-sub/create/audit-detail/index",
+        "pages-sub/create/mode/coupon",
+        "pages-sub/create/mode/study",
+        "pages-sub/create/mode/surroundings",
+        "pages-sub/create/mode/needyou",
+        "pages-sub/qrcode/index",
+        "pages-sub/mine/feedback/index",
+        "pages-sub/mine/setting/index",
+        "pages-sub/mine/setting/profile",
+        "pages-sub/mine/setting/about/index",
+        "pages-sub/mine/setting/security",
+        "pages-sub/mine/setting/notification",
+        "pages-sub/mine/setting/about/webview",
+        "pages-sub/mine/publish",
+        "pages-sub/mine/verify",
+        "pages-sub/mine/invitation/index",
+        "pages-sub/mine/user-invitation/index",
+        "pages-sub/mine/verify-gate/index",
+        "pages-sub/mine/rights/index",
+        "pages-sub/mine/ocr-test/index",
+        "pages-sub/auth/login",
+        "pages-sub/auth/verify",
+        "pages-sub/map-point/index",
+        "pages-sub/map-point/form"
+      ]
+    },
+    {
+      "root": "nuanxinyunchao/user",
+      "pages": [
+        "pages/index/index",
+        "pages/hot/index",
+        "pages/map/index",
+        "pages/mine/index",
+        "pages/qrcode/index",
+        "pages-fg/404/index",
+        "pages-fg/login/login",
+        "pages-fg/login/register",
+        "pages-sub/auth/identity/index",
+        "pages-sub/auth/login/index",
+        "pages-sub/auth/verify/index",
+        "pages-sub/hot/surroundings",
+        "pages-sub/hot/detail",
+        "pages-sub/map/detail",
+        "pages-sub/qrcode/index",
+        "pages-sub/index/glory/detail",
+        "pages-sub/index/glory/list",
+        "pages-sub/index/points/index",
+        "pages-sub/index/points/detail",
+        "pages-sub/index/checkin/index",
+        "pages-sub/index/occupation_video",
+        "pages-sub/index/help/index",
+        "pages-sub/index/volunteer/index",
+        "pages-sub/index/volunteer/banner_detail/banner_detail",
+        "pages-sub/index/volunteer/detail/detail",
+        "pages-sub/mine/honor/index",
+        "pages-sub/mine/integral/index",
+        "pages-sub/mine/collection/index",
+        "pages-sub/mine/verify/index",
+        "pages-sub/mine/coupon/index",
+        "pages-sub/mine/coupon/detail",
+        "pages-sub/mine/coupon/use",
+        "pages-sub/mine/coupon/used",
+        "pages-sub/mine/review/submit",
+        "pages-sub/mine/feedback/index",
+        "pages-sub/mine/feedback/detail",
+        "pages-sub/mine/setting/index",
+        "pages-sub/mine/setting/notification",
+        "pages-sub/mine/setting/profile",
+        "pages-sub/mine/setting/about/index",
+        "pages-sub/mine/setting/about/webview",
+        "pages-sub/mine/setting/security/index",
+        "pages-sub/mine/setting/security/contacts",
+        "pages-sub/mine/setting/security/devices",
+        "pages-sub/mine/setting/security/modify-password",
+        "pages-sub/mine/setting/security/safety-center"
+      ]
+    },
+    {
+      "root": "examination",
+      "pages": []
+    },
+    {
+      "root": "barrier",
+      "pages": []
+    },
+    {
+      "root": "answerComponent",
+      "pages": []
+    }
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation",
+    "chooseLocation"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#c00202",
+    "navigationBarTitleText": "长宁智慧党建",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom",
+    "global-home-btn": "/nuanxinyunchao/components/global-home-btn/index"
+  },
+  "sitemapLocation": "sitemap.json"
+}

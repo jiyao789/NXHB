@@ -1,0 +1,59 @@
+/* ==== 地图页专用样式 ==== */
+
+/* 地图专属：颜色与渐变 (非常规 Tailwind) */
+.bg-gradient-orange { background: linear-gradient(to right, #ed5d55, #ffa35a); }
+.bg-gradient-white { background: linear-gradient(to bottom, #ffffff 0%, rgba(255,255,255,0.8) 50%, transparent 100%); }
+.border-gray { border: 2rpx solid #e5e7eb; }
+.text-gray-600 { color: #4b5563; }
+
+.shadow-sm { box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.1); }
+.shadow-lg { box-shadow: 0 10rpx 25rpx rgba(0,0,0,0.15); }
+.whitespace-nowrap { white-space: nowrap; }
+.inline-flex { display: inline-flex; }
+
+/* 地图 Cover-View 自定义 Callout */
+.custom-callout {
+  position: relative;
+  display: block;
+  width: 80rpx;
+  height: 90rpx;
+}
+.callout-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.callout-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70rpx;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 4px;
+}
+.bubble-icon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-bottom: 2rpx;
+  overflow: hidden;
+  border-radius: 4rpx;
+}
+.bubble-text {
+  color: #ffffff;
+  font-size: 16rpx;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 90%;
+}

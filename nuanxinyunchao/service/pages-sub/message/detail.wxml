@@ -1,0 +1,45 @@
+<view class="page-container bg-white">
+  <!-- 统一简约样式 -->
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar-fixed" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-bar-content">
+      <view class="nav-left" bindtap="handleBack">
+        <view class="icon-back-arrow"></view>
+        <image src="{{ message.orgLogo || 'https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/avatar.png' }}" class="org-logo-circle" />
+        <text class="org-name-text">{{ message.sender }}</text>
+      </view>
+    </view>
+  </view>
+
+  <view style="height: {{statusBarHeight + 44}}px;"></view>
+
+  <scroll-view scroll-y class="official-scroll {{isPreview ? 'pb-safe' : ''}}" show-scrollbar="{{false}}">
+    <!-- 多媒体展示区 -->
+    <view class="media-container">
+      <swiper wx:if="{{message.mediaList && message.mediaList.length > 0}}" class="detail-swiper" indicator-dots indicator-active-color="#FFD700">
+        <swiper-item wx:for="{{message.mediaList}}" wx:key="url">
+          <video wx:if="{{item.is_video}}" src="{{item.url}}" class="media-item-detail" autoplay="{{false}}" controls></video>
+          <image wx:else src="{{item.url}}" mode="aspectFill" class="media-item-detail" />
+        </swiper-item>
+      </swiper>
+      <image wx:elif="{{message.image}}" src="{{ message.image }}" mode="widthFix" class="banner-fallback" />
+    </view>
+
+    <!-- 内容详情区 -->
+    <view class="content-section">
+      <text class="detail-title">{{ message.title }}</text>
+      <text class="detail-body" space="nbsp">{{ message.content }}</text>
+      
+      <view class="meta-info">
+        <text class="time-text">{{ message.time }}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部固定发布栏 (仅预览模式显示) -->
+  <view wx:if="{{isPreview}}" class="footer-action-bar">
+    <view class="primary-submit-btn" hover-class="btn-hover-effect" bindtap="handlePublish">
+      发布
+    </view>
+  </view>
+</view>

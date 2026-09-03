@@ -1,0 +1,62 @@
+@import "../../../styles/utilities.wxss";
+@import "../../../styles/icons.wxss";
+
+view, text, image, scroll-view, input, button { box-sizing: border-box !important; }
+
+.min-h-screen { min-height: 100vh; }
+.bg-efecec { background-color: #efecec; }
+.bg-ffffff { background-color: #ffffff; }
+.bg-white { background-color: #ffffff; }
+.bg-FF9F43 { background-color: #FF9F43; }
+
+.text-gray-900 { color: #111827; }
+.text-gray-800 { color: #1f2937; }
+.text-gray-600 { color: #4b5563; }
+.text-gray-500 { color: #6b7280; }
+.text-gray-400 { color: #9ca3af; }
+.text-gray-300 { color: #d1d5db; }
+.text-FF9F43 { color: #FF9F43; }
+.border-FF9F43 { border-color: #FF9F43; }
+.border-gray-300 { border-color: #d1d5db; }
+
+.text-3xl { font-size: 60rpx; }
+.text-2xl { font-size: 48rpx; }
+.text-lg { font-size: 36rpx; }
+.text-15px { font-size: 30rpx; }
+.text-sm { font-size: 28rpx; }
+.text-xs { font-size: 24rpx; }
+
+.h-11 { height: 88rpx; }
+.h-8 { height: 64rpx; }
+.w-8 { width: 64rpx; }
+.h-3-5 { height: 28rpx; }
+.w-3-5 { width: 28rpx; }
+.w-4 { width: 32rpx; }
+.w-1px { width: 2rpx; }
+.left-2 { left: 16rpx; }
+.min-h-80px { min-height: 160rpx; }
+
+.px-5 { padding-left: 40rpx; padding-right: 40rpx; }
+.px-4 { padding-left: 32rpx; padding-right: 32rpx; }
+.pt-20 { padding-top: 160rpx; }
+.pt-6 { padding-top: 48rpx; }
+.pt-1-5 { padding-top: 12rpx; }
+.pb-8 { padding-bottom: 64rpx; }
+.pb-10 { padding-bottom: 80rpx; }
+.pb-0-5 { padding-bottom: 4rpx; }
+.p-4 { padding: 32rpx; }
+.mb-2 { margin-bottom: 16rpx; }
+.mb-1 { margin-bottom: 8rpx; }
+.my-minus-1 { margin-top: -8rpx; margin-bottom: -8rpx; }
+.gap-4 { gap: 32rpx; }
+.gap-1 { gap: 8rpx; }
+
+.border-2px { border-width: 4rpx; border-style: solid; }
+.border-b-1-5px { border-bottom-width: 3rpx; border-bottom-style: solid; }
+
+.shadow-custom { box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.02); }
+.active-bg-gray-200:active { background-color: #e5e7eb; }
+.italic { font-style: italic; }
+
+.i-carbon-chevron-left { display: inline-block; width: 1em; height: 1em; background-color: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M10%2016L20%206l1.4%201.4L12.8%2016l8.6%208.6L20%2026z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M10%2016L20%206l1.4%201.4L12.8%2016l8.6%208.6L20%2026z%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+.i-carbon-circle-dash { display: inline-block; width: 1em; height: 1em; background-color: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M12%204.328A11.8%2011.8%200%200%201%2016%203.8a11.95%2011.95%200%200%201%204%20.686V2.365a13.9%2013.9%200%200%200-8-.544zM27.672%2012a11.8%2011.8%200%200%201%20.528%204a11.95%2011.95%200%200%201-.686%204h1.963a13.9%2013.9%200%200%200%20.544-8zM20%2027.672A11.8%2011.8%200%200%201%2016%2028.2a11.95%2011.95%200%200%201-4-.686v1.963a13.9%2013.9%200%200%200%208%20.544zM4.328%2020A11.8%2011.8%200%200%201%203.8%2016a11.95%2011.95%200%200%201%20.686-4H2.523a13.9%2013.9%200%200%200-.544%208zM25.045%206.954l-1.414%201.415a12.03%2012.03%200%200%201%201.415%201.414l1.414-1.414A14.04%2014.04%200%200%200%2025.045%206.955M6.955%2025.045l1.414-1.414a12.03%2012.03%200%200%201-1.414-1.414l-1.414%201.414a14.04%2014.04%200%200%200%201.414%201.414m18.09-15.26a12.03%2012.03%200%200%201%201.414%201.414l1.414-1.414a14.04%2014.04%200%200%200-1.414-1.414zM9.785%2022.215a12.03%2012.03%200%200%201-1.414%201.414l-1.414-1.414a14.04%2014.04%200%200%200%201.414%201.414%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M12%204.328A11.8%2011.8%200%200%201%2016%203.8a11.95%2011.95%200%200%201%204%20.686V2.365a13.9%2013.9%200%200%200-8-.544zM27.672%2012a11.8%2011.8%200%200%201%20.528%204a11.95%2011.95%200%200%201-.686%204h1.963a13.9%2013.9%200%200%200%20.544-8zM20%2027.672A11.8%2011.8%200%200%201%2016%2028.2a11.95%2011.95%200%200%201-4-.686v1.963a13.9%2013.9%200%200%200%208%20.544zM4.328%2020A11.8%2011.8%200%200%201%203.8%2016a11.95%2011.95%200%200%201%20.686-4H2.523a13.9%2013.9%200%200%200-.544%208zM25.045%206.954l-1.414%201.415a12.03%2012.03%200%200%201%201.415%201.414l1.414-1.414A14.04%2014.04%200%200%200%2025.045%206.955M6.955%2025.045l1.414-1.414a12.03%2012.03%200%200%201-1.414-1.414l-1.414%201.414a14.04%2014.04%200%200%200%201.414%201.414m18.09-15.26a12.03%2012.03%200%200%201%201.414%201.414l1.414-1.414a14.04%2014.04%200%200%200-1.414-1.414zM9.785%2022.215a12.03%2012.03%200%200%201-1.414%201.414l-1.414-1.414a14.04%2014.04%200%200%200%201.414%201.414%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }

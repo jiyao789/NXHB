@@ -1,0 +1,392 @@
+page {
+  height: 100vh;
+}
+
+.page-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.bg-absolute {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.full-img {
+  height: 100%;
+  width: 100%;
+}
+
+/* ================= 导航栏 ================= */
+.nav-wrapper {
+  position: relative;
+  z-index: 50;
+  flex-shrink: 0;
+}
+
+.nav-content {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.back-btn {
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 废弃 border 和 mask，采用绝对原生的 SVG 背景图 (颜色为黑灰色 #1f2937) */
+.icon-back {
+  width: 24px;
+  height: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%231f2937' d='M10 16L20 6l1.4 1.4l-8.6 8.6l8.6 8.6L20 26z'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.search-box {
+  margin: 0 12px;
+  height: 32px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border-radius: 99px;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0 12px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: transform 0.1s;
+}
+
+.search-box-hover {
+  transform: scale(0.95);
+}
+
+/* 原生纯白色搜索图标 #ffffff */
+.icon-search {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23ffffff' d='m29 27.586l-7.552-7.552a11.018 11.018 0 1 0-1.414 1.414L27.586 29ZM4 13a9 9 0 1 1 9 9a9.01 9.01 0 0 1-9-9'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.search-text {
+  font-size: 12px;
+  color: white;
+}
+
+.nav-spacer {
+  width: 80px;
+}
+
+/* ================= 顶部装饰图 ================= */
+.top-decor-wrapper {
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+  padding: 8px 16px 0;
+}
+
+.top-decor-box {
+  height: 120px;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ================= 主卡片区域 ================= */
+.main-card-wrapper {
+  position: relative;
+  z-index: 10;
+  margin: 0 16px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+/* Banner */
+.banner-section {
+  position: relative;
+  height: 160px;
+}
+
+.banner-swiper {
+  height: 100%;
+  width: 100%;
+  border: 1px solid black;
+  background-color: #e5e7eb;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.tags-overlay {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  padding: 0 8px;
+}
+
+.tags-scroll {
+  width: 100%;
+}
+
+.tags-flex {
+  display: flex;
+  gap: 8px;
+}
+
+.tag-item {
+  white-space: nowrap;
+  border: 1px solid white;
+  border-radius: 99px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  font-size: 12px;
+  color: white;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* 详情信息 */
+.detail-section {
+  position: relative;
+  background-color: white;
+  padding: 16px;
+}
+
+.detail-header {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.title-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-title {
+  font-size: 18px;
+  color: black;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.info-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  color: #1f2937;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.location-item {
+  padding-right: 48px;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 详情列表纯色 SVG 背景图 (#1f2937) */
+.icon-time, .icon-phone, .icon-location {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.icon-time { 
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%231f2937' d='M16 2a14 14 0 1 0 14 14A14.016 14.016 0 0 0 16 2Zm0 26a12 12 0 1 1 12-12a12.014 12.014 0 0 1-12 12Z'/%3E%3Cpath fill='%231f2937' d='M22.586 21.172L17 15.586V8h-2v8.414l6.172 6.172z'/%3E%3C/svg%3E"); 
+}
+/* 线条版电话图标 */
+.icon-phone { 
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  /* 采用标准的 Carbon Phone 线条路径，颜色设为灰色 #1f2937 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%231f2937' d='M26 30h-2a17.02 17.02 0 0 1-17-17V11a3 3 0 0 1 3-3h4l2 5l-3 2a11.013 11.013 0 0 0 6 6l2-3l5 2v4a3 3 0 0 1-3 3ZM10 10a1 1 0 0 0-1 1v2a15.018 15.018 0 0 0 15 15h2a1 1 0 0 0 1-1v-2.17l-2.61-1.05l-2.26 3.39l-.83-.42a13.01 13.01 0 0 1-7.15-7.15l-.42-.83l3.39-2.26L16.17 11H10Z'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  /* 确保不被之前的 mask 逻辑干扰 */
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+/* 线条版地址定位图标 */
+.icon-location { 
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%231f2937' d='M16 2A11.013 11.013 0 0 0 5 13c0 7.42 10.235 16.533 10.594 16.852a.602.602 0 0 0 .812 0C16.765 29.533 27 20.42 27 13A11.013 11.013 0 0 0 16 2zm0 2a9.01 9.01 0 0 1 9 9c0 5.867-7.46 13.585-9 15.056C14.46 26.585 7 18.867 7 13a9.01 9.01 0 0 1 9-9z'/%3E%3Cpath fill='%231f2937' d='M16 8a5 5 0 1 0 5 5a5.006 5.006 0 0 0-5-5zm0 2a3 3 0 1 1-3 3a3.003 3.003 0 0 1 3-3z'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.side-icon-box {
+  position: absolute;
+  right: 0;
+  top: -8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.side-icon {
+  height: 64px;
+  width: 64px;
+}
+
+/* ================= 本月累计 ================= */
+.stats-wrapper {
+  position: relative;
+  z-index: 10;
+  margin: 8px 16px 0;
+  padding: 8px;
+}
+
+.stats-title {
+  margin-bottom: 8px;
+  text-align: center;
+  font-size: 18px;
+  color: #1f2937;
+  font-weight: bold;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.stat-card {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 12px;
+  background-color: #f9fafb;
+  padding: 12px;
+}
+
+.stat-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #1f2937;
+  font-weight: 500;
+  line-height: 1.375;
+}
+
+.stat-right {
+  position: relative;
+  height: 88px;
+  width: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge-img {
+  height: 100%;
+  width: 100%;
+  transform: rotate(135deg);
+}
+
+.gauge-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.gauge-icon-wrapper {
+  margin-bottom: 2px;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* 进度条中间的白色 SVG 图标 */
+.gauge-icon {
+  height: 20px;
+  width: 20px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.icon-user-filled { 
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23ffffff' d='M16 4a5 5 0 1 1-5 5a5 5 0 0 1 5-5m10 22h-2v-2a5 5 0 0 0-5-5h-6a5 5 0 0 0-5 5v2H6v-2a7 7 0 0 1 7-7h6a7 7 0 0 1 7 7Z'/%3E%3C/svg%3E"); 
+}
+.icon-view { 
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23ffffff' d='M16 6C6 6 2 16 2 16s4 10 14 10s14-10 14-10s-4-10-14-10m0 16a6 6 0 1 1 6-6a6 6 0 0 1-6 6m0-10a4 4 0 1 0 4 4a4 4 0 0 0-4-4'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+.gauge-value {
+  font-size: 18px;
+  color: #1f2937;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* ================= 统计项小标识 ================= */
+.stat-sub-info {
+  margin-top: auto;
+  padding-bottom: 2rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.sub-info-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+}
+
+.dot.yellow { background-color: #ffc40b; }
+.dot.gray { background-color: #e5e7eb; }
+
+.dot-text {
+  font-size: 20rpx;
+  color: #9ca3af;
+  white-space: nowrap;
+}

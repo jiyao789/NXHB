@@ -1,0 +1,81 @@
+<view class="container">
+  <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+    <view class="back-btn" bindtap="goBack">
+      <view class="i-custom-chevron-left"></view>
+    </view>
+    <view class="title">人员详情</view>
+  </view>
+
+  <scroll-view scroll-y class="content-scroll" bindscrolltolower="onReachBottom">
+    <!-- Search Bar -->
+    <view class="search-bar">
+      <view class="search-input-wrap">
+        <view class="i-custom-search search-icon"></view>
+        <input class="search-input" type="text" placeholder="搜索姓名或手机号" value="{{keyword}}" bindinput="onSearchInput" bindconfirm="onSearch" confirm-type="search" />
+        <view class="i-custom-close clear-icon" wx:if="{{keyword}}" bindtap="clearSearch"></view>
+      </view>
+    </view>
+
+    <!-- Top Stat Card -->
+    <view class="card stat-card">
+      <view class="stat-header">
+        <view class="stat-info">
+          <text class="stat-label">{{streetName || '全部'}}统计</text>
+          <view class="stat-number">
+            <text class="num">{{totalCount}}</text>
+            <text class="unit">人</text>
+          </view>
+        </view>
+        <view class="stat-icon">
+          <view class="i-custom-group"></view>
+        </view>
+      </view>
+      <view class="stat-footer">
+        <view class="tag-active">
+          <view class="i-custom-trend" style="margin-right: 4px;"></view> 近期活跃
+        </view>
+      </view>
+    </view>
+
+    <!-- Role Filter Tabs -->
+    <scroll-view scroll-x class="tabs-scroll" show-scrollbar="false">
+      <view class="tabs-wrap">
+        <view class="tab-item {{roleId === item.id ? 'active' : ''}}" 
+              wx:for="{{roles}}" 
+              wx:key="id" 
+              bindtap="handleRoleChange" 
+              data-id="{{item.id}}">
+          {{item.name}}
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- User List -->
+    <view class="section-title">人员名单列表</view>
+
+    <view class="card list-card">
+      <view class="list-item" wx:for="{{userList}}" wx:key="id">
+        <image class="avatar" src="{{item.avatar || 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'}}" mode="aspectFill"></image>
+        <view class="user-info">
+          <view class="user-name-row">
+            <text class="user-name">{{item.name || '微信用户'}}</text>
+            <view class="tag-party" wx:if="{{item.isPartyMember}}">
+              <view class="i-custom-star" style="margin-right:2px;"></view>党员
+            </view>
+          </view>
+          <view class="user-role">{{item.roleName || '其他'}}</view>
+          <view class="user-phone">
+            <view class="i-custom-phone" style="margin-right: 4px;"></view>
+            {{item.phone || '暂无号码'}}
+          </view>
+        </view>
+        <view class="arrow-right">
+          <view class="i-custom-chevron-right"></view>
+        </view>
+      </view>
+      <view wx:if="{{!hasMore && userList.length > 0}}" class="no-more">到底啦~</view>
+      <view wx:if="{{userList.length === 0 && !loading}}" class="empty">暂无人员记录</view>
+    </view>
+    <view style="height: 40px;"></view>
+  </scroll-view>
+</view>

@@ -1,0 +1,52 @@
+<view class="page-container">
+  <view class="nav-wrapper">
+    <view style="height: {{statusBarHeight}}px;"></view>
+    <view class="nav-bar" style="height: {{navBarHeight}}px;">
+      <view class="back-btn" hover-class="bg-active" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">核销记录</text>
+    </view>
+  </view>
+  <view class="search-section">
+    <view class="search-bar-wrapper">
+      <view class="search-bar">
+        <view class="icon-search"></view>
+        <input value="{{searchKey}}" bindinput="onSearchInput" type="text" placeholder="请输入关键词搜索" placeholder-class="ph-style" class="search-input" confirm-type="search" />
+        <view wx:if="{{searchKey}}" class="icon-clear" bindtap="clearSearch"></view>
+        <view class="search-btn" hover-class="scale-active">搜索</view>
+      </view>
+    </view>
+  </view>
+  <scroll-view scroll-y class="scroll-area" show-scrollbar="{{false}}" enhanced="{{true}}" bindscrolltolower="onScrollToLower" lower-threshold="80">
+    <view class="scroll-inner">
+      <view wx:for="{{filteredGroups}}" wx:key="title" wx:for-item="group" class="group-item">
+        <view class="group-header">
+          <text class="group-title">{{ group.title }}: {{ group.totalCount }}次</text>
+          <text class="group-date">{{ group.date }}</text>
+        </view>
+        <view class="data-card">
+          <view class="table-header">
+            <text class="th-content">内容</text>
+            <text class="th-user">用户</text>
+          </view>
+          <view wx:for="{{group.list}}" wx:key="id" wx:for-item="item" class="table-row" hover-class="row-hover">
+            <view class="td-content">
+              <text class="td-title">{{ item.title }}</text>
+              <text class="td-time">{{ item.time }}</text>
+            </view>
+            <view class="td-user">
+              <text>{{ item.user }}</text>
+            </view>
+          </view>
+          <view wx:if="{{group.list.length === 0}}" class="empty-group">该日期下无匹配结果</view>
+        </view>
+      </view>
+      <view class="bottom-hint">
+        <view class="hint-line"></view>
+        <text class="hint-text">{{ hasMore ? '上拉加载更多' : '已显示全部记录' }}</text>
+        <view class="hint-line"></view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

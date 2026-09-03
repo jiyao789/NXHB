@@ -1,0 +1,101 @@
+<view class="page-container">
+  
+  <view class="nav-fixed">
+    <view style="height: {{statusBarHeight}}px;"></view>
+    <view class="nav-content" style="height: {{navBarHeight}}px;">
+      <view class="back-btn" hover-class="bg-active" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">意见反馈</text>
+    </view>
+  </view>
+
+  <view class="nav-placeholder" style="height: {{statusBarHeight + navBarHeight}}px;"></view>
+
+  <scroll-view scroll-y class="scroll-area">
+    <view class="content-wrapper">
+      
+      <view class="section-group">
+        <text class="section-title">问题类型</text>
+        <view class="category-list">
+          <view 
+            wx:for="{{categories}}" 
+            wx:key="value" 
+            class="category-item {{selected === item.value ? 'category-active' : 'category-normal'}}"
+            data-val="{{item.value}}"
+            bindtap="handleCategorySelect"
+          >
+            {{ item.label }}
+          </view>
+        </view>
+      </view>
+
+      <view class="section-group">
+        <text class="section-title">问题描述</text>
+        
+        <view class="feedback-card">
+          <textarea
+            value="{{content}}"
+            bindinput="onContentInput"
+            maxlength="500"
+            placeholder="感谢您的宝贵建议，我们将参考用于开发改进"
+            placeholder-class="ph-style"
+            class="content-textarea"
+            auto-height
+          />
+          
+          <text class="word-count">{{ content.length }}/500</text>
+
+          <view class="image-uploader-box">
+            
+            <view 
+              wx:for="{{images}}" 
+              wx:key="*this" 
+              class="image-item"
+              data-index="{{index}}"
+              bindtap="preview"
+            >
+              <image src="{{item}}" class="uploaded-img" mode="aspectFill" />
+              
+              <view class="delete-btn" catchtap="removeImage" data-index="{{index}}">
+                <view class="icon-close"></view>
+              </view>
+            </view>
+
+            <view 
+              wx:if="{{images.length < MAX_IMAGE_COUNT}}" 
+              class="add-btn" 
+              bindtap="addImage"
+            >
+              <view class="icon-add"></view>
+            </view>
+            
+          </view>
+        </view>
+      </view>
+
+      <view class="section-group">
+        <text class="section-title">联系方式</text>
+        <input
+          value="{{phone}}"
+          bindinput="onPhoneInput"
+          type="number"
+          maxlength="11"
+          placeholder="请输入手机号（选填）"
+          placeholder-class="ph-style-input"
+          class="phone-input"
+        />
+      </view>
+
+      <view class="bottom-placeholder"></view>
+
+    </view>
+  </scroll-view>
+
+  <view class="bottom-submit-area">
+    <button class="submit-btn" hover-class="btn-hover" bindtap="submit">
+      提交
+    </button>
+  </view>
+
+</view>

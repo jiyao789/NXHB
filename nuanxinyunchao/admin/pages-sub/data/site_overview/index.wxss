@@ -1,0 +1,211 @@
+page {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ================== 全局背景地图与导航 ================== */
+.bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+}
+
+.custom-nav { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  padding: 0 32rpx; 
+  padding-bottom: 20rpx; 
+  transition: background-color 0.3s ease; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  z-index: 999; 
+  box-sizing: border-box; 
+}
+.nav-left, .nav-right { width: 80rpx; height: 80rpx; display: flex; align-items: center; } 
+.nav-right { justify-content: flex-end; }
+.nav-back {
+  width: 80rpx; height: 80rpx; background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.03);
+}
+.nav-title { font-size: 36rpx; font-weight: bold; color: #0f172a; flex: 1; text-align: center; }
+
+/* ================== 主体与顶层概览 ================== */
+.main-scroll { flex: 1; height: 0; width: 100%; }
+
+.header-stats-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 200rpx 32rpx 48rpx; /* Added substantial top padding to clear the custom nav */
+  background: transparent;
+}
+.stats-subtitle { font-size: 24rpx; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 4rpx; margin-bottom: 12rpx; }
+.stats-total { 
+  font-size: 88rpx; font-weight: 950; color: #0f172a; letter-spacing: -4rpx; line-height: 1; 
+  background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.trend-badge {
+  margin-top: 32rpx; display: flex; align-items: center; gap: 8rpx;
+  background: rgba(16, 185, 129, 0.1); color: #059669; font-size: 22rpx; font-weight: 800;
+  padding: 10rpx 28rpx; border-radius: 99rpx;
+  border: 1rpx solid rgba(16, 185, 129, 0.2);
+}
+
+.content-padding { padding: 0 32rpx 64rpx; padding-bottom: calc(64rpx + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 40rpx; }
+
+/* ================== 卡片网格 ================== */
+.grid-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 28rpx; }
+.stat-card {
+  background: #ffffff; border-radius: 32rpx; padding: 36rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0,0,0,0.02); border: 1rpx solid #f1f5f9;
+  display: flex; flex-direction: column; gap: 28rpx;
+  position: relative; overflow: hidden;
+}
+.card-header { display: flex; align-items: center; gap: 20rpx; }
+.icon-box {
+  width: 72rpx; height: 72rpx; background: linear-gradient(135deg, rgba(236, 91, 19, 0.1), rgba(236, 91, 19, 0.05));
+  border-radius: 20rpx; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.card-title { font-size: 28rpx; font-weight: 700; color: #475569; }
+.card-value-wrap { display: flex; flex-direction: column; align-items: flex-start; }
+.card-value { font-size: 52rpx; font-weight: 900; color: #0f172a; line-height: 1; letter-spacing: -1rpx; }
+.trend-up-small { display: flex; align-items: center; gap: 4rpx; font-size: 20rpx; font-weight: 800; color: #10b981; margin-top: 10rpx; }
+
+/* ================== 趋势图表区 ================== */
+.chart-section {
+  background: #ffffff; border-radius: 36rpx; padding: 48rpx 48rpx 64rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0,0,0,0.02);
+  border: 1rpx solid #f1f5f9;
+}
+.chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48rpx; }
+.chart-title { font-size: 32rpx; font-weight: 800; color: #0f172a; }
+.chart-tag { font-size: 20rpx; font-weight: 700; color: #94a3b8; background: #f8fafc; padding: 4rpx 16rpx; border-radius: 8rpx; }
+
+.chart-area { position: relative; height: 260rpx; margin-top: 40rpx; margin-bottom: 40rpx; }
+
+/* 直接使用 Image 实现折线，拒绝背景图 Bug */
+.chart-line-bg {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; z-index: 1;
+}
+
+.chart-bars {
+  position: relative; z-index: 2;
+  display: flex; align-items: flex-end; justify-content: space-between; height: 100%;
+}
+
+/* 列，兼顾超大点击热区 */
+.chart-col {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  justify-content: flex-end; height: 100%; position: relative;
+}
+
+/* 交互原点 (重点) */
+.chart-dot {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(50%); /* 垂直居中对齐折线 */
+  width: 16rpx; height: 16rpx;
+  background: #ffffff;
+  border: 4rpx solid #ec5b13;
+  border-radius: 50%;
+  z-index: 5;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dot-active {
+  transform: translateX(-50%) translateY(50%) scale(1.6);
+  border-width: 6rpx;
+  box-shadow: 0 0 16rpx rgba(236, 91, 19, 0.4);
+}
+
+/* 节点落地的虚线 */
+.active-line {
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  border-left: 2rpx dashed rgba(236, 91, 19, 0.5);
+  z-index: 3;
+}
+
+/* 月份文本 */
+.bar-label {
+  position: absolute; bottom: -56rpx;
+  font-size: 22rpx; font-weight: 600; color: #94a3b8;
+  transition: all 0.2s;
+}
+.label-active { color: #ec5b13; font-weight: 800; transform: scale(1.1); }
+
+/* 气泡提示框 (Tooltip) */
+.tooltip-box {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  background: #1e293b; padding: 20rpx 28rpx;
+  border-radius: 20rpx; white-space: nowrap; z-index: 10;
+  box-shadow: 0 20rpx 40rpx rgba(0,0,0,0.25);
+  animation: floatUp 0.2s ease-out forwards;
+}
+@keyframes floatUp {
+  0% { opacity: 0; transform: translate(-50%, 10rpx); }
+  100% { opacity: 1; transform: translate(-50%, 0); }
+}
+.tooltip-content { display: flex; flex-direction: column; gap: 8rpx; }
+.tooltip-row { font-size: 20rpx; color: rgba(255, 255, 255, 0.7); display: flex; align-items: center; justify-content: space-between; gap: 16rpx; }
+.tooltip-num { color: #ffffff; font-size: 26rpx; font-weight: 900; }
+.tooltip-box::after {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border-width: 12rpx; border-style: solid; border-color: transparent; border-top-color: #1e293b;
+}
+
+/* ================== 地图入口 ================== */
+.map-section {
+  position: relative; height: 750rpx; border-radius: 36rpx; overflow: hidden;
+  box-shadow: 0 10rpx 40rpx rgba(0,0,0,0.05); border: 1rpx solid #f1f5f9;
+}
+.map-bg { width: 100%; height: 100%; filter: brightness(0.9); transition: transform 0.3s; }
+.map-section:active .map-bg { transform: scale(1.05); }
+.map-overlay { position: absolute; inset: 0; background: rgba(15, 23, 42, 0.2); display: flex; align-items: center; justify-content: center; }
+.map-btn {
+  background: #ffffff; color: #0f172a; font-size: 28rpx; font-weight: 800;
+  padding: 24rpx 56rpx; border-radius: 99rpx; box-shadow: 0 10rpx 40rpx rgba(0,0,0,0.2);
+  display: flex; align-items: center; gap: 16rpx; border: none;
+}
+
+/* ================== 图标与交互 ================== */
+[class^="i-"] { display: inline-block; background-size: contain; background-repeat: no-repeat; background-position: center; flex-shrink: 0; }
+
+.i-back { width: 48rpx; height: 48rpx; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230f172a' d='M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42a.996.996 0 0 0-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59a.996.996 0 1 0 1.41-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z'/%3E%3C/svg%3E"); }
+.i-trending-up { width: 28rpx; height: 28rpx; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23059669' d='M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z'/%3E%3C/svg%3E"); }
+.i-home-work { width: 44rpx; height: 44rpx; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ec5b13' d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z'/%3E%3C/svg%3E"); }
+.i-storefront { width: 44rpx; height: 44rpx; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1184 1024'%3E%3Cpath d='M1005.633722 616.006249c-5.311502-0.479955-10.431022-1.27988-15.518545-2.143799-1.087898-0.127988-2.271787-0.287973-3.359685-0.479955-2.399775-0.415961-4.671562-1.055901-7.007343-1.631847-9.951067-2.143799-19.678155-4.831547-28.989282-8.351217l0 133.235509-731.355435 0 0-133.235509c-9.375121 3.551667-19.006218 6.303409-29.053276 8.511202-2.335781 0.415961-4.607568 1.055901-6.943349 1.535856-1.087898 0.191982-2.175796 0.31997-3.359685 0.511952-5.11952 0.767928-10.271037 1.535856-15.518545 2.079805-5.983439 0.479955-12.094866 0.863919-18.270287 0.863919-12.47883 0-24.701684-1.215886-36.540574-3.327688l0 357.310502c0 29.309252 24.573696 53.11502 54.874855 53.11502l841.073149 0c30.237165 0 54.810861-23.773771 54.810861-53.11502l0-357.342499c-11.83889 2.143799-24.061744 3.327688-36.540574 3.327688-6.07943 0-12.254851-0.351967-18.23829-0.863919z' fill='%23ec5b13'/%3E%3Cpath d='M182.83086 109.749711l804.500578 0c30.301159 0 54.874855-24.573696 54.874855-54.874855s-24.573696-54.874855-54.874855-54.874855l-804.500578 0c-30.301159 0-54.874855 24.573696-54.874855 54.874855 0.031997 30.301159 24.605693 54.874855 54.874855 54.874855z' fill='%23ec5b13'/%3E%3Cpath d='M1067.387932 164.592569l-964.549573 0-102.838359 256.007999c0 80.728432 65.529857 146.258288 146.258288 146.258288s146.258288-65.529857 146.258288-146.258288c0 80.728432 65.529857 146.258288 146.258288 146.258288s146.258288-65.529857 146.258288-146.258288c0 80.728432 65.529857 146.258288 146.258288 146.258288s146.258288-65.529857 146.258288-146.258288c0 80.728432 65.529857 146.258288 146.258288 146.258288s146.258288-65.529857 146.258288-146.258288l-102.806362-256.007999z' fill='%23ec5b13'/%3E%3C/svg%3E"); }
+.i-arrow-upward { width: 28rpx; height: 28rpx; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2310b981' d='M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z'/%3E%3C/svg%3E"); }
+.i-location-on { width: 36rpx; height: 36rpx; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230f172a' d='M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E"); }
+
+.active-scale:active { transform: scale(0.92); opacity: 0.7; transition: all 0.15s; }
+.active-scale-light:active { transform: scale(0.96); transition: all 0.15s; }
+
+.custom-callout { position: relative; display: block; width: 80rpx; height: 90rpx; }
+.callout-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+.callout-content {
+  position: absolute; top: 0; left: 0; width: 100%; height: 70rpx; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 4px;
+}
+.bubble-icon { width: 24rpx; height: 24rpx; margin-bottom: 2rpx; }
+.bubble-text {
+  color: #ffffff; font-size: 16rpx; font-weight: bold; line-height: 1; text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 90%;
+}

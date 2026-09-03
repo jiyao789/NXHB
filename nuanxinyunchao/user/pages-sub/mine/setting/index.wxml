@@ -1,0 +1,51 @@
+<view class="min-h-screen flex flex-col bg-efecec">
+  <!-- 自定义导航栏 -->
+  <view class="fixed left-0 right-0 top-0 z-50 bg-efecec" style="padding-top: {{safeAreaTop}}px;">
+    <view class="relative h-11 flex items-center justify-center px-4">
+      <view class="absolute left-2 h-8 w-8 flex items-center justify-center rounded-full" hover-class="bg-black-5" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900"></view>
+      </view>
+      <text class="text-lg text-gray-900 font-bold">设置</text>
+    </view>
+  </view>
+  
+  <view style="height: {{safeAreaTop + 44}}px;"></view>
+
+  <view class="pb-10 pt-3">
+    
+    <!-- 第一组：资料与安全 -->
+    <view class="mx-4 mb-3 overflow-hidden rounded-xl bg-white">
+      <view class="setting-item" bindtap="navTo" data-url="/nuanxinyunchao/user/pages-sub/mine/setting/profile">
+        <view class="flex items-center">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/setting/icon_profile.png" class="mr-3 h-5 w-5" mode="aspectFit"></image>
+          <text>个人资料</text>
+        </view>
+        <view class="i-carbon-chevron-right text-gray-300"></view>
+      </view>
+    </view>
+
+    <!-- 第二组：关于 -->
+    <view class="mx-4 mb-6 overflow-hidden rounded-xl bg-white">
+      
+      <view class="setting-item" bindtap="navTo" data-url="/nuanxinyunchao/user/pages-sub/mine/setting/about/index">
+        <view class="flex items-center">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/setting/icon_about.png" class="mr-3 h-5 w-5" mode="aspectFit"></image>
+          <text>关于</text>
+        </view>
+        <view class="i-carbon-chevron-right text-gray-300"></view>
+      </view>
+    </view>
+
+    <!-- 第三组：操作按钮 -->
+    <view class="mx-4 overflow-hidden rounded-xl bg-white">
+      <view class="action-item" bindtap="handleClearCache">
+        <text>清理缓存</text>
+      </view>
+      <view class="h-1px bg-gray-200 mx-4"></view>
+      <view class="action-item" bindtap="handleLogout">
+        <text>退出登录</text>
+      </view>
+    </view>
+
+  </view>
+</view>

@@ -1,0 +1,60 @@
+<view class="page-container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/checkin/checkin_bg.png" class="bg-img" mode="scaleToFill" />
+
+  <!-- CUSTOM NAV BAR -->
+  <view class="custom-nav" style="padding-top: {{safeAreaTop}}px; background-color: {{scrollTop > 50 ? '#e6d144' : 'transparent'}};">
+    <view class="nav-left">
+      <view class="nav-back active-scale" bindtap="handleBack"><view class="i-back"></view></view>
+    </view>
+    <view class="nav-title">阵地概览</view>
+    <view class="nav-right"></view>
+  </view>
+
+  <scroll-view scroll-y class="main-scroll" show-scrollbar="{{false}}" bindscroll="onScroll">
+    <view class="header-stats-wrap">
+      <text class="stats-subtitle">长宁区全区总计服务阵地</text>
+      <view class="stats-total">{{totalSites}}</view>
+    </view>
+
+    <view class="content-padding">
+      <view class="grid-cards">
+        <view class="stat-card active-scale" bindtap="navigateToNestList">
+          <view class="card-header">
+            <view class="icon-box"><view class="i-home-work"></view></view>
+            <text class="card-title">暖新巢</text>
+          </view>
+          <view class="card-value">{{cards.nxc.count}}</view>
+        </view>
+        <view class="stat-card active-scale" bindtap="navigateToShopList">
+          <view class="card-header">
+            <view class="icon-box"><view class="i-storefront"></view></view>
+            <text class="card-title">友好商户</text>
+          </view>
+          <view class="card-value-wrap">
+            <text class="card-value">{{cards.shop.count}}</text>
+          </view>
+        </view>
+      </view>
+
+
+      <view class="map-section" style="padding: 0; position: relative;">
+        <map id="overviewMap" class="w-full h-full" style="width: 100%; height: 100%;" 
+          latitude="{{mapLatitude}}" longitude="{{mapLongitude}}" markers="{{displayMarkers}}" 
+          bindtap="openMap" scale="14">
+          <cover-view slot="callout">
+            <block wx:for="{{displayMarkers}}" wx:key="id">
+              <cover-view marker-id="{{item.id}}" class="custom-callout">
+                <cover-image class="callout-bg" src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/bg_marker_orange.png" mode="aspectFill"></cover-image>
+                <cover-view class="callout-content">
+                  <cover-image src="{{item.customData.icon}}" class="bubble-icon" mode="aspectFill"></cover-image>
+                  <cover-view class="bubble-text">{{ item.customData.title }}</cover-view>
+                </cover-view>
+              </cover-view>
+            </block>
+          </cover-view>
+        </map>
+        <!-- A button to enter full screen? We removed the overlay so it's a real map. Tapping it opens full screen -->
+      </view>
+    </view>
+  </scroll-view>
+</view>

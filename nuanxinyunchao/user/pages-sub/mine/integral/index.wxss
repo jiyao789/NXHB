@@ -1,0 +1,135 @@
+@import "../../../styles/utilities.wxss";
+@import "../../../styles/icons.wxss";
+
+/* ==== 修复微信默认模型 ==== */
+view, text, image, scroll-view, button, input { box-sizing: border-box !important; }
+image { display: block; }
+
+/* ========================================== */
+/* 🚀 修复点 1：补充遗漏的 Flex 居中与定位尺寸类 */
+/* ========================================== */
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.absolute { position: absolute; }
+.relative { position: relative; }
+.rounded-full { border-radius: 9999rpx; }
+.shrink-0 { flex-shrink: 0; }
+.z-50 { z-index: 50; }
+
+.h-11 { height: 88rpx; }
+.h-8 { height: 64rpx; }
+.w-8 { width: 64rpx; }
+.left-2 { left: 16rpx; }
+.right-2 { right: 16rpx; }
+.text-2xl { font-size: 48rpx; }
+.text-xl { font-size: 40rpx; }
+.text-lg { font-size: 36rpx; }
+.text-gray-900 { color: #111827; }
+.font-bold { font-weight: 700; }
+.text-4xl { font-size: 72rpx; line-height: 1; }
+.text-gray-300 { color: #d1d5db; }
+.gap-2 { gap: 16rpx; }
+
+/* ========================================== */
+/* 🚀 修复点 2：补充全局漏打包的 SVG 图标源码 */
+/* ========================================== */
+
+/* 顶部返回按钮 */
+.i-carbon-chevron-left {
+  display: inline-block; width: 1em; height: 1em; background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='currentColor' d='M10 16L20 6l1.4 1.4L12.8 16l8.6 8.6L20 26z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='currentColor' d='M10 16L20 6l1.4 1.4L12.8 16l8.6 8.6L20 26z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+}
+
+/* 顶部右侧更多菜单按钮 */
+.i-carbon-overflow-menu-horizontal {
+  display: inline-block; width: 1em; height: 1em; background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='8' cy='16' r='2' fill='currentColor'/%3E%3Ccircle cx='16' cy='16' r='2' fill='currentColor'/%3E%3Ccircle cx='24' cy='16' r='2' fill='currentColor'/%3E%3C/svg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='8' cy='16' r='2' fill='currentColor'/%3E%3Ccircle cx='16' cy='16' r='2' fill='currentColor'/%3E%3Ccircle cx='24' cy='16' r='2' fill='currentColor'/%3E%3C/svg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+}
+
+/* 暂无数据的文档图标 */
+.i-carbon-document-blank {
+  display: inline-block; width: 1em; height: 1em; background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='currentColor' d='M25.7 9.3l-7-7A.9.9 0 0 0 18 2H8a2 2 0 0 0-2 2v24a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V10a.9.9 0 0 0-.3-.7zM18 4.4l5.6 5.6H18zM24 28H8V4h8v7.9c0 .1.1.1.1.1H24z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='currentColor' d='M25.7 9.3l-7-7A.9.9 0 0 0 18 2H8a2 2 0 0 0-2 2v24a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V10a.9.9 0 0 0-.3-.7zM18 4.4l5.6 5.6H18zM24 28H8V4h8v7.9c0 .1.1.1.1.1H24z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+}
+
+
+/* ==== 特殊字符合规化映射 (其余保留) ==== */
+.h-screen { height: 100vh; }
+.bg-transparent { background-color: transparent; }
+.z-minus-10 { z-index: -10; }
+.h-140px { height: 140px; }
+.bottom-0px { bottom: 0px; }
+.object-contain { object-fit: contain; }
+.bottom-2-5 { bottom: 20rpx; }
+.left-minus-5 { left: -40rpx; }
+
+/* 积分标签 - 尺寸与裁剪 */
+.drop-shadow-tag { filter: drop-shadow(2px 5px 5px rgba(104,104,104,0.8)); }
+.bg-FF7D46 { background-color: #FF7D46; }
+.pl-9 { padding-left: 72rpx; }
+.pr-6 { padding-right: 48rpx; }
+.py-2 { padding-top: 16rpx; padding-bottom: 16rpx; }
+.rounded-tr-25px { border-top-right-radius: 25px; }
+.clip-polygon { clip-path: polygon(10% 0%, 93% 0%, 100% 100%, 0% 100%); }
+.whitespace-nowrap { white-space: nowrap; }
+
+/* 白色卡片容器 */
+.w-95-pct { width: 95%; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.mt-minus-130px { margin-top: -130px; }
+.rounded-30px { border-radius: 30px; }
+.drop-shadow-card { filter: drop-shadow(2px 5px 5px rgba(104,104,104,0.7)); }
+
+/* 内部边距与文字 */
+.px-5 { padding-left: 40rpx; padding-right: 40rpx; }
+.pt-5 { padding-top: 40rpx; }
+.pb-0 { padding-bottom: 0; }
+.mb-6 { margin-bottom: 48rpx; }
+.mt-2 { margin-top: 16rpx; }
+.ml-4 { margin-left: 32rpx; }
+.mb-1 { margin-bottom: 8rpx; }
+.text-E65100 { color: #E65100; }
+
+/* Tabs */
+.px-2 { padding-left: 16rpx; padding-right: 16rpx; }
+.py-3 { padding-top: 24rpx; padding-bottom: 24rpx; }
+.cursor-pointer { cursor: pointer; }
+.transition-colors { transition-property: color, background-color, border-color; transition-duration: 150ms; }
+.left-1-2 { left: 50%; }
+.translate-x-minus-1-2 { transform: translateX(-50%); }
+.h-3px { height: 3px; }
+.w-10 { width: 80rpx; }
+.rounded-t-full { border-top-left-radius: 9999rpx; border-top-right-radius: 9999rpx; }
+.bg-ff8048 { background-color: #ff8048; }
+
+/* 滚动列表 */
+.min-h-0 { min-height: 0; }
+.h-95-pct { height: 95%; }
+.w-98-pct { width: 98%; }
+.pb-5 { padding-bottom: 40rpx; }
+.mb-3 { margin-bottom: 24rpx; }
+.pt-6 { padding-top: 48rpx; }
+.pb-2 { padding-bottom: 16rpx; }
+.bottom-0-5 { bottom: 4rpx; }
+.h-2-5 { height: 20rpx; }
+.bg-ffdf63 { background-color: #ffdf63; }
+.z-minus-0 { z-index: -1; }
+.opacity-80 { opacity: 0.8; }
+.py-4 { padding-top: 32rpx; padding-bottom: 32rpx; }
+.gap-1-5 { gap: 12rpx; }
+.text-15px { font-size: 30rpx; }
+.text-333333 { color: #333333; }
+.h-1px { height: 1px; }
+.bg-gray-200 { background-color: #e5e7eb; }
+.py-20 { padding-top: 160rpx; padding-bottom: 160rpx; }
+
+/* 交互反馈 */
+.active-bg-black-10:active { background-color: rgba(0, 0, 0, 0.1); }
+.active-bg-gray-50:active { background-color: #f9fafb; }

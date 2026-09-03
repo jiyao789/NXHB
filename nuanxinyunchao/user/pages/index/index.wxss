@@ -1,0 +1,20 @@
+/* ==== 首页专用样式 ==== */
+page {
+  background-color: transparent;
+}
+
+/* 隐藏滚动条 */
+::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+  height: 0 !important;
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+/* === 首页专业颜色与渐变 === */
+.bg-gradient-to-t { background: linear-gradient(to top, rgba(0,0,0,0.4), transparent); }
+.bg-gradient-to-r { background: linear-gradient(to right, #faeea9, #ece07c); }
+.bg-orange-50 { background-color: #fffaf0; }
+.bg-card { background-color: #FFF6E5; }
+.border-orange-100-50 { border-color: rgba(255, 237, 213, 0.5); }

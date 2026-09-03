@@ -1,0 +1,79 @@
+<view class="min-h-screen flex flex-col bg-efecec pb-safe">
+    <view class="fixed left-0 right-0 top-0 z-50 bg-efecec" style="padding-top: {{safeAreaInsetsTop}}px;">
+      <view class="relative h-11 flex items-center justify-center px-4">
+        <view class="absolute left-2 h-8 w-8 flex items-center justify-center rounded-full active-bg-gray-200" bindtap="handleBack">
+          <view class="i-carbon-chevron-left text-2xl text-gray-900" />
+        </view>
+        <text class="text-lg text-gray-900 font-bold">结果查询</text>
+      </view>
+    </view>
+    <view style="height: {{safeAreaInsetsTop + 44}}px;" />
+
+    <view wx:if="{{loading}}" class="flex flex-1 items-center justify-center pt-20">
+      <view class="animate-spin i-carbon-circle-dash text-3xl text-gray-400" />
+    </view>
+
+    <view wx:else class="relative px-5 pt-6 flex-1">
+      
+      <view class="flex gap-4">
+        <view class="flex flex-col items-center pt-1-5 w-4 shrink-0">
+          <view class="h-3-5 w-3-5 rounded-full border-2px border-solid border-FF9F43 bg-ffffff z-10 box-border" />
+          <view class="w-1px flex-1 bg-FF9F43 my-minus-1" />
+        </view>
+        
+        <view class="flex-1 pb-8">
+          <view class="flex justify-between items-baseline mb-2">
+            <text class="text-15px text-gray-800 font-bold">提交成功，待受理</text>
+            <text class="text-xs text-gray-400 font-medium">{{ resultData.submitTime }}</text>
+          </view>
+          
+          <view class="rounded-xl bg-white p-4 shadow-custom">
+            <view class="text-sm text-gray-800 font-bold mb-1">提交建议：</view>
+            <text class="text-sm text-gray-600 leading-relaxed text-justify">{{ resultData.submitContent }}</text>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{currentStatus >= STATUS.REPLIED}}" class="flex gap-4">
+        <view class="flex flex-col items-center pt-1-5 w-4 shrink-0">
+          <view class="h-3-5 w-3-5 rounded-full border-2px border-solid border-FF9F43 bg-ffffff z-10 box-border" />
+          <view class="w-1px flex-1 bg-FF9F43 my-minus-1" />
+        </view>
+        
+        <view class="flex-1 pb-8">
+          <view class="flex justify-between items-baseline mb-2">
+            <text class="text-15px text-gray-800 font-bold">官方回复</text>
+            <text class="text-xs text-gray-400 font-medium">{{ resultData.replyTime }}</text>
+          </view>
+          
+          <view class="min-h-80px rounded-xl bg-white p-4 shadow-custom">
+            <text wx:if="{{resultData.replyContent}}" class="text-sm text-gray-600 leading-relaxed text-justify">
+              {{ resultData.replyContent }}
+            </text>
+            <text wx:else class="text-sm text-gray-300 italic">
+              (暂无具体回复内容)
+            </text>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{currentStatus === STATUS.DONE}}" class="flex gap-4">
+        <view class="flex flex-col items-center pt-1-5 w-4 shrink-0">
+          <view class="h-3-5 w-3-5 rounded-full bg-FF9F43 z-10" />
+        </view>
+        
+        <view class="flex-1 pb-8">
+          <view class="flex justify-between items-baseline">
+            <text class="text-15px text-FF9F43 font-bold">已完结</text>
+            <text wx:if="{{resultData.finishTime}}" class="text-xs text-gray-400">{{ resultData.finishTime }}</text>
+          </view>
+        </view>
+      </view>
+
+    </view>
+
+    <view wx:if="{{!loading}}" class="mt-auto flex flex-col items-center gap-1 pb-10" bindtap="handleFeedbackAgain">
+      <text class="text-xs text-gray-400">结果不满意？</text>
+      <text class="text-sm text-gray-500 font-bold border-b-1-5px border-gray-300 pb-0-5">试试再次反馈</text>
+    </view>
+</view>

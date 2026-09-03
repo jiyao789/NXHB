@@ -1,0 +1,6 @@
+{
+    "navigationStyle": "custom",
+    "usingComponents": {
+        "login-modal": "/nuanxinyunchao/user/components/login-modal/index"
+    }
+}

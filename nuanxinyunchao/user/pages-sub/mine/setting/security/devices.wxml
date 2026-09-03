@@ -1,0 +1,56 @@
+<view class="min-h-screen flex flex-col bg-efecec">
+  <view class="fixed left-0 right-0 top-0 z-50 bg-efecec" style="padding-top: {{safeAreaTop}}px;">
+    <view class="relative h-11 flex items-center justify-center px-4">
+      <view class="absolute left-2 h-8 w-8 flex items-center justify-center rounded-full" hover-class="bg-black-5" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900"></view>
+      </view>
+      <text class="text-lg text-gray-900 font-bold">登录过的设备</text>
+    </view>
+  </view>
+  
+  <view style="height: {{safeAreaTop + 44}}px;"></view>
+
+  <view class="px-6 py-4">
+    <text class="text-xs text-gray-400">如果发现异常登录设备，请及时将其移除并修改密码以确保账号安全。</text>
+  </view>
+
+  <view class="px-4">
+    <view class="overflow-hidden rounded-3xl bg-white shadow-md">
+      <view wx:for="{{deviceList}}" wx:key="id" class="relative flex items-center justify-between p-5">
+        
+        <view class="flex items-center gap-4">
+          <view class="h-12 w-12 flex items-center justify-center rounded-2xl bg-gray-50">
+            <view class="{{tools.getDeviceIcon(item.type)}} text-2xl text-gray-600"></view>
+          </view>
+          
+          <view class="flex flex-col">
+            <view class="flex items-center gap-2">
+              <text class="text-base font-bold text-gray-800">{{ item.name }}</text>
+              <view wx:if="{{item.isCurrent}}" class="rounded-md bg-green-100 px-1-5 py-0-5">
+                <text class="text-10 font-bold text-green-600">当前设备</text>
+              </view>
+            </view>
+            <text class="mt-1 text-xs text-gray-400">{{ item.lastTime }} · {{ item.location }}</text>
+          </view>
+        </view>
+
+        <view wx:if="{{!item.isCurrent}}" class="rounded-full border border-gray-200 px-4 py-1-5 transition-all" hover-class="bg-gray-100" bindtap="handleRemove" data-index="{{index}}">
+          <text class="text-xs text-gray-600">下线</text>
+        </view>
+
+        <view wx:if="{{index < deviceList.length - 1}}" class="absolute bottom-0 right-4 left-20 h-1px bg-gray-50 z-20"></view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<wxs module="tools">
+module.exports = {
+  getDeviceIcon: function(type) {
+    if(type === 'mobile') return 'i-carbon-phone';
+    if(type === 'desktop') return 'i-carbon-laptop';
+    if(type === 'tablet') return 'i-carbon-tablet';
+    return 'i-carbon-devices';
+  }
+}
+</wxs>

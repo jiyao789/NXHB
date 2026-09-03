@@ -1,0 +1,29 @@
+<view class="h-screen w-full flex flex-col items-center overflow-hidden bg-white pt-10">
+  <!-- 自定义导航栏 -->
+  <view class="fixed left-0 right-0 top-0 z-50 bg-white" style="padding-top: {{safeAreaTop}}px;">
+    <view class="h-11 flex items-center px-2">
+      <view class="h-8 w-8 flex items-center justify-center rounded-full" hover-class="bg-gray-100" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-800"></view>
+      </view>
+      <view class="ml-2 h-8 flex flex-1 items-center rounded-full bg-gray-50 px-3">
+        <text>我的二维码</text>
+      </view>
+    </view>
+  </view>
+  <view class="mt-20 w-85 overflow-hidden rounded-30 bg-primary shadow-lg">
+    <view class="flex flex-col items-center rounded-b-40 bg-white pb-8 pt-8">
+      <view class="mb-3 h-16 w-16 overflow-hidden border-2 border-white rounded-full shadow-sm">
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/qrcode/bg.png" class="h-full w-full" mode="aspectFill"></image>
+      </view>
+      <text class="mb-1 text-lg text-gray-800 font-bold">Letter</text>
+      <text class="mb-6 text-xs text-gray-400">FID: 654165136533131</text>
+      <view class="h-48 w-48">
+        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/qrcode/code.png" class="h-full w-full" mode="aspectFit"></image>
+      </view>
+    </view>
+    <view class="flex flex-col items-center py-6 text-center">
+      <text class="mb-2 text-lg text-black font-bold">请出示暖新码</text>
+      <text class="text-xs text-gray-700 opacity-60">参与活动时出示</text>
+    </view>
+  </view>
+</view>

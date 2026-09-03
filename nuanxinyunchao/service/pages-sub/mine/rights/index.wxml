@@ -1,0 +1,65 @@
+<view class="page-container">
+  <!-- Background -->
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/mine_bg.png" class="bg-global" mode="scaleToFill" />
+
+  <!-- Custom Nav -->
+  <view class="nav-wrapper" style="padding-top: {{safeAreaTop}}px;">
+    <view class="nav-content" style="height: {{navBarHeight}}px;">
+      <view class="back-btn" hover-class="btn-hover" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">我的权益</text>
+    </view>
+  </view>
+
+  <view class="rights-banner-box">
+    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/mine/rights/banner.png" mode="heightFix" class="rights-img" />
+  </view>
+
+  <view class="main-content">
+    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/volunteer/bg_down.png" class="content-bg" mode="scaleToFill" />
+    
+    <view class="text-content">
+      <view class="title-main">助力长宁区</view>
+      <view class="title-main">成为新就业群体的"家外之家"</view>
+      <view class="description">
+        暖新云巢小程序，作为长宁区"人民城市、全域友好"暖新行动的重要板块，面向"两员两司一主播"等新就业群体提供更加便捷、精准、暖心的线上服务。
+      </view>
+
+      <!-- 权益列表 -->
+      <view class="benefit-list-container">
+        <!-- 权益1 -->
+        <view class="benefit-card">
+          <view class="benefit-tag">权益1</view>
+          <view class="benefit-title">每月享30元无门槛红包</view>
+          <view class="benefit-items">
+            <view class="benefit-item">
+              <view class="icon-check"></view>
+              <text>无门槛</text>
+            </view>
+            <view class="benefit-item">
+              <view class="icon-check"></view>
+              <text>可与满减/折扣同享</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 权益2 -->
+        <view class="benefit-card">
+          <view class="benefit-tag">权益2</view>
+          <view class="benefit-title">每月享30元无门槛红包</view>
+          <view class="benefit-items">
+            <view class="benefit-item">
+              <view class="icon-check"></view>
+              <text>无门槛</text>
+            </view>
+            <view class="benefit-item">
+              <view class="icon-check"></view>
+              <text>可与满减/折扣同享</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

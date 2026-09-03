@@ -1,0 +1,111 @@
+<view class="page-container">
+  <view class="header-bg"></view>
+  <view class="main-content">
+    <!-- 状态 A: 已登录党群中心工作台 -->
+    <block wx:if="{{hasLogin}}">
+      <view class="user-profile">
+        <view class="welcome-text">欢迎回来,</view>
+        <view class="center-name">{{userInfo.nickname || '党群服务中心'}}</view>
+        <view class="street-tag">{{userInfo.orgName || '所属街道'}}</view>
+      </view>
+      <view class="action-grid">
+        <!-- 扫码核销卡片 -->
+        <view class="action-card scan-card" hover-class="card-hover" bindtap="handleScan">
+          <view class="card-icon-box">
+            <view class="icon-scan"></view>
+          </view>
+          <view class="card-info">
+            <text class="card-title">扫码核销</text>
+            <text class="card-desc">扫描居民活动二维码进行核销</text>
+          </view>
+          <view class="icon-arrow"></view>
+        </view>
+        <!-- 核销记录卡片 -->
+        <view class="action-card list-card" hover-class="card-hover" bindtap="handleRecord">
+          <view class="card-icon-box">
+            <view class="icon-list"></view>
+          </view>
+          <view class="card-info">
+            <text class="card-title">核销记录</text>
+            <text class="card-desc">查看本中心的核销历史</text>
+          </view>
+          <view class="icon-arrow"></view>
+        </view>
+        <!-- 编辑信息卡片 -->
+        <view class="action-card edit-card" hover-class="card-hover" bindtap="handleEditProfile">
+          <view class="card-icon-box">
+            <view class="icon-edit"></view>
+          </view>
+          <view class="card-info">
+            <text class="card-title">信息编辑</text>
+            <text class="card-desc">维护中心营业时间、咨询电话及图片</text>
+          </view>
+          <view class="icon-arrow"></view>
+        </view>
+      </view>
+      <!-- 底部操作 -->
+      <view class="footer-actions">
+        <view class="logout-btn" bindtap="handleLogout">退出当前工作账号</view>
+      </view>
+    </block>
+    <!-- 状态 B: 未登录门户引导页 -->
+    <block wx:else>
+      <view class="portal-container animate-fade-in">
+        <view class="portal-header">
+          <view class="portal-badge">工作站专用</view>
+          <text class="portal-title">党群服务中心\n数字化核销平台</text>
+          <text class="portal-desc">
+            本平台仅面向“暖新云巢”计划授权的党群服务中心开放。通过入驻申请后，您可以为新就业群体提供扫码核销及活动记录管理服务。
+          </text>
+        </view>
+        <view class="portal-illustration">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/mine/unity.png" mode="aspectFit" class="illustration-img"></image>
+        </view>
+        <view class="portal-actions">
+          <button class="primary-btn" hover-class="btn-hover" bindtap="navToLogin">
+            <text>登录已有账号</text>
+          </button>
+          <view class="register-entry" bindtap="navToRegister">
+            <text class="entry-label">还未入驻？</text>
+            <text class="entry-link">立即申请加入</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <!-- 活动选择弹窗 -->
+  <view class="modal-overlay" wx:if="{{showActivityModal}}" bindtap="closeActivityModal">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <text class="modal-title">选择活动</text>
+        <view class="modal-close" bindtap="closeActivityModal">
+          <view class="icon-close"></view>
+        </view>
+      </view>
+      <scroll-view scroll-y class="modal-body">
+        <view wx:if="{{activityList.length === 0}}" class="empty-state">
+          <text class="empty-text">暂无活动</text>
+        </view>
+        <view wx:for="{{activityList}}" wx:key="id" class="activity-item" bindtap="selectActivity" data-id="{{item.id}}">
+          <view class="activity-radio">
+            <view class="radio-circle {{selectedActivityId === item.id ? 'radio-active' : ''}}">
+              <view wx:if="{{selectedActivityId === item.id}}" class="radio-inner"></view>
+            </view>
+          </view>
+          <view class="activity-info">
+            <view class="activity-row">
+              <text class="activity-title">{{item.title}}</text>
+              <view class="type-tag {{item.type === 1 ? 'tag-normal' : 'tag-volunteer'}}">
+                {{item.type === 1 ? '活动' : '志愿者活动'}}
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+      <view class="modal-footer">
+        <view class="btn-cancel" bindtap="closeActivityModal">取消</view>
+        <view class="btn-confirm" bindtap="confirmActivity">确认</view>
+      </view>
+    </view>
+  </view>
+</view>

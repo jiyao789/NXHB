@@ -1,0 +1,74 @@
+<view class="page-container">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar">
+    <view style="height: {{statusBarHeight}}px;"></view>
+    <view class="nav-content" style="height: {{navBarHeight}}px;">
+      <view class="back-btn" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <text class="nav-title">官方通知</text>
+    </view>
+  </view>
+
+  <!-- 列表内容区 -->
+  <scroll-view 
+    scroll-y 
+    class="scroll-wrapper" 
+    refresher-enabled="{{true}}"
+    refresher-triggered="{{refresherTriggered}}"
+    bindrefresherrefresh="onRefresh"
+    bindscrolltolower="onReachBottom"
+    lower-threshold="100"
+  >
+    <view class="list-container">
+      <block wx:if="{{notificationList.length > 0}}">
+        <view 
+          wx:for="{{notificationList}}" 
+          wx:key="id" 
+          class="card-item" 
+          bindtap="handleToDetail" 
+          data-id="{{item.id}}"
+        >
+          <view class="card-header">
+            <text class="title">{{item.title}}</text>
+            <text class="date">{{item.date}}</text>
+          </view>
+
+          <view class="card-body">
+            <view class="content-text {{item.image ? 'with-img' : ''}}">
+              <text>{{item.content}}</text>
+            </view>
+            <image 
+              wx:if="{{item.image}}" 
+              src="{{item.image}}" 
+              class="content-img" 
+              mode="aspectFill"
+            />
+          </view>
+
+          <view class="card-footer">
+            <text class="footer-text">查看详情</text>
+            <view class="icon-arrow"></view>
+          </view>
+        </view>
+        
+        <!-- 加载状态提示 -->
+        <view class="load-more-tip">
+          <text wx:if="{{hasMore}}">加载中...</text>
+          <text wx:else>已加载全部通知</text>
+        </view>
+      </block>
+
+      <!-- 空状态 -->
+      <view wx:elif="{{!isLoading}}" class="empty-box">
+        <icon type="info" size="60" color="#dddddd" />
+        <text class="empty-hint">暂无消息通知</text>
+      </view>
+
+
+      <!-- 底部占位 -->
+      <view class="safe-bottom"></view>
+    </view>
+  </scroll-view>
+</view>
+

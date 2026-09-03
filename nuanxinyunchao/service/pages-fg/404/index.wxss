@@ -1,0 +1,47 @@
+page {
+  /* 确保整个页面背景撑满 */
+  background-color: #ffffff;
+  height: 100%;
+}
+
+.page-container {
+  /* 等效于 h-screen flex flex-col items-center justify-center */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-code {
+  font-size: 80rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 16rpx;
+}
+
+.error-text {
+  font-size: 32rpx;
+  color: #666666;
+}
+
+.back-btn {
+  /* 等效于 mt-6 w-40 text-center */
+  margin-top: 48rpx;
+  width: 320rpx !important; /* !important 覆盖 button 的原生默认宽 */
+  text-align: center;
+  background-color: #f8f8f8;
+  color: #333333;
+  font-size: 32rpx;
+  border-radius: 12rpx;
+  padding: 16rpx 0;
+}
+
+.back-btn:active {
+  background-color: #e5e5e5;
+}
+
+/* 隐藏 button 自带的边框 */
+.back-btn::after {
+  border: none;
+}

@@ -1,0 +1,273 @@
+.container {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.nav-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: #f3f4f6;
+}
+
+.nav-content {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.back-btn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-back {
+  width: 20rpx;
+  height: 20rpx;
+  border-left: 4rpx solid #333;
+  border-bottom: 4rpx solid #333;
+  transform: rotate(45deg);
+  margin-left: 10rpx;
+}
+
+.nav-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.content {
+  padding: 32rpx;
+}
+
+.audit-card {
+  background-color: #fff;
+  border-radius: 32rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}
+
+.card-body {
+  padding: 40rpx;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 24rpx;
+  line-height: 1.5;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  font-size: 32rpx;
+  color: #333;
+  white-space: nowrap;
+}
+
+.value {
+  font-size: 32rpx;
+  color: #333;
+}
+
+.divider {
+  height: 2rpx;
+  background-color: #f3f4f6;
+  margin: 0 40rpx;
+}
+
+.card-footer {
+  padding: 32rpx 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.apply-time {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.action-btns {
+  display: flex;
+  gap: 24rpx;
+}
+
+.btn-approve {
+  width: 140rpx !important;
+  height: 64rpx;
+  padding: 0;
+  margin: 0;
+  background-color: #ffcc00; /* 亮黄色 */
+  color: #333;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  font-weight: normal;
+}
+
+.btn-reject {
+  width: 140rpx !important;
+  height: 64rpx;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  color: #333;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid #ffcc00; /* 黄色镂空 */
+  border-radius: 12rpx;
+  font-weight: normal;
+}
+
+.bg-active {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.btn-active {
+  transform: scale(0.96);
+  opacity: 0.8 !important;
+}
+
+/* 抽屉 & 遮罩 */
+.mask {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 200;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  backdrop-filter: blur(2px);
+}
+
+.mask.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.reject-drawer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  border-radius: 48rpx 48rpx 0 0;
+  z-index: 300;
+  transform: translateY(100%);
+  transition: transform 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
+  padding: 48rpx 40rpx calc(48rpx + env(safe-area-inset-bottom));
+  box-shadow: 0 -8rpx 24rpx rgba(0, 0, 0, 0.05);
+}
+
+.reject-drawer.show {
+  transform: translateY(0);
+}
+
+.drawer-label {
+  font-size: 34rpx;
+  color: #333;
+  margin-bottom: 24rpx;
+  display: block;
+}
+
+.reason-input {
+  width: 100%;
+  height: 200rpx;
+  background-color: #f9f9f9;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom: 60rpx;
+}
+
+.ph-style {
+  color: #ccc;
+}
+
+.btn-submit {
+  width: 100% !important;
+  height: 96rpx;
+  background-color: #ffcc00;
+  color: #333;
+  font-size: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+      border-radius: 48rpx;
+  font-weight: bold;
+}
+
+/* 优惠券简报模块 */
+.coupon-brief {
+  padding-bottom: 20rpx;
+}
+
+.coupon-main-info {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 32rpx;
+}
+
+.badge {
+  background-color: #fef3c7;
+  color: #d97706;
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  font-weight: bold;
+}
+
+.coupon-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.coupon-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24rpx;
+}
+
+.detail-item {
+  width: calc(50% - 12rpx);
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.d-label {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.d-value {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.highlighted {
+  color: #f59e0b;
+  font-size: 34rpx;
+  font-weight: bold;
+}

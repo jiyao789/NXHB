@@ -1,0 +1,31 @@
+<view class="min-h-screen flex flex-col bg-efecec">
+  <view class="fixed left-0 right-0 top-0 z-50" style="padding-top: {{safeAreaInsetsTop}}px;">
+    <view class="relative h-11 flex items-center justify-center px-4">
+      <view class="absolute left-2 h-8 w-8 flex items-center justify-center rounded-full active-bg-black-5" bindtap="handleBack">
+        <view class="i-carbon-chevron-left text-2xl text-gray-900" />
+      </view>
+      <text class="text-lg text-gray-900 font-bold">账号安全</text>
+    </view>
+  </view>
+  <view style="height: {{safeAreaInsetsTop + 44}}px;" />
+
+  <view class="px-4 pt-3">
+    <view class="overflow-hidden rounded-3xl bg-white shadow-md">
+      <view
+        wx:for="{{list}}"
+        wx:key="index"
+        class="relative flex items-center justify-between p-4 active-bg-gray-50"
+        bindtap="handleNav"
+        data-path="{{item.path}}"
+      >
+        <text class="text-base text-gray-800">{{ item.title }}</text>
+        <view class="i-carbon-chevron-right text-gray-300" />
+        
+        <view
+          wx:if="{{index < list.length - 1}}" 
+          class="absolute bottom-0 right-2 left-2 h-1px bg-gray-200 z-20"
+        />
+      </view>
+    </view>
+  </view>
+</view>

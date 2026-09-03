@@ -1,0 +1,101 @@
+<view class="page-container">
+  <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/mine/mine_bg.png" class="bg-absolute" mode="scaleToFill" />
+
+  <view class="nav-wrapper" style="padding-top: {{safeAreaTop}}px;">
+    <view class="nav-content">
+      <view class="back-btn" bindtap="handleBack">
+        <view class="icon-back"></view>
+      </view>
+      <view class="search-box" hover-class="search-box-hover" wx:if="{{false}}">
+        <view class="icon-search"></view>
+        <text class="search-text">强国同学汇</text>
+      </view>
+      <view class="nav-spacer"></view>
+    </view>
+  </view>
+
+  <view class="top-decor-wrapper">
+    <view class="top-decor-box">
+      <image src="{{detailInfo.topBg}}" mode="aspectFit" class="full-img" />
+    </view>
+  </view>
+
+  <view class="main-card-wrapper">
+    <view class="banner-section">
+      <swiper class="banner-swiper" indicator-dots="{{false}}" autoplay="{{true}}" circular="{{true}}" interval="4000">
+        <swiper-item wx:for="{{bannerList}}" wx:key="id">
+          <image src="{{item.imgUrl}}" mode="aspectFill" class="full-img" />
+        </swiper-item>
+      </swiper>
+
+      <view class="tags-overlay">
+        <scroll-view scroll-x class="tags-scroll" show-scrollbar="{{false}}">
+          <view class="tags-flex">
+            <view wx:for="{{bannerTags}}" wx:key="*this" class="tag-item">
+              {{ item }}
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+
+    <view class="detail-section">
+      <view class="detail-header">
+        <view class="title-group">
+          <text class="detail-title">{{ detailInfo.name }}</text>
+        </view>
+      </view>
+
+      <view class="info-list">
+        <view class="info-item">
+          <view class="icon-time"></view>
+          <text>营业时间：{{ detailInfo.openTime }}</text>
+        </view>
+
+        <view class="info-item">
+          <view class="icon-phone"></view>
+          <text>咨询电话：{{ detailInfo.phone }}</text>
+        </view>
+
+        <view class="info-item location-item">
+          <view class="icon-location"></view>
+          <text class="text-ellipsis">地址：{{ detailInfo.address }}</text>
+        </view>
+
+        <view class="side-icon-box">
+          <image src="{{detailInfo.icon}}" mode="aspectFill" class="side-icon" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="stats-wrapper">
+    <view class="stats-title">本月累计</view>
+
+    <view class="stats-grid">
+      <view wx:for="{{monthStats}}" wx:key="index" class="stat-card">
+        <view class="stat-left">
+          <text>{{ item.title[0] }}</text>
+          <text>{{ item.title[1] }}</text>
+          
+          <view wx:if="{{false}}" class="stat-sub-info">
+            <view wx:for="{{item.subInfo}}" wx:for-item="sub" wx:key="label" class="sub-info-item">
+              <view class="dot {{sub.color}}"></view>
+              <text class="dot-text">{{sub.label}}</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="stat-right">
+          <image src="{{item.svgUrl}}" class="gauge-img" mode="aspectFit" />
+          <view class="gauge-content">
+            <view class="gauge-icon-wrapper" style="background: {{item.title[0] === '活动' || item.title[0] === '优惠' ? 'linear-gradient(to right, #ffc40b, #ff7836)' : 'linear-gradient(to right, #bde84b, #a5d404)'}}">
+              <view class="gauge-icon {{item.iconClass}}"></view>
+            </view>
+            <text class="gauge-value">{{ item.value }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

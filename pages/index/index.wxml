@@ -1,0 +1,128 @@
+<cu-custom bgColor="bg-white">
+  <view slot="content">长宁智慧党建</view>
+</cu-custom>
+<view class="container">
+  <view class="main_content">
+    <view class="top">
+      <image class="top_bg" src="{{img_root}}/top_bg_new.png" mode='widthFix' />
+      <view class="top_content flex-y-start">
+        <image class="index_tx" src="https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132" />
+        <view class="index_content flex-col" style='width:50%'>
+          <view class="index_txt">
+            xxxxx同志
+          </view>
+          <view class="class flex">
+            <image class="s_con" src='{{img_root}}/s_con.png' />
+            <text>游客</text>
+          </view>
+        </view>
+        <view class="report_btn" data-index='0' bindtap="toPage">
+          <block wx:if="{{miniuser.orgId}}">
+            <image src="{{img_root}}/detail.png" />
+          </block>
+          <block wx:else>
+            <image src="{{img_root}}/report.png" />
+          </block>
+        </view>
+      </view>
+      <view class="new_activityBtn" data-index='9' bindtap="toPage">
+        <image src="/imges/new_activityBtn2.png" mode="widthFix" />
+      </view>
+    </view>
+    <view>
+    </view>
+    <view class="icons_box flex-y-center">
+      <view class="icon_list" data-index='1' bindtap="toPage" data-roleflag="党员">
+        <image src="{{img_root}}/icon11.png" />
+        <text>我的支部</text>
+      </view>
+      <view class="icon_list" data-index='2' bindtap="toPage">
+        <image src="{{img_root}}/iconlt.png" />
+        <text>学习擂台</text>
+      </view>
+      <view class="icon_list" data-index='3' bindtap="toPage">
+        <image src="{{img_root}}/icon2.png" />
+        <text>党群地图</text>
+      </view>
+      <view class="icon_list" data-index='4' bindtap="toPage">
+        <image src="{{img_root}}/icon14.png" />
+        <text>在线学习</text>
+      </view>
+    </view>
+    <!--学习贯彻党的二十大精神横幅-->
+    <view class="special_banner"><image src="../../imges/cn_banner.png" mode="widthFix" data-index='10' bindtap="toPage"/></view>
+    <view class='join_in'>
+      <view class='s_title'>
+        <text>我要参与</text>
+      </view>
+      <view class='bannerBox'>
+        <view class='banner_box' data-index='106' bindtap="toPage">
+          <image src='https://test.ischooldays.cn/images/cndj/20230411/3ec9402f564301ab4444c0247e4f4d8d.png' mode='widthFix' />
+          <button>共有<text>0</text>个项目可赋能</button>
+        </view>
+        <view class='banner_box' data-index='5' bindtap="toPage">
+          <image src='{{img_root}}/banner1.png?1' mode='widthFix' />
+          <button>共有<text>0</text>个党群活动可参与</button>
+        </view>
+        <view class='banner_box' data-index='7' bindtap="toPage">
+          <image src='{{img_root}}/banner3.png?1' mode='widthFix' />
+          <button>共有<text>0</text>个微心愿待认领</button>
+        </view>
+        <view class='banner_box' data-index='6' bindtap="toPage">
+          <image src='{{img_root}}/banner2.png?1' mode='widthFix' />
+          <button>共有<text>0</text>条路线可参与</button>
+        </view>
+        <view class='banner_box' data-index='8' bindtap="toPage">
+          <image src='{{img_root}}/banner4.png?1' mode='widthFix' />
+          <button>共有<text>0</text>个公益活动已完成</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="cu-bar tabbar bg-white fix_bottom">
+  <view class="action">
+    <view class='cuIcon-cu-image'>
+      <image src="{{img_root}}/img/icon_campus_on.png"></image>
+    </view>
+    <view class="text-red">主页</view>
+  </view>
+  <view class="action" bindtap="toPage" data-index="102">
+    <view class='cuIcon-cu-image'>
+      <image src="{{img_root}}/img/icon_message.png"></image>
+    </view>
+    <view class="text-gray">任务</view>
+  </view>
+  <view class="action" bindtap="toPage" data-index="103">
+    <view class='cuIcon-cu-image'>
+      <image src="{{img_root}}/img/my_party.png"></image>
+    </view>
+    <view class="text-white">我的支部</view>
+  </view>
+  <view class="action" bindtap="toPage" data-index="104">
+    <view class='cuIcon-cu-image'>
+      <image src="{{img_root}}/img/icon_class_circle.png"></image>
+    </view>
+    <view class="text-gray">支部圈</view>
+  </view>
+  <view class="action" bindtap="toPage" data-index="105">
+    <view class='cuIcon-cu-image'>
+      <image src="{{img_root}}/img/icon_user_in.png"></image>
+    </view>
+    <view class="text-gray">我的</view>
+  </view>
+</view>
+
+<!-- 暖新云巢跳转弹窗 -->
+<view class="nuanxin-mask" wx:if="{{showNuanXinModal}}" bindtap="closeModal">
+  <view class="nuanxin-modal" catchtap="stopBubble">
+    <view class="modal-title">请选择访问入口</view>
+    <view class="modal-body">
+      <view class="entry-btn service-btn" bindtap="goToNuanXin" data-type="service">服务端</view>
+      <view class="entry-btn user-btn" bindtap="goToNuanXin" data-type="user">用户端</view>
+      <view class="entry-btn user-btn" bindtap="goToNuanXin" data-type="admin">管理端</view>
+    </view>
+    <view class="modal-close" bindtap="closeModal">关闭</view>
+  </view>
+</view>
