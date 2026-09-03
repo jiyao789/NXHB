@@ -133,18 +133,6 @@
         "pages-sub/mine/setting/security/modify-password",
         "pages-sub/mine/setting/security/safety-center"
       ]
-    },
-    {
-      "root": "examination",
-      "pages": []
-    },
-    {
-      "root": "barrier",
-      "pages": []
-    },
-    {
-      "root": "answerComponent",
-      "pages": []
     }
   ],
   "permission": {

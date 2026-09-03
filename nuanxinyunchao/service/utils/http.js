@@ -15,8 +15,8 @@ const envConfig = {
     directUrl: 'http://nxyc.nj.sh.cn/biz',
   },
   release: {
-    gatewayUrl: 'http://120.25.165.230:27903',
-    directUrl: 'http://120.25.165.230:27912',
+    gatewayUrl: 'http://nxyc.nj.sh.cn',
+    directUrl: 'http://nxyc.nj.sh.cn/biz',
   },
 }
 
@@ -43,6 +43,8 @@ export const http = (options) => {
       header['Authorization'] = 'Bearer ' + token
       header['token'] = token
       header['clientToken'] = token
+      header['client-token'] = token
+      header['clienttoken'] = token
       header['satoken'] = token
     }
 

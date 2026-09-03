@@ -1,6 +1,5 @@
 <view class="page-container">
   <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="bg-absolute" mode="scaleToFill" />
-
   <view class="nav-wrapper" style="padding-top: {{safeAreaTop}}px;">
     <view class="nav-content">
       <view class="back-btn" hover-class="btn-hover" bindtap="handleBack">
@@ -9,7 +8,6 @@
       <text class="nav-title">月度计划</text>
     </view>
   </view>
-
   <view class="status-cards-container">
     <view wx:for="{{statusList}}" wx:key="type" class="status-item">
       <view class="status-card-box">
@@ -23,18 +21,14 @@
       <text class="status-title">{{item.title}}</text>
     </view>
   </view>
-
   <view class="main-content">
     <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/volunteer/bg_down.png" class="content-bg" mode="scaleToFill" />
-    
     <view class="content-header">
       <text class="overview-title">月度概览</text>
       <view class="manage-btn" bindtap="handleManage" hover-class="btn-hover">
-        <view class="i-carbon-settings-adjust item-manage-icon" wx:if="{{!isManageMode}}"></view>
         <text>{{isManageMode ? '完成' : '管理'}}</text>
       </view>
     </view>
-    
     <scroll-view scroll-y class="list-scroll" show-scrollbar="{{false}}">
       <view class="list-container {{isManageMode ? 'manage-mode' : ''}}">
         <view wx:for="{{overviewList}}" wx:key="id" class="list-item-wrapper">
@@ -42,17 +36,14 @@
           <view wx:if="{{isManageMode}}" class="select-box" bindtap="toggleSelectItem" data-id="{{item.id}}">
             <view class="select-circle {{util.indexOf(selectedIds, item.id) > -1 ? 'selected' : ''}}"></view>
           </view>
-
           <view class="list-item" bindtap="{{isManageMode ? 'toggleSelectItem' : ''}}" data-id="{{item.id}}">
             <image src="{{item.iconPath}}" class="item-icon" mode="aspectFit" />
-
             <view class="item-text-group">
               <text class="item-title">{{item.title}}</text>
               <view class="item-subtitle" catchtap="handleShowUsage" data-content="{{item.subTitle}}">
                 <text class="usage-btn-text">使用须知</text>
               </view>
             </view>
-
             <view class="status-capsule" style="background-color: {{item.statusColor}};">
               {{item.status}}
             </view>
@@ -60,7 +51,6 @@
         </view>
       </view>
     </scroll-view>
-
     <!-- 底部管理栏 -->
     <view class="manage-footer {{isManageMode ? 'show' : ''}}">
       <view class="footer-left" bindtap="toggleSelectAll">
@@ -74,7 +64,6 @@
       </view>
     </view>
   </view>
-
   <!-- 使用须知自定义弹窗 -->
   <view class="custom-modal-mask {{showUsageModal ? 'show' : ''}}" bindtap="handleCloseUsage">
     <view class="custom-modal-box" catchtap="stopPropagation">
@@ -86,11 +75,12 @@
         <text class="custom-modal-text">{{usageContent}}</text>
       </scroll-view>
       <view class="custom-modal-footer">
-        <view class="custom-modal-btn" hover-class="btn-hover" bindtap="handleCloseUsage">我知道了</view>
+        <view class="custom-modal-btn" hover-class="btn-hover" bindtap="handleCloseUsage">
+          我知道了
+        </view>
       </view>
     </view>
   </view>
-
   <!-- WXS 辅助工具 -->
   <wxs module="util">
     module.exports = {
