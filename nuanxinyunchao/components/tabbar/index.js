@@ -118,7 +118,16 @@ Component({
       
       // 遍历所有角色配置，匹配当前路由
       for (const role in configs) {
-        const list = configs[role];
+        let list = configs[role];
+        
+        // 如果是 service 端，且角色是街道管理员，隐藏扫码模块
+        if (role === 'service') {
+          const userInfo = wx.getStorageSync('service_userInfo') || {};
+          if (userInfo.role === 'street') {
+            list = list.filter(item => item.pagePath !== '/nuanxinyunchao/service/pages/qrcode/index');
+          }
+        }
+
         const index = list.findIndex(item => item.pagePath === route);
         if (index > -1) {
           this.setData({
@@ -135,8 +144,17 @@ Component({
     },
     updateList() {
       const { role, configs } = this.data;
+      let list = configs[role] || configs['user'];
+      
+      if (role === 'service') {
+        const userInfo = wx.getStorageSync('service_userInfo') || {};
+        if (userInfo.role === 'street') {
+          list = list.filter(item => item.pagePath !== '/nuanxinyunchao/service/pages/qrcode/index');
+        }
+      }
+
       this.setData({
-        list: configs[role] || configs['user']
+        list: list
       });
     },
     switchTab(e) {

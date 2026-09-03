@@ -64,9 +64,6 @@
               <view class="dropdown-option {{selectedType === '社区服务' ? 'active' : ''}}" hover-class="bg-gray-50" bindtap="handleTypeSelect" data-type="社区服务">社区服务</view>
               <view class="dropdown-option {{selectedType === '医疗辅助' ? 'active' : ''}}" hover-class="bg-gray-50" bindtap="handleTypeSelect" data-type="医疗辅助">医疗辅助</view>
               <view class="dropdown-option {{selectedType === '环境整治' ? 'active' : ''}}" hover-class="bg-gray-50" bindtap="handleTypeSelect" data-type="环境整治">环境整治</view>
-              <view class="dropdown-option {{selectedType === '环保绿化' ? 'active' : ''}}" hover-class="bg-gray-50" bindtap="handleTypeSelect" data-type="环保绿化">环保绿化</view>
-              <view class="dropdown-option {{selectedType === '敬老爱老' ? 'active' : ''}}" hover-class="bg-gray-50" bindtap="handleTypeSelect" data-type="敬老爱老">敬老爱老</view>
-              <view class="dropdown-option {{selectedType === '便民维修' ? 'active' : ''}}" hover-class="bg-gray-50" bindtap="handleTypeSelect" data-type="便民维修">便民维修</view>
             </scroll-view>
           </view>
         </view>

@@ -117,6 +117,9 @@ Page({
         let sourceCards = payload.overviewCards || [];
         if (this.data.type === 3) {
           sourceCards = sourceCards.filter(card => card.label !== '总浏览量' && card.label !== '好评率');
+        } else {
+          // 活动类(1) 和 服务类(2) 隐藏好评率
+          sourceCards = sourceCards.filter(card => card.label !== '好评率');
         }
 
         const overviewCards = sourceCards.map((card, idx) => {
