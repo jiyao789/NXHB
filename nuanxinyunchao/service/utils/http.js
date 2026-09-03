@@ -43,8 +43,6 @@ export const http = (options) => {
       header['Authorization'] = 'Bearer ' + token
       header['token'] = token
       header['clientToken'] = token
-      header['client-token'] = token
-      header['clienttoken'] = token
       header['satoken'] = token
     }
 
