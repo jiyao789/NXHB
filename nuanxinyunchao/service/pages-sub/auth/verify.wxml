@@ -155,7 +155,7 @@
     <view class="relative w-600 overflow-hidden rounded-24 animate-scale-in">
       <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/login-modal-long-bg.png" class="absolute inset-0 h-full w-full -z-10" mode="scaleToFill"></image>
       <view class="relative z-10 flex h-full flex-col items-center justify-center px-8 pt-8 text-center pb-10">
-        <text class="mt-2 mb-4 text-xl font-bold text-gray-900">须知</text>
+        <text class="mt-2 mb-4 text-xl font-bold text-gray-900" style="margin-top: 40px;">须知</text>
         <scroll-view scroll-y class="notice-scroll mb-8">
           <text class="text-mini leading-relaxed text-brown-5a text-left">暖新云巢服务端，主要面向提供服务的各类社会力量(两员两司一主播，即外卖员、快递员、货车司机、网约车司机和主播)。通过入驻申请审核后，即可加入暖新友好计划。为了能够更好的服务于这些社会力量，您将有义务作为暖新友好商户为其提供定向服务。商户需不定期发布仅面向新就业群体的优惠券，并为到来的新就业群体扫码核销，从而获取更多社会力量数据。后续将会开设友好商户评选，热度排名靠前的商户，有机会获得由街区支部书记领导的探店活动并得到长宁区官方宣传等权益。</text>
         </scroll-view>

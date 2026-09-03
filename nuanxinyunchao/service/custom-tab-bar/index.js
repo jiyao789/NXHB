@@ -18,7 +18,7 @@ Component({
       },
 
       {
-        pagePath: "/nuanxinyunchao/service/pages/qrcode/index",
+        pagePath: "/nuanxinyunchao/service/pages-sub/qrcode/index",
         iconPath: "/nuanxinyunchao/service/static/tabbar/code.png",
         selectedIconPath: "/nuanxinyunchao/service/static/tabbar/code.png",
         text: "",

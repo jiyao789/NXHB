@@ -108,4 +108,5 @@
       </view>
     </view>
   </view>
+  <global-home-btn />
 </view>

@@ -30,7 +30,6 @@
     <view class="content-header">
       <text class="overview-title">月度概览</text>
       <view class="manage-btn" bindtap="handleManage" hover-class="btn-hover">
-        <view class="i-carbon-settings-adjust item-manage-icon" wx:if="{{!isManageMode}}"></view>
         <text>{{isManageMode ? '完成' : '管理'}}</text>
       </view>
     </view>
