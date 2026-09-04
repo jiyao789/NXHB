@@ -125,7 +125,7 @@ Component({
           const userInfo = wx.getStorageSync('service_userInfo') || {}
           if (userInfo.role === 'street') {
             list = list.filter(
-              (item) => item.pagePath !== '/nuanxinyunchao/service/pages/qrcode/index',
+              (item) => item.pagePath !== '/nuanxinyunchao/service/pages-sub/qrcode/index',
             )
           }
         }
@@ -152,7 +152,7 @@ Component({
         const userInfo = wx.getStorageSync('service_userInfo') || {}
         if (userInfo.role === 'street') {
           list = list.filter(
-            (item) => item.pagePath !== '/nuanxinyunchao/service/pages/qrcode/index',
+            (item) => item.pagePath !== '/nuanxinyunchao/service/pages-sub/qrcode/index',
           )
         }
       }
