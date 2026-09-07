@@ -9,9 +9,10 @@ const env_1 = require("./env");
 const token_1 = require("./token");
 const baseUrl = (0, env_1.getBaseUrl)();
 const bizUrl = (0, env_1.getBizUrl)();
-// Token刷新状态
+// Token刷新状态与跳转防抖
 let refreshing = false;
 let taskQueue = [];
+let isNavigatingToLogin = false;
 // 拼接 Query
 function stringifyQuery(query) {
     if (!query)
@@ -92,9 +93,22 @@ const http = (options) => {
                         return reject(res.data || res);
                     }
                     token_1.tokenManager.clear();
-                    setTimeout(() => {
-                        wx.navigateTo({ url: '/nuanxinyunchao/user/pages-sub/auth/login/index' });
-                    }, 1500);
+                    const pages = getCurrentPages();
+                    const currentPage = pages && pages.length > 0 ? pages[pages.length - 1] : null;
+                    const currentRoute = currentPage ? (currentPage.route || '') : '';
+                    const isInSubPackage = currentRoute.includes('nuanxinyunchao/user');
+                    const isLoginPage = currentRoute.includes('nuanxinyunchao/user/pages-sub/auth/login/index');
+                    if (isInSubPackage && !isLoginPage && !isNavigatingToLogin) {
+                        isNavigatingToLogin = true;
+                        setTimeout(() => {
+                            wx.navigateTo({
+                                url: '/nuanxinyunchao/user/pages-sub/auth/login/index',
+                                complete: () => {
+                                    setTimeout(() => { isNavigatingToLogin = false; }, 3000);
+                                }
+                            });
+                        }, 1500);
+                    }
                     return reject(res.data || res);
                 }
                 // 处理成功状态码

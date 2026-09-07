@@ -92,11 +92,10 @@ Page({
     const { profileList, userInfo, imageCollection } = this.data;
 
     // 1. 数据校验
-    const contactPhone = profileList.find(i => i.key === 'contactPhone').value;
-    if (contactPhone && !/^1[3-9]\d{9}$/.test(contactPhone) && !/^0\d{2,3}-?\d{7,8}$/.test(contactPhone)) {
-      if (!/^JD_/.test(contactPhone)) {
-        return wx.showToast({ title: '联系电话格式不正确', icon: 'none' });
-      }
+    const contactPhoneObj = profileList.find(i => i.key === 'contactPhone');
+    const contactPhone = contactPhoneObj ? contactPhoneObj.value : '';
+    if (!contactPhone || !String(contactPhone).trim()) {
+      return wx.showToast({ title: '咨询电话不能为空', icon: 'none' });
     }
 
     wx.showLoading({ title: '正在保存...' });

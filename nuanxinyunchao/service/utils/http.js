@@ -7,16 +7,16 @@ const envConfig = {
     //directUrl: 'http://localhost:9102',
     // gatewayUrl: 'http://120.25.165.230:27903',
     // directUrl: 'http://120.25.165.230:27912',
-    gatewayUrl: 'http://nxyc.nj.sh.cn',
-    directUrl: 'http://nxyc.nj.sh.cn/biz',
+    gatewayUrl: 'https://nxyc.nj.sh.cn',
+    directUrl: 'https://nxyc.nj.sh.cn/biz',
   },
   trial: {
-    gatewayUrl: 'http://nxyc.nj.sh.cn',
-    directUrl: 'http://nxyc.nj.sh.cn/biz',
+    gatewayUrl: 'https://nxyc.nj.sh.cn',
+    directUrl: 'https://nxyc.nj.sh.cn/biz',
   },
   release: {
-    gatewayUrl: 'http://nxyc.nj.sh.cn',
-    directUrl: 'http://nxyc.nj.sh.cn/biz',
+    gatewayUrl: 'https://nxyc.nj.sh.cn',
+    directUrl: 'https://nxyc.nj.sh.cn/biz',
   },
 }
 
@@ -25,6 +25,8 @@ const directUrl = envConfig[envVersion].directUrl
 
 export const getGatewayUrl = () => gatewayUrl
 export const getDirectUrl = () => directUrl
+
+let isNavigatingToLogin = false
 
 /**
  * 基础请求封装
@@ -97,9 +99,22 @@ export const http = (options) => {
           } else if (data.code === 401) {
             wx.showToast({ title: '登录已过期', icon: 'none' })
             wx.removeStorageSync('service_token')
-            setTimeout(() => {
-              wx.navigateTo({ url: '/nuanxinyunchao/service/pages/login/index' })
-            }, 1500)
+            const pages = getCurrentPages()
+            const currentPage = pages && pages.length > 0 ? pages[pages.length - 1] : null
+            const currentRoute = currentPage ? (currentPage.route || '') : ''
+            const isInSubPackage = currentRoute.includes('nuanxinyunchao/service')
+            const isLoginPage = currentRoute.includes('nuanxinyunchao/service/pages/login/index')
+            if (isInSubPackage && !isLoginPage && !isNavigatingToLogin) {
+              isNavigatingToLogin = true
+              setTimeout(() => {
+                wx.navigateTo({
+                  url: '/nuanxinyunchao/service/pages/login/index',
+                  complete: () => {
+                    setTimeout(() => { isNavigatingToLogin = false }, 3000)
+                  }
+                })
+              }, 1500)
+            }
             reject(data)
           } else {
             console.error('>>> 业务拦截报错, data.code:', data.code, ' 报文:', data)
@@ -109,9 +124,22 @@ export const http = (options) => {
         } else if (statusCode === 401) {
           wx.showToast({ title: '登录已过期', icon: 'none' })
           wx.removeStorageSync('service_token')
-          setTimeout(() => {
-            wx.navigateTo({ url: '/nuanxinyunchao/service/pages/login/index' })
-          }, 1500)
+          const pages = getCurrentPages()
+          const currentPage = pages && pages.length > 0 ? pages[pages.length - 1] : null
+          const currentRoute = currentPage ? (currentPage.route || '') : ''
+          const isInSubPackage = currentRoute.includes('nuanxinyunchao/service')
+          const isLoginPage = currentRoute.includes('nuanxinyunchao/service/pages/login/index')
+          if (isInSubPackage && !isLoginPage && !isNavigatingToLogin) {
+            isNavigatingToLogin = true
+            setTimeout(() => {
+              wx.navigateTo({
+                url: '/nuanxinyunchao/service/pages/login/index',
+                complete: () => {
+                  setTimeout(() => { isNavigatingToLogin = false }, 3000)
+                }
+              })
+            }, 1500)
+          }
           return reject(res.data || res)
         } else {
           // 优化：即使是 500/503 等错误，如果后端返回了 JSON 且含有 msg，则显示该业务提示

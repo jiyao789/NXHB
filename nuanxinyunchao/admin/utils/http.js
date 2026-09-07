@@ -3,21 +3,23 @@ const envVersion = accountInfo.miniProgram.envVersion || 'release'
 
 const envConfig = {
   develop: {
-    gatewayUrl: 'http://nxyc.nj.sh.cn',
-    directUrl: 'http://nxyc.nj.sh.cn/biz',
+    gatewayUrl: 'https://nxyc.nj.sh.cn',
+    directUrl: 'https://nxyc.nj.sh.cn/biz',
   },
   trial: {
-    gatewayUrl: 'http://nxyc.nj.sh.cn',
-    directUrl: 'http://nxyc.nj.sh.cn/biz',
+    gatewayUrl: 'https://nxyc.nj.sh.cn',
+    directUrl: 'https://nxyc.nj.sh.cn/biz',
   },
   release: {
-    gatewayUrl: 'http://120.25.165.230:27603',
-    directUrl: 'http://120.25.165.230:27603',
+    gatewayUrl: 'https://nxyc.nj.sh.cn',
+    directUrl: 'https://nxyc.nj.sh.cn/biz',
   },
 }
 
 const gatewayUrl = envConfig[envVersion].gatewayUrl
 const directUrl = envConfig[envVersion].directUrl
+
+let isNavigatingToLogin = false
 
 const http = (options) => {
   return new Promise((resolve, reject) => {
@@ -68,9 +70,22 @@ const http = (options) => {
           } else if (data.code === 401) {
             wx.showToast({ title: '登录已过期', icon: 'none' })
             wx.removeStorageSync('token')
-            setTimeout(() => {
-              wx.reLaunch({ url: '/nuanxinyunchao/admin/pages-fg/login/login' })
-            }, 1500)
+            const pages = getCurrentPages()
+            const currentPage = pages && pages.length > 0 ? pages[pages.length - 1] : null
+            const currentRoute = currentPage ? (currentPage.route || '') : ''
+            const isInSubPackage = currentRoute.includes('nuanxinyunchao/admin')
+            const isLoginPage = currentRoute.includes('nuanxinyunchao/admin/pages-fg/login/login')
+            if (isInSubPackage && !isLoginPage && !isNavigatingToLogin) {
+              isNavigatingToLogin = true
+              setTimeout(() => {
+                wx.reLaunch({
+                  url: '/nuanxinyunchao/admin/pages-fg/login/login',
+                  complete: () => {
+                    setTimeout(() => { isNavigatingToLogin = false }, 3000)
+                  }
+                })
+              }, 1500)
+            }
             reject(data)
           } else {
             wx.showToast({ title: data.msg || data.message || '操作失败', icon: 'none' })
@@ -79,9 +94,22 @@ const http = (options) => {
         } else if (statusCode === 401) {
           wx.showToast({ title: '登录已过期', icon: 'none' })
           wx.removeStorageSync('token')
-          setTimeout(() => {
-            wx.reLaunch({ url: '/nuanxinyunchao/admin/pages-fg/login/login' })
-          }, 1500)
+          const pages = getCurrentPages()
+          const currentPage = pages && pages.length > 0 ? pages[pages.length - 1] : null
+          const currentRoute = currentPage ? (currentPage.route || '') : ''
+          const isInSubPackage = currentRoute.includes('nuanxinyunchao/admin')
+          const isLoginPage = currentRoute.includes('nuanxinyunchao/admin/pages-fg/login/login')
+          if (isInSubPackage && !isLoginPage && !isNavigatingToLogin) {
+            isNavigatingToLogin = true
+            setTimeout(() => {
+              wx.reLaunch({
+                url: '/nuanxinyunchao/admin/pages-fg/login/login',
+                complete: () => {
+                  setTimeout(() => { isNavigatingToLogin = false }, 3000)
+                }
+              })
+            }, 1500)
+          }
           reject(res)
         } else {
           const businessMsg = data && (data.msg || data.message)

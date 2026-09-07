@@ -8,15 +8,15 @@ exports.ENV = {
   active: 'develop', // develop, trial, release
   baseUrl: {
     // develop: 'http://localhost:9003',
-    develop: 'http://nxyc.nj.sh.cn',
-    trial: 'http://nxyc.nj.sh.cn',
-    release: 'http://120.25.165.230:27603',
+    develop: 'https://nxyc.nj.sh.cn',
+    trial: 'https://nxyc.nj.sh.cn',
+    release: 'https://nxyc.nj.sh.cn',
   },
   bizUrl: {
     // develop: 'http://localhost:9102',
-    develop: 'http://nxyc.nj.sh.cn/biz',
-    trial: 'http://nxyc.nj.sh.cn/biz',
-    release: 'http://120.25.165.230:9999',
+    develop: 'https://nxyc.nj.sh.cn/biz',
+    trial: 'https://nxyc.nj.sh.cn/biz',
+    release: 'https://nxyc.nj.sh.cn/biz',
   },
   authMode: 'single', // single or double token
 }
