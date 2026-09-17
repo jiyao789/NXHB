@@ -1,12 +1,52 @@
-<view class="login pt-safe">
-  <view class="text-center">
-    登录页
-  </view>
-  <button class="mt-4 w-40 text-center" bindtap="doLogin">
-    点击模拟登录
-  </button>
-</view>
+<view class="container">
+  <!-- 顶部安全区域 -->
+  <view class="safe-area-header" style="height: {{safeAreaTop + 44}}px"></view>
 
+  <!-- Logo 与 标题区域 -->
+  <view class="logo-section">
+    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/mine/logo.png" class="logo-img" mode="aspectFit" />
+    <text class="title-main">"暖新云巢"小程序</text>
+    <text class="title-sub">管理端</text>
+  </view>
+
+  <!-- 表单区域 -->
+  <view class="form-container">
+    <!-- 账号输入框 -->
+    <view class="input-item">
+      <view class="icon-user"></view>
+      <input class="input-field" type="text" maxlength="11" placeholder="请输入账号" placeholder-class="placeholder-text" value="{{formData.account}}" data-field="account" bindinput="handleInput" />
+      <view wx:if="{{formData.account}}" class="icon-close" bindtap="clearAccount"></view>
+    </view>
+
+    <!-- 密码输入框 -->
+    <view class="input-item">
+      <view class="icon-security"></view>
+      <input class="input-field" password="{{true}}" maxlength="11" placeholder="请输入密码" placeholder-class="placeholder-text" value="{{formData.password}}" data-field="password" bindinput="handleInput" />
+      <view wx:if="{{formData.password}}" class="icon-close" bindtap="clearPassword"></view>
+    </view>
+  </view>
+
+  <!-- 登录按钮区域 -->
+  <view class="btn-section">
+    <button class="login-btn" bindtap="handleLogin">
+      立即登录
+    </button>
+  </view>
+
+  <!-- 底部协议 -->
+  <view class="footer-agreement">
+    <view class="agree-row" bindtap="toggleAgree">
+      <view class="checkbox {{isAgreed ? 'checked' : ''}}">
+        <view wx:if="{{isAgreed}}" class="check-icon"></view>
+      </view>
+      <text class="agree-label">同意</text>
+      <text class="agree-link" catchtap="navToAgreement">《用户协议》</text>
+      <text class="agree-label">和</text>
+      <text class="agree-link" catchtap="navToPrivacy">《隐私政策》</text>
+    </view>
+  </view>
+</view>
 
 <!-- 动态注入返回智慧党建飘窗 -->
 <global-home-btn />
+

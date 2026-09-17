@@ -12,6 +12,7 @@
         "pages-fg/login/login",
         "pages-fg/login/register",
         "pages-sub/about/about",
+        "pages-sub/about/webview",
         "pages-sub/rank/site_detail",
         "pages-sub/rank/evaluation_list",
         "pages-sub/rank/used/index",

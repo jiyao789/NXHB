@@ -43,7 +43,8 @@ const http = (options) => {
       (finalUrl.indexOf('/auth/c/') !== -1 ||
         finalUrl.indexOf('/auth/tongyi/') !== -1 ||
         finalUrl.indexOf('/sys/org/orgTreeSelector') !== -1) &&
-      finalUrl.indexOf('/invitation/') === -1
+      finalUrl.indexOf('/invitation/') === -1 &&
+      finalUrl.indexOf('/auth/c/loginByPassword') === -1
 
     if (isGatewayPath) {
       finalBaseUrl = gatewayUrl
@@ -72,7 +73,7 @@ const http = (options) => {
             wx.removeStorageSync('token')
             const pages = getCurrentPages()
             const currentPage = pages && pages.length > 0 ? pages[pages.length - 1] : null
-            const currentRoute = currentPage ? (currentPage.route || '') : ''
+            const currentRoute = currentPage ? currentPage.route || '' : ''
             const isInSubPackage = currentRoute.includes('nuanxinyunchao/admin')
             const isLoginPage = currentRoute.includes('nuanxinyunchao/admin/pages-fg/login/login')
             if (isInSubPackage && !isLoginPage && !isNavigatingToLogin) {
@@ -81,8 +82,10 @@ const http = (options) => {
                 wx.reLaunch({
                   url: '/nuanxinyunchao/admin/pages-fg/login/login',
                   complete: () => {
-                    setTimeout(() => { isNavigatingToLogin = false }, 3000)
-                  }
+                    setTimeout(() => {
+                      isNavigatingToLogin = false
+                    }, 3000)
+                  },
                 })
               }, 1500)
             }
@@ -96,7 +99,7 @@ const http = (options) => {
           wx.removeStorageSync('token')
           const pages = getCurrentPages()
           const currentPage = pages && pages.length > 0 ? pages[pages.length - 1] : null
-          const currentRoute = currentPage ? (currentPage.route || '') : ''
+          const currentRoute = currentPage ? currentPage.route || '' : ''
           const isInSubPackage = currentRoute.includes('nuanxinyunchao/admin')
           const isLoginPage = currentRoute.includes('nuanxinyunchao/admin/pages-fg/login/login')
           if (isInSubPackage && !isLoginPage && !isNavigatingToLogin) {
@@ -105,8 +108,10 @@ const http = (options) => {
               wx.reLaunch({
                 url: '/nuanxinyunchao/admin/pages-fg/login/login',
                 complete: () => {
-                  setTimeout(() => { isNavigatingToLogin = false }, 3000)
-                }
+                  setTimeout(() => {
+                    isNavigatingToLogin = false
+                  }, 3000)
+                },
               })
             }, 1500)
           }

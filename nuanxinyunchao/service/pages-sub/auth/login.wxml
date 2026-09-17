@@ -28,7 +28,7 @@
     <!-- 密码输入框 (仅在密码登录时显示) -->
     <view class="input-item mt-4" wx:if="{{loginType === 'password'}}">
       <view class="icon-security"></view>
-      <input class="input-field" type="password" maxlength="20" placeholder="请输入密码" placeholder-class="placeholder-text" value="{{formData.password}}" data-field="password" bindinput="handleInput" />
+      <input class="input-field" password="{{true}}" maxlength="20" placeholder="请输入密码" placeholder-class="placeholder-text" value="{{formData.password}}" data-field="password" bindinput="handleInput" />
     </view>
   </view>
   <!-- 操作按钮 -->
