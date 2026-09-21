@@ -23,6 +23,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "用户端登录",
+          "pathName": "nuanxinyunchao/user/pages-sub/auth/login/index",
+          "query": "",
+          "scene": null,
+          "launchMode": "default"
+        },
+        {
           "name": "服务端登录页",
           "pathName": "nuanxinyunchao/service/pages-sub/auth/login",
           "query": "",
