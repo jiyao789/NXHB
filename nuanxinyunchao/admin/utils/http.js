@@ -3,6 +3,8 @@ const envVersion = accountInfo.miniProgram.envVersion || 'release'
 
 const envConfig = {
   develop: {
+    // gatewayUrl: 'http://localhost:9102',
+    // directUrl: 'http://localhost:9102',
     gatewayUrl: 'https://nxyc.nj.sh.cn',
     directUrl: 'https://nxyc.nj.sh.cn/biz',
   },

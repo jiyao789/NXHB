@@ -28,7 +28,7 @@ function getOverrideUrl(storageKey) {
       const trimmed = v.trim()
       if (trimmed) return trimmed.replace(/\/+$/, '')
     }
-  } catch (e) { }
+  } catch (e) {}
   return ''
 }
 

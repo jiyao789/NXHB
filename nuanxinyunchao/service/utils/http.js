@@ -3,8 +3,8 @@ const envVersion = accountInfo.miniProgram.envVersion || 'release'
 
 const envConfig = {
   develop: {
-    //gatewayUrl: 'http://localhost:9102',
-    //directUrl: 'http://localhost:9102',
+    // gatewayUrl: 'http://localhost:9102',
+    // directUrl: 'http://localhost:9102',
     // gatewayUrl: 'http://120.25.165.230:27903',
     // directUrl: 'http://120.25.165.230:27912',
     gatewayUrl: 'https://nxyc.nj.sh.cn',
@@ -101,7 +101,7 @@ export const http = (options) => {
             wx.removeStorageSync('service_token')
             const pages = getCurrentPages()
             const currentPage = pages && pages.length > 0 ? pages[pages.length - 1] : null
-            const currentRoute = currentPage ? (currentPage.route || '') : ''
+            const currentRoute = currentPage ? currentPage.route || '' : ''
             const isInSubPackage = currentRoute.includes('nuanxinyunchao/service')
             const isLoginPage = currentRoute.includes('nuanxinyunchao/service/pages/login/index')
             if (isInSubPackage && !isLoginPage && !isNavigatingToLogin) {
@@ -110,8 +110,10 @@ export const http = (options) => {
                 wx.navigateTo({
                   url: '/nuanxinyunchao/service/pages/login/index',
                   complete: () => {
-                    setTimeout(() => { isNavigatingToLogin = false }, 3000)
-                  }
+                    setTimeout(() => {
+                      isNavigatingToLogin = false
+                    }, 3000)
+                  },
                 })
               }, 1500)
             }
@@ -126,7 +128,7 @@ export const http = (options) => {
           wx.removeStorageSync('service_token')
           const pages = getCurrentPages()
           const currentPage = pages && pages.length > 0 ? pages[pages.length - 1] : null
-          const currentRoute = currentPage ? (currentPage.route || '') : ''
+          const currentRoute = currentPage ? currentPage.route || '' : ''
           const isInSubPackage = currentRoute.includes('nuanxinyunchao/service')
           const isLoginPage = currentRoute.includes('nuanxinyunchao/service/pages/login/index')
           if (isInSubPackage && !isLoginPage && !isNavigatingToLogin) {
@@ -135,8 +137,10 @@ export const http = (options) => {
               wx.navigateTo({
                 url: '/nuanxinyunchao/service/pages/login/index',
                 complete: () => {
-                  setTimeout(() => { isNavigatingToLogin = false }, 3000)
-                }
+                  setTimeout(() => {
+                    isNavigatingToLogin = false
+                  }, 3000)
+                },
               })
             }, 1500)
           }
