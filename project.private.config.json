@@ -15,8 +15,7 @@
     "ignoreDevUnusedFiles": true,
     "bigPackageSizeSupport": false,
     "useIsolateContext": true,
-    "useApiHostProcess": false,
-    "skylineRenderEnable": false
+    "useApiHostProcess": false
   },
   "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
   "libVersion": "3.8.12",
@@ -27,8 +26,8 @@
           "name": "服务端登录页",
           "pathName": "nuanxinyunchao/service/pages-sub/auth/login",
           "query": "",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "管理端登录页",

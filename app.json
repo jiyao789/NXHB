@@ -132,7 +132,8 @@
         "pages-sub/mine/setting/security/contacts",
         "pages-sub/mine/setting/security/devices",
         "pages-sub/mine/setting/security/modify-password",
-        "pages-sub/mine/setting/security/safety-center"
+        "pages-sub/mine/setting/security/safety-center",
+        "pages-sub/mine/setting/password"
       ]
     }
   ],
