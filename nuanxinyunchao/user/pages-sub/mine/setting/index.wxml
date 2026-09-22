@@ -22,14 +22,14 @@
         </view>
         <view class="i-carbon-chevron-right text-gray-300"></view>
       </view>
-      <view class="h-1px bg-gray-100 mx-10"></view>
+      <!-- <view class="h-1px bg-gray-100 mx-10"></view>
       <view class="setting-item" bindtap="navTo" data-url="/nuanxinyunchao/user/pages-sub/mine/setting/password">
         <view class="flex items-center">
           <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/setting/icon_security.png" class="mr-3 h-5 w-5" mode="aspectFit"></image>
           <text>修改密码</text>
         </view>
         <view class="i-carbon-chevron-right text-gray-300"></view>
-      </view>
+      </view> -->
     </view>
 
     <!-- 第二组：关于 -->
