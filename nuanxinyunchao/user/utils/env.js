@@ -7,14 +7,14 @@ exports.getBizUrl = getBizUrl
 exports.ENV = {
   active: 'develop', // develop, trial, release
   baseUrl: {
-    develop: 'http://localhost:9003',
-    // develop: 'https://nxyc.nj.sh.cn',
+    // develop: 'http://localhost:9003',
+    develop: 'https://nxyc.nj.sh.cn',
     trial: 'https://nxyc.nj.sh.cn',
     release: 'https://nxyc.nj.sh.cn',
   },
   bizUrl: {
-    develop: 'http://localhost:9102',
-    // develop: 'https://nxyc.nj.sh.cn/biz',
+    // develop: 'http://localhost:9102',
+    develop: 'https://nxyc.nj.sh.cn/biz',
     trial: 'https://nxyc.nj.sh.cn/biz',
     release: 'https://nxyc.nj.sh.cn/biz',
   },
