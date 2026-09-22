@@ -24,6 +24,13 @@
       </view>
 
 
+      <view class="setting-item" hover-class="bg-active" data-url="/nuanxinyunchao/service/pages-sub/mine/setting/password" bindtap="navTo">
+        <view class="item-left">
+          <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/setting/icon_security.png" class="item-icon" mode="aspectFit" />
+          <text class="item-text">修改密码</text>
+        </view>
+        <view class="icon-chevron-right"></view>
+      </view>
 
       <view class="divider"></view>
 
