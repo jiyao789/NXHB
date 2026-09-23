@@ -52,6 +52,16 @@
 
         <view wx:if="{{index < profileList.length - 1}}" class="divider-absolute"></view>
       </view>
+      
+      <view class="divider-mx"></view>
+
+      <view class="row-item" hover-class="bg-active" bindtap="navToPassword">
+        <text class="label-text">修改密码</text>
+        <view style="display: flex; align-items: center;">
+          <text class="value-text" style="color: #9ca3af; margin-right: 8px;">去修改</text>
+          <view class="icon-chevron-right" style="color: #9ca3af;"></view>
+        </view>
+      </view>
 
       <!-- 党群中心图片集 (仅党群中心展示) -->
       <block wx:if="{{userInfo.rolesId === 7}}">

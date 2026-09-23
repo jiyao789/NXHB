@@ -1,5 +1,5 @@
 "use strict";
-import { httpPost } from '../../../../utils/http.js';
+import { httpPost } from '../../../utils/http.js';
 
 Page({
     data: {

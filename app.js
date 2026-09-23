@@ -93,13 +93,13 @@ var option = {
   },
 
   onLaunch: function () {
-    // 启动统一路由守卫
-    initRouterInterceptor();
-    if (wx.cloud) {
-      wx.cloud.init({
-        traceUser: true
-      })
-    }
+    // 启动统一路由守卫 (因可能导致微信底层报错 Cannot set property 'inject' of undefined，暂时注释)
+    // initRouterInterceptor();
+    // if (wx.cloud) {
+    //   wx.cloud.init({
+    //     traceUser: true
+    //   })
+    // }
     wx.getSystemInfo({
       success: e => {
         this.globalData.StatusBar = e.statusBarHeight;

@@ -7,15 +7,15 @@ exports.LOGIN_PAGE = exports.IS_DOUBLE_TOKEN = exports.AUTH_MODE = exports.BASE_
 const env = wx.getAccountInfoSync().miniProgram.envVersion || 'release';
 const config = {
     develop: {
-        baseUrl: 'http://localhost:9102',
+        baseUrl: 'https://nxyc.nj.sh.cn/biz',
         authMode: 'double'
     },
     trial: {
-        baseUrl: 'http://120.25.165.230:9102',
+        baseUrl: 'https://nxyc.nj.sh.cn/biz',
         authMode: 'double'
     },
     release: {
-        baseUrl: 'http://120.25.165.230:9102',
+        baseUrl: 'https://nxyc.nj.sh.cn/biz',
         authMode: 'double'
     }
 };

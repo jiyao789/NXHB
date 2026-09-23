@@ -71,6 +71,7 @@
         "pages-sub/mine/setting/security",
         "pages-sub/mine/setting/notification",
         "pages-sub/mine/setting/about/webview",
+        "pages-sub/mine/setting/password",
         "pages-sub/mine/publish",
         "pages-sub/mine/verify",
         "pages-sub/mine/invitation/index",

@@ -1,5 +1,5 @@
 /** 与 pages/index/index.js、utils/http.js 业务端基准一致（直连 9102） */
-const BIZ_APP_ORIGIN = 'http://localhost:9102';
+const BIZ_APP_ORIGIN = 'https://nxyc.nj.sh.cn/biz';
 
 const COS_BASE = 'https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com';
 

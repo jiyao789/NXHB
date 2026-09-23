@@ -76,6 +76,12 @@ Page({
     wx.navigateBack();
   },
 
+  navToPassword() {
+    wx.navigateTo({
+      url: '/nuanxinyunchao/service/pages-sub/mine/setting/password'
+    });
+  },
+
   toggleEdit() {
     this.setData({ isEditing: true });
   },

@@ -1,5 +1,5 @@
 /** 与 utils/http.js 中 biz-app 直连端口一致（小程序后台需配置合法域名） */
-const BIZ_APP_ORIGIN = 'http://localhost:9102'
+const BIZ_APP_ORIGIN = 'https://nxyc.nj.sh.cn/biz'
 
 Page({
   data: {
