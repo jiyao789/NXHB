@@ -77,6 +77,12 @@ Page({
       wx.hideLoading()
 
       if (res.code === 200 || res.code === 0) {
+        // loginByPassword 接口现在返回 { token, passwordExpired }
+        const token = res.data && typeof res.data === 'object' ? res.data.token : res.data
+        const passwordExpired = res.data && typeof res.data === 'object' ? !!res.data.passwordExpired : false
+
+        wx.setStorageSync('token', token)
+
         wx.showToast({
           title: '登录成功',
           icon: 'success',
@@ -84,16 +90,42 @@ Page({
         })
 
         setTimeout(() => {
-          const tabbarPages = [
-            '/nuanxinyunchao/admin/pages/rank/index',
-            '/nuanxinyunchao/admin/pages/data/index',
-            '/nuanxinyunchao/admin/pages/review/index'
-          ]
-
-          if (tabbarPages.includes(redirectUrl)) {
-            wx.reLaunch({ url: redirectUrl })
+          // 密码过期提示
+          if (passwordExpired) {
+            wx.showModal({
+              title: '密码安全提醒',
+              content: '您的密码已超过90天未修改，为保障账号安全，建议您及时修改密码。',
+              confirmText: '立即修改',
+              cancelText: '暂不修改',
+              success: (modalRes) => {
+                if (modalRes.confirm) {
+                  wx.navigateTo({ url: '/nuanxinyunchao/admin/pages-sub/password/index' })
+                } else {
+                  const tabbarPages = [
+                    '/nuanxinyunchao/admin/pages/rank/index',
+                    '/nuanxinyunchao/admin/pages/data/index',
+                    '/nuanxinyunchao/admin/pages/review/index'
+                  ]
+                  if (tabbarPages.includes(redirectUrl)) {
+                    wx.reLaunch({ url: redirectUrl })
+                  } else {
+                    wx.redirectTo({ url: redirectUrl })
+                  }
+                }
+              }
+            })
           } else {
-            wx.redirectTo({ url: redirectUrl })
+            const tabbarPages = [
+              '/nuanxinyunchao/admin/pages/rank/index',
+              '/nuanxinyunchao/admin/pages/data/index',
+              '/nuanxinyunchao/admin/pages/review/index'
+            ]
+
+            if (tabbarPages.includes(redirectUrl)) {
+              wx.reLaunch({ url: redirectUrl })
+            } else {
+              wx.redirectTo({ url: redirectUrl })
+            }
           }
         }, 1000)
       } else {

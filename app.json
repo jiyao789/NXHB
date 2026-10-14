@@ -36,7 +36,8 @@
         "pages-sub/publish/mode/needyou",
         "pages-sub/publish/mode/coupon",
         "pages-sub/publish/mode/study/index",
-        "pages-sub/publish/mode/message/index"
+        "pages-sub/publish/mode/message/index",
+        "pages-sub/password/index"
       ]
     },
     {

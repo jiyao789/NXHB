@@ -143,7 +143,15 @@ Page({
       }
 
       if (loginRes.code === 200 || loginRes.code === 0) {
-        const token = loginRes.data
+        // 密码登录时，data 为 { token, passwordExpired }；手机验证码登录时 data 为 token 字符串
+        let token;
+        let passwordExpired = false;
+        if (loginType === 'password' && loginRes.data && typeof loginRes.data === 'object') {
+          token = loginRes.data.token;
+          passwordExpired = !!loginRes.data.passwordExpired;
+        } else {
+          token = loginRes.data;
+        }
         wx.setStorageSync('service_token', token)
         const app = getApp()
         app.globalData.token = token
@@ -193,11 +201,32 @@ Page({
 
           wx.showToast({ title: '登录成功', icon: 'success' })
           setTimeout(() => {
-            if (authResult.rolesId === 7) {
-              // 党群服务中心：直达核销工作台
-              wx.reLaunch({ url: '/nuanxinyunchao/service/pages-sub/mine/verify-gate/index' })
+            // 密码过期提示（仅密码登录时可能触发）
+            if (passwordExpired) {
+              wx.showModal({
+                title: '密码安全提醒',
+                content: '您的密码已超过90天未修改，为保障账号安全，建议您及时修改密码。',
+                confirmText: '立即修改',
+                cancelText: '暂不修改',
+                success: (modalRes) => {
+                  if (modalRes.confirm) {
+                    wx.navigateTo({ url: '/nuanxinyunchao/service/pages-sub/mine/setting/password' })
+                  } else {
+                    if (authResult.rolesId === 7) {
+                      wx.reLaunch({ url: '/nuanxinyunchao/service/pages-sub/mine/verify-gate/index' })
+                    } else {
+                      wx.reLaunch({ url: '/nuanxinyunchao/service/pages/index/index' })
+                    }
+                  }
+                }
+              })
             } else {
-              wx.reLaunch({ url: '/nuanxinyunchao/service/pages/index/index' })
+              if (authResult.rolesId === 7) {
+                // 党群服务中心：直达核销工作台
+                wx.reLaunch({ url: '/nuanxinyunchao/service/pages-sub/mine/verify-gate/index' })
+              } else {
+                wx.reLaunch({ url: '/nuanxinyunchao/service/pages/index/index' })
+              }
             }
           }, 1000)
         } else {
