@@ -26,7 +26,7 @@ let isNavigatingToLogin = false
 const http = (options) => {
   return new Promise((resolve, reject) => {
     const app = getApp()
-    const token = wx.getStorageSync('token') || (app.globalData && app.globalData.token)
+    const token = wx.getStorageSync('admin_token') || (app.globalData && (app.globalData.admin_token || app.globalData.token)) || wx.getStorageSync('token')
 
     const header = {
       ...options.header,
@@ -36,6 +36,8 @@ const http = (options) => {
     if (token) {
       header['Authorization'] = 'Bearer ' + token
       header['clientToken'] = token
+      header['token'] = token
+      header['satoken'] = token
     }
 
     let finalUrl = options.url
@@ -72,7 +74,12 @@ const http = (options) => {
             resolve(data)
           } else if (data.code === 401) {
             wx.showToast({ title: '登录已过期', icon: 'none' })
+            wx.removeStorageSync('admin_token')
             wx.removeStorageSync('token')
+            if (app && app.globalData) {
+              delete app.globalData.admin_token
+              delete app.globalData.token
+            }
             const pages = getCurrentPages()
             const currentPage = pages && pages.length > 0 ? pages[pages.length - 1] : null
             const currentRoute = currentPage ? currentPage.route || '' : ''
@@ -98,7 +105,12 @@ const http = (options) => {
           }
         } else if (statusCode === 401) {
           wx.showToast({ title: '登录已过期', icon: 'none' })
+          wx.removeStorageSync('admin_token')
           wx.removeStorageSync('token')
+          if (app && app.globalData) {
+            delete app.globalData.admin_token
+            delete app.globalData.token
+          }
           const pages = getCurrentPages()
           const currentPage = pages && pages.length > 0 ? pages[pages.length - 1] : null
           const currentRoute = currentPage ? currentPage.route || '' : ''

@@ -604,7 +604,7 @@ Page({
   uploadSingleImage(filePath) {
     return new Promise((resolve, reject) => {
       const app = getApp();
-      const token = wx.getStorageSync('token') || (app.globalData && app.globalData.token);
+      const token = wx.getStorageSync('admin_token') || (app.globalData && (app.globalData.admin_token || app.globalData.token)) || wx.getStorageSync('token');
 
       const { directUrl } = require('../../utils/http.js');
 
@@ -621,7 +621,8 @@ Page({
           header: {
             'Authorization': 'Bearer ' + token,
             'clientToken': token,
-            'token': token
+            'token': token,
+            'satoken': token
           },
           success: (res) => {
             try {
@@ -668,9 +669,14 @@ Page({
 
     wx.showLoading({ title: '处理图片中...', mask: true });
 
+    const app = getApp();
+    const token = wx.getStorageSync('admin_token') || (app.globalData && (app.globalData.admin_token || app.globalData.token)) || wx.getStorageSync('token');
+
     let payload = {
       ...this.data.formData,
-      publishType: publishType
+      publishType: publishType,
+      token: token,
+      clientToken: token
     };
 
     const needsUpload = (url) => {

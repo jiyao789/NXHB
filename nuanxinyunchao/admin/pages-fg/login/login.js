@@ -81,7 +81,12 @@ Page({
         const token = res.data && typeof res.data === 'object' ? res.data.token : res.data
         const passwordExpired = res.data && typeof res.data === 'object' ? !!res.data.passwordExpired : false
 
-        wx.setStorageSync('token', token)
+        wx.setStorageSync('admin_token', token)
+        const app = getApp()
+        if (app && app.globalData) {
+          app.globalData.token = token
+          app.globalData.admin_token = token
+        }
 
         wx.showToast({
           title: '登录成功',

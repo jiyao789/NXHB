@@ -50,6 +50,7 @@ Page({
         wx.hideLoading()
         wx.showToast({ title: '密码修改成功', icon: 'success' })
         setTimeout(() => {
+          wx.removeStorageSync('admin_token')
           wx.removeStorageSync('token')
           wx.removeStorageSync('userInfo')
           wx.reLaunch({ url: '/nuanxinyunchao/admin/pages-fg/login/login' })
