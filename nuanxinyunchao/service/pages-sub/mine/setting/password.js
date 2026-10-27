@@ -7,6 +7,8 @@ Page({
         showOldPassword: false,
         showNewPassword: false,
         showConfirmPassword: false,
+        fromLogin: false,
+        rolesId: null,
         formData: {
             password: '',
             newPassword: '',
@@ -14,12 +16,34 @@ Page({
         }
     },
     
-    onLoad() {
+    onLoad(options) {
         const sysInfo = wx.getSystemInfoSync();
-        this.setData({ safeAreaTop: sysInfo.safeArea ? sysInfo.safeArea.top : 20 });
+        const fromLogin = options && options.from === 'login';
+        const rolesId = options && options.rolesId ? Number(options.rolesId) : null;
+        this.setData({
+            safeAreaTop: sysInfo.safeArea ? sysInfo.safeArea.top : 20,
+            fromLogin,
+            rolesId
+        });
     },
     
     handleBack() {
+        const pages = getCurrentPages();
+        const prevPage = pages && pages.length > 1 ? pages[pages.length - 2] : null;
+        const prevRoute = prevPage ? prevPage.route || '' : '';
+        const isPrevLogin = prevRoute.includes('nuanxinyunchao/service/pages-sub/auth/login');
+
+        if (this.data.fromLogin || isPrevLogin || !prevPage) {
+            const userInfo = wx.getStorageSync('service_userInfo') || {};
+            const rolesId = this.data.rolesId !== null ? this.data.rolesId : userInfo.rolesId;
+            if (rolesId === 7) {
+                wx.reLaunch({ url: '/nuanxinyunchao/service/pages-sub/mine/verify-gate/index' });
+            } else {
+                wx.reLaunch({ url: '/nuanxinyunchao/service/pages/index/index' });
+            }
+            return;
+        }
+
         wx.navigateBack();
     },
     

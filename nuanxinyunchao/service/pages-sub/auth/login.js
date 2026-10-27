@@ -210,7 +210,9 @@ Page({
                 cancelText: '暂不修改',
                 success: (modalRes) => {
                   if (modalRes.confirm) {
-                    wx.navigateTo({ url: '/nuanxinyunchao/service/pages-sub/mine/setting/password' })
+                    wx.redirectTo({
+                      url: `/nuanxinyunchao/service/pages-sub/mine/setting/password?from=login&rolesId=${authResult.rolesId || ''}`
+                    })
                   } else {
                     if (authResult.rolesId === 7) {
                       wx.reLaunch({ url: '/nuanxinyunchao/service/pages-sub/mine/verify-gate/index' })

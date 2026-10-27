@@ -1,4 +1,5 @@
 const { getAdminOverview } = require('../../api/adminStatistics.js');
+const { checkLogin } = require('../../utils/auth.js');
 
 function base64Encode(str) {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -70,10 +71,16 @@ Page({
   },
 
   onLoad() {
+    if (!checkLogin('/nuanxinyunchao/admin/pages/data/index')) {
+      return;
+    }
     this.fetchOverviewData();
   },
 
   onShow() {
+    if (!checkLogin('/nuanxinyunchao/admin/pages/data/index')) {
+      return;
+    }
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({
         selected: 1 // index for active

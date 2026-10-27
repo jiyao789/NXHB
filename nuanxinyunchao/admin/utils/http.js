@@ -75,9 +75,12 @@ const http = (options) => {
           } else if (data.code === 401) {
             wx.showToast({ title: '登录已过期', icon: 'none' })
             wx.removeStorageSync('admin_token')
+            wx.removeStorageSync('admin_login_time')
+            wx.removeStorageSync('admin_userInfo')
             wx.removeStorageSync('token')
             if (app && app.globalData) {
               delete app.globalData.admin_token
+              delete app.globalData.admin_userInfo
               delete app.globalData.token
             }
             const pages = getCurrentPages()
@@ -106,9 +109,12 @@ const http = (options) => {
         } else if (statusCode === 401) {
           wx.showToast({ title: '登录已过期', icon: 'none' })
           wx.removeStorageSync('admin_token')
+          wx.removeStorageSync('admin_login_time')
+          wx.removeStorageSync('admin_userInfo')
           wx.removeStorageSync('token')
           if (app && app.globalData) {
             delete app.globalData.admin_token
+            delete app.globalData.admin_userInfo
             delete app.globalData.token
           }
           const pages = getCurrentPages()

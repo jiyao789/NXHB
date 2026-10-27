@@ -1,16 +1,12 @@
 <view class="relative h-screen w-full flex flex-col">
   <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/index/bg.png" class="absolute inset-0 z-0 h-full w-full" mode="scaleToFill" />
 
-  <view class="relative z-10 flex-none px-4 pb-8 header-padding-rank">
+  <view class="relative z-50 flex-none px-4 pb-8 header-padding-rank">
     <view class="flex items-center justify-between">
-      <view class="flex items-center gap-2">
-        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo.png" mode="heightFix" class="h-6 w-6 flex-shrink-0" />
-        <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo_title.png" mode="heightFix" class="h-4 w-16 flex-shrink-0" />
-      </view>
+      <admin-header />
       <view class="mx-3 h-8 flex flex-1 items-center"></view>
       <view class="w-20" />
     </view>
-
   </view>
 
   <view class="relative z-20 min-h-0 w-full flex flex-1 flex-col overflow-hidden rounded-t-40rpx minus-mt-6">

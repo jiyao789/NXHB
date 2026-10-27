@@ -1,6 +1,7 @@
 {
   "navigationStyle": "custom",
   "usingComponents": {
+    "admin-header": "/nuanxinyunchao/admin/components/admin-header/index",
     "nxyc-tabbar": "/nuanxinyunchao/components/tabbar/index"
   }
 }

@@ -42,6 +42,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "nuanxinyunchao/admin/pages/rank/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

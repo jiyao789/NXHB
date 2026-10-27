@@ -1,4 +1,5 @@
 import { getPendingAudits, getCompletedAudits, remindReview } from '../../api/adminStatistics.js';
+const { checkLogin } = require('../../utils/auth.js');
 
 Page({
   data: {
@@ -7,7 +8,14 @@ Page({
   },
 
   onLoad() {
+    if (!checkLogin('/nuanxinyunchao/admin/pages/review/index')) {
+      return;
+    }
     this.fetchData();
+  },
+
+  onShow() {
+    checkLogin('/nuanxinyunchao/admin/pages/review/index');
   },
 
   onPullDownRefresh() {

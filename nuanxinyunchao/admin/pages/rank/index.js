@@ -1,5 +1,6 @@
 const { getRankMerchants, getRankUsers } = require('../../api/adminStatistics.js');
 const { resolveMediaUrl } = require('../../utils/http.js');
+const { checkLogin } = require('../../utils/auth.js');
 
 const DEFAULT_AVATAR = 'https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/server/index/rank_icon.png';
 
@@ -59,6 +60,9 @@ Page({
   },
 
   onShow() {
+    if (!checkLogin('/nuanxinyunchao/admin/pages/rank/index')) {
+      return;
+    }
     this.loadRankData();
   },
 

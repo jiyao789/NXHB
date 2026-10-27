@@ -1,0 +1,25 @@
+<view class="relative">
+  <!-- 头部Logo与标题点击区域 -->
+  <view class="header-logo-box" bindtap="toggleDropdown">
+    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo.png" mode="heightFix" class="header-logo-img" />
+    <image src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo_title.png" mode="heightFix" class="header-title-img" />
+    <view class="arrow-icon {{showDropdown ? 'rotate-180' : ''}}"></view>
+  </view>
+
+  <!-- 遮罩层 -->
+  <view wx:if="{{showDropdown}}" class="dropdown-mask" catchtap="closeDropdown" catchtouchmove="preventTouchMove"></view>
+
+  <!-- 下拉菜单弹窗 -->
+  <view wx:if="{{showDropdown}}" class="dropdown-menu">
+    <view class="dropdown-triangle"></view>
+    <view class="menu-item" hover-class="menu-item-hover" catchtap="handleModifyPassword">
+      <view class="menu-icon icon-password"></view>
+      <text class="menu-text">修改密码</text>
+    </view>
+    <view class="menu-divider"></view>
+    <view class="menu-item" hover-class="menu-item-hover" catchtap="handleLogout">
+      <view class="menu-icon icon-logout"></view>
+      <text class="menu-text menu-text-danger">退出登录</text>
+    </view>
+  </view>
+</view>

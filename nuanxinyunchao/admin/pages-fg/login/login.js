@@ -1,4 +1,5 @@
-const { loginByPassword } = require('../../api/auth.js')
+const { loginByPassword, getLoginUserInfo } = require('../../api/auth.js')
+const { setAuthInfo, checkAuth } = require('../../utils/auth.js')
 
 Page({
   data: {
@@ -17,6 +18,23 @@ Page({
     if (!url.startsWith('/')) {
       url = '/' + url
     }
+
+    // 如果当前已经是有效登录状态，直接进入对应页面
+    const authState = checkAuth()
+    if (authState.valid) {
+      const tabbarPages = [
+        '/nuanxinyunchao/admin/pages/rank/index',
+        '/nuanxinyunchao/admin/pages/data/index',
+        '/nuanxinyunchao/admin/pages/review/index'
+      ]
+      if (tabbarPages.includes(url)) {
+        wx.reLaunch({ url })
+      } else {
+        wx.redirectTo({ url })
+      }
+      return
+    }
+
     this.setData({
       safeAreaTop: sysInfo.safeArea ? sysInfo.safeArea.top : 0,
       redirectUrl: url
@@ -81,12 +99,19 @@ Page({
         const token = res.data && typeof res.data === 'object' ? res.data.token : res.data
         const passwordExpired = res.data && typeof res.data === 'object' ? !!res.data.passwordExpired : false
 
-        wx.setStorageSync('admin_token', token)
-        const app = getApp()
-        if (app && app.globalData) {
-          app.globalData.token = token
-          app.globalData.admin_token = token
-        }
+        // 登录成功，保存登录凭证与登录时间
+        setAuthInfo(token, { account })
+
+        // 异步获取详细用户信息保存
+        getLoginUserInfo()
+          .then((infoRes) => {
+            if (infoRes && (infoRes.code === 200 || infoRes.code === 0) && infoRes.data) {
+              setAuthInfo(token, infoRes.data)
+            }
+          })
+          .catch((e) => {
+            console.warn('获取管理员用户信息失败:', e)
+          })
 
         wx.showToast({
           title: '登录成功',
@@ -103,18 +128,21 @@ Page({
               confirmText: '立即修改',
               cancelText: '暂不修改',
               success: (modalRes) => {
+                const targetUrl = redirectUrl || '/nuanxinyunchao/admin/pages/rank/index'
                 if (modalRes.confirm) {
-                  wx.navigateTo({ url: '/nuanxinyunchao/admin/pages-sub/password/index' })
+                  wx.navigateTo({
+                    url: `/nuanxinyunchao/admin/pages-sub/password/index?from=login&redirect=${encodeURIComponent(targetUrl)}`
+                  })
                 } else {
                   const tabbarPages = [
                     '/nuanxinyunchao/admin/pages/rank/index',
                     '/nuanxinyunchao/admin/pages/data/index',
                     '/nuanxinyunchao/admin/pages/review/index'
                   ]
-                  if (tabbarPages.includes(redirectUrl)) {
-                    wx.reLaunch({ url: redirectUrl })
+                  if (tabbarPages.includes(targetUrl)) {
+                    wx.reLaunch({ url: targetUrl })
                   } else {
-                    wx.redirectTo({ url: redirectUrl })
+                    wx.redirectTo({ url: targetUrl })
                   }
                 }
               }

@@ -8,7 +8,12 @@ function loginByPassword(data) {
   return httpPost('/api/webapp/auth/c/loginByPassword', data)
 }
 
+function getLoginUserInfo() {
+  return httpGet('/api/webapp/auth/c/getLoginUserInfo')
+}
+
 module.exports = {
   getBoundPartyCenters,
   loginByPassword,
+  getLoginUserInfo,
 }

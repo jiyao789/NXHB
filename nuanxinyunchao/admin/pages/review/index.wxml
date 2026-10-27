@@ -4,24 +4,9 @@
     class="absolute inset-0 z-0 h-full w-full" mode="scaleToFill"
   />
 
-  <view class="relative z-10 flex-none px-4 pb-8 pt-12">
+  <view class="relative z-50 flex-none px-4 pb-8 pt-12">
     <view class="flex items-center justify-between">
-      <view class="flex items-center gap-2">
-        <image
-          src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo.png" mode="heightFix"
-          class="h-6 w-6 flex-shrink-0"
-        />
-        <image
-          src="https://nuanxin-images-1329191669.cos.ap-guangzhou.myqcloud.com/logo_title.png" mode="heightFix"
-          class="h-4 w-16 flex-shrink-0"
-        />
-      </view>
-      <view wx:if="{{false}}"
-        class="mx-3 h-8 flex flex-1 items-center border border-white-20 rounded-full bg-black-10 px-3 backdrop-blur-sm transition-all"
-      >
-        <view class="i-carbon-search mr-2 text-sm text-white" />
-        <text class="text-xs text-white-90">强国同学汇</text>
-      </view>
+      <admin-header />
       <view class="w-20" />
     </view>
   </view>
