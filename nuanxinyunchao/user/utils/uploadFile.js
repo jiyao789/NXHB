@@ -23,11 +23,18 @@ function uploadLocal(filePath) {
     return new Promise((resolve, reject) => {
         const bizUrl = (0, env_1.getBizUrl)();
         const url = bizUrl + '/dev/file/upload';
+        const token = token_1.tokenManager.getToken();
+        const header = {};
+        if (token) {
+            header['token'] = token;
+            header['clientToken'] = token;
+            header['Authorization'] = 'Bearer ' + token;
+        }
         wx.uploadFile({
             url,
             filePath,
             name: 'file',
-            header: {},
+            header,
             success: (res) => {
                 try {
                     const data = JSON.parse(res.data);

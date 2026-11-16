@@ -118,12 +118,19 @@ Page({
 
       // 上传到本地存储
       const uploadUrl = bizUrl + '/dev/file/upload'
+      const token = token_1.tokenManager.getToken()
+      const header = {}
+      if (token) {
+        header['token'] = token
+        header['clientToken'] = token
+        header['Authorization'] = 'Bearer ' + token
+      }
 
       wx.uploadFile({
         url: uploadUrl,
         filePath: filePath,
         name: 'file',
-        header: {},
+        header,
         success: (res) => {
           try {
             const data = JSON.parse(res.data)
