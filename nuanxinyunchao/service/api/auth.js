@@ -1,4 +1,5 @@
 import { httpPost, httpGet } from '../utils/http.js';
+const { encryptPassword } = require('../../../utils/crypto.js');
 
 /**
  * 获取手机验证码
@@ -18,7 +19,11 @@ export const loginByPhone = (data) => {
  * 密码登录
  */
 export const loginByPassword = (data) => {
-  return httpPost('/api/webapp/auth/c/loginByPassword', data);
+  const submitData = { ...data };
+  if (submitData.password) {
+    submitData.password = encryptPassword(submitData.password);
+  }
+  return httpPost('/api/webapp/auth/c/loginByPassword', submitData);
 };
 
 /**
