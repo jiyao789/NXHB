@@ -9,8 +9,7 @@
   "dependencies": {
     "chokidar": "^3.6.0",
     "fs-extra": "^11.2.0",
-    "glob": "^8.1.0",
-    "sm-crypto": "^0.5.8"
+    "glob": "^8.1.0"
   },
   "author": "Antigravity",
   "license": "MIT"

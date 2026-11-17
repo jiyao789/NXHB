@@ -1,5 +1,4 @@
 const { httpPost } = require('../../utils/http.js')
-const { encryptPassword } = require('../../../../utils/crypto.js')
 
 Page({
   data: {
@@ -76,9 +75,9 @@ Page({
 
     wx.showLoading({ title: '修改中...' })
     httpPost('/client/user/updatePassword', {
-      password: encryptPassword(password),
-      newPassword: encryptPassword(newPassword),
-      confirmPassword: encryptPassword(confirmPassword)
+      password,
+      newPassword,
+      confirmPassword
     })
       .then((res) => {
         wx.hideLoading()
