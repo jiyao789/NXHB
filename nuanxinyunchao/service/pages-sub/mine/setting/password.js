@@ -1,5 +1,6 @@
 "use strict";
 import { httpPost } from '../../../utils/http.js';
+import { encryptPassword } from '../../../utils/rsa.js';
 
 Page({
     data: {
@@ -70,9 +71,9 @@ Page({
         
         wx.showLoading({ title: '修改中...' });
         httpPost('/client/user/updatePassword', {
-            password,
-            newPassword,
-            confirmPassword
+            password: encryptPassword(password),
+            newPassword: encryptPassword(newPassword),
+            confirmPassword: encryptPassword(confirmPassword)
         }).then(res => {
             wx.hideLoading();
             wx.showToast({ title: '密码修改成功', icon: 'success' });

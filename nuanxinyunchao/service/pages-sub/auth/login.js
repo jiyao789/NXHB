@@ -1,4 +1,5 @@
 import { getPhoneValidCode, loginByPhone, loginByPassword, getLoginUserInfo } from '../../api/auth.js'
+import { encryptPassword } from '../../utils/rsa.js'
 
 Page({
   data: {
@@ -136,7 +137,7 @@ Page({
       } else {
         loginRes = await loginByPassword({
           account: mobile,
-          password: password,
+          password: encryptPassword(password),
           device: 'MINI_PROGRAM',
           clientType: 'service',
         })

@@ -1,5 +1,6 @@
 const { loginByPassword, getLoginUserInfo } = require('../../api/auth.js')
 const { setAuthInfo, checkAuth } = require('../../utils/auth.js')
+const { encryptPassword } = require('../../utils/rsa.js')
 
 Page({
   data: {
@@ -88,7 +89,7 @@ Page({
     try {
       const res = await loginByPassword({
         account,
-        password,
+        password: encryptPassword(password),
         device: 'MINIPROGRAM',
         clientType: 'admin'
       })
