@@ -68,24 +68,33 @@ Page({
       return
     }
     wx.showLoading({ title: '发送中...' })
-    // (0, auth_1.sendSmsApi)(this.data.formData.mobile, '', false).then(res => {
-    wx.hideLoading()
-    wx.showToast({ title: '验证码已发送', icon: 'success' })
-    this.setData({
-      countdown: 60,
-      validCodeReqNo: 123,
-    })
-    this.timer = setInterval(() => {
-      if (this.data.countdown > 1) {
-        this.setData({ countdown: this.data.countdown - 1 })
-      } else {
-        clearInterval(this.timer)
-        this.setData({ countdown: 0 })
-      }
-    }, 1000)
-    // }).catch(err => {
-    //     wx.hideLoading();
-    // });
+    ;(0, auth_1.sendSmsApi)(this.data.formData.mobile, '', false)
+      .then((res) => {
+        wx.hideLoading()
+        wx.showToast({ title: '验证码已发送', icon: 'success' })
+        this.setData({
+          countdown: 60,
+          validCodeReqNo: res,
+        })
+        this.timer = setInterval(() => {
+          if (this.data.countdown > 1) {
+            this.setData({ countdown: this.data.countdown - 1 })
+          } else {
+            clearInterval(this.timer)
+            this.setData({ countdown: 0 })
+          }
+        }, 1000)
+      })
+      .catch((err) => {
+        wx.hideLoading()
+        const errMsg =
+          (err && err.msg) ||
+          (err && err.message) ||
+          (err && err.error) ||
+          (err && err.errMsg) ||
+          '获取验证码失败，请稍后重试'
+        wx.showToast({ title: errMsg, icon: 'none' })
+      })
   },
   handleLogin() {
     if (!/^1[3-9]\d{9}$/.test(this.data.formData.mobile)) {

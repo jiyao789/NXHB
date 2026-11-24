@@ -121,6 +121,8 @@ Page({
             }, 1000);
         }).catch(err => {
             wx.hideLoading();
+            const errMsg = (err && err.msg) || (err && err.message) || (err && err.error) || (err && err.errMsg) || '获取验证码失败，请稍后重试';
+            wx.showToast({ title: errMsg, icon: 'none' });
         });
     },
     /* ── 步骤推进 / 提交 ── */
